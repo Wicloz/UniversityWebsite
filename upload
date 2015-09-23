@@ -1,0 +1,4 @@
+#!/bin/bash
+# script to upload the site
+
+rsync -av ./* keep.leidenuniv.nl:public_html/

@@ -1,0 +1,28 @@
+h1, h2, h3 {
+    text-align: center;
+}
+
+body {
+	background-color: #dfe3ee;
+}
+
+#content {
+	font-family: "Verdana", sans-serif;
+}
+
+#title {
+	height: 80px;
+	min-width: 600px;
+}
+
+.imgur-embed-iframe-pub {
+	width: 100%;
+}
+
+.navbar-blue {
+	margin-bottom: 0px;
+	background-color: #0C2577;
+	border-color: #080808;
+	border-radius: 0px;
+	border-width: 1px 0px;
+}

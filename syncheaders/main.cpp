@@ -3,58 +3,85 @@
 #include <string>
 using namespace std;
 
-const char headerBegin[] {'<', '!', '-', '-', 's', 'd', 'h', '-', '-', '>'};
-const char headerEnd[] {'<', '!', '-', '-', 'e', 'd', 'h', '-', '-', '>'};
-
-void synchroniseerNaarBestand (string filename, string header) {
-    // Open output file voor lezen
-    ifstream outputIn (filename.c_str(), ios::in);
-
-    // Initialiseeer de secties
-    string section1 = "";
-    string section3 = "";
-
+string leesTotSequentie (ifstream& file, char sequentie[]) {
+    string read = ""; // Return string
     // Waarden om status te volgen
     int currentMatch = 0;
-    bool headerFound = false;
-    bool headerEnded = false;
+    bool sequenceFound = false;
 
-    // Lees output bestand om de code om de header te vinden
-    char kar = outputIn.get();
-    while (!outputIn.eof()) {
+    // Lees de file om deze sectie te verkrijgen
+    char kar = file.get();
+    while (!file.eof()) {
+        if (currentMatch == 10)
+            sequenceFound = true;
 
-        if (currentMatch == 10 && !headerFound)
-            headerFound = true;
-        else if (currentMatch == 10 && headerFound && !headerEnded)
-            headerEnded = true;
-
-        // Kijk of het huidig karakter de volgende is van een van
-        // de sequanties van de header
-        if ((!headerFound && kar == headerBegin[currentMatch])
-        || (headerFound && !headerEnded && kar == headerEnd[currentMatch]))
+        // Kijk of het huidig karakter de volgende is van de sequentie
+        if (kar == sequentie[currentMatch])
             currentMatch++;
         else
             currentMatch = 0;
 
-        // Voeg karakter aan sectie 1 of 3 toe indien nodig
-        if (!headerFound)
-            section1 += kar;
-        else if (headerEnded)
-            section3 += kar;
+        // Voeg karakter aan return toe
+        read += kar;
 
-        kar = outputIn.get();
+        // Stop zodra de sequentie is gevonden
+        if (sequenceFound)
+            break;
+
+        kar = file.get();
     }
 
-    outputIn.close(); // Sluit input file
+    return read;
+}//leesTotSequentie
 
-    cout << section1 << endl
-         << "---------------------------------------------"
-         << header << endl
+string leesTotEindBestand (ifstream& file) {
+    string read = ""; // Return string
+
+    char kar = file.get();
+    while (!file.eof()) {
+        read += kar;
+        kar = file.get();
+    }
+
+    return read;
+}//leesTotEindBestand
+
+string leesTotBeginHeader (ifstream& file) {
+    char headerBegin[] {'<', '!', '-', '-', 's', 'd', 'h', '-', '-', '>'};
+    return leesTotSequentie(file, headerBegin);
+}//leesTotBeginHeader
+
+string leesTotEindHeader (ifstream& file) {
+    char headerEnd[] {'<', '!', '-', '-', 'e', 'd', 'h', '-', '-', '>'};
+    return leesTotSequentie(file, headerEnd);
+}//leesTotEindHeader
+
+void synchroniseerNaarBestand (string filename, string header) {
+    // Open output file voor lezen
+    string filepath = "./../" + filename;
+    ifstream outputIn (filepath.c_str(), ios::in);
+
+    // Maak de secties
+    string section1 = leesTotBeginHeader(outputIn);
+    leesTotEindHeader(outputIn);
+    string section3 = leesTotEindBestand(outputIn);
+
+    // Sluit output file
+    outputIn.close();
+
+    // Bewerk header
+    string findString = "<li><a href=\"" + filename + "\">";
+    string toString = "<li class=\"active\"><a href=\"" + filename + "\">";
+    header.replace(header.find(findString), findString.length(), toString);
+
+    cout << section1
+         << "---------------------------------------------" << endl
+         << header
          << "---------------------------------------------"
          << section3 << endl;
 
     // Stop output in output bestand
-    ofstream outputOut (filename.c_str(), ios::out);
+    ofstream outputOut (filepath.c_str(), ios::out);
     outputOut << section1 << header << section3;
     outputOut.close();
 }//synchroniseerNaarBestand
@@ -62,41 +89,25 @@ void synchroniseerNaarBestand (string filename, string header) {
 int main() {
      // Open index file om te lezen
     ifstream index ("./../index.html", ios::in);
-    string header = "";
+    // Vind de header
+    leesTotBeginHeader(index);
+    string header = leesTotEindHeader(index);
+    // Sluit input file
+    index.close();
+    // Bewerk de header
+    header.replace(header.find("<li class=\"active\">"), sizeof("<li class=\"active\">")-1, "<li>");
 
-    // Waarden om status te volgen
-    int currentMatch = 0;
-    bool headerFound = false;
-    bool headerEnded = false;
+    synchroniseerNaarBestand ("vak_bp.html", header);
+    synchroniseerNaarBestand ("vak_fi1.html", header);
+    synchroniseerNaarBestand ("vak_mg.html", header);
+    synchroniseerNaarBestand ("vak_pm.html", header);
+    synchroniseerNaarBestand ("vak_stpr.html", header);
 
-    // Lees de index om de header te verkrijgen
-    char kar = index.get();
-    while (!index.eof()) {
-
-        if (currentMatch == 10 && !headerFound)
-            headerFound = true;
-        else if (currentMatch == 10 && headerFound && !headerEnded)
-            headerEnded = true;
-
-        // Kijk of het huidig karakter de volgende is van een van
-        // de sequanties van de header
-        if ((!headerFound && kar == headerBegin[currentMatch])
-        || (headerFound && !headerEnded && kar == headerEnd[currentMatch]))
-            currentMatch++;
-        else
-            currentMatch = 0;
-
-        // Voeg karakter aan sectie 2 toe indien nodig
-        if (headerFound && !headerEnded)
-            header += kar;
-
-        kar = index.get();
-    }
-
-    index.close(); // Sluit input file
-    header.replace(header.find(" class=\"active\""), sizeof("")-1, "");
-
-    synchroniseerNaarBestand ("./../contact.html", header);
+    synchroniseerNaarBestand ("tentamens.html", header);
+    synchroniseerNaarBestand ("deadlines.html", header);
+    synchroniseerNaarBestand ("links.html", header);
+    synchroniseerNaarBestand ("contact.html", header);
+    synchroniseerNaarBestand ("agenda.html", header);
 
     return 0;
 }

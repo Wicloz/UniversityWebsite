@@ -94,6 +94,7 @@ int main() {
     }
 
     index.close(); // Sluit input file
+    header.replace(header.find(" class=\"active\""), sizeof("")-1, "");
 
     synchroniseerNaarBestand ("./../contact.html", header);
 

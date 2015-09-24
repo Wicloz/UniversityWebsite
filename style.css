@@ -26,6 +26,8 @@ body {
 
 #content {
 	font-family: "Verdana", sans-serif;
+	margin-top: 20px;
+	background-color: #8592bb;
 }
 
 .imgur-embed-iframe-pub {

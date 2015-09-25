@@ -27,6 +27,9 @@ body {
 #content {
 	font-family: "Verdana", sans-serif;
 	margin-top: 20px;
+}
+
+#content-main {
 	background-color: #8592bb;
 }
 
@@ -41,3 +44,16 @@ body {
 	border-radius: 0px;
 	border-width: 1px 0px;
 }
+
+.navbar-nav > .active > a, .navbar-nav > .active > a:focus, .navbar-nav > .active > a:hover {
+    background-color: #8592bb;
+}
+
+.nav > li > a:focus, .nav > li > a:hover {
+    background-color: #8592bb;
+}
+
+.navbox {
+	background-color: #8592bb;
+}
+

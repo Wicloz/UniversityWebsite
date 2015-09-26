@@ -33,6 +33,35 @@ body {
 	background-color: #8592bb;
 }
 
+.paragraph-center, .paragraph-left, .paragraph-right {
+	outline: 1px solid #000;
+}
+
+.paragraph-center {
+	text-align: left;
+	clear: both;
+}
+
+.paragraph-left {
+	text-align: left;
+	float: left;
+	width: 49%;
+}
+
+.paragraph-left > h2 {
+	text-align: left;
+}
+
+.paragraph-right {
+	text-align: right;
+	float: right;
+	width: 49%;
+}
+
+.paragraph-right > h2 {
+	text-align: right;
+}
+
 .imgur-embed-iframe-pub {
 	width: 100%;
 }

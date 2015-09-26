@@ -3,7 +3,10 @@ h1, h2, h3 {
 }
 
 body {
-	background-color: #dfe3ee;
+	background-color: #8592bb;
+	background-image: url("images/quantum-cube.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 #header {
@@ -27,11 +30,12 @@ body {
 #content {
 	font-family: "Verdana", sans-serif;
 	margin-top: 20px;
-	color: #06123b; 
+	color: #06123b;
 }
 
 #content-main {
-	background-color: #8592bb;
+	background-color: #dfe3ee;
+	padding-bottom: 10px;
 }
 
 .paragraph-center, .paragraph-left, .paragraph-right {
@@ -69,6 +73,13 @@ body {
 
 .imgur-embed-iframe-pub {
 	width: 100%;
+}
+
+.agenda {
+	border: 0;
+	width: 100%;
+	height: 600px;
+	margin-top: 15px;
 }
 
 .navbar-blue {

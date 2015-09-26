@@ -107,7 +107,7 @@ int main() {
     synchroniseerNaarBestand ("deadlines.html", header);
     synchroniseerNaarBestand ("links.html", header);
     synchroniseerNaarBestand ("contact.html", header);
-    synchroniseerNaarBestand ("agenda.html", header);
+    synchroniseerNaarBestand ("rooster.html", header);
 
     return 0;
 }

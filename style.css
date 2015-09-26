@@ -27,6 +27,7 @@ body {
 #content {
 	font-family: "Verdana", sans-serif;
 	margin-top: 20px;
+	color: #06123b; 
 }
 
 #content-main {
@@ -34,18 +35,23 @@ body {
 }
 
 .paragraph-center, .paragraph-left, .paragraph-right {
-	outline: 1px solid #000;
+	padding: 0px;
+	margin-top: 5px;
+	border: 0px dotted #06123b;
+	border-bottom-width: 1px;
+}
+
+.paragraph-center > h2, .paragraph-left > h2, .paragraph-right > h2 {
+	margin-top: 10px;
 }
 
 .paragraph-center {
 	text-align: left;
-	clear: both;
 }
 
 .paragraph-left {
 	text-align: left;
-	float: left;
-	width: 49%;
+	padding-right: 7px;
 }
 
 .paragraph-left > h2 {
@@ -54,8 +60,7 @@ body {
 
 .paragraph-right {
 	text-align: right;
-	float: right;
-	width: 49%;
+	padding-left: 7px;
 }
 
 .paragraph-right > h2 {
@@ -88,7 +93,7 @@ body {
 
 /* navbar item */
 .navbar-nav > li > a {
-	color: #8592bb;
+	color: #b6bdd6;
 }
 
 /* opened dropdown container item */
@@ -104,7 +109,7 @@ body {
 
 /* active dropdown item */
 .dropdown-menu > .active > a, .dropdown-menu > .active > a:focus, .dropdown-menu > .active > a:hover {
-	color: #fff;
+	color: #06123b;
 	background-color: #8592bb;
 }
 
@@ -126,7 +131,7 @@ body {
 
 /* navbar brand */
 .navbar-brand {
-	color: #8592bb;
+	color: #b6bdd6;
 }
 
 .navbox {

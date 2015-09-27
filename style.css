@@ -192,16 +192,16 @@ body {
 }
 
 .navbox {
-	background-color: #8592bb;
+	background-color: #dfe3ee;
 }
 
 .navbox > h2 {
 	margin: 0px;
 	padding-top: 2px;
 	padding-bottom: 3px;
-	color: #06123b;
 	border: 2px solid #06123b;
 	border-bottom-width: 1px;
+	color: #06123b;
 }
 
 .navbox > ul {
@@ -212,7 +212,7 @@ body {
 }
 
 .navbox > ul > li > a {
-	color: #0c2577;
+	color: #06123b;
 }
 
 .navbox > ul > li > a:focus, .navbox > ul > li > a:hover {

@@ -5,6 +5,7 @@ h1, h2, h3 {
 body {
 	background-color: #8592bb;
 	background-image: url("images/quantum-cube.jpg");
+	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
 }
@@ -89,6 +90,51 @@ body {
 	border-radius: 0px;
 	border-width: 1px 0px;
 }
+
+/* begin style login box */
+.login-field > input[type="text"], .login-field > input[type="password"] {
+	font-weight: bold;
+	margin: 0px 0px 5px -4px;
+	padding: 3px 5px;
+	width: 300px;
+	max-width: 100%;
+	border-radius: 3px;
+	border: 2px solid #BBB;
+	color: #666;
+}
+
+.login-field > label {
+	margin-bottom: 1px;
+	font-weight: normal;
+	font-size: 90%;
+	color: #666;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	width: 100%;
+}
+
+.submit-button {
+	margin: 6px 0px -10px -3px;
+	background: #0099B6 none repeat scroll 0% 0%;
+	border-color: #0099B6;
+	color: #FFF;
+	font-size: 105%;
+	font-weight: bold;
+	text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.8);
+	border: 1px solid #076D88;
+	border-radius: 3px;
+	padding: 6px 16px 7px;
+	text-decoration: none;
+}
+
+#loginFormText {
+	
+}
+
+#loginFormList > li {
+    display: block;
+}
+/* end style login box*/
 
 /* active navbar item */
 .navbar-nav > .active > a, .navbar-nav > .active > a:focus, .navbar-nav > .active > a:hover {

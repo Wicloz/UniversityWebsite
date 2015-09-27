@@ -108,6 +108,7 @@ int main() {
     synchroniseerNaarBestand ("links.html", header);
     synchroniseerNaarBestand ("contact.html", header);
     synchroniseerNaarBestand ("rooster.html", header);
+    synchroniseerNaarBestand ("login.html", header);
 
     return 0;
 }

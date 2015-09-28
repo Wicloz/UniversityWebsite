@@ -193,22 +193,22 @@ body {
 
 .navbox {
 	background-color: #dfe3ee;
+	border: 2px solid #06123b;
+    border-radius: 5px;
 }
 
 .navbox > h2 {
 	margin: 0px;
 	padding-top: 2px;
 	padding-bottom: 3px;
-	border: 2px solid #06123b;
-	border-bottom-width: 1px;
+	border: 0px solid #06123b;
+	border-bottom-width: 2px;
 	color: #06123b;
 }
 
 .navbox > ul {
 	padding-top: 5px;
-	padding-bottom: 5px;
-	border: 2px solid #06123b;
-	border-top-width: 1px;
+	margin-bottom: 5px;
 }
 
 .navbox > ul > li > a {
@@ -216,11 +216,11 @@ body {
 }
 
 .navbox > ul > li > a:focus, .navbox > ul > li > a:hover {
-    color: #fff;
+    color: #8592bb;
 	text-decoration: none;
 	outline-width: 0px;
 }
 
 .navbox > ul > .active > a, .navbox > ul > .active > a:focus, .navbox > ul > .active > a:hover {
-    color: #fff;
+    color: #8592bb;
 }

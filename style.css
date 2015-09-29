@@ -4,8 +4,8 @@ h1, h2, h3 {
 
 body {
 	background-color: #8592bb;
-	background-image: url("images/quantum-grid.jpg");
-	background-position: top;
+	background-image: url("images/backgrounds/quantum-cube.jpg");
+	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
 }
@@ -13,7 +13,8 @@ body {
 #header {
 	height: 80px;
 	background-color: #0C2577;
-	background-image: url("images/quantum-tunnel.jpg");
+	background-image: url("images/backgrounds/quantum-tunnel.jpg");
+	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
 }
@@ -36,18 +37,19 @@ body {
 
 #content-main {
 	background-color: #dfe3ee;
-	padding-bottom: 10px;
+	padding: 15px 15px 0px;
+	margin-bottom: 20px;
 }
 
 .paragraph-center, .paragraph-left, .paragraph-right {
 	padding: 0px;
-	margin-top: 5px;
+	margin-bottom: 15px;
 	border: 0px dotted #06123b;
 	border-bottom-width: 1px;
 }
 
 .paragraph-center > h2, .paragraph-left > h2, .paragraph-right > h2 {
-	margin-top: 10px;
+	margin-top: 0px;
 }
 
 .paragraph-center {
@@ -80,7 +82,6 @@ body {
 	border: 0;
 	width: 100%;
 	height: 600px;
-	margin-top: 10px;
 }
 
 .rooster-img {

@@ -80,7 +80,11 @@ body {
 	border: 0;
 	width: 100%;
 	height: 600px;
-	margin-top: 15px;
+	margin-top: 10px;
+}
+
+.rooster-img {
+    width: 100%;
 }
 
 .navbar-blue {

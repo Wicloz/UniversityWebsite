@@ -4,8 +4,8 @@ h1, h2, h3 {
 
 body {
 	background-color: #8592bb;
-	background-image: url("images/quantum-cube.jpg");
-	background-position: center;
+	background-image: url("images/quantum-grid.jpg");
+	background-position: top;
 	background-repeat: no-repeat;
 	background-size: cover;
 }
@@ -155,8 +155,8 @@ body {
 
 /* opened dropdown container item */
 .nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
-	color: #01030b;
-    background-color: #8592bb;
+    color: #fff;
+	background-color: #06123b;
 }
 
 /* dropdown list */

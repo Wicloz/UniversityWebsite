@@ -56,7 +56,7 @@ string leesTotEindHeader (ifstream& file) {
     return leesTotSequentie(file, headerEnd);
 }//leesTotEindHeader
 
-void synchroniseerNaarBestand (string filename, string header) {
+void synchroniseerNaarBestand (string filename, string header, bool vak) {
     // Open output file voor lezen
     string filepath = "./../" + filename;
     ifstream outputIn (filepath.c_str(), ios::in);
@@ -73,6 +73,12 @@ void synchroniseerNaarBestand (string filename, string header) {
     string findString = "<li><a href=\"" + filename + "\">";
     string toString = "<li class=\"active\"><a href=\"" + filename + "\">";
     header.replace(header.find(findString), findString.length(), toString);
+
+    if (vak) {
+        string findString = "<li class=\"dropdown\">";
+        string toString = "<li class=\"dropdown active\">";
+        header.replace(header.find(findString), findString.length(), toString);
+    }
 
     cout << section1
          << "---------------------------------------------" << endl
@@ -97,18 +103,18 @@ int main() {
     // Bewerk de header
     header.replace(header.find("<li class=\"active\">"), sizeof("<li class=\"active\">")-1, "<li>");
 
-    synchroniseerNaarBestand ("vak_bp.html", header);
-    synchroniseerNaarBestand ("vak_fi1.html", header);
-    synchroniseerNaarBestand ("vak_mg.html", header);
-    synchroniseerNaarBestand ("vak_pm.html", header);
-    synchroniseerNaarBestand ("vak_stpr.html", header);
+    synchroniseerNaarBestand ("vak_bp.html", header, true);
+    synchroniseerNaarBestand ("vak_fi1.html", header, true);
+    synchroniseerNaarBestand ("vak_mg.html", header, true);
+    synchroniseerNaarBestand ("vak_pm.html", header, true);
+    synchroniseerNaarBestand ("vak_stpr.html", header, true);
 
-    synchroniseerNaarBestand ("tentamens.html", header);
-    synchroniseerNaarBestand ("deadlines.html", header);
-    synchroniseerNaarBestand ("links.html", header);
-    synchroniseerNaarBestand ("contact.html", header);
-    synchroniseerNaarBestand ("rooster.html", header);
-    synchroniseerNaarBestand ("login.html", header);
+    synchroniseerNaarBestand ("tentamens.html", header, false);
+    synchroniseerNaarBestand ("deadlines.html", header, false);
+    synchroniseerNaarBestand ("links.html", header, false);
+    synchroniseerNaarBestand ("contact.html", header, false);
+    synchroniseerNaarBestand ("rooster.html", header, false);
+    synchroniseerNaarBestand ("login.html", header, false);
 
     return 0;
 }

@@ -1,2 +1,5 @@
-*.depend
 *.layout
+*.depend
+
+[Bb]in/
+[Oo]bj/

@@ -1,3 +1,8 @@
+<?php
+	error_reporting(E_ALL);
+	require 'db/connect.php';
+?>
+
 <!DOCTYPE html>
 <html lang="nl">
 	<head>
@@ -67,6 +72,34 @@
 				<div class="col-sm-8" id="content-main">
                     <div class="paragraph-center col-sm-12">
 				        <iframe class="agenda" src="https://www.google.com/calendar/embed?src=ai9kouej2b434he9otn9pvd66c%40group.calendar.google.com&ctz=Europe/Amsterdam" frameborder="0" scrolling="no"></iframe>
+                    </div>
+					<div class="paragraph-center col-sm-12">
+						<h2>Tentamens:</h2>
+						<table id="tentamens-tabel">
+							<tr>
+								<th>Datum:</th>
+								<th>Soort:</th>
+								<th>Vak:</th>
+								<th>Cijfer:</th>
+							</tr>
+						<?php
+							if ($result = $db->query("SELECT * FROM tentamens")) {
+								if ($result->num_rows) {
+									while ($row = $result->fetch_object()) {
+										echo '<tr>';
+										echo '<td>', $row->date, '</td>';
+										echo '<td>', $row->weight, '</td>';
+										echo '<td>', $row->subject, '</td>'; 
+										echo '<td>', $row->mark, '</td>';
+										echo '</tr>';
+									}
+									$result->free();
+								}
+							} else {
+								die ($db->error);
+							}
+						?>
+						</table>
                     </div>
 				</div>
 				<div class="col-sm-2" id="content-left">

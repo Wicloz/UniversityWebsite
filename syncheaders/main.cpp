@@ -109,8 +109,8 @@ int main() {
     synchroniseerNaarBestand ("vak_pm.html", header, true);
     synchroniseerNaarBestand ("vak_stpr.html", header, true);
 
-    synchroniseerNaarBestand ("tentamens.html", header, false);
-    synchroniseerNaarBestand ("deadlines.html", header, false);
+    synchroniseerNaarBestand ("tentamens.php", header, false);
+    synchroniseerNaarBestand ("deadlines.php", header, false);
     synchroniseerNaarBestand ("links.html", header, false);
     synchroniseerNaarBestand ("contact.html", header, false);
     synchroniseerNaarBestand ("rooster.html", header, false);

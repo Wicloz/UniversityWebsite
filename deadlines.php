@@ -1,3 +1,8 @@
+<?php
+	error_reporting(0);
+	require 'db/connect.php';
+?>
+
 <!DOCTYPE html>
 <html lang="nl">
 	<head>
@@ -44,8 +49,8 @@
 							<li><a href="vak_bp.html">Basispracticum</a></li>
 						  </ul>
 						</li>
-						<li><a href="tentamens.html">Tentamens</a></li>
-						<li class="active"><a href="deadlines.html">Deadlines</a></li>
+						<li><a href="tentamens.php">Tentamens</a></li>
+						<li class="active"><a href="deadlines.php">Deadlines</a></li>
 						<li><a href="links.html">Handige Links</a></li>
 						<li><a href="contact.html">Contact</a></li>
 						<li><a href="rooster.html">Rooster I&B</a></li>
@@ -66,9 +71,47 @@
 				</div>
 				<div class="col-sm-8" id="content-main">
 					<div class="paragraph-center col-sm-12">
-						<h2>Dit is een header</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tempor dolor ac blandit sagittis. Morbi aliquam gravida eleifend. Nulla ac nunc sapien. Donec dapibus velit vulputate purus fermentum, quis lobortis lacus semper. Pellentesque ac hendrerit augue. Duis quis ex ipsum. Suspendisse dignissim nisl vitae risus rhoncus, eget lobortis odio tincidunt. Donec eu accumsan mi, eget suscipit purus. Nullam feugiat neque sit amet fringilla ultrices.</p>
-					</div>	
+						<h2>Deadlines:</h2>
+						<table id="deadlines-tabel" class="table-fancy">
+							<tr>
+								<th>Datum Opgave</th>
+								<th>Datum Deadline</th>
+								<th>Vak</th>
+								<th>Taak</th>
+								<th>Team</th>
+								<th>Links</th>
+								<th>Status</th>
+							</tr>
+						<?php
+							if ($result = $db->query("SELECT * FROM deadlines")) {
+								if ($result->num_rows) {
+									while ($row = $result->fetch_object()) {
+										echo '<tr>';
+										echo '<td>', $row->start_date, '</td>';
+										echo '<td>', $row->end_date, '</td>';
+										echo '<td>', $row->subject, '</td>'; 
+										echo '<td>', $row->short_desc, '</td>';
+										echo '<td>', $row->team, '</td>';
+										echo '<td>';
+											echo '<a target="_blank" href="', $row->link_assingment, '">Opdracht</a>';
+											echo ' / ';
+											echo '<a target="_blank" href="', $row->link_handin, '">Uitwerking</a>';
+										echo '</td>';
+										if ($row->completion == 1) {
+											echo '<td>Compleet</td>';
+										} else {
+											echo '<td>Bezig</td>';
+										}
+										echo '</tr>';
+									}
+									$result->free();
+								}
+							} else {
+								die ($db->error);
+							}
+						?>
+						</table>
+                    </div>
 				</div>
 				<div class="col-sm-2" id="content-left">
 				</div>

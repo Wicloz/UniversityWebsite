@@ -1,5 +1,5 @@
 <?php
-	error_reporting(E_ALL);
+	error_reporting(0);
 	require 'db/connect.php';
 ?>
 
@@ -49,8 +49,8 @@
 							<li><a href="vak_bp.html">Basispracticum</a></li>
 						  </ul>
 						</li>
-						<li class="active"><a href="tentamens.html">Tentamens</a></li>
-						<li><a href="deadlines.html">Deadlines</a></li>
+						<li class="active"><a href="tentamens.php">Tentamens</a></li>
+						<li><a href="deadlines.php">Deadlines</a></li>
 						<li><a href="links.html">Handige Links</a></li>
 						<li><a href="contact.html">Contact</a></li>
 						<li><a href="rooster.html">Rooster I&B</a></li>
@@ -75,12 +75,12 @@
                     </div>
 					<div class="paragraph-center col-sm-12">
 						<h2>Tentamens:</h2>
-						<table id="tentamens-tabel">
+						<table id="tentamens-tabel" class="table-fancy">
 							<tr>
-								<th>Datum:</th>
-								<th>Soort:</th>
-								<th>Vak:</th>
-								<th>Cijfer:</th>
+								<th>Datum</th>
+								<th>Soort</th>
+								<th>Vak</th>
+								<th>Cijfer</th>
 							</tr>
 						<?php
 							if ($result = $db->query("SELECT * FROM tentamens")) {
@@ -89,8 +89,12 @@
 										echo '<tr>';
 										echo '<td>', $row->date, '</td>';
 										echo '<td>', $row->weight, '</td>';
-										echo '<td>', $row->subject, '</td>'; 
-										echo '<td>', $row->mark, '</td>';
+										echo '<td>', $row->subject, '</td>';
+										if ($row->completion == 1) {
+											echo '<td>', $row->mark, '</td>';
+										} else {
+											echo '<td>N/A</td>';
+										}
 										echo '</tr>';
 									}
 									$result->free();

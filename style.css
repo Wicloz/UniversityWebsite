@@ -41,8 +41,31 @@ body {
 	margin-bottom: 20px;
 }
 
-#tentamens-tabel {
-	
+.table-fancy {
+	border: 1px solid #06123B;
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.table-fancy tr {
+    border-bottom: 1px solid #06123B;
+}
+
+.table-fancy td, .table-fancy th {
+    padding: 8px;
+	border: 1px dotted #06123B;
+}
+
+.table-fancy th {
+	border-bottom: 2px solid #06123B;
+}
+
+.table-fancy tr:nth-child(2n) {
+    background-color: #dfe3ee;
+}
+
+.table-fancy tr:nth-child(2n+1) {
+    background-color: #fff;
 }
 
 .paragraph-center, .paragraph-left, .paragraph-right {

@@ -91,7 +91,7 @@ void synchroniseerNaarBestand (string filename, string header, string footer, bo
 
     // Bewerk header
     string findString = "<li><a href=\"" + replaceString(filename, "item_", "") + "\">";
-    string toString = "<li class=\"active\"><a href=\"" + filename + "\">";
+    string toString = "<li class=\"active\"><a href=\"" + replaceString(filename, "item_", "") + "\">";
     header.replace(header.find(findString), findString.length(), toString);
 
     if (vak) {

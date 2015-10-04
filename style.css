@@ -38,20 +38,20 @@ body {
 #content-main {
 	background-color: #f8f9fb;
 	padding: 15px 15px 0px;
+	margin-bottom: 20px;
 }
 
 #footer {
 	font-family: "Verdana", sans-serif;
-	margin-top: 20px;
-	color: #06123b;
+	color: #000;
+	border: 0px dotted #000;
+	border-top-width: 1px;
+	background-image: url("images/backgrounds/swatch-grayblue.png");
+	margin-bottom: 0px;
 }
 
 #footer-main {
-	background-color: #dfe3ee;
 	padding: 5px 15px 10px 10%;
-	margin-bottom: 20px;
-	border: 0px dotted #06123b;
-	border-top-width: 1px;
 }
 
 #footer-main > h2 {

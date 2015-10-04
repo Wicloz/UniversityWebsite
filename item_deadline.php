@@ -70,48 +70,40 @@
 				<div class="col-sm-2" id="content-right">
 				</div>
 				<div class="col-sm-8" id="content-main">
-					<div class="paragraph-center col-sm-12">
-						<h2>Deadlines:</h2>
-						<table id="deadlines-tabel" class="table-fancy">
-							<tr>
-								<th>Datum Opgave</th>
-								<th>Datum Deadline</th>
-								<th>Vak</th>
-								<th>Taak</th>
-								<th>Team</th>
-								<th>Links</th>
-								<th>Status</th>
-							</tr>
-						<?php
-							if ($result = $db->query("SELECT * FROM deadlines")) {
-								if ($result->num_rows) {
-									while ($row = $result->fetch_object()) {
-										echo '<tr>';
-										echo '<td>', $row->start_date, '</td>';
-										echo '<td>', $row->end_date, '</td>';
-										echo '<td>', $row->subject, '</td>'; 
-										echo '<td><a href="/item_deadline.php?id=', $row->id, '">', $row->desc_short, '</a></td>';
-										echo '<td>', $row->team, '</td>';
-										echo '<td>';
-											echo '<a target="_blank" href="', $row->link_assingment, '">Opdracht</a>';
-											echo ' / ';
-											echo '<a target="_blank" href="', $row->link_elab, '">Uitwerking</a>';
-										echo '</td>';
-										if ($row->completion == 1) {
-											echo '<td>Compleet</td>';
-										} else {
-											echo '<td>Bezig</td>';
+					<?php
+						if (isset($_GET['id'])) {
+							$thisId = $_GET['id'];
+							if (!empty(thisId)) {
+								if ($result = $db->query("SELECT * FROM deadlines")) {
+									if ($result->num_rows) {
+										while ($row = $result->fetch_object()) {
+											if ($row->id == $thisId) {
+												echo '<div class="paragraph-center col-sm-12">';
+												echo '<h2>', $row->desc_short, '</h2>';
+												echo '<p>', $row->desc_full, '</p>';
+												echo '<p><i>Vak: ', $row->subject, '<br>Datum Opgave: ', $row->start_date, '<br>Deadline: ', $row->end_date, '<br>Team: ', $row->team, '<br>Status: ';
+												if ($row->completion == 1) {
+													echo 'Compleet</i></p>';
+												} else {
+													echo 'Bezig</i></p>';
+												}
+												echo '</div>';
+												if (!empty($row->link_report)) {
+													echo '<div class="paragraph-center col-sm-12">';
+													echo '<h2>Verslag</h2>';
+													echo '<iframe name="verslag" src="', $row->link_report, '" width="100%" height="600"></iframe>';
+													echo '</div>';
+												}
+											}
 										}
-										echo '</tr>';
+										$result->free();
 									}
-									$result->free();
+								} else {
+									die ($db->error);
 								}
-							} else {
-								die ($db->error);
 							}
-						?>
-						</table>
-                    </div>
+						}
+					?>
 				</div>
 				<div class="col-sm-2" id="content-left">
 				</div>

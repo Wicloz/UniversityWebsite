@@ -94,7 +94,7 @@ void synchroniseerNaarBestand (string filename, string header, bool vak) {
 
 int main() {
      // Open index file om te lezen
-    ifstream index ("./../index.html", ios::in);
+    ifstream index ("./../index.php", ios::in);
     // Vind de header
     leesTotBeginHeader(index);
     string header = leesTotEindHeader(index);
@@ -103,18 +103,18 @@ int main() {
     // Bewerk de header
     header.replace(header.find("<li class=\"active\">"), sizeof("<li class=\"active\">")-1, "<li>");
 
-    synchroniseerNaarBestand ("vak_bp.html", header, true);
-    synchroniseerNaarBestand ("vak_fi1.html", header, true);
-    synchroniseerNaarBestand ("vak_mg.html", header, true);
-    synchroniseerNaarBestand ("vak_pm.html", header, true);
-    synchroniseerNaarBestand ("vak_stpr.html", header, true);
+    synchroniseerNaarBestand ("vak_bp.php", header, true);
+    synchroniseerNaarBestand ("vak_fi1.php", header, true);
+    synchroniseerNaarBestand ("vak_mg.php", header, true);
+    synchroniseerNaarBestand ("vak_pm.php", header, true);
+    synchroniseerNaarBestand ("vak_stpr.php", header, true);
 
     synchroniseerNaarBestand ("tentamens.php", header, false);
     synchroniseerNaarBestand ("deadlines.php", header, false);
-    synchroniseerNaarBestand ("links.html", header, false);
-    synchroniseerNaarBestand ("contact.html", header, false);
-    synchroniseerNaarBestand ("rooster.html", header, false);
-    synchroniseerNaarBestand ("login.html", header, false);
+    synchroniseerNaarBestand ("links.php", header, false);
+    synchroniseerNaarBestand ("contact.php", header, false);
+    synchroniseerNaarBestand ("rooster.php", header, false);
+    synchroniseerNaarBestand ("login.php", header, false);
 
     return 0;
 }

@@ -28,32 +28,32 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="index.html">s1704362</a>
+					<a class="navbar-brand" href="index.php">s1704362</a>
 				</div>
 				<div class="collapse navbar-collapse" id="mainNavbar">
 					<ul class="nav navbar-nav">
-						<li><a href="index.html">Home</a></li>
+						<li><a href="index.php">Home</a></li>
 						<li class="dropdown">
 						  <a class="dropdown-toggle" data-toggle="dropdown" href="">Vakken
 						  <span class="caret"></span></a>
 						  <ul class="dropdown-menu">
-							<li><a href="vak_fi1.html">Fundamentele Informatica</a></li>
-							<li><a href="vak_pm.html">Programmeermethoden</a></li>
-							<li><a href="vak_stpr.html">Studeren & Presenteren</a></li>
-							<li><a href="vak_mg.html">Moleculaire Genetica</a></li>
-							<li><a href="vak_bp.html">Basispracticum</a></li>
+							<li><a href="vak_fi1.php">Fundamentele Informatica</a></li>
+							<li><a href="vak_pm.php">Programmeermethoden</a></li>
+							<li><a href="vak_stpr.php">Studeren & Presenteren</a></li>
+							<li><a href="vak_mg.php">Moleculaire Genetica</a></li>
+							<li><a href="vak_bp.php">Basispracticum</a></li>
 						  </ul>
 						</li>
 						<li><a href="tentamens.php">Tentamens</a></li>
 						<li><a href="deadlines.php">Deadlines</a></li>
-						<li><a href="links.html">Handige Links</a></li>
-						<li><a href="contact.html">Contact</a></li>
-						<li><a href="rooster.html">Rooster I&B</a></li>
-						<li><a href="https://onedrive.live.com/redir?resid=7A26A4E50EEC48CB!401&authkey=!ALF9KqGbBDdyK_M&ithint=onenote%2c" target="_blank">Notities</a></li>
+						<li><a href="links.php">Handige Links</a></li>
+						<li><a href="contact.php">Contact</a></li>
+						<li><a href="rooster.php">Rooster I&B</a></li>
+						<li><a href="https://onedrive.live.com/view.aspx?resid=7A26A4E50EEC48CB!401&ithint=onenote%2c&app=OneNote&authkey=!ALF9KqGbBDdyK_M" target="_blank">Notities</a></li>
 						<li><a href="http://www.color-hex.com/color-palette/10598" target="_blank">Kleurenpalet</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
-						<li class="active"><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+						<li class="active"><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 					</ul>
 				</div>
 			</div>

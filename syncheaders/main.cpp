@@ -66,6 +66,14 @@ string leesTotEindFooter (ifstream& file) {
     return leesTotSequentie(file, footerEnd);
 }//leesTotEindFooter
 
+string replaceString (string original, string findString, string replaceString) {
+    size_t start_pos = original.find(findString);
+    if (start_pos != std::string::npos) {
+        return original.replace(start_pos, findString.length(), replaceString);
+    }
+    return original;
+}
+
 void synchroniseerNaarBestand (string filename, string header, string footer, bool vak) {
     // Open output file voor lezen
     string filepath = "./../" + filename;
@@ -82,7 +90,7 @@ void synchroniseerNaarBestand (string filename, string header, string footer, bo
     outputIn.close();
 
     // Bewerk header
-    string findString = "<li><a href=\"" + filename + "\">";
+    string findString = "<li><a href=\"" + replaceString(filename, "item_", "") + "\">";
     string toString = "<li class=\"active\"><a href=\"" + filename + "\">";
     header.replace(header.find(findString), findString.length(), toString);
 
@@ -122,10 +130,11 @@ int main() {
 
     synchroniseerNaarBestand ("tentamens.php", header, footer, false);
     synchroniseerNaarBestand ("deadlines.php", header, footer, false);
-    synchroniseerNaarBestand ("links.php", header, footer, false);
     synchroniseerNaarBestand ("contact.php", header, footer, false);
     synchroniseerNaarBestand ("rooster.php", header, footer, false);
     synchroniseerNaarBestand ("login.php", header, footer, false);
+
+    synchroniseerNaarBestand ("item_deadlines.php", header, footer, false);
 
     return 0;
 }

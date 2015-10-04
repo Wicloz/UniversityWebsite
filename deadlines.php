@@ -51,7 +51,6 @@
 						</li>
 						<li><a href="tentamens.php">Tentamens</a></li>
 						<li class="active"><a href="deadlines.php">Deadlines</a></li>
-						<li><a href="links.php">Handige Links</a></li>
 						<li><a href="contact.php">Contact</a></li>
 						<li><a href="rooster.php">Rooster I&B</a></li>
 						<li><a href="https://onedrive.live.com/view.aspx?resid=7A26A4E50EEC48CB!401&ithint=onenote%2c&app=OneNote&authkey=!ALF9KqGbBDdyK_M" target="_blank">Notities</a></li>
@@ -90,7 +89,7 @@
 										echo '<td>', $row->start_date, '</td>';
 										echo '<td>', $row->end_date, '</td>';
 										echo '<td>', $row->subject, '</td>'; 
-										echo '<td><a href="/item_deadline.php?id=', $row->id, '">', $row->desc_short, '</a></td>';
+										echo '<td><a href="/item_deadlines.php?id=', $row->id, '">', $row->desc_short, '</a></td>';
 										echo '<td>', $row->team, '</td>';
 										echo '<td>';
 											echo '<a target="_blank" href="', $row->link_assingment, '">Opdracht</a>';

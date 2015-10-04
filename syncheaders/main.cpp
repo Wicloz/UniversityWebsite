@@ -56,7 +56,17 @@ string leesTotEindHeader (ifstream& file) {
     return leesTotSequentie(file, headerEnd);
 }//leesTotEindHeader
 
-void synchroniseerNaarBestand (string filename, string header, bool vak) {
+string leesTotBeginFooter (ifstream& file) {
+    char footerBegin[] {'<', '!', '-', '-', 's', 'd', 'f', '-', '-', '>'};
+    return leesTotSequentie(file, footerBegin);
+}//leesTotBeginFooter
+
+string leesTotEindFooter (ifstream& file) {
+    char footerEnd[] {'<', '!', '-', '-', 'e', 'd', 'f', '-', '-', '>'};
+    return leesTotSequentie(file, footerEnd);
+}//leesTotEindFooter
+
+void synchroniseerNaarBestand (string filename, string header, string footer, bool vak) {
     // Open output file voor lezen
     string filepath = "./../" + filename;
     ifstream outputIn (filepath.c_str(), ios::in);
@@ -64,7 +74,9 @@ void synchroniseerNaarBestand (string filename, string header, bool vak) {
     // Maak de secties
     string section1 = leesTotBeginHeader(outputIn);
     leesTotEindHeader(outputIn);
-    string section3 = leesTotEindBestand(outputIn);
+    string section3 = leesTotBeginFooter(outputIn);
+    leesTotEindFooter(outputIn);
+    string section5 = leesTotEindBestand(outputIn);
 
     // Sluit output file
     outputIn.close();
@@ -80,15 +92,11 @@ void synchroniseerNaarBestand (string filename, string header, bool vak) {
         header.replace(header.find(findString), findString.length(), toString);
     }
 
-    cout << section1
-         << "---------------------------------------------" << endl
-         << header
-         << "---------------------------------------------"
-         << section3 << endl;
+    cout << filename << endl;
 
     // Stop output in output bestand
     ofstream outputOut (filepath.c_str(), ios::out);
-    outputOut << section1 << header << section3;
+    outputOut << section1 << header << section3 << footer << section5;
     outputOut.close();
 }//synchroniseerNaarBestand
 
@@ -98,23 +106,26 @@ int main() {
     // Vind de header
     leesTotBeginHeader(index);
     string header = leesTotEindHeader(index);
+    // Vind de footer
+    leesTotBeginFooter(index);
+    string footer = leesTotEindFooter(index);
     // Sluit input file
     index.close();
     // Bewerk de header
     header.replace(header.find("<li class=\"active\">"), sizeof("<li class=\"active\">")-1, "<li>");
 
-    synchroniseerNaarBestand ("vak_bp.php", header, true);
-    synchroniseerNaarBestand ("vak_fi1.php", header, true);
-    synchroniseerNaarBestand ("vak_mg.php", header, true);
-    synchroniseerNaarBestand ("vak_pm.php", header, true);
-    synchroniseerNaarBestand ("vak_stpr.php", header, true);
+    synchroniseerNaarBestand ("vak_bp.php", header, footer, true);
+    synchroniseerNaarBestand ("vak_fi1.php", header, footer, true);
+    synchroniseerNaarBestand ("vak_mg.php", header, footer, true);
+    synchroniseerNaarBestand ("vak_pm.php", header, footer, true);
+    synchroniseerNaarBestand ("vak_stpr.php", header, footer, true);
 
-    synchroniseerNaarBestand ("tentamens.php", header, false);
-    synchroniseerNaarBestand ("deadlines.php", header, false);
-    synchroniseerNaarBestand ("links.php", header, false);
-    synchroniseerNaarBestand ("contact.php", header, false);
-    synchroniseerNaarBestand ("rooster.php", header, false);
-    synchroniseerNaarBestand ("login.php", header, false);
+    synchroniseerNaarBestand ("tentamens.php", header, footer, false);
+    synchroniseerNaarBestand ("deadlines.php", header, footer, false);
+    synchroniseerNaarBestand ("links.php", header, footer, false);
+    synchroniseerNaarBestand ("contact.php", header, footer, false);
+    synchroniseerNaarBestand ("rooster.php", header, footer, false);
+    synchroniseerNaarBestand ("login.php", header, footer, false);
 
     return 0;
 }

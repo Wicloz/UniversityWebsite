@@ -263,14 +263,30 @@
 							<input name="action" value="login" type="hidden">
 							<input name="new_loc" value="" type="hidden">
 						</form>
-					</div>
-					<div class="paragraph-center col-sm-12">
-						<iframe name="blackboard" src="https://blackboard.leidenuniv.nl/webapps/login/" width="100%" height="600"></iframe>
+						<iframe name="blackboard" src="https://blackboard.leidenuniv.nl/webapps/login/" width="100%" height="0"></iframe>
 					</div>
 				</div>
 				<div class="col-sm-2" id="content-left">
 				</div>
 			</div>
 		</div>
+		
+		<!--sdf-->
+		<div class="container-fluid" id="footer">
+			<div class="row">
+				<div class="col-sm-1" id="footer-right">
+				</div>
+				<div class="col-sm-10" id="footer-main">
+					<h2>Contact</h2>
+					<p>Wilco de Boer</p>
+					<p>Email: <a href="mailto:deboer.wilco@gmail.com">deboer.wilco@gmail.com</a></p>
+					<p>Umail: <a href="mailto:s1704362@umail.leidenuniv.nl">s1704362@umail.leidenuniv.nl</a></p>
+					<p>Telefoon: +31 0637338259</p>
+				</div>
+				<div class="col-sm-1" id="footer-left">
+				</div>
+			</div>
+		</div>
+		<!--edf-->
 	</body>
 </html>

@@ -70,7 +70,7 @@
 				<div class="col-sm-2" id="content-right">
 				</div>
 				<div class="col-sm-8" id="content-main">
-                    <div class="paragraph-center col-sm-12">
+					<div class="paragraph-center col-sm-12">
 				        <iframe class="agenda" src="https://www.google.com/calendar/embed?src=ai9kouej2b434he9otn9pvd66c%40group.calendar.google.com&ctz=Europe/Amsterdam" frameborder="0" scrolling="no"></iframe>
                     </div>
 					<div class="paragraph-center col-sm-12">
@@ -110,5 +110,23 @@
 				</div>
 			</div>
 		</div>
+		
+		<!--sdf-->
+		<div class="container-fluid" id="footer">
+			<div class="row">
+				<div class="col-sm-1" id="footer-right">
+				</div>
+				<div class="col-sm-10" id="footer-main">
+					<h2>Contact</h2>
+					<p>Wilco de Boer</p>
+					<p>Email: <a href="mailto:deboer.wilco@gmail.com">deboer.wilco@gmail.com</a></p>
+					<p>Umail: <a href="mailto:s1704362@umail.leidenuniv.nl">s1704362@umail.leidenuniv.nl</a></p>
+					<p>Telefoon: +31 0637338259</p>
+				</div>
+				<div class="col-sm-1" id="footer-left">
+				</div>
+			</div>
+		</div>
+		<!--edf-->
 	</body>
 </html>

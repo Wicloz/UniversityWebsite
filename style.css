@@ -36,9 +36,31 @@ body {
 }
 
 #content-main {
-	background-color: #dfe3ee;
+	background-color: #f8f9fb;
 	padding: 15px 15px 0px;
+}
+
+#footer {
+	font-family: "Verdana", sans-serif;
+	margin-top: 20px;
+	color: #06123b;
+}
+
+#footer-main {
+	background-color: #dfe3ee;
+	padding: 5px 15px 10px 10%;
 	margin-bottom: 20px;
+	border: 0px dotted #06123b;
+	border-top-width: 1px;
+}
+
+#footer-main > h2 {
+	margin-top: 0px;
+	text-align: left;
+}
+
+#footer-main > p {
+	margin-bottom: 0px;
 }
 
 .table-fancy {
@@ -146,7 +168,7 @@ body {
 }
 
 .submit-button {
-	margin: 6px 0px 0px -3px;
+	margin: 6px 0px -10px -3px;
 	background: #0099B6 none repeat scroll 0% 0%;
 	border-color: #0099B6;
 	color: #FFF;

@@ -86,6 +86,19 @@
 												} else {
 													echo 'Bezig</i></p>';
 												}
+												if (!empty($row->link_assingment) || !empty($row->link_elab) || !empty($row->link_report)) {
+													echo '<p>Links:<br>';
+													if (!empty($row->link_assingment)) {
+														echo '<a target="_blank" href="', $row->link_assingment, '">Opdracht</a><br>';
+													}
+													if (!empty($row->link_elab)) {
+														echo '<a target="_blank" href="', $row->link_elab, '">Uitwerking</a><br>';
+													}
+													if (!empty($row->link_report)) {
+														echo '<a target="_blank" href="', $row->link_report, '">Verslag</a><br>';
+													}
+													echo '</p>';
+												}
 												echo '</div>';
 												if (!empty($row->link_report)) {
 													echo '<div class="paragraph-center col-sm-12">';

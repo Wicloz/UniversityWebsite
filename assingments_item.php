@@ -1,6 +1,6 @@
 <?php
-	error_reporting(0);
-	require 'db/connect.php';
+	//error_reporting(0);
+	require 'db/views.php';
 ?>
 
 <!DOCTYPE html>
@@ -86,7 +86,7 @@
 													echo 'Working</i></p>';
 												}
 												if (!empty($row->link_assingment) || !empty($row->link_elab) || !empty($row->link_report)) {
-													echo '<p>Links:<br>';
+													echo '<p><b>Links:</b><br>';
 													if (!empty($row->link_assingment)) {
 														echo '<a target="_blank" href="', $row->link_assingment, '">Assingment</a><br>';
 													}

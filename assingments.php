@@ -1,6 +1,6 @@
 <?php
-	error_reporting(0);
-	require 'db/connect.php';
+	//error_reporting(0);
+	require 'db/views.php';
 ?>
 
 <!DOCTYPE html>
@@ -80,45 +80,9 @@
 				<div class="col-sm-8" id="content-main">
 					<div class="paragraph-center col-sm-12">
 						<h2>Assingments:</h2>
-						<table id="assingments-tabel" class="table-fancy">
-							<tr>
-								<th>Date Assinged</th>
-								<th>Date Deadline</th>
-								<th>Subject</th>
-								<th>Task</th>
-								<th>Team</th>
-								<th>Links</th>
-								<th>Status</th>
-							</tr>
 						<?php
-							if ($result = $db->query("SELECT * FROM deadlines")) {
-								if ($result->num_rows) {
-									while ($row = $result->fetch_object()) {
-										echo '<tr>';
-										echo '<td>', $row->start_date, '</td>';
-										echo '<td>', $row->end_date, '</td>';
-										echo '<td>', $row->subject, '</td>'; 
-										echo '<td><a href="/assingments_item.php?id=', $row->id, '">', $row->desc_short, '</a></td>';
-										echo '<td>', $row->team, '</td>';
-										echo '<td>';
-											echo '<a target="_blank" href="', $row->link_assingment, '">Assingment</a>';
-											echo ' / ';
-											echo '<a target="_blank" href="', $row->link_elab, '">Repository</a>';
-										echo '</td>';
-										if ($row->completion == 1) {
-											echo '<td>Complete</td>';
-										} else {
-											echo '<td>Working</td>';
-										}
-										echo '</tr>';
-									}
-									$result->free();
-								}
-							} else {
-								die ($db->error);
-							}
+							echo getTableAssingments($db);
 						?>
-						</table>
                     </div>
 				</div>
 				<div class="col-sm-2" id="content-left">

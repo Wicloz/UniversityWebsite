@@ -1,6 +1,6 @@
 <?php
-	error_reporting(0);
-	require 'db/connect.php';
+	//error_reporting(0);
+	require 'db/views.php';
 ?>
 
 <!DOCTYPE html>
@@ -83,35 +83,9 @@
                     </div>
 					<div class="paragraph-center col-sm-12">
 						<h2>Exams:</h2>
-						<table id="tentamens-tabel" class="table-fancy">
-							<tr>
-								<th>Date</th>
-								<th>Weight</th>
-								<th>Subject</th>
-								<th>Mark</th>
-							</tr>
 						<?php
-							if ($result = $db->query("SELECT * FROM tentamens")) {
-								if ($result->num_rows) {
-									while ($row = $result->fetch_object()) {
-										echo '<tr>';
-										echo '<td>', $row->date, '</td>';
-										echo '<td>', $row->weight, '</td>';
-										echo '<td>', $row->subject, '</td>';
-										if ($row->completion == 1) {
-											echo '<td>', $row->mark, '</td>';
-										} else {
-											echo '<td>N/A</td>';
-										}
-										echo '</tr>';
-									}
-									$result->free();
-								}
-							} else {
-								die ($db->error);
-							}
+							echo getTableTentamens($db);
 						?>
-						</table>
                     </div>
 				</div>
 				<div class="col-sm-2" id="content-left">

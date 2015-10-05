@@ -49,7 +49,7 @@
 							<li><a href="subject_bp.php">Basispracticum</a></li>
 						  </ul>
 						</li>
-						<li><a href="semester-overview.php">Semester Overview</a></li>
+						<li class="active"><a href="semester-overview.php">Semester Overview</a></li>
 						<li><a href="contact.php">Contact</a></li>
 						<li><a href="schedule.php">Schedule I&B</a></li>
 						<li><a href="https://onedrive.live.com/view.aspx?resid=7A26A4E50EEC48CB!401&ithint=onenote%2c&app=OneNote&authkey=!ALF9KqGbBDdyK_M" target="_blank">Notes</a></li>

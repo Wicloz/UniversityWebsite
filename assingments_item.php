@@ -49,7 +49,7 @@
 							<li><a href="subject_bp.php">Basispracticum</a></li>
 						  </ul>
 						</li>
-						<li><a href="semester-overview.php">Semester Overview</a></li>
+						<li class="active"><a href="semester-overview.php">Semester Overview</a></li>
 						<li><a href="contact.php">Contact</a></li>
 						<li><a href="schedule.php">Schedule I&B</a></li>
 						<li><a href="https://onedrive.live.com/view.aspx?resid=7A26A4E50EEC48CB!401&ithint=onenote%2c&app=OneNote&authkey=!ALF9KqGbBDdyK_M" target="_blank">Notes</a></li>
@@ -70,48 +70,9 @@
 				<div class="col-sm-8" id="content-main">
 					<?php
 						if (isset($_GET['id'])) {
-							$thisId = $_GET['id'];
-							if (!empty(thisId)) {
-								if ($result = $db->query("SELECT * FROM deadlines")) {
-									if ($result->num_rows) {
-										while ($row = $result->fetch_object()) {
-											if ($row->id == $thisId) {
-												echo '<div class="paragraph-center col-sm-12">';
-												echo '<h2>', $row->desc_short, '</h2>';
-												echo '<p>', $row->desc_full, '</p>';
-												echo '<p><i>Subject: ', $row->subject, '<br>Date Assinged: ', $row->start_date, '<br>Deadline: ', $row->end_date, '<br>Team: ', $row->team, '<br>Status: ';
-												if ($row->completion == 1) {
-													echo 'Complete</i></p>';
-												} else {
-													echo 'Working</i></p>';
-												}
-												if (!empty($row->link_assingment) || !empty($row->link_elab) || !empty($row->link_report)) {
-													echo '<p><b>Links:</b><br>';
-													if (!empty($row->link_assingment)) {
-														echo '<a target="_blank" href="', $row->link_assingment, '">Assingment</a><br>';
-													}
-													if (!empty($row->link_elab)) {
-														echo '<a target="_blank" href="', $row->link_elab, '">Repository</a><br>';
-													}
-													if (!empty($row->link_report)) {
-														echo '<a target="_blank" href="', $row->link_report, '">Report</a><br>';
-													}
-													echo '</p>';
-												}
-												echo '</div>';
-												if (!empty($row->link_report)) {
-													echo '<div class="paragraph-center col-sm-12">';
-													echo '<h2>Report</h2>';
-													echo '<iframe name="report" src="', $row->link_report, '" width="100%" height="600"></iframe>';
-													echo '</div>';
-												}
-											}
-										}
-										$result->free();
-									}
-								} else {
-									die ($db->error);
-								}
+							$itemId = $_GET['id'];
+							if (!empty($itemId)) {
+								echo getItemAssingment($db, $itemId);
 							}
 						}
 					?>

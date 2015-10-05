@@ -82,8 +82,61 @@ function getTableTentamens ($db) {
 	}
 }
 
-function getItemAssingment ($db) {
+function getItemAssingment ($db, $item_id) {
+	$view = '';
 	
+	if ($result = $db->query("SELECT * FROM deadlines")) {
+		if ($result->num_rows) {
+			
+			while ($row = $result->fetch_object()) {
+				if ($row->id == $item_id) {
+					$view .= '<div class="paragraph-center col-sm-12">';
+					$view .= '<h2>' . $row->desc_short . '</h2>';
+					$view .= '<p>' . $row->desc_full . '</p>';
+					
+					$view .= '<p><i>Subject: ' . $row->subject
+						   . '<br>Date Assinged: ' . $row->start_date
+						   . '<br>Deadline: ' . $row->end_date
+						   . '<br>Team: ' . $row->team;
+						   
+					$view .= '<br>Status: ';
+					if ($row->completion == 1) {
+						$view .= 'Complete</i></p>';
+					} else {
+						$view .= 'Working</i></p>';
+					}
+					
+					if (!empty($row->link_assingment) || !empty($row->link_elab) || !empty($row->link_report)) {
+						$view .= '<p><b>Links:</b><br>';
+						if (!empty($row->link_assingment)) {
+							$view .= '<a target="_blank" href="' . $row->link_assingment . '">Assingment</a><br>';
+						}
+						if (!empty($row->link_elab)) {
+							$view .= '<a target="_blank" href="' . $row->link_elab . '">Repository</a><br>';
+						}
+						if (!empty($row->link_report)) {
+							$view .= '<a target="_blank" href="' . $row->link_report . '">Report</a><br>';
+						}
+						$view .= '</p>';
+					}
+					
+					$view .= '</div>';
+					
+					if (!empty($row->link_report)) {
+						$view .= '<div class="paragraph-center col-sm-12">';
+						$view .= '<h2>Report</h2>';
+						$view .= '<iframe name="report" src="' . $row->link_report . '" width="100%" height="600"></iframe>';
+						$view .= '</div>';
+					}
+				}
+			}
+			
+			$result->free();
+		}
+		return $view;
+	} else {
+		return ($db->error);
+	}
 }
 
 ?>

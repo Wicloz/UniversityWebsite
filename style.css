@@ -5,9 +5,9 @@ h1, h2, h3 {
 body {
 	background-color: #dfe3ee;
 	background-image: url("images/backgrounds/texture.png");
-	background-position: top;
+	/*background-position: top;
 	background-repeat: no-repeat;
-	background-size: cover;
+	background-size: cover;*/
 }
 
 #header {
@@ -46,8 +46,7 @@ body {
 	color: #000;
 	border: 0px dotted #000;
 	border-top-width: 1px;
-	/*background-image: url("images/backgrounds/swatch-grayblue.png");*/
-	background-color: #8592bb;
+	background-image: url("images/backgrounds/swatch-grayblue.png");
 	margin-bottom: 0px;
 }
 

@@ -63,7 +63,7 @@
 				<div class="col-sm-2" id="content-right">
                     <!--bdsc-->
 					<div class="navbox">
-						<h2>Vakken:</h2>
+						<h2>Subjects:</h2>
 						<ul>
 							<li class="active"><a href="subject_fi1.php">Fundamentele Informatica</a></li>
 							<li><a href="subject_pm.php">Programmeermethoden</a></li>
@@ -76,7 +76,7 @@
 				</div>
 				<div class="col-sm-8" id="content-main">
 					<div class="paragraph-center col-sm-12">
-						<h2>Dit is een header</h2>
+						<h2>This is a header</h2>
 						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tempor dolor ac blandit sagittis. Morbi aliquam gravida eleifend. Nulla ac nunc sapien. Donec dapibus velit vulputate purus fermentum, quis lobortis lacus semper. Pellentesque ac hendrerit augue. Duis quis ex ipsum. Suspendisse dignissim nisl vitae risus rhoncus, eget lobortis odio tincidunt. Donec eu accumsan mi, eget suscipit purus. Nullam feugiat neque sit amet fringilla ultrices.</p>
 					</div>
 				</div>

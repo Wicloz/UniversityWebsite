@@ -63,7 +63,7 @@
 				<div class="col-sm-2" id="content-right">
                     <!--bdsc-->
 					<div class="navbox">
-						<h2>Vakken:</h2>
+						<h2>Subjects:</h2>
 						<ul>
 							<li><a href="subject_fi1.php">Fundamentele Informatica</a></li>
 							<li><a href="subject_pm.php">Programmeermethoden</a></li>

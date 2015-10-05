@@ -32,8 +32,8 @@
 				</div>
 				<div class="collapse navbar-collapse" id="mainNavbar">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="index.php">Home</a></li>
-						<li class="dropdown">
+						<li><a href="index.php">Home</a></li>
+						<li class="dropdown active">
 						  <a class="dropdown-toggle" data-toggle="dropdown" href="">Subjects
 						  <span class="caret"></span></a>
 						  <ul class="dropdown-menu">
@@ -41,7 +41,7 @@
 							<li><a href="subject_pm.php">Programmeermethoden</a></li>
 							<li><a href="subject_stpr.php">Studeren & Presenteren</a></li>
 							<li><a href="subject_mg.php">Moleculaire Genetica</a></li>
-							<li><a href="subject_bp.php">Basispracticum</a></li>
+							<li class="active"><a href="subject_bp.php">Basispracticum</a></li>
 						  </ul>
 						</li>
 						<li><a href="semester-overview.php">Semester Overview</a></li>
@@ -61,15 +61,23 @@
 		<div class="container-fluid" id="content">
 			<div class="row">
 				<div class="col-sm-2" id="content-right">
+                    <!--bdsc-->
+					<div class="navbox">
+						<h2>Vakken:</h2>
+						<ul>
+							<li><a href="subject_fi1.php">Fundamentele Informatica</a></li>
+							<li><a href="subject_pm.php">Programmeermethoden</a></li>
+							<li><a href="subject_stpr.php">Studeren & Presenteren</a></li>
+							<li><a href="subject_mg.php">Moleculaire Genetica</a></li>
+							<li class="active"><a href="subject_bp.php">Basispracticum</a></li>
+						</ul>
+					</div>
+                    <!--edsc-->
 				</div>
 				<div class="col-sm-8" id="content-main">
 					<div class="paragraph-center col-sm-12">
-						<h2>This is a header</h2>
+						<h2>Dit is een header</h2>
 						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tempor dolor ac blandit sagittis. Morbi aliquam gravida eleifend. Nulla ac nunc sapien. Donec dapibus velit vulputate purus fermentum, quis lobortis lacus semper. Pellentesque ac hendrerit augue. Duis quis ex ipsum. Suspendisse dignissim nisl vitae risus rhoncus, eget lobortis odio tincidunt. Donec eu accumsan mi, eget suscipit purus. Nullam feugiat neque sit amet fringilla ultrices.</p>
-						<p>Maecenas sodales tincidunt libero feugiat bibendum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In non erat fringilla, congue nisi in, fermentum nibh. Nam porttitor mattis dui a sagittis. Proin quis bibendum erat. Nam in mauris ipsum. Morbi suscipit sed velit a consequat. Donec hendrerit massa quis nisi sagittis consequat. Phasellus ac purus turpis. Curabitur sagittis lobortis posuere. Aenean fermentum mi in ultricies tempor. Integer faucibus tempor eros, ac ultricies dolor lobortis non. Ut fringilla mattis urna sit amet malesuada. Nam a auctor urna.</p>
-					</div>
-					<div class="paragraph-center col-sm-12">
-						<h2>Publications</h2>
 					</div>
 				</div>
 				<div class="col-sm-2" id="content-left">

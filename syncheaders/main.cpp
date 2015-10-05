@@ -90,14 +90,14 @@ void synchroniseerNaarBestand (string filename, string header, string footer, bo
     outputIn.close();
 
     // Bewerk header
-    string findString = "<li><a href=\"" + replaceString(filename, "item_", "") + "\">";
-    string toString = "<li class=\"active\"><a href=\"" + replaceString(filename, "item_", "") + "\">";
-    header.replace(header.find(findString), findString.length(), toString);
+    string findString = "<li><a href=\"" + replaceString(filename, "_item", "") + "\">";
+    string toString = "<li class=\"active\"><a href=\"" + replaceString(filename, "_item", "") + "\">";
+    header = replaceString (header, findString, toString);
 
     if (vak) {
         string findString = "<li class=\"dropdown\">";
         string toString = "<li class=\"dropdown active\">";
-        header.replace(header.find(findString), findString.length(), toString);
+        header = replaceString (header, findString, toString);
     }
 
     cout << filename << endl;
@@ -122,19 +122,20 @@ int main() {
     // Bewerk de header
     header.replace(header.find("<li class=\"active\">"), sizeof("<li class=\"active\">")-1, "<li>");
 
-    synchroniseerNaarBestand ("vak_bp.php", header, footer, true);
-    synchroniseerNaarBestand ("vak_fi1.php", header, footer, true);
-    synchroniseerNaarBestand ("vak_mg.php", header, footer, true);
-    synchroniseerNaarBestand ("vak_pm.php", header, footer, true);
-    synchroniseerNaarBestand ("vak_stpr.php", header, footer, true);
+    synchroniseerNaarBestand ("subject_bp.php", header, footer, true);
+    synchroniseerNaarBestand ("subject_fi1.php", header, footer, true);
+    synchroniseerNaarBestand ("subject_mg.php", header, footer, true);
+    synchroniseerNaarBestand ("subject_pm.php", header, footer, true);
+    synchroniseerNaarBestand ("subject_stpr.php", header, footer, true);
 
-    synchroniseerNaarBestand ("tentamens.php", header, footer, false);
-    synchroniseerNaarBestand ("deadlines.php", header, footer, false);
+    synchroniseerNaarBestand ("exams.php", header, footer, false);
+    synchroniseerNaarBestand ("assingments.php", header, footer, false);
     synchroniseerNaarBestand ("contact.php", header, footer, false);
-    synchroniseerNaarBestand ("rooster.php", header, footer, false);
+    synchroniseerNaarBestand ("schedule.php", header, footer, false);
     synchroniseerNaarBestand ("login.php", header, footer, false);
+    synchroniseerNaarBestand ("semester-overview.php", header, footer, false);
 
-    synchroniseerNaarBestand ("item_deadlines.php", header, footer, false);
+    synchroniseerNaarBestand ("assingments_item.php", header, footer, false);
 
     return 0;
 }

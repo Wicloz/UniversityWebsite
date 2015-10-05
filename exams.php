@@ -1,3 +1,8 @@
+<?php
+	error_reporting(0);
+	require 'db/connect.php';
+?>
+
 <!DOCTYPE html>
 <html lang="nl">
 	<head>
@@ -33,23 +38,22 @@
 				<div class="collapse navbar-collapse" id="mainNavbar">
 					<ul class="nav navbar-nav">
 						<li><a href="index.php">Home</a></li>
-						<li class="dropdown active">
-						  <a class="dropdown-toggle" data-toggle="dropdown" href="">Vakken
+						<li class="dropdown">
+						  <a class="dropdown-toggle" data-toggle="dropdown" href="">Subjects
 						  <span class="caret"></span></a>
 						  <ul class="dropdown-menu">
-							<li><a href="vak_fi1.php">Fundamentele Informatica</a></li>
-							<li class="active"><a href="vak_pm.php">Programmeermethoden</a></li>
-							<li><a href="vak_stpr.php">Studeren & Presenteren</a></li>
-							<li><a href="vak_mg.php">Moleculaire Genetica</a></li>
-							<li><a href="vak_bp.php">Basispracticum</a></li>
+							<li><a href="subject_fi1.php">Fundamentele Informatica</a></li>
+							<li><a href="subject_pm.php">Programmeermethoden</a></li>
+							<li><a href="subject_stpr.php">Studeren & Presenteren</a></li>
+							<li><a href="subject_mg.php">Moleculaire Genetica</a></li>
+							<li><a href="subject_bp.php">Basispracticum</a></li>
 						  </ul>
 						</li>
-						<li><a href="tentamens.php">Tentamens</a></li>
-						<li><a href="deadlines.php">Deadlines</a></li>
+						<li><a href="semester-overview.php">Semester Overview</a></li>
 						<li><a href="contact.php">Contact</a></li>
-						<li><a href="rooster.php">Rooster I&B</a></li>
-						<li><a href="https://onedrive.live.com/view.aspx?resid=7A26A4E50EEC48CB!401&ithint=onenote%2c&app=OneNote&authkey=!ALF9KqGbBDdyK_M" target="_blank">Notities</a></li>
-						<li><a href="http://www.color-hex.com/color-palette/10598" target="_blank">Kleurenpalet</a></li>
+						<li><a href="schedule.php">Schedule I&B</a></li>
+						<li><a href="https://onedrive.live.com/view.aspx?resid=7A26A4E50EEC48CB!401&ithint=onenote%2c&app=OneNote&authkey=!ALF9KqGbBDdyK_M" target="_blank">Notes</a></li>
+						<li><a href="http://www.color-hex.com/color-palette/10598" target="_blank">Color Palette</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -62,24 +66,53 @@
 		<div class="container-fluid" id="content">
 			<div class="row">
 				<div class="col-sm-2" id="content-right">
-                    <!--bdsc-->
+				    <!--bdoc-->
 					<div class="navbox">
-						<h2>Vakken:</h2>
+						<h2>Overview</h2>
 						<ul>
-							<li><a href="vak_fi1.html">Fundamentele Informatica</a></li>
-							<li class="active"><a href="vak_pm.html">Programmeermethoden</a></li>
-							<li><a href="vak_stpr.html">Studeren & Presenteren</a></li>
-							<li><a href="vak_mg.html">Moleculaire Genetica</a></li>
-							<li><a href="vak_bp.html">Basispracticum</a></li>
+							<li><a href="semester-overview.php">Semester Overview</a></li>
+							<li class="active"><a href="exams.php">Exams</a></li>
+							<li><a href="assingments.php">Assingments</a></li>
 						</ul>
 					</div>
-                    <!--edsc-->
+                    <!--edoc-->
 				</div>
 				<div class="col-sm-8" id="content-main">
 					<div class="paragraph-center col-sm-12">
-						<h2>Dit is een header</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tempor dolor ac blandit sagittis. Morbi aliquam gravida eleifend. Nulla ac nunc sapien. Donec dapibus velit vulputate purus fermentum, quis lobortis lacus semper. Pellentesque ac hendrerit augue. Duis quis ex ipsum. Suspendisse dignissim nisl vitae risus rhoncus, eget lobortis odio tincidunt. Donec eu accumsan mi, eget suscipit purus. Nullam feugiat neque sit amet fringilla ultrices.</p>
-					</div>
+				        <iframe class="agenda" src="https://www.google.com/calendar/embed?src=ai9kouej2b434he9otn9pvd66c%40group.calendar.google.com&ctz=Europe/Amsterdam" frameborder="0" scrolling="no"></iframe>
+                    </div>
+					<div class="paragraph-center col-sm-12">
+						<h2>Exams:</h2>
+						<table id="tentamens-tabel" class="table-fancy">
+							<tr>
+								<th>Date</th>
+								<th>Weight</th>
+								<th>Subject</th>
+								<th>Mark</th>
+							</tr>
+						<?php
+							if ($result = $db->query("SELECT * FROM tentamens")) {
+								if ($result->num_rows) {
+									while ($row = $result->fetch_object()) {
+										echo '<tr>';
+										echo '<td>', $row->date, '</td>';
+										echo '<td>', $row->weight, '</td>';
+										echo '<td>', $row->subject, '</td>';
+										if ($row->completion == 1) {
+											echo '<td>', $row->mark, '</td>';
+										} else {
+											echo '<td>N/A</td>';
+										}
+										echo '</tr>';
+									}
+									$result->free();
+								}
+							} else {
+								die ($db->error);
+							}
+						?>
+						</table>
+                    </div>
 				</div>
 				<div class="col-sm-2" id="content-left">
 				</div>
@@ -96,7 +129,7 @@
 					<p>Wilco de Boer</p>
 					<p>Email: <a href="mailto:deboer.wilco@gmail.com">deboer.wilco@gmail.com</a></p>
 					<p>Umail: <a href="mailto:s1704362@umail.leidenuniv.nl">s1704362@umail.leidenuniv.nl</a></p>
-					<p>Telefoon: +31 0637338259</p>
+					<p>Mobile number: +31 0637338259</p>
 				</div>
 				<div class="col-sm-1" id="footer-left">
 				</div>

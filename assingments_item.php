@@ -39,22 +39,21 @@
 					<ul class="nav navbar-nav">
 						<li><a href="index.php">Home</a></li>
 						<li class="dropdown">
-						  <a class="dropdown-toggle" data-toggle="dropdown" href="">Vakken
+						  <a class="dropdown-toggle" data-toggle="dropdown" href="">Subjects
 						  <span class="caret"></span></a>
 						  <ul class="dropdown-menu">
-							<li><a href="vak_fi1.php">Fundamentele Informatica</a></li>
-							<li><a href="vak_pm.php">Programmeermethoden</a></li>
-							<li><a href="vak_stpr.php">Studeren & Presenteren</a></li>
-							<li><a href="vak_mg.php">Moleculaire Genetica</a></li>
-							<li><a href="vak_bp.php">Basispracticum</a></li>
+							<li><a href="subject_fi1.php">Fundamentele Informatica</a></li>
+							<li><a href="subject_pm.php">Programmeermethoden</a></li>
+							<li><a href="subject_stpr.php">Studeren & Presenteren</a></li>
+							<li><a href="subject_mg.php">Moleculaire Genetica</a></li>
+							<li><a href="subject_bp.php">Basispracticum</a></li>
 						  </ul>
 						</li>
-						<li><a href="tentamens.php">Tentamens</a></li>
-						<li class="active"><a href="deadlines.php">Deadlines</a></li>
+						<li><a href="semester-overview.php">Semester Overview</a></li>
 						<li><a href="contact.php">Contact</a></li>
-						<li><a href="rooster.php">Rooster I&B</a></li>
-						<li><a href="https://onedrive.live.com/view.aspx?resid=7A26A4E50EEC48CB!401&ithint=onenote%2c&app=OneNote&authkey=!ALF9KqGbBDdyK_M" target="_blank">Notities</a></li>
-						<li><a href="http://www.color-hex.com/color-palette/10598" target="_blank">Kleurenpalet</a></li>
+						<li><a href="schedule.php">Schedule I&B</a></li>
+						<li><a href="https://onedrive.live.com/view.aspx?resid=7A26A4E50EEC48CB!401&ithint=onenote%2c&app=OneNote&authkey=!ALF9KqGbBDdyK_M" target="_blank">Notes</a></li>
+						<li><a href="http://www.color-hex.com/color-palette/10598" target="_blank">Color Palette</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -80,30 +79,30 @@
 												echo '<div class="paragraph-center col-sm-12">';
 												echo '<h2>', $row->desc_short, '</h2>';
 												echo '<p>', $row->desc_full, '</p>';
-												echo '<p><i>Vak: ', $row->subject, '<br>Datum Opgave: ', $row->start_date, '<br>Deadline: ', $row->end_date, '<br>Team: ', $row->team, '<br>Status: ';
+												echo '<p><i>Subject: ', $row->subject, '<br>Date Assinged: ', $row->start_date, '<br>Deadline: ', $row->end_date, '<br>Team: ', $row->team, '<br>Status: ';
 												if ($row->completion == 1) {
-													echo 'Compleet</i></p>';
+													echo 'Complete</i></p>';
 												} else {
-													echo 'Bezig</i></p>';
+													echo 'Working</i></p>';
 												}
 												if (!empty($row->link_assingment) || !empty($row->link_elab) || !empty($row->link_report)) {
 													echo '<p>Links:<br>';
 													if (!empty($row->link_assingment)) {
-														echo '<a target="_blank" href="', $row->link_assingment, '">Opdracht</a><br>';
+														echo '<a target="_blank" href="', $row->link_assingment, '">Assingment</a><br>';
 													}
 													if (!empty($row->link_elab)) {
-														echo '<a target="_blank" href="', $row->link_elab, '">Uitwerking</a><br>';
+														echo '<a target="_blank" href="', $row->link_elab, '">Repository</a><br>';
 													}
 													if (!empty($row->link_report)) {
-														echo '<a target="_blank" href="', $row->link_report, '">Verslag</a><br>';
+														echo '<a target="_blank" href="', $row->link_report, '">Report</a><br>';
 													}
 													echo '</p>';
 												}
 												echo '</div>';
 												if (!empty($row->link_report)) {
 													echo '<div class="paragraph-center col-sm-12">';
-													echo '<h2>Verslag</h2>';
-													echo '<iframe name="verslag" src="', $row->link_report, '" width="100%" height="600"></iframe>';
+													echo '<h2>Report</h2>';
+													echo '<iframe name="report" src="', $row->link_report, '" width="100%" height="600"></iframe>';
 													echo '</div>';
 												}
 											}
@@ -132,7 +131,7 @@
 					<p>Wilco de Boer</p>
 					<p>Email: <a href="mailto:deboer.wilco@gmail.com">deboer.wilco@gmail.com</a></p>
 					<p>Umail: <a href="mailto:s1704362@umail.leidenuniv.nl">s1704362@umail.leidenuniv.nl</a></p>
-					<p>Telefoon: +31 0637338259</p>
+					<p>Mobile number: +31 0637338259</p>
 				</div>
 				<div class="col-sm-1" id="footer-left">
 				</div>

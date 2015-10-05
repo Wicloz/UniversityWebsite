@@ -246,7 +246,7 @@ body {
 }
 
 .navbox {
-	background-color: #dfe3ee;
+	background-color: #f8f9fb;
 	border: 2px solid #06123b;
     border-radius: 5px;
 	margin-bottom: 20px;
@@ -259,6 +259,7 @@ body {
 	border: 0px solid #06123b;
 	border-bottom-width: 2px;
 	color: #06123b;
+	background-color: #dfe3ee;
 }
 
 .navbox > ul {

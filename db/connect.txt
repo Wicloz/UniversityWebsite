@@ -1,6 +1,0 @@
-<?php
-$db = new mysqli('<ip>', '<username>', '<password>', '<dbname>');
-if ($db->connect_errno) {
-	die('Database errors, sorry for the inconvenience.');
-}
-?>

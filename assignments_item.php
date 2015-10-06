@@ -1,5 +1,5 @@
 <?php
-	error_reporting(0);
+	//error_reporting(0);
 	require 'db/views.php';
 ?>
 
@@ -31,7 +31,10 @@
 					<?php
 						if (isset($_GET['id'])) {
 							$itemId = $_GET['id'];
-							if (!empty($itemId)) {
+							if ($itemId == 'create') {
+								echo editItemForm('assignments', 'new');
+							}
+							else if (!empty($itemId)) {
 								echo getItemAssignment($itemId);
 							}
 						}

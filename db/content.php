@@ -10,9 +10,9 @@ function buildFancyTable ($id, $headers, $content) {
 	return $table;
 }
 
-function getTableAssingments () {
-	$id = 'assingments';
-	$headers = array('Date Assinged', 'Date Deadline', 'Subject', 'Task', 'Team', 'Links', 'Status');
+function getTableAssignments () {
+	$id = 'assignments';
+	$headers = array('Date Assigned', 'Deadline', 'Subject', 'Task', 'Team', 'Links', 'Status');
 	$content = '';
 	$table = getAllEntries ($id);
 	
@@ -22,11 +22,11 @@ function getTableAssingments () {
 		$content .= '<td>' . $row->start_date . '</td>';
 		$content .= '<td>' . $row->end_date . '</td>';
 		$content .= '<td>' . $row->subject . '</td>'; 
-		$content .= '<td><a href="/assingments_item.php?id=' . $row->id . '">' . $row->desc_short . '</a></td>';
+		$content .= '<td><a href="assignments_item.php?id=' . $row->id . '">' . $row->desc_short . '</a></td>';
 		$content .= '<td>' . $row->team . '</td>';
 		
 		$content .= '<td>';
-			$content .= '<a target="_blank" href="' . $row->link_assingment . '">Assingment</a>';
+			$content .= '<a target="_blank" href="' . $row->link_assignment . '">Assignment</a>';
 			$content .= ' / ';
 			$content .= '<a target="_blank" href="' . $row->link_elab . '">Repository</a>';
 		$content .= '</td>';
@@ -70,7 +70,7 @@ function getTableTentamens () {
 
 function getItemAssignment ($item_id) {
 	$item = '';
-	$table = getAllEntries ('assingments');
+	$table = getAllEntries ('assignments');
 	
 	while ($row = $table->fetch_object()) {
 		if ($row->id == $item_id) {
@@ -79,7 +79,7 @@ function getItemAssignment ($item_id) {
 			$item .= '<p>' . $row->desc_full . '</p>';
 			
 			$item .= '<p><i>Subject: ' . $row->subject
-				   . '<br>Date Assinged: ' . $row->start_date
+				   . '<br>Date Assigned: ' . $row->start_date
 				   . '<br>Deadline: ' . $row->end_date
 				   . '<br>Team: ' . $row->team;
 				   
@@ -90,10 +90,10 @@ function getItemAssignment ($item_id) {
 				$item .= 'Working</i></p>';
 			}
 			
-			if (!empty($row->link_assingment) || !empty($row->link_elab) || !empty($row->link_report)) {
+			if (!empty($row->link_assignment) || !empty($row->link_elab) || !empty($row->link_report)) {
 				$item .= '<p><b>Links:</b><br>';
-				if (!empty($row->link_assingment)) {
-					$item .= '<a target="_blank" href="' . $row->link_assingment . '">Assignment</a><br>';
+				if (!empty($row->link_assignment)) {
+					$item .= '<a target="_blank" href="' . $row->link_assignment . '">Assignment</a><br>';
 				}
 				if (!empty($row->link_elab)) {
 					$item .= '<a target="_blank" href="' . $row->link_elab . '">Repository</a><br>';

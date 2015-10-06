@@ -24,7 +24,7 @@
 			<div class="row">
 				<div class="col-sm-2" id="content-right">
 					<?php
-						echo leftnavContent('assignments_item');
+						echo leftnavContent('assignments');
 					?>
 				</div>
 				<div class="col-sm-8" id="content-main">
@@ -32,7 +32,7 @@
 						if (isset($_GET['id'])) {
 							$itemId = $_GET['id'];
 							if (!empty($itemId)) {
-								echo getItemAssingment($itemId);
+								echo getItemAssignment($itemId);
 							}
 						}
 					?>

@@ -1,9 +1,2 @@
-*.layout
-*.depend
-
-[Bb]in/
-[Oo]bj/
-
 *.7z
-
 db/dbsettings.php

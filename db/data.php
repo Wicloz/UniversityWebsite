@@ -43,17 +43,18 @@ function getTableFormInfo ($table) {
 	}
 }
 
-function addNewEntry ($table, $entry) {
+function insertEntry ($table, $entry) {
 	global $db;
 	
 	foreach ($entry as $key => $value) {
 		$key_items[] = $key;
-		$value_items[] = $value;
+		$value_items[] = '\''.$db->escape_string($value).'\'';
 	}
 	$keys = implode(', ', $key_items);
 	$values = implode(', ', $value_items);
 	
-	$qry = $db->mysql_real_escape_string("INSERT INTO {$table} {$keys} VALUES {$values}");
+	$qry = "INSERT INTO {$table} ({$keys}) VALUES ({$values})";
+	echo $qry;
 	
 	if ($update = $db->query($qry)) {
 		echo $db->affected_rows;
@@ -65,7 +66,13 @@ function addNewEntry ($table, $entry) {
 function updateEntry ($table, $id, $entry) {
 	global $db;
 	
-	$qry = $db->mysql_real_escape_string("");
+	foreach ($entry as $key => $value) {
+		$updates[] = $key . '=' . '\''.$db->escape_string($value).'\'';
+	}
+	$update = implode(', ', $updates);
+	
+	$qry = "UPDATE {$table} SET {$update} WHERE id = {$id}";
+	echo $qry;
 	
 	if ($update = $db->query($qry)) {
 		echo $db->affected_rows;

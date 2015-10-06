@@ -38,13 +38,13 @@ function editItemForm ($table, $id) {
 </form>
 */
 	
-	$view .= '<div class="paragraph-center col-sm-12">';
-	if ($id == 'new') {
-		$view .= '<form action="db/submit/insertTable.php" method="POST">';
-	} else {
-		$view .= '<form action="db/submit/updateTable.php" method="POST">';
-		$currentEntryTable = getEntryWithId ($table, $id);
-		$currentEntry = $currentEntryTable->fetch_assoc();
+	$view .= '<div class="paragraph-center col-sm-12"><form action="edit-entry.php" method="POST">';
+	if ($id != 'create') {
+		if ($currentEntryTable = getEntryWithId ($table, $id)) {
+			$currentEntry = $currentEntryTable->fetch_assoc();
+		} else {
+			return '<div class="paragraph-center col-sm-12"><p>Could not load form: entry does not exist.</p></div>';
+		}
 	}
 	
 	if ($columnInfo = getTableFormInfo($table)) {
@@ -57,6 +57,7 @@ function editItemForm ($table, $id) {
 				switch ($row->DATA_TYPE) {
 					case 'tinyint':
 						$type = 'checkbox';
+						$value = '1';
 					break;
 					case 'date':
 						$type = 'date';
@@ -73,8 +74,13 @@ function editItemForm ($table, $id) {
 					break;
 				}
 				
-				if ($id != 'new') {
-					$value = $currentEntry[$row->COLUMN_NAME];
+				if ($id != 'create') {
+					if ($row->DATA_TYPE != 'tinyint') {
+						$value = $currentEntry[$row->COLUMN_NAME];
+					}
+					else if ($currentEntry[$row->COLUMN_NAME]) {
+						$arguments .= 'checked="true"';
+					}
 				}
 				
 				if ($row->COLUMN_NAME == 'password') {
@@ -97,14 +103,14 @@ function editItemForm ($table, $id) {
 		return '<div class="paragraph-center col-sm-12"><p>Could not load form: database errors.</p></div>';
 	}
 	
-	if ($id == 'new') {
-		$view .= '<br><input type="submit" value="Insert"></form></div>';
+	if ($id == 'create') {
+		$view .= '<br><input type="submit" value="Insert">';
 		$view .= '<input name="action" value="insert" type="hidden">';
 	} else {
-		$view .= '<br><input type="submit" value="Update"></form></div>';
+		$view .= '<br><input type="submit" value="Update">';
 		$view .= '<input name="action" value="update" type="hidden">';
 	}
-	$view .= '<input name="table" value="'.$table.'" type="hidden">';
+	$view .= '<input name="table" value="'.$table.'" type="hidden"><input name="id" value="'.$id.'" type="hidden"></form></div>';
 
 	return $view;
 }

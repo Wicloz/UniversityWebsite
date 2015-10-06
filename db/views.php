@@ -42,6 +42,7 @@ function getLineWithState ($lineA, $lineB, $active) {
 }
 
 function mainnavContent ($active) {
+	$table = getAllEntries ('navigation');
 	$navbar = '<nav class="navbar navbar-blue">
 				<div class="container-fluid">
 					<div class="navbar-header">
@@ -55,43 +56,89 @@ function mainnavContent ($active) {
 					<div class="collapse navbar-collapse" id="mainNavbar">
 						<ul class="nav navbar-nav">';
 							
-							$navbar .= getLineWithState('<li', '><a href="index.php">Home</a></li>', $active);
-							
-							$navbar .= '<li class="dropdown';
-							if (strpos($active, 'subject') !== false) {
-								$navbar .= ' active';
-							}
-							$navbar .= '">';
-							
-							  $navbar .= '<a class="dropdown-toggle" data-toggle="dropdown" href="">Subjects
-							  <span class="caret"></span></a>
-							  <ul class="dropdown-menu">';
-							  
-								$navbar .= getLineWithState('<li', '><a href="subject_fi1.php">Fundamentele Informatica</a></li>', $active);
-								$navbar .= getLineWithState('<li', '><a href="subject_pm.php">Programmeermethoden</a></li>', $active);
-								$navbar .= getLineWithState('<li', '><a href="subject_stpr.php">Studeren & Presenteren</a></li>', $active);
-								$navbar .= getLineWithState('<li', '><a href="subject_mg.php">Moleculaire Genetica</a></li>', $active);
-								$navbar .= getLineWithState('<li', '><a href="subject_bp.php">Basispracticum</a></li>', $active);
-								
-							  $navbar .= '</ul>
-							</li>';
-							
-							$navbar .= getLineWithState('<li', '><a href="semester-overview.php">Semester Overview</a></li>', $active);
-							$navbar .= getLineWithState('<li', '><a href="contact.php">Contact</a></li>', $active);
-							$navbar .= getLineWithState('<li', '><a href="schedule.php">Schedule I&B</a></li>', $active);
-							
-							$navbar .= '<li><a href="https://onedrive.live.com/view.aspx?resid=7A26A4E50EEC48CB!401&ithint=onenote%2c&app=OneNote&authkey=!ALF9KqGbBDdyK_M" target="_blank">Notes</a></li>
-							<li><a href="http://www.color-hex.com/color-palette/10598" target="_blank">Color Palette</a></li>
-						</ul>
+	while ($row = $table->fetch_object()) {
+		if (!empty($row->file)) {
+			if (!empty($row->target)) {
+				$navbar .= getLineWithState('<li', '><a href="' . $row->file . '" target="' . $row->target . '">' . $row->name . '</a></li>', $active);
+			} else {
+				$navbar .= getLineWithState('<li', '><a href="' . $row->file . '">' . $row->name . '</a></li>', $active);
+			}
+		} else {
+			$subNames = explode (',', $row->sub_names);
+			$subFiles = explode (',', $row->sub_files);
+			$subSize = count ($subNames);
+			
+			$navbar .= '<li class="dropdown';
+			if (strpos($active, $row->subid) !== false) {
+				$navbar .= ' active';
+			}
+			$navbar .= '">';
+			
+			$navbar .= '<a class="dropdown-toggle" data-toggle="dropdown" href="">' . $row->name . '
+						<span class="caret"></span></a>
+						<ul class="dropdown-menu">';
+			
+			for ($i = 0; $i < $subSize; $i++) {
+				$navbar .= getLineWithState('<li', '><a href="' . $row->subid . '_' . $subFiles[$i] . '.php">' . $subNames[$i] . '</a></li>', $active);
+			}
+				
+			$navbar .= '</ul>
+						</li>';
+		}
+	}
+	
+							$navbar .= '<li><a href="https://onedrive.live.com/view.aspx?resid=7A26A4E50EEC48CB!401&ithint=onenote%2c&app=OneNote&authkey=!ALF9KqGbBDdyK_M" target="_blank">Notes</a></li>';
+							$navbar .= '<li><a href="http://www.color-hex.com/color-palette/10598" target="_blank">Color Palette</a></li>';
+						$navbar .= '</ul>
 						<ul class="nav navbar-nav navbar-right">';
-						
 							$navbar .= getLineWithState('<li', '><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>', $active);
-							
 						$navbar .= '</ul>
 					</div>
 				</div>
 			</nav>';
 	return $navbar;
+}
+
+function leftnavContent ($active) {
+	$table = getAllEntries ('navigation');
+	$navbox = '';
+	
+	while ($row = $table->fetch_object()) {
+		if (!empty($row->sub_names)) {
+			$subFiles = explode (',', $row->sub_files);
+			$cleanActive = str_replace($row->subid.'_', '', $active);
+			
+			$in_array = false;
+			foreach ($subFiles as $file) {
+				if ($file == $cleanActive) {
+					$in_array = true;
+				}
+			}
+			
+			if ($in_array) {
+				$subNames = explode (',', $row->sub_names);
+				$subSize = count ($subNames);
+							
+				$navbox .= '<div class="navbox">
+								<h2>' . $row->name . ':</h2>
+								<ul>';
+				
+				for ($i = 0; $i < $subSize; $i++) {
+					$thisFile = $subFiles[$i];
+					if (!empty($row->subid)) {
+						$thisFile = $row->subid . '_' . $subFiles[$i];
+					}
+					
+					$navbox .= getLineWithState('<li', '><a href="' . $thisFile . '.php">' . $subNames[$i] . '</a></li>', $active);
+				}
+				
+				$navbox .= '</ul>
+						</div>';
+			}
+		}
+	}
+	
+	return $navbox;
 }
 
 ?>

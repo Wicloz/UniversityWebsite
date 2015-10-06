@@ -12,7 +12,7 @@ function getAllEntries ($table) {
 			$result->free();
 		}
 	} else {
-		return ($db->error);
+		return $db->error;
 	}
 }
 
@@ -24,7 +24,7 @@ function getEntryWithId ($table, $id) {
 			$result->free();
 		}
 	} else {
-		return ($db->error);
+		return $db->error;
 	}
 }
 

@@ -23,18 +23,9 @@
 		<div class="container-fluid" id="content">
 			<div class="row">
 				<div class="col-sm-2" id="content-right">
-                    <!--bdsc-->
-					<div class="navbox">
-						<h2>Subjects:</h2>
-						<ul>
-							<li><a href="subject_fi1.php">Fundamentele Informatica</a></li>
-							<li><a href="subject_pm.php">Programmeermethoden</a></li>
-							<li><a href="subject_stpr.php">Studeren & Presenteren</a></li>
-							<li class="active"><a href="subject_mg.php">Moleculaire Genetica</a></li>
-							<li><a href="subject_bp.php">Basispracticum</a></li>
-						</ul>
-					</div>
-                    <!--edsc-->
+					<?php
+						echo leftnavContent('subject_mg');
+					?>
 				</div>
 				<div class="col-sm-8" id="content-main">
 				    <div class="paragraph-center col-sm-12">

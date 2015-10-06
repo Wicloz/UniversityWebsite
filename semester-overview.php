@@ -23,16 +23,9 @@
 		<div class="container-fluid" id="content">
 			<div class="row">
 				<div class="col-sm-2" id="content-right">
-				    <!--bdoc-->
-					<div class="navbox">
-						<h2>Overview</h2>
-						<ul>
-							<li class="active"><a href="semester-overview.php">Semester Overview</a></li>
-							<li><a href="exams.php">Exams</a></li>
-							<li><a href="assingments.php">Assingments</a></li>
-						</ul>
-					</div>
-                    <!--edoc-->
+					<?php
+						echo leftnavContent('semester-overview');
+					?>
 				</div>
 				<div class="col-sm-8" id="content-main">
 					

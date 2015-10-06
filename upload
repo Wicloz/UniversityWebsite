@@ -1,6 +1,5 @@
 #!/bin/bash
 # script to upload the site
 
-git pull
 rsync -av ./* keep.vuw.leidenuniv.nl:public_html/
 

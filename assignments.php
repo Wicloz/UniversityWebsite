@@ -23,16 +23,17 @@
 		<div class="container-fluid" id="content">
 			<div class="row">
 				<div class="col-sm-2" id="content-right">
+					<?php
+						echo leftnavContent('assignments');
+					?>
 				</div>
 				<div class="col-sm-8" id="content-main">
-					<?php
-						if (isset($_GET['id'])) {
-							$itemId = $_GET['id'];
-							if (!empty($itemId)) {
-								echo getItemAssingment($itemId);
-							}
-						}
-					?>
+					<div class="paragraph-center col-sm-12">
+						<h2>Assignments:</h2>
+						<?php
+							echo getTableAssignments();
+						?>
+                    </div>
 				</div>
 				<div class="col-sm-2" id="content-left">
 				</div>

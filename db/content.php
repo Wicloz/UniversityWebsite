@@ -11,7 +11,7 @@ function buildFancyTable ($id, $headers, $content) {
 }
 
 function getTableAssingments () {
-	$id = 'deadlines';
+	$id = 'assingments';
 	$headers = array('Date Assinged', 'Date Deadline', 'Subject', 'Task', 'Team', 'Links', 'Status');
 	$content = '';
 	$table = getAllEntries ($id);
@@ -68,9 +68,9 @@ function getTableTentamens () {
 	return buildFancyTable($id, $headers, $content);
 }
 
-function getItemAssingment ($item_id) {
+function getItemAssignment ($item_id) {
 	$item = '';
-	$table = getAllEntries ('deadlines');
+	$table = getAllEntries ('assingments');
 	
 	while ($row = $table->fetch_object()) {
 		if ($row->id == $item_id) {
@@ -93,7 +93,7 @@ function getItemAssingment ($item_id) {
 			if (!empty($row->link_assingment) || !empty($row->link_elab) || !empty($row->link_report)) {
 				$item .= '<p><b>Links:</b><br>';
 				if (!empty($row->link_assingment)) {
-					$item .= '<a target="_blank" href="' . $row->link_assingment . '">Assingment</a><br>';
+					$item .= '<a target="_blank" href="' . $row->link_assingment . '">Assignment</a><br>';
 				}
 				if (!empty($row->link_elab)) {
 					$item .= '<a target="_blank" href="' . $row->link_elab . '">Repository</a><br>';

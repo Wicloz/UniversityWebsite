@@ -23,24 +23,19 @@
 		<div class="container-fluid" id="content">
 			<div class="row">
 				<div class="col-sm-2" id="content-right">
-					<!--bdoc-->
-					<div class="navbox">
-						<h2>Overview</h2>
-						<ul>
-							<li><a href="semester-overview.php">Semester Overview</a></li>
-							<li><a href="exams.php">Exams</a></li>
-							<li class="active"><a href="assingments.php">Assingments</a></li>
-						</ul>
-					</div>
-					<!--edoc-->
+					<?php
+						echo leftnavContent('assignments_item');
+					?>
 				</div>
 				<div class="col-sm-8" id="content-main">
-					<div class="paragraph-center col-sm-12">
-						<h2>Assingments:</h2>
-						<?php
-							echo getTableAssingments();
-						?>
-                    </div>
+					<?php
+						if (isset($_GET['id'])) {
+							$itemId = $_GET['id'];
+							if (!empty($itemId)) {
+								echo getItemAssingment($itemId);
+							}
+						}
+					?>
 				</div>
 				<div class="col-sm-2" id="content-left">
 				</div>

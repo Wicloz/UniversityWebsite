@@ -1,5 +1,5 @@
 <?php
-require 'db/connect.php';
+require 'data.php';
 
 function buildFancyTable ($id, $headers, $content) {
 	$table = '<table id="' . $id . '-table" class="table-fancy"><tr>';

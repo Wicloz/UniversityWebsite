@@ -6,5 +6,4 @@
 
 *.7z
 
-connect.php
-
+db/connect.php

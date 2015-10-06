@@ -32,15 +32,12 @@
 						</noscript>
 						<form target="blackboard" action="https://blackboard.leidenuniv.nl/webapps/login/" onsubmit="return validate_form( this, false, true );" method="POST" name="login">
 							<script type="text/javascript">
-								function login_openForgotPassword( url )
-								{
+								function login_openForgotPassword( url ) {
 									var passwordWin = window.open( url, 'forgotPasswordWindow', 'menubar=1,resizable=1,scrollbars=1,status=1,width=850,height=480' );
 									passwordWin.focus();
 								}
-								FastInit.addOnLoad(function()
-								{
-									if( typeof ClientCache !== 'undefined' )
-									{
+								FastInit.addOnLoad(function() {
+									if( typeof ClientCache !== 'undefined' ) {
 										ClientCache.clear();
 									}
 									var startingJSessionCookie = getCookie("JSESSIONID");
@@ -195,8 +192,7 @@
 									deleteCookie("JSESSIONID", "/webapps/bb-1024692540287-bb_bb60", null, true);
 									deleteCookie("JSESSIONID", "/webapps/bb-cx-ext-ce4-plgnhndl-bb_bb60", null, true);
 									deleteCookie("JSESSIONID", "/webapps/searchwidgets", null, true);
-									if (guestLocaleCookie != null)
-									{
+									if (guestLocaleCookie != null) {
 										setCookie("guest.session.locale", guestLocaleCookie);
 									}
 									setCookie("JSESSIONID", startingJSessionCookie);

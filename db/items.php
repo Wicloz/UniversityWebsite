@@ -1,5 +1,5 @@
 <?php
-require 'data.php';
+require 'content.php';
 
 // Headers, footers and navigation
 function footerContent () {

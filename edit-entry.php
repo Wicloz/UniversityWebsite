@@ -43,6 +43,10 @@
 								updateEntry ($table, $id, $entry);
 								echo '<p>Entry Updated!</p>';
 							}
+							else if ($_POST['action'] == 'delete') {
+								deleteEntry ($table, $id);
+								echo '<p>Entry Deleted!</p>';
+							}
 						}
 					
 						if (isset($_GET['table']) && isset($_GET['id'])) {

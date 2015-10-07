@@ -47,17 +47,17 @@ function insertEntry ($table, $entry) {
 	global $db;
 	
 	foreach ($entry as $key => $value) {
-		$key_items[] = $key;
+		$key_items[] = $db->escape_string($key);
 		$value_items[] = '\''.$db->escape_string($value).'\'';
 	}
 	$keys = implode(', ', $key_items);
 	$values = implode(', ', $value_items);
 	
-	$qry = "INSERT INTO {$table} ({$keys}) VALUES ({$values})";
+	$qry = "INSERT INTO {$db->escape_string($table)} ({$keys}) VALUES ({$values})";
 	echo $qry;
 	
 	if ($update = $db->query($qry)) {
-		echo $db->affected_rows;
+		return $db->affected_rows;
 	} else {
 		return $db->error;
 	}
@@ -67,15 +67,28 @@ function updateEntry ($table, $id, $entry) {
 	global $db;
 	
 	foreach ($entry as $key => $value) {
-		$updates[] = $key . '=' . '\''.$db->escape_string($value).'\'';
+		$updates[] = $db->escape_string($key) . '=' . '\''.$db->escape_string($value).'\'';
 	}
 	$update = implode(', ', $updates);
 	
-	$qry = "UPDATE {$table} SET {$update} WHERE id = {$id}";
+	$qry = "UPDATE {$db->escape_string($table)} SET {$update} WHERE id = {$id}";
 	echo $qry;
 	
 	if ($update = $db->query($qry)) {
-		echo $db->affected_rows;
+		return $db->affected_rows;
+	} else {
+		return $db->error;
+	}
+}
+
+function deleteEntry ($table, $id) {
+	global $db;
+	
+	$qry = "DELETE FROM {$db->escape_string($table)} WHERE id = {$db->escape_string($id)}";
+	echo $qry;
+	
+	if ($update = $db->query($qry)) {
+		return $db->affected_rows;
 	} else {
 		return $db->error;
 	}

@@ -139,6 +139,7 @@ function editItemForm ($table, $id) {
 					case 'tinyint':
 						$type = 'checkbox';
 						$value = '1';
+						$form .= '<input name="'.$row->COLUMN_NAME.'" value="0" type="hidden">';
 					break;
 					case 'date':
 						$type = 'date';
@@ -191,8 +192,11 @@ function editItemForm ($table, $id) {
 		$form .= '<br><input type="submit" value="Update">';
 		$form .= '<input name="action" value="update" type="hidden">';
 	}
-	$form .= '<input name="table" value="'.$table.'" type="hidden"><input name="id" value="'.$id.'" type="hidden"></form></div>';
-
+	$form .= ' <input name="action" value="delete" type="checkbox"> Delete';
+	
+	$form .= '<input name="table" value="'.$table.'" type="hidden"><input name="id" value="'.$id.'" type="hidden">';
+	$form .= '</form></div>';
+	
 	return $form;
 }
 

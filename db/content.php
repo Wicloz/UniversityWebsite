@@ -118,136 +118,82 @@ function getItemAssignment ($item_id) {
 	return $item;
 }
 
-// Headers, footers and navigation
-function footerContent () {
-	return '<div class="container-fluid" id="footer">
-				<div class="row">
-					<div class="col-sm-1" id="footer-right">
-					</div>
-					<div class="col-sm-10" id="footer-main">
-						<h2>Contact</h2>
-						<p>Wilco de Boer</p>
-						<p>Email: <a href="mailto:deboer.wilco@gmail.com">deboer.wilco@gmail.com</a></p>
-						<p>Umail: <a href="mailto:s1704362@umail.leidenuniv.nl">s1704362@umail.leidenuniv.nl</a></p>
-						<p>Mobile number: +31 0637338259</p>
-					</div>
-					<div class="col-sm-1" id="footer-left">
-					</div>
-				</div>
-			</div>';
-}
-
-function headerContent () {
-	return '<div class="container-fluid" id="header">
-				<a href="http://liacs.leidenuniv.nl/" target="_blank">
-					<img src="images/leidenuniv.png" alt="Logo Universiteit Leiden">
-				</a>
-				<div class="container-fluid" id="headertext">
-					<h1>W.F.H. de Boer</h1>
-				</div>
-			</div>';
-}
-
-function buildListItem ($title, $location, $target, $active) {
-    $ret = '<li';
-    
-    if ($active == str_replace('.php', '', $location)) {
-        $ret .= ' class="active"';
-    }
-    
-	if (!empty($target)) {
-		$ret .= '><a href="' . $location . '" target="' . $target . '">' . $title . '</a></li>';
-	} else {
-		$ret .= '><a href="' . $location . '">' . $title . '</a></li>';
-	}
-	
-	return $ret;
-}
-
-function mainnavContent ($active) {
-	$table = getAllEntries('navigation');
-	$navbar = '<nav class="navbar navbar-blue">
-				<div class="container-fluid">
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainNavbar">
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</button>
-						<a class="navbar-brand" href="index.php">s1704362</a>
-					</div>
-					<div class="collapse navbar-collapse" id="mainNavbar">
-						<ul class="nav navbar-nav">';
-							
-	while ($row = $table->fetch_object()) {
-		if (!empty($row->file)) {
-		    $navbar .= buildListItem($row->name, $row->file, $row->target, $active);
+function editItemForm ($table, $id) {
+	$form = '<div class="paragraph-center col-sm-12"><form action="edit-entry.php" method="POST">';
+	if ($id != 'create') {
+		if ($currentEntryTable = getEntryWithId ($table, $id)) {
+			$currentEntry = $currentEntryTable->fetch_assoc();
 		} else {
-			$subNames = explode(',', $row->sub_names);
-			$subFiles = explode(',', $row->sub_files);
-			$subSize = count($subNames);
-			
-			$navbar .= '<li class="dropdown';
-			if (strpos($active, $row->subid) !== false) {
-				$navbar .= ' active';
-			}
-			$navbar .= '">';
-			
-			$navbar .= '<a class="dropdown-toggle" data-toggle="dropdown" href="">' . $row->name . '
-						<span class="caret"></span></a>
-						<ul class="dropdown-menu">';
-			
-			for ($i = 0; $i < $subSize; $i++) {
-				$navbar .= buildListItem($subNames[$i], $row->subid.'_'.$subFiles[$i], '', $active);
-			}
-				
-			$navbar .= '</ul>
-						</li>';
+			return '<div class="paragraph-center col-sm-12"><p>Could not load form: entry does not exist.</p></div>';
 		}
 	}
-
-						$navbar .= '</ul>
-						<ul class="nav navbar-nav navbar-right">';
-							$navbar .= buildListItem('<span class="glyphicon glyphicon-log-in"></span> Login', 'login.php', '', $active);
-						$navbar .= '</ul>
-					</div>
-				</div>
-			</nav>';
-	return $navbar;
-}
-
-function leftnavContent ($active) {
-	$table = getAllEntries('navigation');
-	$navbox = '';
 	
-	while ($row = $table->fetch_object()) {
-		if (!empty($row->sub_names)) {
-			$subFiles = explode(',', $row->sub_files);
-			
-			if (in_array(str_replace($row->subid.'_', '', $active).'.php', $subFiles)) {
-				$subNames = explode(',', $row->sub_names);
-				$subSize = count($subNames);
-							
-				$navbox .= '<div class="navbox">
-								<h2>' . $row->header . '</h2>
-								<ul>';
+	if ($columnInfo = getTableFormInfo($table)) {
+		while ($row = $columnInfo->fetch_object()) {
+			if ($row->COLUMN_NAME != 'id') {
+				$type = 'text';
+				$value = '';
+				$arguments = '';
 				
-				for ($i = 0; $i < $subSize; $i++) {
-					$thisFile = $subFiles[$i];
-					if (!empty($row->subid)) {
-						$thisFile = $row->subid . '_' . $subFiles[$i];
-					}
-					
-					$navbox .= buildListItem($subNames[$i], $thisFile, '', $active);
+				switch ($row->DATA_TYPE) {
+					case 'tinyint':
+						$type = 'checkbox';
+						$value = '1';
+					break;
+					case 'date':
+						$type = 'date';
+						$value = 'yyyy-mm-dd';
+					break;
+					case 'datetime':
+						$type = 'datetime';
+						$value = 'yyyy-mm-dd hh:mm:ss';
+					break;
+					case 'int':
+						$type = 'number';
+					case 'float':
+						$type = 'number';
+					break;
 				}
 				
-				$navbox .= '</ul>
-						</div>';
+				if ($id != 'create') {
+					if ($row->DATA_TYPE != 'tinyint') {
+						$value = $currentEntry[$row->COLUMN_NAME];
+					}
+					else if ($currentEntry[$row->COLUMN_NAME]) {
+						$arguments .= 'checked="true"';
+					}
+				}
+				
+				if ($row->COLUMN_NAME == 'password') {
+					$type = 'password';
+					$arguments .= 'autocomplete="off"';
+					$value = 'password';
+				}
+				
+				if (!empty($row->CHARACTER_MAXIMUM_LENGTH) && $row->CHARACTER_MAXIMUM_LENGTH <= 100) {
+					$arguments .= 'size="'.$row->CHARACTER_MAXIMUM_LENGTH.'"';
+				}
+				
+				$form .= $row->COLUMN_NAME . ':<br>';
+				$form .= '<input name="'.$row->COLUMN_NAME.'" type="'.$type.'" value="'.$value.'" '.$arguments.'><br>';
 			}
 		}
 	}
 	
-	return $navbox;
+	else {
+		return '<div class="paragraph-center col-sm-12"><p>Could not load form: database errors.</p></div>';
+	}
+	
+	if ($id == 'create') {
+		$form .= '<br><input type="submit" value="Insert">';
+		$form .= '<input name="action" value="insert" type="hidden">';
+	} else {
+		$form .= '<br><input type="submit" value="Update">';
+		$form .= '<input name="action" value="update" type="hidden">';
+	}
+	$form .= '<input name="table" value="'.$table.'" type="hidden"><input name="id" value="'.$id.'" type="hidden"></form></div>';
+
+	return $form;
 }
 
 ?>

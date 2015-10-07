@@ -1,6 +1,6 @@
 <?php
-	//error_reporting(0);
-	require 'db/views.php';
+	error_reporting(E_ALL);
+	require 'db/mixer.php';
 ?>
 
 <!DOCTYPE html>

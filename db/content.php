@@ -191,8 +191,8 @@ function editItemForm ($table, $id) {
 	} else {
 		$form .= '<br><input type="submit" value="Update">';
 		$form .= '<input name="action" value="update" type="hidden">';
+		$form .= ' <input name="action" value="delete" type="checkbox"> Delete';
 	}
-	$form .= ' <input name="action" value="delete" type="checkbox"> Delete';
 	
 	$form .= '<input name="table" value="'.$table.'" type="hidden"><input name="id" value="'.$id.'" type="hidden">';
 	$form .= '</form></div>';

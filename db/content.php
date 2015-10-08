@@ -143,11 +143,11 @@ function editItemForm ($table, $id) {
 					break;
 					case 'date':
 						$type = 'date';
-						$value = 'yyyy-mm-dd';
+						$arguments .= 'placeholder="yyyy-mm-dd"';
 					break;
 					case 'datetime':
 						$type = 'datetime';
-						$value = 'yyyy-mm-dd hh:mm:ss';
+						$arguments .= 'placeholder="yyyy-mm-dd hh:mm:ss"';
 					break;
 					case 'int':
 						$type = 'number';

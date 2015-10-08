@@ -1,4 +1,4 @@
 <?php
-require 'views.php';
+require 'items.php';
 
 ?>

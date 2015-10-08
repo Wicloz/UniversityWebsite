@@ -10,6 +10,10 @@ function buildFancyTable ($id, $headers, $content) {
 	return $table;
 }
 
+function getCalendarExams () {
+	return ('<iframe class="agenda" src="https://www.google.com/calendar/embed?src=ai9kouej2b434he9otn9pvd66c%40group.calendar.google.com&ctz=Europe/Amsterdam" frameborder="0" scrolling="no"></iframe>');
+}
+
 function getTableAssignments () {
 	$id = 'assignments';
 	$headers = array('Date Assigned', 'Deadline', 'Subject', 'Task', 'Team', 'Links', 'Status');
@@ -74,7 +78,6 @@ function getItemAssignment ($item_id) {
 	
 	while ($row = $table->fetch_object()) {
 		if ($row->id == $item_id) {
-			$item .= '<div class="paragraph-center col-sm-12">';
 			$item .= '<h2>' . $row->desc_short . '</h2>';
 			$item .= '<p>' . $row->desc_full . '</p>';
 			
@@ -104,13 +107,11 @@ function getItemAssignment ($item_id) {
 				$item .= '</p>';
 			}
 			
-			$item .= '</div>';
-			
 			if (!empty($row->link_report)) {
+				$item .= '</div>';
 				$item .= '<div class="paragraph-center col-sm-12">';
 				$item .= '<h2>Report</h2>';
 				$item .= '<iframe name="report" src="' . $row->link_report . '" width="100%" height="600"></iframe>';
-				$item .= '</div>';
 			}
 		}
 	}
@@ -118,7 +119,7 @@ function getItemAssignment ($item_id) {
 	return $item;
 }
 
-function editItemForm ($table, $id) {
+function getEditItemForm ($table, $id) {
 	$form = '<form action="edit-entry.php" method="POST">';
 	if ($id != 'create') {
 		if ($currentEntryTable = getEntryWithId ($table, $id)) {

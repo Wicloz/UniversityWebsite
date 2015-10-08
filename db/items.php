@@ -1,7 +1,10 @@
 <?php
 require 'content.php';
 
-// Headers, footers and navigation
+function getArticle ($name) {
+	
+}
+
 function headContent () {
 	return '<head>
 				<title>Wilco de Boer</title>
@@ -44,17 +47,14 @@ function headerContent () {
 
 function buildListItem ($title, $location, $target, $active) {
     $ret = '<li';
-    
-    if ($active == str_replace('.php', '', $location)) {
+    if ($active.'.php' == $location || $active == $location) {
         $ret .= ' class="active"';
     }
-    
 	if (!empty($target)) {
 		$ret .= '><a href="' . $location . '" target="' . $target . '">' . $title . '</a></li>';
 	} else {
 		$ret .= '><a href="' . $location . '">' . $title . '</a></li>';
 	}
-	
 	return $ret;
 }
 
@@ -74,15 +74,24 @@ function mainnavContent ($active) {
 						<ul class="nav navbar-nav">';
 							
 	while ($row = $table->fetch_object()) {
-		if (!empty($row->file)) {
-		    $navbar .= buildListItem($row->name, $row->file, $row->target, $active);
-		} else {
+		if (!empty($row->file) && !empty($row->sub_names)) {
+		    $subFiles = explode(',', $row->sub_files);
+			if (in_array($active.'.php', $subFiles)) {
+				$navbar .= buildListItem($row->name, $row->file, $row->target, $row->file);
+			} else {
+				$navbar .= buildListItem($row->name, $row->file, $row->target, $active);
+			}
+		}
+		else if (!empty($row->file)) {
+			$navbar .= buildListItem($row->name, $row->file, $row->target, $active);
+		}
+		else {
 			$subNames = explode(',', $row->sub_names);
 			$subFiles = explode(',', $row->sub_files);
 			$subSize = count($subNames);
 			
 			$navbar .= '<li class="dropdown';
-			if (strpos($active, $row->subid) !== false) {
+			if (in_array($active.'.php', $subFiles)) {
 				$navbar .= ' active';
 			}
 			$navbar .= '">';
@@ -92,9 +101,9 @@ function mainnavContent ($active) {
 						<ul class="dropdown-menu">';
 			
 			for ($i = 0; $i < $subSize; $i++) {
-				$navbar .= buildListItem($subNames[$i], $row->subid.'_'.$subFiles[$i], '', $active);
+				$navbar .= buildListItem($subNames[$i], $subFiles[$i], '', $active);
 			}
-				
+			
 			$navbar .= '</ul></li>';
 		}
 	}
@@ -114,7 +123,7 @@ function leftnavContent ($active) {
 		if (!empty($row->sub_names)) {
 			$subFiles = explode(',', $row->sub_files);
 			
-			if (in_array(str_replace($row->subid.'_', '', $active).'.php', $subFiles)) {
+			if (in_array($active.'.php', $subFiles)) {
 				$subNames = explode(',', $row->sub_names);
 				$subSize = count($subNames);
 							

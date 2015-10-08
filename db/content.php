@@ -119,12 +119,12 @@ function getItemAssignment ($item_id) {
 }
 
 function editItemForm ($table, $id) {
-	$form = '<div class="paragraph-center col-sm-12"><form action="edit-entry.php" method="POST">';
+	$form = '<form action="edit-entry.php" method="POST">';
 	if ($id != 'create') {
 		if ($currentEntryTable = getEntryWithId ($table, $id)) {
 			$currentEntry = $currentEntryTable->fetch_assoc();
 		} else {
-			return '<div class="paragraph-center col-sm-12"><p>Could not load form: entry does not exist.</p></div>';
+			return '<p>Could not load form: entry does not exist.</p>';
 		}
 	}
 	
@@ -182,7 +182,7 @@ function editItemForm ($table, $id) {
 	}
 	
 	else {
-		return '<div class="paragraph-center col-sm-12"><p>Could not load form: database errors.</p></div>';
+		return '<p>Could not load form: database errors.</p>';
 	}
 	
 	if ($id == 'create') {
@@ -195,7 +195,7 @@ function editItemForm ($table, $id) {
 	}
 	
 	$form .= '<input name="table" value="'.$table.'" type="hidden"><input name="id" value="'.$id.'" type="hidden">';
-	$form .= '</form></div>';
+	$form .= '</form>';
 	
 	return $form;
 }

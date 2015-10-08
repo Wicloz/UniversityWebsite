@@ -2,6 +2,17 @@
 require 'content.php';
 
 // Headers, footers and navigation
+function headContent () {
+	return '<head>
+				<title>Wilco de Boer</title>
+				<meta charset="utf-8">
+				<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+				<link rel="stylesheet" href="style.css">
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+				<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+			</head>';
+}
+
 function footerContent () {
 	return '<div class="container-fluid" id="footer">
 				<div class="row">
@@ -84,18 +95,14 @@ function mainnavContent ($active) {
 				$navbar .= buildListItem($subNames[$i], $row->subid.'_'.$subFiles[$i], '', $active);
 			}
 				
-			$navbar .= '</ul>
-						</li>';
+			$navbar .= '</ul></li>';
 		}
 	}
 
-						$navbar .= '</ul>
-						<ul class="nav navbar-nav navbar-right">';
-							$navbar .= buildListItem('<span class="glyphicon glyphicon-log-in"></span> Login', 'login.php', '', $active);
-						$navbar .= '</ul>
-					</div>
-				</div>
-			</nav>';
+	$navbar .= '</ul><ul class="nav navbar-nav navbar-right">';
+	$navbar .= buildListItem('<span class="glyphicon glyphicon-log-in"></span> Login', 'login.php', '', $active);
+	$navbar .= '</ul></div></div></nav>';
+	
 	return $navbar;
 }
 
@@ -111,9 +118,7 @@ function leftnavContent ($active) {
 				$subNames = explode(',', $row->sub_names);
 				$subSize = count($subNames);
 							
-				$navbox .= '<div class="navbox">
-								<h2>' . $row->header . '</h2>
-								<ul>';
+				$navbox .= '<div class="navbox"><h2>' . $row->header . '</h2><ul>';
 				
 				for ($i = 0; $i < $subSize; $i++) {
 					$thisFile = $subFiles[$i];
@@ -124,8 +129,7 @@ function leftnavContent ($active) {
 					$navbox .= buildListItem($subNames[$i], $thisFile, '', $active);
 				}
 				
-				$navbox .= '</ul>
-						</div>';
+				$navbox .= '</ul></div>';
 			}
 		}
 	}

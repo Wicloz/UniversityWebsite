@@ -10,10 +10,6 @@ function buildFancyTable ($id, $headers, $content) {
 	return $table;
 }
 
-function getCalendarExams () {
-	return ('<iframe class="agenda" src="https://www.google.com/calendar/embed?src=ai9kouej2b434he9otn9pvd66c%40group.calendar.google.com&ctz=Europe/Amsterdam" frameborder="0" scrolling="no"></iframe>');
-}
-
 function getTableAssignments () {
 	$id = 'assignments';
 	$headers = array('Date Assigned', 'Deadline', 'Subject', 'Task', 'Team', 'Links', 'Status');
@@ -192,7 +188,7 @@ function getEditItemForm ($table, $id) {
 	} else {
 		$form .= '<br><input type="submit" value="Update">';
 		$form .= '<input name="action" value="update" type="hidden">';
-		$form .= ' <input name="action" value="delete" type="checkbox"> Delete';
+		$form .= '<input name="action" value="delete" type="checkbox"> Delete';
 	}
 	
 	$form .= '<input name="table" value="'.$table.'" type="hidden"><input name="id" value="'.$id.'" type="hidden">';

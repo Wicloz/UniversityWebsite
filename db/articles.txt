@@ -1,0 +1,11 @@
+"calendars_exams:"
+<iframe class="agenda" src="https://www.google.com/calendar/embed?src=ai9kouej2b434he9otn9pvd66c%40group.calendar.google.com&ctz=Europe/Amsterdam" frameborder="0" scrolling="no"></iframe>
+
+"calendars_schedule:"
+<iframe class="agenda" src="https://www.google.com/calendar/embed?src=a4qi9uldsf0stvtvp24d0vc008%40group.calendar.google.com&ctz=Europe/Amsterdam" frameborder="0" scrolling="no"></iframe>
+
+"calendars_schedule_1ejrnaj"
+<a target="_blank" href="http://liacs.leidenuniv.nl/assets/Roosters-2015-2016/1e-jr-IB-naj-2015-2016.pdf"><img class="rooster-img" src="images/1e-jr-IB-naj-2015-2016-page-001.jpg" alt="Rooster Voorjaar"></a>
+
+"calendars_schedule_1ejrvoorj"
+<a target="_blank" href="http://liacs.leidenuniv.nl/assets/Roosters-2015-2016/1e-jr-IB-voorj-2015-2016.pdf"><img class="rooster-img" src="images/1e-jr-IB-voorj-2015-2016-page-001.jpg" alt="Rooster Voorjaar"></a>

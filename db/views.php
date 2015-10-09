@@ -5,10 +5,6 @@ function getContent ($name, $GET, $POST) {
 	$ret = '';
 	
 	switch ($name) {
-		case 'calendar_exams';
-			$ret .= getCalendarExams();
-		break;
-		
 		case 'table_exams';
 			$ret .= '<h2>Exams:</h2>';
 			$ret .= getTableTentamens();
@@ -62,8 +58,12 @@ function getContent ($name, $GET, $POST) {
 		break;
 		
 		default:
-			$ret = getArticle($name);
+			$ret .= "Content with name '{$name}' not found.";
 		break;
+	}
+	
+	if (strpos($name, 'article_') !== false) {
+		$ret = getArticle($name);
 	}
 	
 	return $ret;

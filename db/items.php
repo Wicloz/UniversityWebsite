@@ -2,7 +2,15 @@
 require 'content.php';
 
 function getArticle ($name) {
+	$articles = getAllEntries ('articles');
+			
+	while ($row = $articles->fetch_object()) {
+		if ('article_'.$row->category.'_'.$row->name == $name) {
+			return $row->content;
+		}
+	}
 	
+	return "Article with name '{$name}' not found";
 }
 
 function headContent () {

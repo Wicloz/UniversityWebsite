@@ -54,7 +54,7 @@
 								$table = $_GET['table'];
 								$id = $_GET['id'];
 								if (!empty($table) && !empty($id)) {
-									echo editItemForm($table, $id);
+									echo getEditItemForm($table, $id);
 								}
 							}
 						?>

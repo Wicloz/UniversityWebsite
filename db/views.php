@@ -56,7 +56,7 @@ function getContent ($name, $GET, $POST) {
 				$table = $GET['table'];
 				$id = $GET['id'];
 				if (!empty($table) && !empty($id)) {
-					$ret .= editItemForm($table, $id);
+					$ret .= getEditItemForm($table, $id);
 				}
 			}
 		break;

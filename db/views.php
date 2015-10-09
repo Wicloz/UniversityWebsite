@@ -57,6 +57,10 @@ function getContent ($name, $GET, $POST) {
 			}
 		break;
 		
+		case 'form_login';
+			
+		break;
+		
 		default:
 			$ret .= "Content with name '{$name}' not found.";
 		break;

@@ -84,7 +84,7 @@ function getContent ($name, $GET, $POST) {
 
 function getViewForPage ($page, $GET, $POST) {
 	$view = '';
-	$content = explode(',', $page->content);
+	$content = explode(',', str_replace(', ', ',', $page->content));
 	foreach ($content as $item) {
 		$view .= '<div class="paragraph-center col-sm-12">';
 		$view .= getContent($item, $GET, $POST);

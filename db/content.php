@@ -127,7 +127,7 @@ function getItemAssignment ($item_id) {
 function getEditItemForm ($table, $id) {
 	$form = '<form action="edit-entry.php" method="POST">';
 	if ($id != 'create') {
-		if ($currentEntryTable = getEntryWithId ($table, $id)) {
+		if ($currentEntryTable = getEntryWithId($table, $id)) {
 			$currentEntry = $currentEntryTable->fetch_assoc();
 		} else {
 			return '<p>Could not load form: entry does not exist.</p>';
@@ -204,6 +204,45 @@ function getEditItemForm ($table, $id) {
 	$form .= '</form>';
 	
 	return $form;
+}
+
+function getDataItemsList ($table) {
+	$headers = array('Title', 'Edit');
+	$content = '';
+
+	if ($items = getAllEntries($table)) {
+		$i = 0;
+		while ($row = $items->fetch_object()) {
+			$i++;
+			$content .= '<tr>';
+			
+			if (isset($row->name)) {
+				$content .= '<td>'.$row->name.'</td>';
+			}
+			else if (isset($row->desc_short)) {
+				$content .= '<td>'.$row->desc_short.'</td>';
+			}
+			else if (isset($row->weight) && isset($row->subject)) {
+				$content .= '<td>'.$row->weight.' '.$row->subject.'</td>';
+			}
+			else {
+				$content .= '<td>Name Not Found!</td>';
+			}
+
+			$content .= '<td><a href="edit-entry.php?table='.$table.'&id='.$i.'">Edit</a></td>';
+			
+			$content .= '</tr>';
+		}
+	}
+	
+	else {
+		return '<p>Could not load list: database errors.</p>';
+	}
+	
+	$ret = buildFancyTable($table, $headers, $content);
+	$ret .= '<p><a href="edit-entry.php?table='.$table.'&id=create">Add Item</a></p>';
+	
+	return $ret;
 }
 
 ?>

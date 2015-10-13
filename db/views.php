@@ -57,6 +57,15 @@ function getContent ($name, $GET, $POST) {
 			}
 		break;
 		
+		case 'list_dataItems';
+			if (isset($GET['table'])) {
+				$table = $GET['table'];
+				if (!empty($table)) {
+					$ret .= getDataItemsList($table);
+				}
+			}
+		break;
+		
 		case 'form_login';
 			
 		break;

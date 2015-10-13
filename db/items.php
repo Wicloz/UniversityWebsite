@@ -83,7 +83,7 @@ function mainnavContent ($active) {
 							
 	while ($row = $table->fetch_object()) {
 		if (!empty($row->file) && !empty($row->sub_names)) {
-		    $subFiles = explode(',', $row->sub_files);
+		    $subFiles = explode(',', str_replace(', ', ',', $row->sub_files));
 			if (in_array($active.'.php', $subFiles)) {
 				$navbar .= buildListItem($row->name, $row->file, $row->target, $row->file);
 			} else {
@@ -94,8 +94,8 @@ function mainnavContent ($active) {
 			$navbar .= buildListItem($row->name, $row->file, $row->target, $active);
 		}
 		else {
-			$subNames = explode(',', $row->sub_names);
-			$subFiles = explode(',', $row->sub_files);
+			$subNames = explode(',', str_replace(', ', ',', $row->sub_names));
+			$subFiles = explode(',', str_replace(', ', ',', $row->sub_files));
 			$subSize = count($subNames);
 			
 			$navbar .= '<li class="dropdown';
@@ -129,10 +129,10 @@ function leftnavContent ($active) {
 	
 	while ($row = $table->fetch_object()) {
 		if (!empty($row->sub_names)) {
-			$subFiles = explode(',', $row->sub_files);
+			$subFiles = explode(',', str_replace(', ', ',', $row->sub_files));
 			
 			if (in_array($active.'.php', $subFiles)) {
-				$subNames = explode(',', $row->sub_names);
+				$subNames = explode(',', str_replace(', ', ',', $row->sub_names));
 				$subSize = count($subNames);
 							
 				$navbox .= '<div class="navbox"><h2>' . $row->header . '</h2><ul>';

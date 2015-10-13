@@ -207,30 +207,32 @@ function getEditItemForm ($table, $id) {
 }
 
 function getDataItemsList ($table) {
-	$headers = array('Title', 'Edit');
+	$headers = array();
 	$content = '';
 
+	$i = 0;
+	if ($columnInfo = getTableFormInfo($table)) {
+		while ($row = $columnInfo->fetch_object()) {
+			if ($row->COLUMN_NAME != 'id') {
+				$headers[$i] = $row->COLUMN_NAME;
+				$i++;
+			}
+		}
+	}
+	
+	else {
+		return '<p>Could not load list: database errors.</p>';
+	}
+	
 	if ($items = getAllEntries($table)) {
-		$i = 0;
-		while ($row = $items->fetch_object()) {
-			$i++;
+		while ($row = $items->fetch_assoc()) {
 			$content .= '<tr>';
-			
-			if (isset($row->name)) {
-				$content .= '<td>'.$row->name.'</td>';
-			}
-			else if (isset($row->desc_short)) {
-				$content .= '<td>'.$row->desc_short.'</td>';
-			}
-			else if (isset($row->weight) && isset($row->subject)) {
-				$content .= '<td>'.$row->weight.' '.$row->subject.'</td>';
-			}
-			else {
-				$content .= '<td>Name Not Found!</td>';
+						
+			foreach ($headers as $field) {
+				$content .= '<td>'.$row[$field].'</td>';
 			}
 
-			$content .= '<td><a href="edit-entry.php?table='.$table.'&id='.$i.'">Edit</a></td>';
-			
+			$content .= '<td><a href="edit-entry.php?table='.$table.'&id='.$row['id'].'">Edit</a></td>';
 			$content .= '</tr>';
 		}
 	}
@@ -239,7 +241,8 @@ function getDataItemsList ($table) {
 		return '<p>Could not load list: database errors.</p>';
 	}
 	
-	$ret = buildFancyTable($table, $headers, $content);
+	$headers[$i] = 'Edit';
+	$ret = buildFancyTable('items', $headers, $content);
 	$ret .= '<p><a href="edit-entry.php?table='.$table.'&id=create">Add Item</a></p>';
 	
 	return $ret;

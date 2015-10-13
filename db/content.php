@@ -26,9 +26,15 @@ function getTableAssignments () {
 		$content .= '<td>' . $row->team . '</td>';
 		
 		$content .= '<td>';
+		if (!empty($row->link_assignment)) {
 			$content .= '<a target="_blank" href="' . $row->link_assignment . '">Assignment</a>';
+		}
+		if (!empty($row->link_assignment) && !empty($row->link_repository)) {
 			$content .= ' / ';
+		}
+		if (!empty($row->link_repository)) {
 			$content .= '<a target="_blank" href="' . $row->link_repository . '">Repository</a>';
+		}
 		$content .= '</td>';
 		
 		if ($row->completion == 1) {
@@ -79,9 +85,12 @@ function getItemAssignment ($item_id) {
 			
 			$item .= '<p><i>Subject: ' . $row->subject
 				   . '<br>Date Assigned: ' . $row->start_date
-				   . '<br>Deadline: ' . $row->end_date
-				   . '<br>Team: ' . $row->team;
+				   . '<br>Deadline: ' . $row->end_date;
 				   
+			if (!empty($row->team)) {
+				$item .= '<br>Team: ' . $row->team;
+			}
+			
 			$item .= '<br>Status: ';
 			if ($row->completion == 1) {
 				$item .= 'Complete</i></p>';
@@ -111,7 +120,7 @@ function getItemAssignment ($item_id) {
 			}
 		}
 	}
-			
+	
 	return $item;
 }
 

@@ -14,7 +14,7 @@ function getTableAssignments () {
 	$id = 'assignments';
 	$headers = array('Date Assigned', 'Deadline', 'Subject', 'Task', 'Team', 'Links', 'Status');
 	$content = '';
-	$table = getAllEntries ($id);
+	$table = getAllEntriesSorted ($id, 'end_date');
 	
 	while ($row = $table->fetch_object()) {
 		$content .= '<tr>';
@@ -53,7 +53,7 @@ function getTableTentamens () {
 	$id = 'tentamens';
 	$headers = array('Date', 'Weight', 'Subject', 'Mark');
 	$content = '';
-	$table = getAllEntries ($id);
+	$table = getAllEntriesSorted ($id, 'date');
 			
 	while ($row = $table->fetch_object()) {
 		$content .= '<tr>';

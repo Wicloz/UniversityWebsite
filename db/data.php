@@ -3,7 +3,21 @@ require 'connect.php';
 
 function getAllEntries ($table) {
 	global $db;
-	if ($result = $db->query("SELECT * FROM " . $table)) {
+	if ($result = $db->query("SELECT * FROM {$table}")) {
+		if ($result->num_rows) {
+			return $result;
+			$result->free();
+		} else {
+			return false;
+		}
+	} else {
+		return $db->error;
+	}
+}
+
+function getAllEntriesSorted ($table, $column) {
+	global $db;
+	if ($result = $db->query("SELECT * FROM {$table} ORDER BY {$column} ASC")) {
 		if ($result->num_rows) {
 			return $result;
 			$result->free();
@@ -17,7 +31,7 @@ function getAllEntries ($table) {
 
 function getEntryWithId ($table, $id) {
 	global $db;
-	if ($result = $db->query("SELECT * FROM " . $table . " WHERE id = " . $id)) {
+	if ($result = $db->query("SELECT * FROM {$table} WHERE id = {$id}")) {
 		if ($result->num_rows) {
 			return $result;
 			$result->free();

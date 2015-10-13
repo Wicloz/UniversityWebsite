@@ -112,6 +112,8 @@ function getItemAssignment ($item_id) {
 				$item .= '</p>';
 			}
 			
+			$item .= '<div class="item-edit-button"><a href="edit-entry.php?table=assignments&id='.$item_id.'">Edit</a></div>';
+			
 			if (!empty($row->link_report)) {
 				$item .= '</div>';
 				$item .= '<div class="paragraph-center col-sm-12">';

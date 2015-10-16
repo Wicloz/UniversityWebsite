@@ -68,6 +68,26 @@ body {
 	margin-left: 5%;
 }
 
+.button {
+	padding: 4px 11px 5px 10px;
+	border: 1px solid #06123b;
+	border-radius: 6px;
+	background-color: #0c2577;
+	color: #f8f9fb;
+}
+
+.button:hover, .button:focus {
+	color: #f8f9fb;
+	text-decoration: none;
+}
+
+.edit-item-button {
+	float: right;
+	padding: 8px 18px 9px 18px;
+	margin: -52px 0px 0px 0px;
+	font-size: 18px;
+}
+
 .table-fancy {
 	border: 1px solid #06123B;
 	width: 100%;

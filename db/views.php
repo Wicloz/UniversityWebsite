@@ -45,12 +45,8 @@ function getContent ($name, $GET, $POST) {
 				}
 			}
 		
-			if (isset($GET['table']) && isset($GET['id'])) {
-				$table = $GET['table'];
-				$id = $GET['id'];
-				if (!empty($table) && !empty($id)) {
-					$ret .= getEditItemForm($table, $id);
-				}
+			if (isset($GET['table']) && isset($GET['id']) && !empty($GET['table']) && !empty($GET['id'])) {
+				$ret .= getEditItemForm($GET['table'], $GET['id']);
 			}
 		break;
 		

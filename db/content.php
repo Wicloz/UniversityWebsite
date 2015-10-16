@@ -127,7 +127,7 @@ function getItemAssignment ($item_id) {
 }
 
 function getEditItemForm ($table, $id) {
-	$form = '<form action="edit-entry.php" method="POST">';
+	$form = '<form action="edit-entry.php?table='.$table.'&id='.$id.'" method="POST">';
 	if ($id != 'create') {
 		if ($currentEntryTable = getEntryWithId($table, $id)) {
 			$currentEntry = $currentEntryTable->fetch_assoc();

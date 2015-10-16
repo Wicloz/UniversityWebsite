@@ -1,6 +1,21 @@
 <?php
 require 'data.php';
 
+function editDataItem ($table, $id, $action, $item) {	
+	if ($action == 'insert') {
+		insertEntry ($table, $item);
+		return '<p>Entry Inserted!</p>';
+	}
+	else if ($action == 'update') {
+		updateEntry ($table, $id, $item);
+		return '<p>Entry Updated!</p>';
+	}
+	else if ($action == 'delete') {
+		deleteEntry ($table, $id);
+		return '<p>Entry Deleted!</p>';
+	}
+}
+
 function buildFancyTable ($id, $headers, $content) {
 	$table = '<table id="' . $id . '-table" class="table-fancy"><tr>';
 	foreach ($headers as $field) {

@@ -23,26 +23,12 @@ function getContent ($name, $GET, $POST) {
 		
 		case 'form_editItem';
 			if (isset($POST['action']) && isset($POST['table']) && isset($POST['id']) && !empty($POST['action']) && !empty($POST['table']) && !empty($POST['id'])) {
-				$table = $POST['table'];
-				$id = $POST['id'];
 				foreach ($POST as $key => $value) {
 					if ($key != 'action' && $key != 'table' && $key != 'id') {
 						$entry[$key] = $value;
 					}
 				}
-						
-				if ($POST['action'] == 'insert') {
-					insertEntry ($table, $entry);
-					$ret .= '<p>Entry Inserted!</p>';
-				}
-				else if ($POST['action'] == 'update') {
-					updateEntry ($table, $id, $entry);
-					$ret .= '<p>Entry Updated!</p>';
-				}
-				else if ($POST['action'] == 'delete') {
-					deleteEntry ($table, $id);
-					$ret .= '<p>Entry Deleted!</p>';
-				}
+				$ret .= editDataItem($POST['table'], $POST['id'], $POST['action'], $entry);
 			}
 		
 			if (isset($GET['table']) && isset($GET['id']) && !empty($GET['table']) && !empty($GET['id'])) {

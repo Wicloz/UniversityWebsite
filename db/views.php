@@ -15,6 +15,11 @@ function getContent ($name, $GET, $POST) {
 			$ret .= getTableAssignments();
 		break;
 		
+		case 'table_events';
+			$ret .= '<h2>Events:</h2>';
+			$ret .= getTableEvents();
+		break;
+		
 		case 'item_assignment';
 			if (isset($GET['id']) && !empty($GET['id'])) {
 				$ret .= getItemAssignment($GET['id']);
@@ -30,7 +35,6 @@ function getContent ($name, $GET, $POST) {
 				}
 				$ret .= editDataItem($POST['table'], $POST['id'], $POST['action'], $entry);
 			}
-		
 			if (isset($GET['table']) && isset($GET['id']) && !empty($GET['table']) && !empty($GET['id'])) {
 				$ret .= getEditItemForm($GET['table'], $GET['id']);
 			}

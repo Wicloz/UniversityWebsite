@@ -29,7 +29,7 @@ function getTableAssignments () {
 	$id = 'assignments';
 	$headers = array('Date Assigned', 'Deadline', 'Subject', 'Task', 'Team', 'Links', 'Status');
 	$content = '';
-	$table = getAllEntriesSorted ($id, 'end_date');
+	$table = getAllEntriesSorted($id, 'end_date');
 	
 	while ($row = $table->fetch_object()) {
 		$content .= '<tr>';
@@ -68,7 +68,7 @@ function getTableTentamens () {
 	$id = 'tentamens';
 	$headers = array('Date', 'Weight', 'Subject', 'Mark');
 	$content = '';
-	$table = getAllEntriesSorted ($id, 'date');
+	$table = getAllEntriesSorted($id, 'date');
 			
 	while ($row = $table->fetch_object()) {
 		$content .= '<tr>';
@@ -82,6 +82,25 @@ function getTableTentamens () {
 		} else {
 			$content .= '<td>N/A</td>';
 		}
+		
+		$content .= '</tr>';
+	}
+			
+	return buildFancyTable($id, $headers, $content);
+}
+
+function getTableEvents () {
+	$id = 'events';
+	$headers = array('Date', 'Subject', 'Task', 'Passed');
+	$content = '';
+	$table = getEntriesFromTablesSorted('assignments', 'tentamens', 'date');
+			
+	while ($row = $table->fetch_object()) {
+		$content .= '<tr>';
+		
+		$content .= '<td>' . $row->date . '</td>';
+		$content .= '<td>' . $row->weight . '</td>';
+		$content .= '<td>' . $row->subject . '</td>';
 		
 		$content .= '</tr>';
 	}

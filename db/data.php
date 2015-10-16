@@ -29,20 +29,6 @@ function getAllEntriesSorted ($table, $column) {
 	}
 }
 
-function getEntriesFromTablesSorted ($table1, $table2, $column) {
-	global $db;
-	if ($result = $db->query("SELECT assignments, tentamens ORDER BY {$column} ASC")) {
-		if ($result->num_rows) {
-			return $result;
-			$result->free();
-		} else {
-			return false;
-		}
-	} else {
-		return $db->error;
-	}
-}
-
 function getEntryWithId ($table, $id) {
 	global $db;
 	if ($result = $db->query("SELECT * FROM {$table} WHERE id = {$id}")) {
@@ -95,7 +81,7 @@ function updateEntry ($table, $id, $entry) {
 	global $db;
 	
 	foreach ($entry as $key => $value) {
-		$updates[] = $db->escape_string($key) . '=' . '\''.$db->escape_string($value).'\'';
+		$updates[] = $db->escape_string($key).'='.'\''.$db->escape_string($value).'\'';
 	}
 	$update = implode(', ', $updates);
 	

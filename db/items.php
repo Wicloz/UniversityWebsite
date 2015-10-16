@@ -59,9 +59,9 @@ function buildListItem ($title, $location, $target, $active) {
         $ret .= ' class="active"';
     }
 	if (!empty($target)) {
-		$ret .= '><a href="' . $location . '" target="' . $target . '">' . $title . '</a></li>';
+		$ret .= '><a href="'.$location.'" target="'.$target.'">'.$title.'</a></li>';
 	} else {
-		$ret .= '><a href="' . $location . '">' . $title . '</a></li>';
+		$ret .= '><a href="'.$location.'">'.$title.'</a></li>';
 	}
 	return $ret;
 }
@@ -104,7 +104,7 @@ function mainnavContent ($active) {
 			}
 			$navbar .= '">';
 			
-			$navbar .= '<a class="dropdown-toggle" data-toggle="dropdown" href="">' . $row->name . '
+			$navbar .= '<a class="dropdown-toggle" data-toggle="dropdown" href="">'.$row->name.'
 						<span class="caret"></span></a>
 						<ul class="dropdown-menu">';
 			
@@ -135,12 +135,12 @@ function leftnavContent ($active) {
 				$subNames = explode(',', str_replace(', ', ',', $row->sub_names));
 				$subSize = count($subNames);
 							
-				$navbox .= '<div class="navbox"><h2>' . $row->header . '</h2><ul>';
+				$navbox .= '<div class="navbox"><h2>'.$row->header.'</h2><ul>';
 				
 				for ($i = 0; $i < $subSize; $i++) {
 					$thisFile = $subFiles[$i];
 					if (!empty($row->subid)) {
-						$thisFile = $row->subid . '_' . $subFiles[$i];
+						$thisFile = $row->subid.'_'.$subFiles[$i];
 					}
 					
 					$navbox .= buildListItem($subNames[$i], $thisFile, '', $active);

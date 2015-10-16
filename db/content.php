@@ -17,11 +17,11 @@ function editDataItem ($table, $id, $action, $item) {
 }
 
 function buildFancyTable ($id, $headers, $content) {
-	$table = '<table id="' . $id . '-table" class="table-fancy"><tr>';
+	$table = '<table id="'.$id.'-table" class="table-fancy"><tr>';
 	foreach ($headers as $field) {
-		$table .= '<th>' . $field . '</th>';
+		$table .= '<th>'.$field.'</th>';
 	}
-	$table .= '</tr>' . $content . '</table>';
+	$table .= '</tr>'.$content.'</table>';
 	return $table;
 }
 
@@ -34,21 +34,21 @@ function getTableAssignments () {
 	while ($row = $table->fetch_object()) {
 		$content .= '<tr>';
 		
-		$content .= '<td>' . $row->start_date . '</td>';
-		$content .= '<td>' . $row->end_date . '</td>';
-		$content .= '<td>' . $row->subject . '</td>'; 
-		$content .= '<td><a href="assignments_item.php?id=' . $row->id . '">' . $row->desc_short . '</a></td>';
-		$content .= '<td>' . $row->team . '</td>';
+		$content .= '<td>'.$row->start_date.'</td>';
+		$content .= '<td>'.$row->end_date.'</td>';
+		$content .= '<td>'.$row->subject.'</td>'; 
+		$content .= '<td><a href="assignments_item.php?id='.$row->id.'">'.$row->desc_short.'</a></td>';
+		$content .= '<td>'.$row->team.'</td>';
 		
 		$content .= '<td>';
 		if (!empty($row->link_assignment)) {
-			$content .= '<a target="_blank" href="' . $row->link_assignment . '">Assignment</a>';
+			$content .= '<a target="_blank" href="'.$row->link_assignment.'">Assignment</a>';
 		}
 		if (!empty($row->link_assignment) && !empty($row->link_repository)) {
 			$content .= ' / ';
 		}
 		if (!empty($row->link_repository)) {
-			$content .= '<a target="_blank" href="' . $row->link_repository . '">Repository</a>';
+			$content .= '<a target="_blank" href="'.$row->link_repository.'">Repository</a>';
 		}
 		$content .= '</td>';
 		
@@ -73,12 +73,12 @@ function getTableTentamens () {
 	while ($row = $table->fetch_object()) {
 		$content .= '<tr>';
 		
-		$content .= '<td>' . $row->date . '</td>';
-		$content .= '<td>' . $row->weight . '</td>';
-		$content .= '<td>' . $row->subject . '</td>';
+		$content .= '<td>'.$row->date.'</td>';
+		$content .= '<td>'.$row->weight.'</td>';
+		$content .= '<td>'.$row->subject.'</td>';
 		
 		if ($row->completion == 1) {
-			$content .= '<td>' . $row->mark . '</td>';
+			$content .= '<td>'.$row->mark.'</td>';
 		} else {
 			$content .= '<td>N/A</td>';
 		}
@@ -91,16 +91,37 @@ function getTableTentamens () {
 
 function getTableEvents () {
 	$id = 'events';
-	$headers = array('Date', 'Subject', 'Task', 'Passed');
+	$headers = array('Date', 'Subject', 'Task', 'Complete');
 	$content = '';
-	$table = getEntriesFromTablesSorted('assignments', 'tentamens', 'date');
+	$assignments = getAllEntriesSorted('assignments', 'end_date');
+	$tentamens = getAllEntriesSorted('tentamens', 'date');
 			
-	while ($row = $table->fetch_object()) {
+	while ($row = $tentamens->fetch_object()) {
 		$content .= '<tr>';
 		
-		$content .= '<td>' . $row->date . '</td>';
-		$content .= '<td>' . $row->weight . '</td>';
-		$content .= '<td>' . $row->subject . '</td>';
+		$content .= '<td>'.$row->date.'</td>';
+		$content .= '<td>'.$row->subject.'</td>';
+		$content .= '<td>'.$row->weight.' '.$row->subject.'</td>';
+		if ($row->completion == 1) {
+			$content .= '<td>Complete</td>';
+		} else {
+			$content .= '<td>Upcoming</td>';
+		}
+		
+		$content .= '</tr>';
+	}
+	
+	while ($row = $assignments->fetch_object()) {
+		$content .= '<tr>';
+		
+		$content .= '<td>'.$row->end_date.'</td>';
+		$content .= '<td>'.$row->subject.'</td>';
+		$content .= '<td>'.$row->desc_short.'</td>';
+		if ($row->completion == 1) {
+			$content .= '<td>Complete</td>';
+		} else {
+			$content .= '<td>Working</td>';
+		}
 		
 		$content .= '</tr>';
 	}
@@ -114,15 +135,15 @@ function getItemAssignment ($item_id) {
 	
 	while ($row = $table->fetch_object()) {
 		if ($row->id == $item_id) {
-			$item .= '<h2>' . $row->desc_short . '</h2>';
-			$item .= '<p>' . $row->desc_full . '</p>';
+			$item .= '<h2>'.$row->desc_short.'</h2>';
+			$item .= '<p>'.$row->desc_full.'</p>';
 			
-			$item .= '<p><i>Subject: ' . $row->subject
-				   . '<br>Date Assigned: ' . $row->start_date
-				   . '<br>Deadline: ' . $row->end_date;
+			$item .= '<p><i>Subject: '.$row->subject
+				  .'<br>Date Assigned: '.$row->start_date
+				  .'<br>Deadline: '.$row->end_date;
 				   
 			if (!empty($row->team)) {
-				$item .= '<br>Team: ' . $row->team;
+				$item .= '<br>Team: '.$row->team;
 			}
 			
 			$item .= '<br>Status: ';
@@ -135,13 +156,13 @@ function getItemAssignment ($item_id) {
 			if (!empty($row->link_assignment) || !empty($row->link_repository) || !empty($row->link_report)) {
 				$item .= '<p><b>Links:</b><br>';
 				if (!empty($row->link_assignment)) {
-					$item .= '<a target="_blank" href="' . $row->link_assignment . '">Assignment</a><br>';
+					$item .= '<a target="_blank" href="'.$row->link_assignment.'">Assignment</a><br>';
 				}
 				if (!empty($row->link_repository)) {
-					$item .= '<a target="_blank" href="' . $row->link_repository . '">Repository</a><br>';
+					$item .= '<a target="_blank" href="'.$row->link_repository.'">Repository</a><br>';
 				}
 				if (!empty($row->link_report)) {
-					$item .= '<a target="_blank" href="' . $row->link_report . '">Report</a><br>';
+					$item .= '<a target="_blank" href="'.$row->link_report.'">Report</a><br>';
 				}
 				$item .= '</p>';
 			}
@@ -152,7 +173,7 @@ function getItemAssignment ($item_id) {
 				$item .= '</div>';
 				$item .= '<div class="paragraph-center col-sm-12">';
 				$item .= '<h2>Report</h2>';
-				$item .= '<iframe name="report" src="' . $row->link_report . '" width="100%" height="600"></iframe>';
+				$item .= '<iframe name="report" src="'.$row->link_report.'" width="100%" height="600"></iframe>';
 			}
 		}
 	}
@@ -217,7 +238,7 @@ function getEditItemForm ($table, $id) {
 					$arguments .= 'size="'.$row->CHARACTER_MAXIMUM_LENGTH.'"';
 				}
 				
-				$form .= $row->COLUMN_NAME . ':<br>';
+				$form .= $row->COLUMN_NAME.':<br>';
 				$form .= '<input name="'.$row->COLUMN_NAME.'" type="'.$type.'" value="'.$value.'" '.$arguments.'><br>';
 			}
 		}

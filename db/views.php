@@ -16,11 +16,8 @@ function getContent ($name, $GET, $POST) {
 		break;
 		
 		case 'item_assignment';
-			if (isset($GET['id'])) {
-				$itemId = $GET['id'];
-				if (!empty($itemId)) {
-					$ret .= getItemAssignment($itemId);
-				}
+			if (isset($GET['id']) && !empty($GET['id'])) {
+				$ret .= getItemAssignment($GET['id']);
 			}
 		break;
 		
@@ -58,11 +55,8 @@ function getContent ($name, $GET, $POST) {
 		break;
 		
 		case 'list_dataItems';
-			if (isset($GET['table'])) {
-				$table = $GET['table'];
-				if (!empty($table)) {
-					$ret .= getDataItemsList($table);
-				}
+			if (isset($GET['table']) && !empty($GET['table'])) {
+				$ret .= getDataItemsList($GET['table']);
 			}
 		break;
 		

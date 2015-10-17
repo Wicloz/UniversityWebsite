@@ -2,7 +2,7 @@
 require 'views.php';
 
 function cleanFileName ($filename) {
-	return str_replace('_item', '', str_replace('.php', '', $filename));
+	return str_replace('_item', '', $filename);
 }
 
 function getPageByName ($page) {

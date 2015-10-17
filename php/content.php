@@ -3,16 +3,37 @@ require 'db/data.php';
 
 function editDataItem ($table, $id, $action, $item) {	
 	if ($action == 'insert') {
-		insertEntry ($table, $item);
-		return '<p>Entry Inserted!</p>';
+		$rows = insertEntry ($table, $item);
+		$ret = '<p>';
+		if ($rows > 0) {
+			$ret .= 'Entry Inserted!';
+		} else {
+			$ret .= 'Insertion Failed!';
+		}
+		$ret .= ' Rows affected: '.$rows.'</p>';
+		return $ret;
 	}
 	else if ($action == 'update') {
-		updateEntry ($table, $id, $item);
-		return '<p>Entry Updated!</p>';
+		$rows = updateEntry ($table, $id, $item);
+		$ret = '<p>';
+		if ($rows > 0) {
+			$ret .= 'Entry Updated!';
+		} else {
+			$ret .= 'Update Failed!';
+		}
+		$ret .= ' Rows affected: '.$rows.'</p>';
+		return $ret;
 	}
 	else if ($action == 'delete') {
-		deleteEntry ($table, $id);
-		return '<p>Entry Deleted!</p>';
+		$rows = deleteEntry ($table, $id);
+		$ret = '<p>';
+		if ($rows > 0) {
+			$ret .= 'Entry Deleted!';
+		} else {
+			$ret .= 'Deletion Failed!';
+		}
+		$ret .= ' Rows affected: '.$rows.'</p>';
+		return $ret;
 	}
 }
 
@@ -187,7 +208,6 @@ function getEditItemForm ($table, $id) {
 	if ($id != 'create') {
 		if ($currentEntryTable = getEntryWithId($table, $id)) {
 			$currentEntry = $currentEntryTable->fetch_assoc();
-			break;
 		} else {
 			return '<p>Could not load form: entry does not exist.</p>';
 		}
@@ -302,7 +322,7 @@ function getDataItemsList ($table) {
 	
 	$headers[$i] = 'Edit';
 	$ret = buildFancyTable('items', $headers, $content);
-	$ret .= '<p><a href="edit-entry.php?table='.$table.'&id=create">Add Item</a></p>';
+	$ret .= '<p><a class="button" href="edit-entry.php?table='.$table.'&id=create">Add Item</a></p>';
 	
 	return $ret;
 }

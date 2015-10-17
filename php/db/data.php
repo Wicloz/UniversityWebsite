@@ -1,5 +1,6 @@
 <?php
 require 'connect.php';
+require 'files.php';
 
 function getAllEntries ($table) {
 	global $db;
@@ -57,6 +58,15 @@ function getTableFormInfo ($table) {
 	}
 }
 
+function getFileForId ($id) {
+	$pages = getAllEntries('pages');
+	while ($row = $pages->fetch_object()) {
+		if ($row->id == $id) {
+			return $row->file;
+		}
+	}
+}
+
 function insertEntry ($table, $entry) {
 	global $db;
 	
@@ -71,6 +81,11 @@ function insertEntry ($table, $entry) {
 	echo $qry;
 	
 	if ($update = $db->query($qry)) {
+		
+		if ($table == 'pages') {
+			createPageFile($entry['file']);
+		}
+		
 		return $db->affected_rows;
 	} else {
 		return $db->error;
@@ -88,7 +103,17 @@ function updateEntry ($table, $id, $entry) {
 	$qry = "UPDATE {$db->escape_string($table)} SET {$update} WHERE id = {$id}";
 	echo $qry;
 	
+	if ($table == 'pages') {
+		$oldFile = getFileForId($id);
+	}
+	
 	if ($update = $db->query($qry)) {
+		
+		if ($table == 'pages') {
+			removeFile($oldFile);
+			createPageFile($entry['file']);
+		}
+		
 		return $db->affected_rows;
 	} else {
 		return $db->error;
@@ -101,7 +126,16 @@ function deleteEntry ($table, $id) {
 	$qry = "DELETE FROM {$db->escape_string($table)} WHERE id = {$db->escape_string($id)}";
 	echo $qry;
 	
+	if ($table == 'pages') {
+		$file = getFileForId($id);
+	}
+	
 	if ($update = $db->query($qry)) {
+		
+		if ($table == 'pages') {
+			removeFile($file);
+		}
+		
 		return $db->affected_rows;
 	} else {
 		return $db->error;

@@ -6,9 +6,9 @@ function cleanFileName ($filename) {
 }
 
 function getPageByName ($page) {
-	$pages = getAllEntries ('pages');
+	$pages = getAllEntries('pages');
 	while ($row = $pages->fetch_object()) {
-		if ($row->file == $page.'.php' || $row->file == '/'.$page.'.php') {
+		if ($row->file == $page.'.php') {
 			$page = $row;
 			break;
 		}

@@ -175,6 +175,7 @@ function getItemAssignment ($item_id) {
 				$item .= '<h2>Report</h2>';
 				$item .= '<iframe name="report" src="'.$row->link_report.'" width="100%" height="600"></iframe>';
 			}
+			break;
 		}
 	}
 	
@@ -186,6 +187,7 @@ function getEditItemForm ($table, $id) {
 	if ($id != 'create') {
 		if ($currentEntryTable = getEntryWithId($table, $id)) {
 			$currentEntry = $currentEntryTable->fetch_assoc();
+			break;
 		} else {
 			return '<p>Could not load form: entry does not exist.</p>';
 		}

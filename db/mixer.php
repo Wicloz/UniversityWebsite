@@ -17,11 +17,12 @@ function getPageByName ($name) {
 	if ($page) {
 		echo '<!DOCTYPE html><html lang="en">';
 		echo headContent();
-		echo headerContent();
-		echo '<body>';
-		echo mainnavContent(cleanFileName($page->file));
-		echo '<div class="container-fluid" id="content"><div class="row">';
 		
+		echo '<body>';
+		echo headerContent();
+		echo mainnavContent(cleanFileName($page->file));
+		
+		echo '<div class="container-fluid" id="content"><div class="row">';
 		echo '<div class="col-sm-2" id="content-right">';
 		echo leftnavContent(cleanFileName($page->file));
 		echo '</div>';
@@ -30,8 +31,9 @@ function getPageByName ($name) {
 		echo '</div>';
 		echo '<div class="col-sm-2" id="content-left">';
 		echo '</div>';
-					
 		echo '</div></div>';
+		
+		echo footerContent();
 		echo '</body></html>';
 	} else {
 		header('Location: 404');

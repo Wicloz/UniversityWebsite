@@ -1,5 +1,5 @@
 <?php
 	error_reporting(E_ALL);
-	require 'db/mixer.php';
+	require 'php/mixer.php';
 	getPageByName('list items');
 ?>

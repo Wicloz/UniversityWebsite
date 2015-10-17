@@ -1,5 +1,5 @@
 <?php
-require 'data.php';
+require 'db/data.php';
 
 function editDataItem ($table, $id, $action, $item) {	
 	if ($action == 'insert') {

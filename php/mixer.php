@@ -5,10 +5,10 @@ function cleanFileName ($filename) {
 	return str_replace('_item', '', str_replace('.php', '', $filename));
 }
 
-function getPageByName ($name) {
+function getPageByName ($page) {
 	$pages = getAllEntries ('pages');
 	while ($row = $pages->fetch_object()) {
-		if ($row->name == $name) {
+		if ($row->file == $page.'.php' || $row->file == '/'.$page.'.php') {
 			$page = $row;
 			break;
 		}

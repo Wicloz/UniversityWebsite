@@ -37,6 +37,13 @@ function editDataItem ($table, $id, $action, $item) {
 	}
 }
 
+function rewritePages () {
+	$pages = getAllEntries('pages');
+	while ($row = $pages->fetch_object()) {
+		createPageFile($row->file);
+	}
+}
+
 function buildFancyTable ($id, $headers, $content) {
 	$table = '<table id="'.$id.'-table" class="table-fancy"><tr>';
 	foreach ($headers as $field) {

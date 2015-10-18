@@ -31,7 +31,7 @@ function uploadFileAny ($FILES, $target) {
 
 function uploadFileMedia ($FILES, $subfolder) {
 	$name = $FILES['file']['name'];
-	$extension = strtolower(substr($name, strpos($name, '.') + 1))
+	$extension = strtolower(substr($name, strpos($name, '.') + 1));
 	$type = $FILES['file']['type'];
 	$size = $FILES['file']['size'];
 	
@@ -60,7 +60,7 @@ function uploadFileMedia ($FILES, $subfolder) {
 							break;
 						}
 					}
-					updateEntry('media', $id, $entry)
+					updateEntry('media', $id, $entry);
 				} else {
 					insertEntry('media', $entry);	
 				}

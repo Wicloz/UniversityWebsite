@@ -291,4 +291,16 @@ function getDataItemsList ($table) {
 	return $ret;
 }
 
+function getUploadFileForm () {
+	$form = '<form action="upload.php" method="POST" enctype="multipart/form-data">';
+	
+	$form .= '<input type="file" name="file"><br>';
+	$form .= 'Target file location:<br>';
+	$form .= '<input type="text" name="target"><br><br>';
+	$form .= '<input type="submit" value="Upload">';
+	
+	$form .= '<form>';
+	return $form;
+}
+
 ?>

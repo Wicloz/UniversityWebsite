@@ -1,7 +1,7 @@
 <?php
 require 'items.php';
 
-function getContent ($name, $GET, $POST) {
+function getContent ($name, $GET, $POST, $FILES) {
 	$ret = '';
 	
 	switch ($name) {
@@ -50,6 +50,13 @@ function getContent ($name, $GET, $POST) {
 			
 		break;
 		
+		case 'form_uploadAny';
+			if (isset($FILES['file']['name']) && isset($POST['target']) && !empty($FILES['file']['name']) && !empty($POST['target'])) {
+				$ret .= uploadFileAny($FILES, $POST['target']);
+			}
+			$ret .= getUploadFileForm();
+		break;
+		
 		default:
 			$ret .= "Content with name '{$name}' not found.";
 		break;
@@ -62,12 +69,12 @@ function getContent ($name, $GET, $POST) {
 	return $ret;
 }
 
-function getViewForPage ($page, $GET, $POST) {
+function getViewForPage ($page, $GET, $POST, $FILES) {
 	$view = '';
 	$content = explode(',', str_replace(', ', ',', $page->content));
 	foreach ($content as $item) {
 		$view .= '<div class="paragraph-center col-sm-12">';
-		$view .= getContent($item, $GET, $POST);
+		$view .= getContent($item, $GET, $POST, $FILES);
 		$view .= '</div>';
 	}
 	return $view;

@@ -27,7 +27,7 @@ function getPageByName ($page) {
 		echo leftnavContent(cleanFileName($page->file));
 		echo '</div>';
 		echo '<div class="col-sm-8" id="content-main">';
-		echo getViewForPage ($page, $_GET, $_POST);
+		echo getViewForPage ($page, $_GET, $_POST, $_FILES);
 		echo '</div>';
 		echo '<div class="col-sm-2" id="content-left">';
 		echo '</div>';

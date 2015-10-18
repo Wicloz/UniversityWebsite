@@ -58,7 +58,7 @@ function getTableFormInfo ($table) {
 	}
 }
 
-function getFileForId ($id) {
+function getPageForId ($id) {
 	$pages = getAllEntries('pages');
 	while ($row = $pages->fetch_object()) {
 		if ($row->id == $id) {
@@ -104,7 +104,7 @@ function updateEntry ($table, $id, $entry) {
 	echo $qry;
 	
 	if ($table == 'pages') {
-		$oldFile = getFileForId($id);
+		$oldFile = getPageForId($id);
 	}
 	
 	if ($update = $db->query($qry)) {
@@ -127,7 +127,7 @@ function deleteEntry ($table, $id) {
 	echo $qry;
 	
 	if ($table == 'pages') {
-		$file = getFileForId($id);
+		$file = getPageForId($id);
 	}
 	
 	if ($update = $db->query($qry)) {

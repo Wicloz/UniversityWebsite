@@ -1,8 +1,19 @@
 <?php
 require 'views.php';
 
-function cleanFileName ($filename) {
-	return str_replace('_item', '', $filename);
+function getPageName ($filename, $GET) {
+	$filename = str_replace('_item', '', $filename);
+	
+	if (!empty($GET)) {
+		$end = '?';
+		foreach ($GET as $key => $value) {
+			$end .= $key.'='.$value;
+		}
+	} else {
+		$end = '';
+	}
+	
+	return $filename.$end;
 }
 
 function getPageByName ($page) {
@@ -20,11 +31,11 @@ function getPageByName ($page) {
 		
 		echo '<body>';
 		echo headerContent();
-		echo mainnavContent(cleanFileName($page->file));
+		echo mainnavContent(getPageName($page->file, $_GET));
 		
 		echo '<div class="container-fluid" id="content"><div class="row">';
 		echo '<div class="col-sm-2" id="content-right">';
-		echo leftnavContent(cleanFileName($page->file));
+		echo leftnavContent(getPageName($page->file, $_GET));
 		echo '</div>';
 		echo '<div class="col-sm-8" id="content-main">';
 		echo getViewForPage ($page, $_GET, $_POST, $_FILES);

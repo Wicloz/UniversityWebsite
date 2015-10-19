@@ -1,8 +1,8 @@
 <?php
 
-$db_ip = '127.0.0.1';
-$db_username = 'root';
-$db_password = '';
-$db_dbname = 'app';
+$db_ip = 'mysql.liacs.leidenuniv.nl';
+$db_username = 's1704362';
+$db_password = 'Biep4Boop';
+$db_dbname = 's1704362';
 
 ?>

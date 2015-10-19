@@ -1,2 +1,2 @@
 *.7z
-db/dbsettings.php
+php/db/dbsettings.php

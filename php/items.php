@@ -55,7 +55,7 @@ function headerContent () {
 
 function buildListItem ($title, $location, $target, $active) {
     $ret = '<li';
-    if ($active.'.php' == $location || $active == $location) {
+    if ($active == $location) {
         $ret .= ' class="active"';
     }
 	if (!empty($target)) {
@@ -69,37 +69,37 @@ function buildListItem ($title, $location, $target, $active) {
 function mainnavContent ($active) {
 	$table = getAllEntries('navigation');
 	$navbar = '<nav class="navbar navbar-blue">
-				<div class="container-fluid">
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainNavbar">
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</button>
-						<a class="navbar-brand" href="index.php">s1704362</a>
-					</div>
-					<div class="collapse navbar-collapse" id="mainNavbar">
-						<ul class="nav navbar-nav">';
+			   <div class="container-fluid">
+			   <div class="navbar-header">
+			   <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainNavbar">
+			   <span class="icon-bar"></span>
+			   <span class="icon-bar"></span>
+			   <span class="icon-bar"></span>
+			   </button>
+			   <a class="navbar-brand" href="index.php">s1704362</a>
+			   </div>
+			   <div class="collapse navbar-collapse" id="mainNavbar">
+			   <ul class="nav navbar-nav">';
 							
 	while ($row = $table->fetch_object()) {
-		if (!empty($row->file) && !empty($row->sub_names)) {
-		    $subFiles = explode(',', str_replace(', ', ',', $row->sub_files));
-			if (in_array($active, $subFiles)) {
-				$navbar .= buildListItem($row->name, $row->file, $row->target, $row->file);
+		if (!empty($row->url) && !empty($row->sub_names)) {
+		    $subUrls = explode(',', str_replace(', ', ',', $row->sub_urls));
+			if (in_array($active, $subUrls)) {
+				$navbar .= buildListItem($row->name, $row->url, $row->target, $row->url);
 			} else {
-				$navbar .= buildListItem($row->name, $row->file, $row->target, $active);
+				$navbar .= buildListItem($row->name, $row->url, $row->target, $active);
 			}
 		}
-		else if (!empty($row->file)) {
-			$navbar .= buildListItem($row->name, $row->file, $row->target, $active);
+		else if (!empty($row->url)) {
+			$navbar .= buildListItem($row->name, $row->url, $row->target, $active);
 		}
 		else {
 			$subNames = explode(',', str_replace(', ', ',', $row->sub_names));
-			$subFiles = explode(',', str_replace(', ', ',', $row->sub_files));
+			$subUrls = explode(',', str_replace(', ', ',', $row->sub_urls));
 			$subSize = count($subNames);
 			
 			$navbar .= '<li class="dropdown';
-			if (in_array($active, $subFiles)) {
+			if (in_array($active, $subUrls)) {
 				$navbar .= ' active';
 			}
 			$navbar .= '">';
@@ -109,7 +109,7 @@ function mainnavContent ($active) {
 						<ul class="dropdown-menu">';
 			
 			for ($i = 0; $i < $subSize; $i++) {
-				$navbar .= buildListItem($subNames[$i], $subFiles[$i], '', $active);
+				$navbar .= buildListItem($subNames[$i], $subUrls[$i], '', $active);
 			}
 			
 			$navbar .= '</ul></li>';
@@ -129,23 +129,16 @@ function leftnavContent ($active) {
 	
 	while ($row = $table->fetch_object()) {
 		if (!empty($row->sub_names)) {
-			$subFiles = explode(',', str_replace(', ', ',', $row->sub_files));
+			$subUrls = explode(',', str_replace(', ', ',', $row->sub_urls));
 			
-			if (in_array($active, $subFiles)) {
+			if (in_array($active, $subUrls)) {
 				$subNames = explode(',', str_replace(', ', ',', $row->sub_names));
 				$subSize = count($subNames);
 							
 				$navbox .= '<div class="navbox"><h2>'.$row->header.'</h2><ul>';
-				
 				for ($i = 0; $i < $subSize; $i++) {
-					$thisFile = $subFiles[$i];
-					if (!empty($row->subid)) {
-						$thisFile = $row->subid.'_'.$subFiles[$i];
-					}
-					
-					$navbox .= buildListItem($subNames[$i], $thisFile, '', $active);
+					$navbox .= buildListItem($subNames[$i], $subUrls[$i], '', $active);
 				}
-				
 				$navbox .= '</ul></div>';
 			}
 		}

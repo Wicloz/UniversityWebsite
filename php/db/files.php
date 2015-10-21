@@ -8,11 +8,6 @@ function writeToFile ($file, $content) {
 	}
 }
 
-function createPageFile ($page) {
-	$pageName = str_replace('.php', '', $page);
-	writeToFile($page, "<?php\n\terror_reporting(E_ALL);\n\trequire 'php/mixer.php';\n\tgetPageByName('{$pageName}');\n?>\n");
-}
-
 function removeFile ($file) {
 	if (file_exists($file)) {
 		unlink($file);

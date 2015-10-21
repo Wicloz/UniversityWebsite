@@ -81,11 +81,6 @@ function insertEntry ($table, $entry) {
 	echo $qry;
 	
 	if ($update = $db->query($qry)) {
-		
-		if ($table == 'pages') {
-			createPageFile($entry['file']);
-		}
-		
 		return $db->affected_rows;
 	} else {
 		return $db->error;
@@ -103,17 +98,7 @@ function updateEntry ($table, $id, $entry) {
 	$qry = "UPDATE {$db->escape_string($table)} SET {$update} WHERE id = {$id}";
 	echo $qry;
 	
-	if ($table == 'pages') {
-		$oldFile = getPageForId($id);
-	}
-	
-	if ($update = $db->query($qry)) {
-		
-		if ($table == 'pages') {
-			removeFile($oldFile);
-			createPageFile($entry['file']);
-		}
-		
+	if ($update = $db->query($qry)) {	
 		return $db->affected_rows;
 	} else {
 		return $db->error;
@@ -126,16 +111,7 @@ function deleteEntry ($table, $id) {
 	$qry = "DELETE FROM {$db->escape_string($table)} WHERE id = {$db->escape_string($id)}";
 	echo $qry;
 	
-	if ($table == 'pages') {
-		$file = getPageForId($id);
-	}
-	
-	if ($update = $db->query($qry)) {
-		
-		if ($table == 'pages') {
-			removeFile($file);
-		}
-		
+	if ($update = $db->query($qry)) {	
 		return $db->affected_rows;
 	} else {
 		return $db->error;

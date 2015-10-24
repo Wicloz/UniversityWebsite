@@ -66,6 +66,14 @@ function buildListItem ($title, $location, $target, $active) {
 	return $ret;
 }
 
+function discordSidebarI () {
+	return '<iframe class="discord" src="https://discordapp.com/widget?id=107472497242275840&theme=dark" allowtransparency="true" frameborder="0"></iframe>';
+}
+
+function discordSidebarB () {
+	return '';
+}
+
 function mainnavContent ($active) {
 	$table = getAllEntries('navigation');
 	$navbar = '<nav class="navbar navbar-blue">

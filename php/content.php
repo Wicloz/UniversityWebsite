@@ -22,7 +22,7 @@ function getTableAssignments () {
 		$content .= '<td>'.$row->start_date.'</td>';
 		$content .= '<td>'.$row->end_date.'</td>';
 		$content .= '<td>'.$row->subject.'</td>'; 
-		$content .= '<td><a href="assignments_item.php?id='.$row->id.'">'.$row->desc_short.'</a></td>';
+		$content .= '<td><a href="index.php?page=assignments_item&id='.$row->id.'">'.$row->desc_short.'</a></td>';
 		$content .= '<td>'.$row->team.'</td>';
 		
 		$content .= '<td>';
@@ -152,7 +152,7 @@ function getItemAssignment ($item_id) {
 				$item .= '</p>';
 			}
 			
-			$item .= '<a class="button edit-item-button" href="edit-entry.php?table=assignments&id='.$item_id.'">Edit Item</a>';
+			$item .= '<a class="button edit-item-button" href="index.php?page=edit-entry&table=assignments&id='.$item_id.'">Edit Item</a>';
 			
 			if (!empty($row->link_report)) {
 				$item .= '</div>';
@@ -168,7 +168,7 @@ function getItemAssignment ($item_id) {
 }
 
 function getEditItemForm ($table, $id) {
-	$form = '<form action="edit-entry.php?table='.$table.'&id='.$id.'" method="POST">';
+	$form = '<form action="index.php?page=edit-entry&table='.$table.'&id='.$id.'" method="POST">';
 	if ($id != 'create') {
 		if ($currentEntryTable = getEntryWithId($table, $id)) {
 			$currentEntry = $currentEntryTable->fetch_assoc();
@@ -275,7 +275,7 @@ function getDataItemsList ($table) {
 				$content .= '<td>'.$row[$field].'</td>';
 			}
 
-			$content .= '<td><a href="edit-entry.php?table='.$table.'&id='.$row['id'].'">Edit</a></td>';
+			$content .= '<td><a href="index.php?page=edit-entry&table='.$table.'&id='.$row['id'].'">Edit</a></td>';
 			$content .= '</tr>';
 		}
 	}
@@ -286,7 +286,7 @@ function getDataItemsList ($table) {
 	
 	$headers[$i] = 'Edit';
 	$ret = buildFancyTable('items', $headers, $content);
-	$ret .= '<p><a class="button" href="edit-entry.php?table='.$table.'&id=create">Add Item</a></p>';
+	$ret .= '<p><a class="button" href="index.php?page=edit-entry&table='.$table.'&id=create">Add Item</a></p>';
 	
 	return $ret;
 }

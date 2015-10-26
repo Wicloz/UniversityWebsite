@@ -62,8 +62,10 @@ function getTableTentamens () {
 		$content .= '<td>'.$row->weight.'</td>';
 		$content .= '<td>'.$row->subject.'</td>';
 		
-		if ($row->completion == 1) {
+		if (!empty($row->mark)) {
 			$content .= '<td>'.$row->mark.'</td>';
+		} else if (true) {
+			$content .= '<td>Upcoming</td>';
 		} else {
 			$content .= '<td>N/A</td>';
 		}
@@ -87,7 +89,7 @@ function getTableEvents () {
 		$content .= '<td>'.$row->date.'</td>';
 		$content .= '<td>'.$row->subject.'</td>';
 		$content .= '<td>'.$row->weight.' '.$row->subject.'</td>';
-		if ($row->completion == 1) {
+		if (false) {
 			$content .= '<td>Complete</td>';
 		} else {
 			$content .= '<td>Upcoming</td>';

@@ -15,39 +15,22 @@ function getSubjectOverview () {
     $assignments = getAllEntriesSorted('assignments', 'end_date');
 	$tentamens = getAllEntriesSorted('tentamens', 'date');
 	$subjects = array();
-	$count_assingments = array();
-	$count_tentamens = array();
 	
 	while ($row = $tentamens->fetch_object()) {
-		@$count_tentamens[$row->subject]++;
 	    if (!in_array($row->subject, $subjects)) {
 	        $subjects[] = $row->subject;
 	    }
 	}
 	while ($row = $assignments->fetch_object()) {
-		@$count_assingments[$row->subject]++;
 	    if (!in_array($row->subject, $subjects)) {
 	        $subjects[] = $row->subject;
 	    }
 	}
 	
-	$headers = array('Subject', 'Assignments', 'Exams');
-	$content = '';
-	foreach ($subjects as $subject) {
-		$content .= '<tr>';
-
-		$content .= '<td>'.$subject.'</td>';
-		@$content .= '<td>'.$count_assingments[$subject].'</td>';
-		@$content .= '<td>'.$count_tentamens[$subject].'</td>';
-
-		$content .= '</tr>';
-	}
-	$ret .= buildFancyTable('subjects', $headers, $content);
-	$ret .= '</div>';
-	
 	foreach ($subjects as $subject) {
 		$assignments = getAllEntriesSorted('assignments', 'end_date');
 		$tentamens = getAllEntriesSorted('tentamens', 'date');
+		$hr = '</li><hr style="margin:0px;border-color:#06123B;margin-right:50%;">';
 		$listA = '';
 		$listT = '';
 		
@@ -59,7 +42,10 @@ function getSubjectOverview () {
 				$listA .= '<li>';
 				$listA .= $row->end_date.' - ';
 				$listA .= '<a href="index.php?page=assignments_item&id='.$row->id.'">'.$row->desc_short.'</a>';
-				$listA .= '</li>';
+				if ($row->end_date < date("Y-m-d")) {
+					$listA = str_replace($hr, '', $listA);
+					$listA .= $hr;
+				}
 			}
 		}
 		while ($row = $tentamens->fetch_object()) {
@@ -68,16 +54,26 @@ function getSubjectOverview () {
 				$listT .= $row->date.' - ';
 				$listT .= $row->weight.' '.$row->subject;
 				$listT .= '</li>';
+				if ($row->date < date("Y-m-d")) {
+					$listT = str_replace($hr, '', $listT);
+					$listT .= $hr;
+				}
 			}
 		}
 		
 		if ($listA) {
-			$ret .= '<h3>Assignments</h3><ul>';
+			$ret .= '<h3 style="text-align:left;">Assignments</h3><ul>';
+			if (strpos($listA, $hr) === false) {
+				$ret .= $hr;
+			}
 			$ret .= $listA;
 			$ret .= '</ul>';
 		}
 		if ($listT) {
-			$ret .= '<h3>Exams</h3><ul>';
+			$ret .= '<h3 style="text-align:left;">Exams</h3><ul>';
+			if (strpos($listT, $hr) === false) {
+				$ret .= $hr;
+			}
 			$ret .= $listT;
 			$ret .= '</ul>';
 		}

@@ -18,7 +18,7 @@ function getContent ($name, $GET, $POST, $FILES) {
 		
 		case 'table_events';
 			$ret .= '<h2>Events:</h2>';
-			$ret .= getTableEvents();
+			$ret .= getTableEvents('', true);
 		break;
 		
 		case 'item_assignment';
@@ -56,6 +56,10 @@ function getContent ($name, $GET, $POST, $FILES) {
 				$ret .= uploadFileAny($FILES, $POST['target']);
 			}
 			$ret .= getUploadFileForm();
+		break;
+		
+		case 'list_subjectOverview';
+			$ret .= getSubjectOverview();
 		break;
 		
 		default:

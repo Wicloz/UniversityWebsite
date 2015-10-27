@@ -44,6 +44,20 @@ function getEntryWithId ($table, $id) {
 	}
 }
 
+function getEntryWithColumnSorted ($table, $column, $content, $sort) {
+	global $db;
+	if ($result = $db->query("SELECT * FROM {$table} WHERE {$column} = {$content} ORDER BY {$sort} ASC")) {
+		if ($result->num_rows) {
+			return $result;
+			$result->free();
+		} else {
+			return false;
+		}
+	} else {
+		return $db->error;
+	}
+}
+
 function getTableFormInfo ($table) {
 	global $db, $db_dbname;
 	if ($result = $db->query("SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA='{$db_dbname}' AND TABLE_NAME='{$table}'")) {

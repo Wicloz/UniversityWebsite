@@ -58,10 +58,31 @@ if (isset($_GET['page']) && !empty($_GET['page'])) {
 		
 		echo footerContent();
 		echo '</body></html>';
-		
-	} else {
-		return err_404();
 	}
+	
+	else {
+		echo '<!DOCTYPE html><html lang="en">';
+		echo headContent();
+		
+		echo '<body>';
+		echo headerContent();
+		echo mainnavContent(createFullUrl('', $GET));
+		
+		echo '<div class="container-fluid" id="content"><div class="row">';
+		echo '<div class="col-sm-2" id="content-right">';
+		echo leftnavContent(createFullUrl('', $GET));
+		echo '</div>';
+		echo '<div class="col-sm-8" id="content-main">';
+		echo err_404();
+		echo '</div>';
+		echo '<div class="col-sm-2" id="content-left">';
+		echo '</div>';
+		echo '</div></div>';
+		
+		echo footerContent();
+		echo '</body></html>';
+	}
+	
 } else {
 	header('Location: index.php?page=home');
 }

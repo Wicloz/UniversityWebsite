@@ -10,6 +10,33 @@ function buildFancyTable ($id, $headers, $content) {
 	return $table;
 }
 
+function getSubjectOverview () {
+    $ret = '';
+    $assignments = getAllEntriesSorted('assignments', 'end_date');
+	$tentamens = getAllEntriesSorted('tentamens', 'date');
+	$subjects = array();
+	
+	while ($row = $tentamens->fetch_object()) {
+	    if (!in_array($row->subject, $subjects)) {
+	        $subjects[] = $row->subject;
+	    }
+	}
+	while ($row = $assignments->fetch_object()) {
+	    if (!in_array($row->subject, $subjects)) {
+	        $subjects[] = $row->subject;
+	    }
+	}
+	
+	foreach ($subjects as $subject) {
+	    $ret .= '<div class="paragraph-center col-sm-12">';
+	    $ret .= '<h2>'.$subject.'</h2>';
+        $ret .= getTableEvents($subject, false);
+	    $ret .= '</div>';
+	}
+	
+	return $ret;
+}
+
 function getTableAssignments () {
 	$id = 'assignments';
 	$headers = array('Date Assigned', 'Deadline', 'Subject', 'Task', 'Team', 'Links', 'Status');
@@ -64,10 +91,10 @@ function getTableTentamens () {
 		
 		if (!empty($row->mark)) {
 			$content .= '<td>'.$row->mark.'</td>';
-		} else if (true) {
-			$content .= '<td>Upcoming</td>';
-		} else {
+		} else if ($row->date < date("Y-m-d")) {
 			$content .= '<td>N/A</td>';
+		} else {
+			$content .= '<td>Upcoming</td>';
 		}
 		
 		$content .= '</tr>';
@@ -76,42 +103,46 @@ function getTableTentamens () {
 	return buildFancyTable($id, $headers, $content);
 }
 
-function getTableEvents () {
+function getTableEvents ($subject, $all) {
 	$id = 'events';
-	$headers = array('Date', 'Subject', 'Task', 'Complete');
+	$headers = array('Date', 'Subject', 'Task', 'Status');
 	$content = '';
 	$assignments = getAllEntriesSorted('assignments', 'end_date');
 	$tentamens = getAllEntriesSorted('tentamens', 'date');
 			
-	while ($row = $tentamens->fetch_object()) {
-		$content .= '<tr>';
-		
-		$content .= '<td>'.$row->date.'</td>';
-		$content .= '<td>'.$row->subject.'</td>';
-		$content .= '<td>'.$row->weight.' '.$row->subject.'</td>';
-		if (false) {
-			$content .= '<td>Complete</td>';
-		} else {
-			$content .= '<td>Upcoming</td>';
-		}
-		
-		$content .= '</tr>';
-	}
+    while ($row = $tentamens->fetch_object()) {
+        if ($all || $row->subject == $subject) {
+            $content .= '<tr>';
 	
-	while ($row = $assignments->fetch_object()) {
-		$content .= '<tr>';
-		
-		$content .= '<td>'.$row->end_date.'</td>';
-		$content .= '<td>'.$row->subject.'</td>';
-		$content .= '<td>'.$row->desc_short.'</td>';
-		if ($row->completion == 1) {
-			$content .= '<td>Complete</td>';
-		} else {
-			$content .= '<td>Working</td>';
-		}
-		
-		$content .= '</tr>';
-	}
+	        $content .= '<td>'.$row->date.'</td>';
+	        $content .= '<td>'.$row->subject.'</td>';
+	        $content .= '<td>'.$row->weight.' '.$row->subject.'</td>';
+	        if ($row->date < date("Y-m-d")) {
+		        $content .= '<td>Passed</td>';
+	        } else {
+		        $content .= '<td>Upcoming</td>';
+	        }
+	
+	        $content .= '</tr>';
+        }
+    }
+
+    while ($row = $assignments->fetch_object()) {
+        if ($all || $row->subject == $subject) {
+	        $content .= '<tr>';
+	
+	        $content .= '<td>'.$row->end_date.'</td>';
+	        $content .= '<td>'.$row->subject.'</td>';
+	        $content .= '<td>'.$row->desc_short.'</td>';
+	        if ($row->completion == 1) {
+		        $content .= '<td>Complete</td>';
+	        } else {
+		        $content .= '<td>Working</td>';
+	        }
+	
+	        $content .= '</tr>';
+	    }
+    }
 			
 	return buildFancyTable($id, $headers, $content);
 }

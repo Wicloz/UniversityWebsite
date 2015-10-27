@@ -125,7 +125,7 @@ function mainnavContent ($active) {
 	}
 
 	$navbar .= '</ul><ul class="nav navbar-nav navbar-right">';
-	$navbar .= buildListItem('<span class="glyphicon glyphicon-log-in"></span> Login', 'login.php', '', $active);
+	$navbar .= buildListItem('<span class="glyphicon glyphicon-log-in"></span> Login', 'index.php?page=login', '', $active);
 	$navbar .= '</ul></div></div></nav>';
 	
 	return $navbar;

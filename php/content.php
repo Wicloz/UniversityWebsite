@@ -15,22 +15,73 @@ function getSubjectOverview () {
     $assignments = getAllEntriesSorted('assignments', 'end_date');
 	$tentamens = getAllEntriesSorted('tentamens', 'date');
 	$subjects = array();
+	$count_assingments = array();
+	$count_tentamens = array();
 	
 	while ($row = $tentamens->fetch_object()) {
+		@$count_tentamens[$row->subject]++;
 	    if (!in_array($row->subject, $subjects)) {
 	        $subjects[] = $row->subject;
 	    }
 	}
 	while ($row = $assignments->fetch_object()) {
+		@$count_assingments[$row->subject]++;
 	    if (!in_array($row->subject, $subjects)) {
 	        $subjects[] = $row->subject;
 	    }
 	}
 	
+	$headers = array('Subject', 'Assignments', 'Exams');
+	$content = '';
 	foreach ($subjects as $subject) {
-	    $ret .= '<div class="paragraph-center col-sm-12">';
+		$content .= '<tr>';
+
+		$content .= '<td>'.$subject.'</td>';
+		@$content .= '<td>'.$count_assingments[$subject].'</td>';
+		@$content .= '<td>'.$count_tentamens[$subject].'</td>';
+
+		$content .= '</tr>';
+	}
+	$ret .= buildFancyTable('subjects', $headers, $content);
+	$ret .= '</div>';
+	
+	foreach ($subjects as $subject) {
+		$assignments = getAllEntriesSorted('assignments', 'end_date');
+		$tentamens = getAllEntriesSorted('tentamens', 'date');
+		$listA = '';
+		$listT = '';
+		
+		$ret .= '<div class="paragraph-center col-sm-12">';
 	    $ret .= '<h2>'.$subject.'</h2>';
-        $ret .= getTableEvents($subject, false);
+		
+		while ($row = $assignments->fetch_object()) {
+			if ($row->subject == $subject) {
+				$listA .= '<li>';
+				$listA .= $row->end_date.' - ';
+				$listA .= '<a href="index.php?page=assignments_item&id='.$row->id.'">'.$row->desc_short.'</a>';
+				$listA .= '</li>';
+			}
+		}
+		while ($row = $tentamens->fetch_object()) {
+			if ($row->subject == $subject) {
+				$listT .= '<li>';
+				$listT .= $row->date.' - ';
+				$listT .= $row->weight.' '.$row->subject;
+				$listT .= '</li>';
+			}
+		}
+		
+		if ($listA) {
+			$ret .= '<h3>Assignments</h3><ul>';
+			$ret .= $listA;
+			$ret .= '</ul>';
+		}
+		if ($listT) {
+			$ret .= '<h3>Exams</h3><ul>';
+			$ret .= $listT;
+			$ret .= '</ul>';
+		}
+		
 	    $ret .= '</div>';
 	}
 	
@@ -47,7 +98,7 @@ function getTableAssignments () {
 		$content .= '<tr>';
 		
 		$content .= '<td>'.$row->start_date.'</td>';
-		$content .= '<td>'.$row->end_date.'</td>';
+		$content .= '<td>'.$row->end_date.' '.$row->end_time.'</td>';
 		$content .= '<td>'.$row->subject.'</td>'; 
 		$content .= '<td><a href="index.php?page=assignments_item&id='.$row->id.'">'.$row->desc_short.'</a></td>';
 		$content .= '<td>'.$row->team.'</td>';
@@ -103,7 +154,7 @@ function getTableTentamens () {
 	return buildFancyTable($id, $headers, $content);
 }
 
-function getTableEvents ($subject, $all) {
+function getTableEvents () {
 	$id = 'events';
 	$headers = array('Date', 'Subject', 'Task', 'Status');
 	$content = '';
@@ -111,37 +162,33 @@ function getTableEvents ($subject, $all) {
 	$tentamens = getAllEntriesSorted('tentamens', 'date');
 			
     while ($row = $tentamens->fetch_object()) {
-        if ($all || $row->subject == $subject) {
-            $content .= '<tr>';
-	
-	        $content .= '<td>'.$row->date.'</td>';
-	        $content .= '<td>'.$row->subject.'</td>';
-	        $content .= '<td>'.$row->weight.' '.$row->subject.'</td>';
-	        if ($row->date < date("Y-m-d")) {
-		        $content .= '<td>Passed</td>';
-	        } else {
-		        $content .= '<td>Upcoming</td>';
-	        }
-	
-	        $content .= '</tr>';
-        }
+		$content .= '<tr>';
+
+		$content .= '<td>'.$row->date.'</td>';
+		$content .= '<td>'.$row->subject.'</td>';
+		$content .= '<td>'.$row->weight.' '.$row->subject.'</td>';
+		if ($row->date < date("Y-m-d")) {
+			$content .= '<td>Passed</td>';
+		} else {
+			$content .= '<td>Upcoming</td>';
+		}
+
+		$content .= '</tr>';
     }
 
     while ($row = $assignments->fetch_object()) {
-        if ($all || $row->subject == $subject) {
-	        $content .= '<tr>';
-	
-	        $content .= '<td>'.$row->end_date.'</td>';
-	        $content .= '<td>'.$row->subject.'</td>';
-	        $content .= '<td><a href="index.php?page=assignments_item&id='.$row->id.'">'.$row->desc_short.'</a></td>';
-	        if ($row->completion == 1) {
-		        $content .= '<td>Complete</td>';
-	        } else {
-		        $content .= '<td>Working</td>';
-	        }
-	
-	        $content .= '</tr>';
-	    }
+		$content .= '<tr>';
+
+		$content .= '<td>'.$row->end_date.'</td>';
+		$content .= '<td>'.$row->subject.'</td>';
+		$content .= '<td><a href="index.php?page=assignments_item&id='.$row->id.'">'.$row->desc_short.'</a></td>';
+		if ($row->completion == 1) {
+			$content .= '<td>Complete</td>';
+		} else {
+			$content .= '<td>Working</td>';
+		}
+
+		$content .= '</tr>';
     }
 			
 	return buildFancyTable($id, $headers, $content);

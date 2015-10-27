@@ -1,6 +1,7 @@
 <?php
 require 'connect.php';
 require 'files.php';
+$last_query = '';
 
 function getAllEntries ($table) {
 	global $db;
@@ -82,7 +83,7 @@ function getPageForId ($id) {
 }
 
 function insertEntry ($table, $entry) {
-	global $db;
+	global $db, $last_query;
 	
 	foreach ($entry as $key => $value) {
 		$key_items[] = $db->escape_string($key);
@@ -92,7 +93,7 @@ function insertEntry ($table, $entry) {
 	$values = implode(', ', $value_items);
 	
 	$qry = "INSERT INTO {$db->escape_string($table)} ({$keys}) VALUES ({$values})";
-	echo $qry;
+	$last_query = $qry;
 	
 	if ($update = $db->query($qry)) {
 		return $db->affected_rows;
@@ -102,7 +103,7 @@ function insertEntry ($table, $entry) {
 }
 
 function updateEntry ($table, $id, $entry) {
-	global $db;
+	global $db, $last_query;
 	
 	foreach ($entry as $key => $value) {
 		$updates[] = $db->escape_string($key).'='.'\''.$db->escape_string($value).'\'';
@@ -110,7 +111,7 @@ function updateEntry ($table, $id, $entry) {
 	$update = implode(', ', $updates);
 	
 	$qry = "UPDATE {$db->escape_string($table)} SET {$update} WHERE id = {$id}";
-	echo $qry;
+	$last_query = $qry;
 	
 	if ($update = $db->query($qry)) {	
 		return $db->affected_rows;
@@ -120,10 +121,10 @@ function updateEntry ($table, $id, $entry) {
 }
 
 function deleteEntry ($table, $id) {
-	global $db;
+	global $db, $last_query;
 	
 	$qry = "DELETE FROM {$db->escape_string($table)} WHERE id = {$db->escape_string($id)}";
-	echo $qry;
+	$last_query = $qry;
 	
 	if ($update = $db->query($qry)) {	
 		return $db->affected_rows;

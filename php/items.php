@@ -10,7 +10,7 @@ function getArticle ($name) {
 		}
 	}
 	
-	return "Article with name '{$name}' not found";
+	return '<p class="message-error">Article with name \''.$name.'\' not found.</p>';
 }
 
 function headContent () {

@@ -63,7 +63,7 @@ function getContent ($name, $GET, $POST, $FILES) {
 		break;
 		
 		default:
-			$ret .= "Content with name '{$name}' not found.";
+			$ret .= '<p class="message-error">Content with name \''.$name.'\' not found.</p>';
 		break;
 	}
 	

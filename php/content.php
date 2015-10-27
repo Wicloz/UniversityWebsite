@@ -133,7 +133,7 @@ function getTableEvents ($subject, $all) {
 	
 	        $content .= '<td>'.$row->end_date.'</td>';
 	        $content .= '<td>'.$row->subject.'</td>';
-	        $content .= '<td>'.$row->desc_short.'</td>';
+	        $content .= '<td><a href="index.php?page=assignments_item&id='.$row->id.'">'.$row->desc_short.'</a></td>';
 	        if ($row->completion == 1) {
 		        $content .= '<td>Complete</td>';
 	        } else {
@@ -206,7 +206,7 @@ function getEditItemForm ($table, $id) {
 		if ($currentEntryTable = getEntryWithId($table, $id)) {
 			$currentEntry = $currentEntryTable->fetch_assoc();
 		} else {
-			return '<p>Could not load form: entry does not exist.</p>';
+			return '<p class="message-warning">Could not load form: entry does not exist.</p>';
 		}
 	}
 	
@@ -264,7 +264,7 @@ function getEditItemForm ($table, $id) {
 	}
 	
 	else {
-		return '<p>Could not load form: database errors.</p>';
+		return err_501();
 	}
 	
 	if ($id == 'create') {
@@ -297,7 +297,7 @@ function getDataItemsList ($table) {
 	}
 	
 	else {
-		return '<p>Could not load list: database errors.</p>';
+		return err_501();
 	}
 	
 	if ($items = getAllEntries($table)) {
@@ -314,7 +314,7 @@ function getDataItemsList ($table) {
 	}
 	
 	else {
-		return '<p>Could not load list: database errors.</p>';
+		return err_501();
 	}
 	
 	$headers[$i] = 'Edit';

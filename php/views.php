@@ -1,5 +1,6 @@
 <?php
 require 'items.php';
+require 'errors.php';
 
 function getContent ($name, $GET, $POST, $FILES) {
 	$ret = '';

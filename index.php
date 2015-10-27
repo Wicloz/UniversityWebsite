@@ -60,7 +60,7 @@ if (isset($_GET['page']) && !empty($_GET['page'])) {
 		echo '</body></html>';
 		
 	} else {
-		header('Location: 404');
+		return err_404();
 	}
 } else {
 	header('Location: index.php?page=home');

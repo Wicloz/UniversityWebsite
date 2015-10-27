@@ -31,7 +31,7 @@ if (isset($_GET['page']) && !empty($_GET['page'])) {
 		}
 	}
 
-	if ($page) {
+	if (@$page) {
 		echo '<!DOCTYPE html><html lang="en">';
 		echo headContent();
 		

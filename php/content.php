@@ -5,8 +5,12 @@ function fancyDate ($date) {
 	return date('d-m-Y', strtotime($date));
 }
 
-function buildFancyTable ($id, $headers, $content) {
-	$table = '<table id="'.$id.'-table" class="table-fancy"><tr>';
+function buildFancyTable ($headers, $content, $class) {
+	if (!empty($class)) {
+		$table = '<table class="table-fancy '.$class.'"><tr>';
+	} else {
+		$table = '<table class="table-fancy"><tr>';
+	}
 	foreach ($headers as $field) {
 		$table .= '<th>'.$field.'</th>';
 	}
@@ -89,10 +93,9 @@ function getSubjectOverview () {
 }
 
 function getTableAssignments () {
-	$id = 'assignments';
 	$headers = array('Date Assigned', 'Deadline', 'Subject', 'Task', 'Team', 'Links', 'Status');
 	$content = '';
-	$table = getAllEntriesSorted($id, 'end_date');
+	$table = getAllEntriesSorted('assignments', 'end_date');
 	
 	while ($row = $table->fetch_object()) {
 		$content .= '<tr>';
@@ -124,14 +127,13 @@ function getTableAssignments () {
 		$content .= '</tr>';
 	}
 			
-	return buildFancyTable($id, $headers, $content);
+	return buildFancyTable($headers, $content, '');
 }
 
 function getTableTentamens () {
-	$id = 'tentamens';
 	$headers = array('Date', 'Weight', 'Subject', 'Mark');
 	$content = '';
-	$table = getAllEntriesSorted($id, 'date');
+	$table = getAllEntriesSorted('tentamens', 'date');
 			
 	while ($row = $table->fetch_object()) {
 		$content .= '<tr>';
@@ -151,11 +153,10 @@ function getTableTentamens () {
 		$content .= '</tr>';
 	}
 			
-	return buildFancyTable($id, $headers, $content);
+	return buildFancyTable($headers, $content, 'table-tentamens');
 }
 
 function getTableEvents () {
-	$id = 'events';
 	$headers = array('Date', 'Subject', 'Task', 'Status');
 	$content = '';
 	$assignments = getAllEntriesSorted('assignments', 'end_date');
@@ -191,7 +192,7 @@ function getTableEvents () {
 		$content .= '</tr>';
     }
 			
-	return buildFancyTable($id, $headers, $content);
+	return buildFancyTable($headers, $content, '');
 }
 
 function getItemAssignment ($item_id) {
@@ -365,7 +366,7 @@ function getDataItemsList ($table) {
 	}
 	
 	$headers[$i] = 'Edit';
-	$ret = buildFancyTable('items', $headers, $content);
+	$ret = buildFancyTable($headers, $content, '');
 	$ret .= '<p><a class="button" href="index.php?page=edit-entry&table='.$table.'&id=create">Add Item</a></p>';
 	
 	return $ret;

@@ -63,11 +63,6 @@ body {
 	margin-bottom: 0px;
 }
 
-#tentamens-table {
-	width: 90%;
-	margin-left: 5%;
-}
-
 /*@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css');
 .message-info:before, .message-success:before, .message-warning:before, .message-error:before {
     font-family: FontAwesome;
@@ -173,6 +168,11 @@ body {
 
 .table-fancy tr:nth-child(2n+1) {
     background-color: #fff;
+}
+
+.table-tentamens {
+	width: 90%;
+	margin-left: 5%;
 }
 
 .discord {

@@ -113,8 +113,12 @@ function getViewForPage ($page, $GET, $POST, $FILES) {
 function getSubjectPage ($id) {
 	if ($subjects = getEntryWithTest('subjects', 'abbreviation', $id)) {
 		$subject = $subjects->fetch_object();
+		$ret = '<div class="paragraph-center col-sm-12">';
 		
+		$ret .= '<h2>'.$subject->name.'</h2>';
 		
+		$ret .= '</div>';
+		return $ret;
 	}
 	
 	else {

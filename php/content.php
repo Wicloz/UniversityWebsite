@@ -161,36 +161,50 @@ function getTableEvents () {
 	$content = '';
 	$assignments = getAllEntriesSorted('assignments', 'end_date');
 	$tentamens = getAllEntriesSorted('tentamens', 'date');
-			
-    while ($row = $tentamens->fetch_object()) {
-		$content .= '<tr>';
-
-		$content .= '<td>'.fancyDate($row->date).'</td>';
-		$content .= '<td>'.$row->subject.'</td>';
-		$content .= '<td>'.$row->weight.' '.$row->subject.'</td>';
-		if ($row->date < date("Y-m-d")) {
-			$content .= '<td>Passed</td>';
-		} else {
-			$content .= '<td>Upcoming</td>';
-		}
-
-		$content .= '</tr>';
+	
+	$doneT = false;
+	$doneA = false;
+    if (!($rowT = $tentamens->fetch_object())) {
+        $doneT = true;
     }
-
-    while ($row = $assignments->fetch_object()) {
-		$content .= '<tr>';
-
-		$content .= '<td>'.fancyDate($row->end_date).'</td>';
-		$content .= '<td>'.$row->subject.'</td>';
-		$content .= '<td><a href="index.php?page=assignments_item&id='.$row->id.'">'.$row->desc_short.'</a></td>';
-		if ($row->completion == 1) {
-			$content .= '<td>Complete</td>';
-		} else {
-			$content .= '<td>Working</td>';
-		}
-
-		$content .= '</tr>';
+	if (!($rowA = $assignments->fetch_object())) {
+        $doneA = true;
     }
+	
+	while (!$doneT || !$doneA) {
+	    if (!$doneA && ($doneT || $rowA->end_date < $rowT->date)) {
+	 		$content .= '<tr>';
+		    $content .= '<td>'.fancyDate($rowA->end_date).'</td>';
+		    $content .= '<td>'.$rowA->subject.'</td>';
+		    $content .= '<td><a href="index.php?page=assignments_item&id='.$rowA->id.'">'.$rowA->desc_short.'</a></td>';
+		    if ($row->completion == 1) {
+			    $content .= '<td>Complete</td>';
+		    } else {
+			    $content .= '<td>Working</td>';
+		    }
+		    $content .= '</tr>';
+		    
+		    if (!($rowA = $assignments->fetch_object())) {
+		        $doneA = true;
+		    }
+	    }
+	    else if (!$doneT) {
+	    	$content .= '<tr>';
+	        $content .= '<td>'.fancyDate($rowT->date).'</td>';
+	        $content .= '<td>'.$rowT->subject.'</td>';
+	        $content .= '<td>'.$rowT->weight.' '.$rowT->subject.'</td>';
+	        if ($row->date < date("Y-m-d")) {
+		        $content .= '<td>Passed</td>';
+	        } else {
+		        $content .= '<td>Upcoming</td>';
+	        }
+	        $content .= '</tr>';
+	        
+	        if (!($rowT = $tentamens->fetch_object())) {
+                $doneT = true;
+	        }
+	    }
+	}
 			
 	return buildFancyTable($headers, $content, '');
 }

@@ -177,7 +177,7 @@ function getTableEvents () {
 		    $content .= '<td>'.fancyDate($rowA->end_date).'</td>';
 		    $content .= '<td>'.$rowA->subject.'</td>';
 		    $content .= '<td><a href="index.php?page=assignments_item&id='.$rowA->id.'">'.$rowA->desc_short.'</a></td>';
-		    if ($row->completion == 1) {
+		    if ($rowA->completion == 1) {
 			    $content .= '<td>Complete</td>';
 		    } else {
 			    $content .= '<td>Working</td>';
@@ -193,7 +193,7 @@ function getTableEvents () {
 	        $content .= '<td>'.fancyDate($rowT->date).'</td>';
 	        $content .= '<td>'.$rowT->subject.'</td>';
 	        $content .= '<td>'.$rowT->weight.' '.$rowT->subject.'</td>';
-	        if ($row->date < date("Y-m-d")) {
+	        if ($rowT->date < date("Y-m-d")) {
 		        $content .= '<td>Passed</td>';
 	        } else {
 		        $content .= '<td>Upcoming</td>';

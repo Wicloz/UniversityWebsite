@@ -20,73 +20,62 @@ function buildFancyTable ($headers, $content, $class) {
 
 function getSubjectOverview () {
     $ret = '';
-    $assignments = getAllEntriesSorted('assignments', 'end_date');
-	$tentamens = getAllEntriesSorted('tentamens', 'date');
-	$subjects = array();
+	$subjects = getAllEntriesSorted('subjects', 'name');
 	
-	while ($row = $tentamens->fetch_object()) {
-	    if (!in_array($row->subject, $subjects)) {
-	        $subjects[] = $row->subject;
-	    }
-	}
-	while ($row = $assignments->fetch_object()) {
-	    if (!in_array($row->subject, $subjects)) {
-	        $subjects[] = $row->subject;
-	    }
-	}
-	
-	foreach ($subjects as $subject) {
-		$assignments = getAllEntriesSorted('assignments', 'end_date');
-		$tentamens = getAllEntriesSorted('tentamens', 'date');
-		$hr = '</li><hr style="margin:0px;border-color:#06123B;margin-right:50%;">';
-		$listA = '';
-		$listT = '';
-		
-		$ret .= '<div class="paragraph-center col-sm-12">';
-	    $ret .= '<h2>'.$subject.'</h2>';
-		
-		while ($row = $assignments->fetch_object()) {
-			if ($row->subject == $subject) {
-				$listA .= '<li>';
-				$listA .= date('d F Y', strtotime($row->end_date)).' - ';
-				$listA .= '<a href="index.php?page=assignments_item&id='.$row->id.'">'.$row->desc_short.'</a>';
-				if ($row->end_date < date("Y-m-d")) {
-					$listA = str_replace($hr, '', $listA);
-					$listA .= $hr;
+	while ($row = $subjects->fetch_object()) {
+		if ($row->active) {
+			$assignments = getAllEntriesSorted('assignments', 'end_date');
+			$tentamens = getAllEntriesSorted('tentamens', 'date');
+			$hr = '</li><hr style="margin:0px;border-color:#06123B;margin-right:40%;">';
+			$listA = '';
+			$listT = '';
+			
+			$ret .= '<div class="paragraph-center col-sm-12">';
+			$ret .= '<h2><a href="index.php?page=subjects&subject='.$row->abbreviation.'">'.$row->name.'</a></h2>';
+			
+			while ($assignment = $assignments->fetch_object()) {
+				if ($assignment->subject == $row->name) {
+					$listA .= '<li>';
+					$listA .= date('d F Y', strtotime($assignment->end_date)).' - ';
+					$listA .= '<a href="index.php?page=assignments_item&id='.$assignment->id.'">'.$assignment->desc_short.'</a>';
+					if ($assignment->end_date < date("Y-m-d")) {
+						$listA = str_replace($hr, '', $listA);
+						$listA .= $hr;
+					}
 				}
 			}
-		}
-		while ($row = $tentamens->fetch_object()) {
-			if ($row->subject == $subject) {
-				$listT .= '<li>';
-				$listT .= date('d F Y', strtotime($row->date)).' - ';
-				$listT .= $row->weight.' '.$row->subject;
-				$listT .= '</li>';
-				if ($row->date < date("Y-m-d")) {
-					$listT = str_replace($hr, '', $listT);
-					$listT .= $hr;
+			while ($tentamen = $tentamens->fetch_object()) {
+				if ($tentamen->subject == $row->name) {
+					$listT .= '<li>';
+					$listT .= date('d F Y', strtotime($tentamen->date)).' - ';
+					$listT .= $tentamen->weight.' '.$tentamen->subject;
+					$listT .= '</li>';
+					if ($tentamen->date < date("Y-m-d")) {
+						$listT = str_replace($hr, '', $listT);
+						$listT .= $hr;
+					}
 				}
 			}
-		}
-		
-		if ($listA) {
-			$ret .= '<h3 style="text-align:left;">Assignments</h3><ul>';
-			if (strpos($listA, $hr) === false) {
-				$ret .= $hr;
+			
+			if ($listA) {
+				$ret .= '<h3 style="text-align:left;">Assignments</h3><ul>';
+				if (strpos($listA, $hr) === false) {
+					$ret .= $hr;
+				}
+				$ret .= $listA;
+				$ret .= '</ul>';
 			}
-			$ret .= $listA;
-			$ret .= '</ul>';
-		}
-		if ($listT) {
-			$ret .= '<h3 style="text-align:left;">Exams</h3><ul>';
-			if (strpos($listT, $hr) === false) {
-				$ret .= $hr;
+			if ($listT) {
+				$ret .= '<h3 style="text-align:left;">Exams</h3><ul>';
+				if (strpos($listT, $hr) === false) {
+					$ret .= $hr;
+				}
+				$ret .= $listT;
+				$ret .= '</ul>';
 			}
-			$ret .= $listT;
-			$ret .= '</ul>';
+			
+			$ret .= '</div>';
 		}
-		
-	    $ret .= '</div>';
 	}
 	
 	return $ret;

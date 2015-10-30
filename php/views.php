@@ -77,6 +77,14 @@ function getContent ($name, $GET, $POST, $FILES) {
 			$ret .= getSubjectOverview();
 		break;
 		
+		case 'subjectPage':
+			if (isset($GET['subject']) && !empty($GET['subject'])) {
+				$ret .= getSubjectPage($GET['subject']);
+			} else {
+				$ret .= err_404();
+			}
+		break;
+		
 		default:
 		    $ret .= '<div class="paragraph-center col-sm-12">';
 			$ret .= '<p class="message-error">Content with name \''.$name.'\' not found.</p>';
@@ -85,8 +93,8 @@ function getContent ($name, $GET, $POST, $FILES) {
 	}
 	
 	if (strpos($name, 'article_') !== false) {
-	    $ret .= '<div class="paragraph-center col-sm-12">';
-		$ret = getArticle($name);
+	    $ret = '<div class="paragraph-center col-sm-12">';
+		$ret .= getArticle($name);
 		$ret .= '</div>';
 	}
 	
@@ -100,6 +108,28 @@ function getViewForPage ($page, $GET, $POST, $FILES) {
 		$view .= getContent($item, $GET, $POST, $FILES);
 	}
 	return $view;
+}
+
+function getSubjectPage ($id) {
+	$subjects = getAllEntriesSorted('subjects', 'name');
+	while ($row = $subjects->fetch_object()) {
+		if ($row->abbreviation == $id) {
+			$subject = $row;
+			break;
+		}
+	}
+	
+	if (isset($subject)) {
+		$ret = '';
+		
+		
+		
+		return $ret;
+	}
+	
+	else {
+		return err_404();
+	}
 }
 
 ?>

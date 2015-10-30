@@ -74,8 +74,23 @@ function discordSidebarB () {
 	return '';
 }
 
+function parseSubjectNav ($row) {
+	$subjects = getAllEntriesSorted('subjects', 'name');
+	while ($subject = $subjects->fetch_object()) {
+		if ($subject->active) {
+			$sub_names[] = $subject->name;
+			$sub_urls[] = 'index.php?page=subjects&subject='.$subject->abbreviation;
+		}
+	}
+	$row->sub_names = implode(', ', $sub_names);
+	$row->sub_urls = implode(', ', $sub_urls);
+	$row->url = '';
+	return $row;
+}
+
 function mainnavContent ($active) {
 	$table = getAllEntries('navigation');
+
 	$navbar = '<nav class="navbar navbar-blue">
 			   <div class="container-fluid">
 			   <div class="navbar-header">
@@ -90,6 +105,10 @@ function mainnavContent ($active) {
 			   <ul class="nav navbar-nav">';
 							
 	while ($row = $table->fetch_object()) {
+		if ($row->url == '%SUBJECTS%') {
+			$row = parseSubjectNav($row);
+		}
+		
 		if (!empty($row->url) && !empty($row->sub_names)) {
 		    $subUrls = explode(',', str_replace(', ', ',', $row->sub_urls));
 			if (in_array($active, $subUrls)) {
@@ -136,6 +155,10 @@ function leftnavContent ($active) {
 	$navbox = '';
 	
 	while ($row = $table->fetch_object()) {
+		if ($row->url == '%SUBJECTS%') {
+			$row = parseSubjectNav($row);
+		}
+		
 		if (!empty($row->sub_names)) {
 			$subUrls = explode(',', str_replace(', ', ',', $row->sub_urls));
 			

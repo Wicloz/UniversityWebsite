@@ -281,6 +281,12 @@ body {
 }
 /* end style login box*/
 
+/* padding navabar item */
+.navbar-nav > li > a {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
 /* active navbar item */
 .navbar-nav > .active > a, .navbar-nav > .active > a:focus, .navbar-nav > .active > a:hover {
     color: #fff;

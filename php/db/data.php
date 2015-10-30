@@ -59,9 +59,9 @@ function getEntryWithTest ($table, $column, $test) {
 	}
 }
 
-function getEntryWithTestSorted ($table, $column, $content, $sort) {
+function getEntryWithTestSorted ($table, $column, $test, $sort) {
 	global $db;
-	if ($result = $db->query("SELECT * FROM {$table} WHERE {$column} = '{$content}' ORDER BY {$sort} ASC")) {
+	if ($result = $db->query("SELECT * FROM {$table} WHERE {$column} = '{$test}' ORDER BY {$sort} ASC")) {
 		if ($result->num_rows) {
 			return $result;
 			$result->free();

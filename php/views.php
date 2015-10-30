@@ -113,11 +113,40 @@ function getViewForPage ($page, $GET, $POST, $FILES) {
 function getSubjectPage ($id) {
 	if ($subjects = getEntryWithTest('subjects', 'abbreviation', $id)) {
 		$subject = $subjects->fetch_object();
+		
 		$ret = '<div class="paragraph-center col-sm-12">';
-		
 		$ret .= '<h2>'.$subject->name.'</h2>';
-		
+		$ret .= '<p>'.$subject->content.'</p>';
 		$ret .= '</div>';
+		
+		$links = '<ul>';
+		if (!empty($subject->link_home)) {
+			$links .= '<li><a href="'.$subject->link_home.'" target="_blank">Main Page</a></li>';	
+		}
+		if (!empty($subject->link_schedule)) {
+			$links .= '<li><a href="'.$subject->link_schedule.'" target="_blank">Schedule</a></li>';	
+		}
+		if (!empty($subject->link_powerpoints)) {
+			$links .= '<li><a href="'.$subject->link_powerpoints.'" target="_blank">College Slides</a></li>';	
+		}
+		if (!empty($subject->link_assignments)) {
+			$links .= '<li><a href="'.$subject->link_assignments.'" target="_blank">Assignments</a></li>';	
+		}
+		if (!empty($subject->link_marks)) {
+			$links .= '<li><a href="'.$subject->link_marks.'" target="_blank">Marks</a></li>';	
+		}
+		
+		if ($links != '<ul>') {
+			$ret .= '<div class="paragraph-left col-sm-12">';
+			$ret .= '<h2>Links:</h2>';
+			$ret .= $links.'</ul>';
+			$ret .= '</div>';
+		}
+		
+		$ret .= '<div class="paragraph-center col-sm-12">';
+		$ret .= getTableEvents($subject->name, false);
+		$ret .= '</div>';
+
 		return $ret;
 	}
 	

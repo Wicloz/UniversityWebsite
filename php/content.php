@@ -145,18 +145,24 @@ function getTableTentamens () {
 	return buildFancyTable($headers, $content, 'table-tentamens');
 }
 
-function getTableEvents () {
+function getTableEvents ($subject, $all) {
 	$headers = array('Date', 'Subject', 'Task', 'Status');
 	$content = '';
-	$assignments = getAllEntriesSorted('assignments', 'end_date');
-	$tentamens = getAllEntriesSorted('tentamens', 'date');
+	
+	if ($all) {
+		$assignments = getAllEntriesSorted('assignments', 'end_date');
+		$tentamens = getAllEntriesSorted('tentamens', 'date');
+	} else {
+		$assignments = getEntryWithTestSorted('assignments', 'subject', $subject, 'end_date');
+		$tentamens = getEntryWithTestSorted('tentamens', 'subject', $subject, 'date');
+	}
 	
 	$doneT = false;
 	$doneA = false;
-    if (!($rowT = $tentamens->fetch_object())) {
+    if (!$tentamens || !($rowT = $tentamens->fetch_object())) {
         $doneT = true;
     }
-	if (!($rowA = $assignments->fetch_object())) {
+	if (!$assignments || !($rowA = $assignments->fetch_object())) {
         $doneA = true;
     }
 	

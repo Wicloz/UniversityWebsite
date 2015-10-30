@@ -111,20 +111,10 @@ function getViewForPage ($page, $GET, $POST, $FILES) {
 }
 
 function getSubjectPage ($id) {
-	$subjects = getAllEntriesSorted('subjects', 'name');
-	while ($row = $subjects->fetch_object()) {
-		if ($row->abbreviation == $id) {
-			$subject = $row;
-			break;
-		}
-	}
-	
-	if (isset($subject)) {
-		$ret = '';
+	if ($subjects = getEntryWithTest('subjects', 'abbreviation', $id)) {
+		$subject = $subjects->fetch_object();
 		
 		
-		
-		return $ret;
 	}
 	
 	else {

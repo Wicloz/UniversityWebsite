@@ -45,9 +45,23 @@ function getEntryWithId ($table, $id) {
 	}
 }
 
-function getEntryWithColumnSorted ($table, $column, $content, $sort) {
+function getEntryWithTest ($table, $column, $test) {
 	global $db;
-	if ($result = $db->query("SELECT * FROM {$table} WHERE {$column} = {$content} ORDER BY {$sort} ASC")) {
+	if ($result = $db->query("SELECT * FROM {$table} WHERE {$column} = '{$test}'")) {
+		if ($result->num_rows) {
+			return $result;
+			$result->free();
+		} else {
+			return false;
+		}
+	} else {
+		return $db->error;
+	}
+}
+
+function getEntryWithTestSorted ($table, $column, $content, $sort) {
+	global $db;
+	if ($result = $db->query("SELECT * FROM {$table} WHERE {$column} = '{$content}' ORDER BY {$sort} ASC")) {
 		if ($result->num_rows) {
 			return $result;
 			$result->free();

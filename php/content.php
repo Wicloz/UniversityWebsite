@@ -198,57 +198,57 @@ function getTableEvents () {
 	return buildFancyTable($headers, $content, '');
 }
 
-function getItemAssignment ($item_id) {
-	$item = '';
-	$table = getAllEntries('assignments');
-	
-	while ($row = $table->fetch_object()) {
-		if ($row->id == $item_id) {
-			$item .= '<h2>'.$row->desc_short.'</h2>';
-			$item .= '<p>'.$row->desc_full.'</p>';
-			
-			$item .= '<p><i>Subject: '.$row->subject
-				  .'<br>Date Assigned: '.fancyDate($row->start_date)
-				  .'<br>Deadline: '.fancyDate($row->end_date).' '.$row->end_time;
-				   
-			if (!empty($row->team)) {
-				$item .= '<br>Team: '.$row->team;
-			}
-			
-			$item .= '<br>Status: ';
-			if ($row->completion == 1) {
-				$item .= 'Complete</i></p>';
-			} else {
-				$item .= 'Working</i></p>';
-			}
-			
-			if (!empty($row->link_assignment) || !empty($row->link_repository) || !empty($row->link_report)) {
-				$item .= '<p><b>Links:</b><br>';
-				if (!empty($row->link_assignment)) {
-					$item .= '<a target="_blank" href="'.$row->link_assignment.'">Assignment</a><br>';
-				}
-				if (!empty($row->link_repository)) {
-					$item .= '<a target="_blank" href="'.$row->link_repository.'">Repository</a><br>';
-				}
-				if (!empty($row->link_report)) {
-					$item .= '<a target="_blank" href="'.$row->link_report.'">Report</a><br>';
-				}
-				$item .= '</p>';
-			}
-			
-			$item .= '<a class="button edit-item-button" href="index.php?page=edit-entry&table=assignments&id='.$item_id.'">Edit Item</a>';
-			
-			if (!empty($row->link_report)) {
-				$item .= '</div>';
-				$item .= '<div class="paragraph-center col-sm-12">';
-				$item .= '<h2>Report</h2>';
-				$item .= '<iframe name="report" src="'.$row->link_report.'" width="100%" height="600"></iframe>';
-			}
-			break;
+function getItemAssignment ($id) {
+	if ($currentEntryTable = getEntryWithId('assignments', $id)) {
+		$row = $currentEntryTable->fetch_object();
+		$item = '';
+		
+		$item .= '<h2>'.$row->desc_short.'</h2>';
+		$item .= '<p>'.$row->desc_full.'</p>';
+		
+		$item .= '<p><i>Subject: '.$row->subject
+			  .'<br>Date Assigned: '.fancyDate($row->start_date)
+			  .'<br>Deadline: '.fancyDate($row->end_date).' '.$row->end_time;
+			   
+		if (!empty($row->team)) {
+			$item .= '<br>Team: '.$row->team;
 		}
+		
+		$item .= '<br>Status: ';
+		if ($row->completion == 1) {
+			$item .= 'Complete</i></p>';
+		} else {
+			$item .= 'Working</i></p>';
+		}
+		
+		if (!empty($row->link_assignment) || !empty($row->link_repository) || !empty($row->link_report)) {
+			$item .= '<p><b>Links:</b><br>';
+			if (!empty($row->link_assignment)) {
+				$item .= '<a target="_blank" href="'.$row->link_assignment.'">Assignment</a><br>';
+			}
+			if (!empty($row->link_repository)) {
+				$item .= '<a target="_blank" href="'.$row->link_repository.'">Repository</a><br>';
+			}
+			if (!empty($row->link_report)) {
+				$item .= '<a target="_blank" href="'.$row->link_report.'">Report</a><br>';
+			}
+			$item .= '</p>';
+		}
+		
+		$item .= '<a class="button edit-item-button" href="index.php?page=edit-entry&table=assignments&id='.$id.'">Edit Item</a>';
+		
+		if (!empty($row->link_report)) {
+			$item .= '</div>';
+			$item .= '<div class="paragraph-center col-sm-12">';
+			$item .= '<h2>Report</h2>';
+			$item .= '<iframe name="report" src="'.$row->link_report.'" width="100%" height="600"></iframe>';
+		}
+		return $item;
 	}
 	
-	return $item;
+	else {
+		return '<p class="message-warning">Could not load item: entry does not exist.</p>';
+	}
 }
 
 function getEditItemForm ($table, $id) {

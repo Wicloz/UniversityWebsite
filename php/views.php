@@ -209,13 +209,13 @@ function getSubjectPage ($id) {
 		}
 		
 		$ret .= '<div class="paragraph-center col-sm-12">';
-		$ret .= '<h2>Planning:</h2>';
-		$ret .= getTablePlanning('subjects', $subject->id, false);
+		$ret .= '<h2>Events:</h2>';
+		$ret .= getTableEvents($subject->name, false, false);
 		$ret .= '</div>';
 		
 		$ret .= '<div class="paragraph-center col-sm-12">';
-		$ret .= '<h2>Events:</h2>';
-		$ret .= getTableEvents($subject->name, false, false);
+		$ret .= '<h2>Planning:</h2>';
+		$ret .= getTablePlanning('subjects', $subject->id, false, false);
 		$ret .= '</div>';
 
 		return $ret;

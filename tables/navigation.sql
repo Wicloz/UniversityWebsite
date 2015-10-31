@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 31 okt 2015 om 17:34
+-- Gegenereerd op: 31 okt 2015 om 18:39
 -- Serverversie: 5.6.26
 -- PHP-versie: 5.6.12
 
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `navigation` (
 
 INSERT INTO `navigation` (`id`, `name`, `url`, `sub_names`, `sub_urls`, `header`, `target`) VALUES
 (1, 'Home', 'index.php?page=home', '', '', '', ''),
-(2, 'Semester Overview', 'index.php?page=semester-overview', 'Semester Overview, Exams, Assignments', 'index.php?page=semester-overview, index.php?page=exams, index.php?page=assignments', 'Overview', ''),
+(2, 'Semester Overview', 'index.php?page=semester-overview', 'Semester Overview, Exams, Assignments, Planning', 'index.php?page=semester-overview, index.php?page=exams, index.php?page=assignments, index.php?page=planning', 'Overview', ''),
 (3, 'Subjects', '%SUBJECTS%', '', '', 'Subjects', ''),
 (5, 'Schedule I&B', 'index.php?page=schedule', '', '', '', ''),
 (6, 'Notes', 'https://onedrive.live.com/view.aspx?resid=7A26A4E50EEC48CB!401&ithint=onenote%2c&app=OneNote&authkey=!ALF9KqGbBDdyK_M', '', '', '', '_blank');

@@ -22,6 +22,20 @@ function getContent ($name, $GET, $POST, $FILES) {
 		
 		case 'table_events';
 		    $ret .= '<div class="paragraph-center col-sm-12">';
+			$ret .= '<h2>Events:</h2>';
+			$ret .= getTableEvents('', true, false);
+			$ret .= '</div>';
+		break;
+		
+		case 'table_today';
+		    $ret .= '<div class="paragraph-center col-sm-12">';
+			$ret .= '<h2>Today:</h2>';
+			$ret .= getTableToday();
+			$ret .= '</div>';
+		break;
+		
+		case 'table_nearfuture';
+		    $ret .= '<div class="paragraph-center col-sm-12">';
 			$ret .= '<h2>Upcoming Events:</h2>';
 			$ret .= getTableEvents('', true, true);
 			$ret .= '</div>';
@@ -34,7 +48,7 @@ function getContent ($name, $GET, $POST, $FILES) {
 			    $ret .= '</div>';
 				$ret .= '<div class="paragraph-center col-sm-12">';
 				$ret .= '<h2>Planning:</h2>';
-				$ret .= getTablePlanning('assignments', $GET['id'], false);
+				$ret .= getTablePlanning('assignments', $GET['id'], false, false);
 				$ret .= '</div>';
 			}
 		break;
@@ -46,7 +60,7 @@ function getContent ($name, $GET, $POST, $FILES) {
 				$ret .= '</div>';
 				$ret .= '<div class="paragraph-center col-sm-12">';
 				$ret .= '<h2>Planning:</h2>';
-				$ret .= getTablePlanning('tentamens', $GET['id'], false);
+				$ret .= getTablePlanning('tentamens', $GET['id'], false, false);
 				$ret .= '</div>';
 			}
 		break;
@@ -104,28 +118,35 @@ function getContent ($name, $GET, $POST, $FILES) {
 		case 'table_planning':
 		    $ret .= '<div class="paragraph-center col-sm-12">';
 			$ret .= '<h2>Planning:</h2>';
-			$ret .= getTablePlanning('', '', true);
+			$ret .= getTablePlanning('', '', true, false);
+			$ret .= '</div>';
+		break;
+		
+		case 'table_planning_future':
+		    $ret .= '<div class="paragraph-center col-sm-12">';
+			$ret .= '<h2>Upcoming Planning:</h2>';
+			$ret .= getTablePlanning('', '', true, true);
 			$ret .= '</div>';
 		break;
 		
 		case 'table_planning_subjects':
 		    $ret .= '<div class="paragraph-center col-sm-12">';
 			$ret .= '<h2>Planning:</h2>';
-			$ret .= getTablePlanning('subjects', -1, false);
+			$ret .= getTablePlanning('subjects', -1, false, false);
 			$ret .= '</div>';
 		break;
 		
 		case 'table_planning_assignments':
 		    $ret .= '<div class="paragraph-center col-sm-12">';
 			$ret .= '<h2>Planning Assignments:</h2>';
-			$ret .= getTablePlanning('assignments', -1, false);
+			$ret .= getTablePlanning('assignments', -1, false, false);
 			$ret .= '</div>';
 		break;
 		
 		case 'table_planning_exams':
 		    $ret .= '<div class="paragraph-center col-sm-12">';
 			$ret .= '<h2>Planning Exams:</h2>';
-			$ret .= getTablePlanning('tentamens', -1, false);
+			$ret .= getTablePlanning('tentamens', -1, false, false);
 			$ret .= '</div>';
 		break;
 		

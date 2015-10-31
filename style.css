@@ -161,7 +161,7 @@ body {
 }
 
 .table-fancy td, .table-fancy th {
-    padding: 8px;
+    padding: 6px;
 	border: 1px dotted #06123B;
 }
 

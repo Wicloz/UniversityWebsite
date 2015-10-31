@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.9
+-- version 4.4.14
 -- http://www.phpmyadmin.net
 --
--- Host: putter.vuw.leidenuniv.nl:3306
--- Generation Time: Oct 27, 2015 at 10:53 AM
--- Server version: 5.5.45-log
--- PHP Version: 5.3.17
+-- Host: 127.0.0.1
+-- Gegenereerd op: 31 okt 2015 om 17:26
+-- Serverversie: 5.6.26
+-- PHP-versie: 5.6.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,20 +14,20 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `s1704362`
+-- Database: `app`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `navigation`
+-- Tabelstructuur voor tabel `navigation`
 --
 
 CREATE TABLE IF NOT EXISTS `navigation` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `name` varchar(20) NOT NULL,
   `url` text NOT NULL,
   `sub_names` text NOT NULL,
@@ -37,35 +37,35 @@ CREATE TABLE IF NOT EXISTS `navigation` (
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `navigation`
+-- Gegevens worden geëxporteerd voor tabel `navigation`
 --
 
 INSERT INTO `navigation` (`id`, `name`, `url`, `sub_names`, `sub_urls`, `header`, `target`) VALUES
 (1, 'Home', 'index.php?page=home', '', '', '', ''),
-(2, 'Subjects', '', 'Fundmanetele Informatica, Programmeermethoden, Studeren & Presenteren, Moleculaire Genetica, Basispracticum', 'index.php?page=subject_I_fi1, index.php?page=subject_I_pm, index.php?page=subject_I_stpr, index.php?page=subject_B_cf, index.php?page=subject_B_bp', 'Subjects', ''),
+(2, 'Subjects', '%SUBJECTS%', '', '', 'Subjects', ''),
 (3, 'Semester Overview', 'index.php?page=semester-overview', 'Semester Overview, Exams, Assignments', 'index.php?page=semester-overview, index.php?page=exams, index.php?page=assignments', 'Overview', ''),
 (5, 'Schedule I&B', 'index.php?page=schedule', '', '', '', ''),
 (6, 'Notes', 'https://onedrive.live.com/view.aspx?resid=7A26A4E50EEC48CB!401&ithint=onenote%2c&app=OneNote&authkey=!ALF9KqGbBDdyK_M', '', '', '', '_blank');
 
 --
--- Indexes for dumped tables
+-- Indexen voor geëxporteerde tabellen
 --
 
 --
--- Indexes for table `navigation`
+-- Indexen voor tabel `navigation`
 --
 ALTER TABLE `navigation`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT voor geëxporteerde tabellen
 --
 
 --
--- AUTO_INCREMENT for table `navigation`
+-- AUTO_INCREMENT voor een tabel `navigation`
 --
 ALTER TABLE `navigation`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

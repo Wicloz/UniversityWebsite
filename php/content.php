@@ -264,6 +264,9 @@ function getTablePlanning ($table, $id, $all) {
 	if ($all) {
 		$table = getAllEntriesSorted('planning', 'date_start');
 		$headers = array('Date', 'Subject', 'Expected Duration', 'Goal', 'Status');
+	} else if ($id == -1) {
+		$table = getEntriesWithTestSorted('planning', 'parent_table', $table, 'date_start');
+		$headers = array('Date', 'Subject', 'Expected Duration', 'Goal', 'Status');
 	} else {
 		$table = getEntriesWithDoubleTestSorted('planning', 'parent_table', $table, 'parent_id', $id, 'date_start');
 		$headers = array('Date', 'Expected Duration', 'Goal', 'Status');		
@@ -282,7 +285,7 @@ function getTablePlanning ($table, $id, $all) {
 			
 			$content .= '<td>'.$s1.dateTable($row->date_start).$s2.'</td>';
 			
-			if ($all) {
+			if ($all || $id == -1) {
 				$content .= '<td>'.$row->subject.'</td>';
 			}
 			

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 31 okt 2015 om 16:07
+-- Gegenereerd op: 31 okt 2015 om 17:26
 -- Serverversie: 5.6.26
 -- PHP-versie: 5.6.12
 
@@ -38,8 +38,8 @@ CREATE TABLE IF NOT EXISTS `pages` (
 
 INSERT INTO `pages` (`id`, `page`, `content`) VALUES
 (1, 'semester-overview', 'list_subjectOverview, table_events, table_planning'),
-(2, 'exams', 'table_exams, article_calendars_exams'),
-(3, 'assignments', 'table_assignments'),
+(2, 'exams', 'table_exams, table_planning_exams, article_calendars_exams'),
+(3, 'assignments', 'table_assignments, table_planning_assignments'),
 (4, 'assignments_item', 'item_assignment'),
 (5, 'home', ''),
 (6, 'contact', ''),

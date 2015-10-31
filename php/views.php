@@ -108,6 +108,27 @@ function getContent ($name, $GET, $POST, $FILES) {
 			$ret .= '</div>';
 		break;
 		
+		case 'table_planning_subjects':
+		    $ret .= '<div class="paragraph-center col-sm-12">';
+			$ret .= '<h2>Planning:</h2>';
+			$ret .= getTablePlanning('subjects', -1, false);
+			$ret .= '</div>';
+		break;
+		
+		case 'table_planning_assignments':
+		    $ret .= '<div class="paragraph-center col-sm-12">';
+			$ret .= '<h2>Planning Assignments:</h2>';
+			$ret .= getTablePlanning('assignments', -1, false);
+			$ret .= '</div>';
+		break;
+		
+		case 'table_planning_exams':
+		    $ret .= '<div class="paragraph-center col-sm-12">';
+			$ret .= '<h2>Planning Exams:</h2>';
+			$ret .= getTablePlanning('tentamens', -1, false);
+			$ret .= '</div>';
+		break;
+		
 		default:
 		    $ret .= '<div class="paragraph-center col-sm-12">';
 			$ret .= '<p class="message-error">Content with name \''.$name.'\' not found.</p>';

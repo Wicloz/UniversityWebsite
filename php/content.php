@@ -1,8 +1,32 @@
 <?php
 require 'computing.php';
 
-function fancyDate ($date) {
+function timeFancy ($time) {
+	return date('H:i', strtotime($time));
+}
+
+function timeDuration ($time) {
+	$minutes = strtotime(date('i', $time));
+	if (strpos('0', $minutes) === 0) {
+		$minutes = substr($minutes, 1);
+	}
+	return strtotime(date('G', $time)).'h '.$minutes.'m';
+}
+
+function dateFancy ($date) {
 	return date('d-m-Y', strtotime($date));
+}
+
+function dateTable ($date) {
+	return date('d-m-Y', strtotime($date));
+}
+
+function dateList ($date) {
+	return date('d F Y', strtotime($date));
+}
+
+function dateItem ($date) {
+	return date('d F Y', strtotime($date));
 }
 
 function buildFancyTable ($headers, $content, $class) {
@@ -36,7 +60,7 @@ function getSubjectOverview () {
 			while ($assignment = $assignments->fetch_object()) {
 				if ($assignment->subject == $row->name) {
 					$listA .= '<li>';
-					$listA .= date('d F Y', strtotime($assignment->end_date)).' - ';
+					$listA .= dateList($assignment->end_date).' - ';
 					$listA .= '<a href="index.php?page=assignments_item&id='.$assignment->id.'">'.$assignment->desc_short.'</a>';
 					if ($assignment->end_date < date("Y-m-d")) {
 						$listA = str_replace($hr, '', $listA);
@@ -47,8 +71,8 @@ function getSubjectOverview () {
 			while ($tentamen = $tentamens->fetch_object()) {
 				if ($tentamen->subject == $row->name) {
 					$listT .= '<li>';
-					$listT .= date('d F Y', strtotime($tentamen->date)).' - ';
-					$listT .= $tentamen->weight.' '.$tentamen->subject;
+					$listT .= dateList($tentamen->date).' - ';
+					$listT .= '<a href="index.php?page=exams_item&id='.$tentamen->id.'">'.$tentamen->weight.' '.$tentamen->subject.'</a>';
 					$listT .= '</li>';
 					if ($tentamen->date < date("Y-m-d")) {
 						$listT = str_replace($hr, '', $listT);
@@ -82,20 +106,26 @@ function getSubjectOverview () {
 }
 
 function getTableAssignments () {
-	$headers = array('Date Assigned', 'Deadline', 'Subject', 'Task', 'Team', 'Links', 'Status');
+	$headers = array('Deadline', 'Subject', 'Task', 'Team', 'Links', 'Status');
 	$content = '';
 	$table = getAllEntriesSorted('assignments', 'end_date');
 	
 	while ($row = $table->fetch_object()) {
+		$s1 = '';
+		$s2 = '';
+		if ($row->completion) {
+			$s1 = '<s>';
+			$s2 = '</s>';
+		}
+		
 		$content .= '<tr>';
 		
-		$content .= '<td>'.fancyDate($row->start_date).'</td>';
-		$content .= '<td>'.fancyDate($row->end_date).' '.$row->end_time.'</td>';
-		$content .= '<td>'.$row->subject.'</td>'; 
-		$content .= '<td><a href="index.php?page=assignments_item&id='.$row->id.'">'.$row->desc_short.'</a></td>';
-		$content .= '<td>'.$row->team.'</td>';
+		$content .= '<td>'.$s1.dateTable($row->end_date).', '.timeFancy($row->end_time).$s2.'</td>';
+		$content .= '<td>'.$s1.$row->subject.$s2.'</td>'; 
+		$content .= '<td>'.$s1.'<a href="index.php?page=assignments_item&id='.$row->id.'">'.$row->desc_short.'</a>'.$s2.'</td>';
+		$content .= '<td>'.$s1.$row->team.$s2.'</td>';
 		
-		$content .= '<td>';
+		$content .= '<td>'.$s1;
 		if (!empty($row->link_assignment)) {
 			$content .= '<a target="_blank" href="'.$row->link_assignment.'">Assignment</a>';
 		}
@@ -105,12 +135,12 @@ function getTableAssignments () {
 		if (!empty($row->link_repository)) {
 			$content .= '<a target="_blank" href="'.$row->link_repository.'">Repository</a>';
 		}
-		$content .= '</td>';
+		$content .= $s2.'</td>';
 		
-		if ($row->completion == 1) {
-			$content .= '<td>Complete</td>';
+		if ($row->completion) {
+			$content .= '<td>'.$s1.'Complete'.$s2.'</td>';
 		} else {
-			$content .= '<td>Working</td>';
+			$content .= '<td>'.$s1.'Working'.$s2.'</td>';
 		}
 		
 		$content .= '</tr>';
@@ -119,24 +149,31 @@ function getTableAssignments () {
 	return buildFancyTable($headers, $content, '');
 }
 
-function getTableTentamens () {
+function getTableExams () {
 	$headers = array('Date', 'Weight', 'Subject', 'Mark');
 	$content = '';
 	$table = getAllEntriesSorted('tentamens', 'date');
 			
 	while ($row = $table->fetch_object()) {
+		$s1 = '';
+		$s2 = '';
+		if ($row->date < date('Y-m-d')) {
+			$s1 = '<s>';
+			$s2 = '</s>';
+		}
+		
 		$content .= '<tr>';
 		
-		$content .= '<td>'.fancyDate($row->date).'</td>';
-		$content .= '<td>'.$row->weight.'</td>';
-		$content .= '<td>'.$row->subject.'</td>';
+		$content .= '<td>'.$s1.dateTable($row->date).$s2.'</td>';
+		$content .= '<td>'.$s1.'<a href="index.php?page=exams_item&id='.$row->id.'">'.$row->weight.'</a>'.$s2.'</td>';
+		$content .= '<td>'.$s1.$row->subject.$s2.'</td>';
 		
 		if (!empty($row->mark)) {
-			$content .= '<td>'.$row->mark.'</td>';
+			$content .= '<td>'.$s1.$row->mark.$s2.'</td>';
 		} else if ($row->date < date("Y-m-d")) {
-			$content .= '<td>N/A</td>';
+			$content .= '<td>'.$s1.'N/A'.$s2.'</td>';
 		} else {
-			$content .= '<td>Upcoming</td>';
+			$content .= '<td>'.$s1.'Upcoming'.$s2.'</td>';
 		}
 		
 		$content .= '</tr>';
@@ -145,7 +182,7 @@ function getTableTentamens () {
 	return buildFancyTable($headers, $content, 'table-tentamens');
 }
 
-function getTableEvents ($subject, $all) {
+function getTableEvents ($subject, $all, $clean) {
 	$headers = array('Date', 'Subject', 'Task', 'Status');
 	$content = '';
 	
@@ -168,32 +205,50 @@ function getTableEvents ($subject, $all) {
 	
 	while (!$doneT || !$doneA) {
 	    if (!$doneA && ($doneT || $rowA->end_date < $rowT->date)) {
-	 		$content .= '<tr>';
-		    $content .= '<td>'.fancyDate($rowA->end_date).'</td>';
-		    $content .= '<td>'.$rowA->subject.'</td>';
-		    $content .= '<td><a href="index.php?page=assignments_item&id='.$rowA->id.'">'.$rowA->desc_short.'</a></td>';
-		    if ($rowA->completion == 1) {
-			    $content .= '<td>Complete</td>';
-		    } else {
-			    $content .= '<td>Working</td>';
-		    }
-		    $content .= '</tr>';
+			$s1 = '';
+			$s2 = '';
+			if ($rowA->completion) {
+				$s1 = '<s>';
+				$s2 = '</s>';
+			}
+			
+			if (!$clean || !$rowA->completion) {
+				$content .= '<tr>';
+				$content .= '<td>'.$s1.dateTable($rowA->end_date).$s2.'</td>';
+				$content .= '<td>'.$s1.$rowA->subject.$s2.'</td>';
+				$content .= '<td>'.$s1.'<a href="index.php?page=assignments_item&id='.$rowA->id.'">'.$rowA->desc_short.'</a>'.$s2.'</td>';
+				if ($rowA->completion) {
+					$content .= '<td>'.$s1.'Complete'.$s2.'</td>';
+				} else {
+					$content .= '<td>'.$s1.'Working'.$s2.'</td>';
+				}
+				$content .= '</tr>';
+			}
 		    
 		    if (!($rowA = $assignments->fetch_object())) {
 		        $doneA = true;
 		    }
 	    }
 	    else if (!$doneT) {
-	    	$content .= '<tr>';
-	        $content .= '<td>'.fancyDate($rowT->date).'</td>';
-	        $content .= '<td>'.$rowT->subject.'</td>';
-	        $content .= '<td>'.$rowT->weight.' '.$rowT->subject.'</td>';
-	        if ($rowT->date < date("Y-m-d")) {
-		        $content .= '<td>Passed</td>';
-	        } else {
-		        $content .= '<td>Upcoming</td>';
-	        }
-	        $content .= '</tr>';
+			$s1 = '';
+			$s2 = '';
+			if ($rowT->date < date('Y-m-d')) {
+				$s1 = '<s>';
+				$s2 = '</s>';
+			}
+			
+			if (!$clean || date('Y-m-d') < $rowT->date) {
+				$content .= '<tr>';
+				$content .= '<td>'.$s1.dateTable($rowT->date).$s2.'</td>';
+				$content .= '<td>'.$s1.$rowT->subject.$s2.'</td>';
+				$content .= '<td>'.$s1.'<a href="index.php?page=exams_item&id='.$rowT->id.'">'.$rowT->weight.' '.$rowT->subject.'</a>'.$s2.'</td>';
+				if ($rowT->date < date("Y-m-d")) {
+					$content .= '<td>'.$s1.'Passed'.$s2.'</td>';
+				} else {
+					$content .= '<td>'.$s1.'Upcoming'.$s2.'</td>';
+				}
+				$content .= '</tr>';
+			}
 	        
 	        if (!($rowT = $tentamens->fetch_object())) {
                 $doneT = true;
@@ -204,24 +259,27 @@ function getTableEvents ($subject, $all) {
 	return buildFancyTable($headers, $content, '');
 }
 
+function getTablePlanning ($table, $id, $all) {
+	
+}
+
 function getItemAssignment ($id) {
 	if ($currentEntryTable = getEntryWithId('assignments', $id)) {
 		$row = $currentEntryTable->fetch_object();
-		$item = '';
 		
-		$item .= '<h2>'.$row->desc_short.'</h2>';
+		$item = '<h2>'.$row->desc_short.'</h2>';
 		$item .= '<p>'.$row->desc_full.'</p>';
 		
 		$item .= '<p><i>Subject: '.$row->subject
-			  .'<br>Date Assigned: '.fancyDate($row->start_date)
-			  .'<br>Deadline: '.fancyDate($row->end_date).' '.$row->end_time;
+			  .'<br>Date Assigned: '.dateItem($row->start_date)
+			  .'<br>Deadline: '.dateItem($row->end_date).', '.timeFancy($row->end_time);
 			   
 		if (!empty($row->team)) {
 			$item .= '<br>Team: '.$row->team;
 		}
 		
 		$item .= '<br>Status: ';
-		if ($row->completion == 1) {
+		if ($row->completion) {
 			$item .= 'Complete</i></p>';
 		} else {
 			$item .= 'Working</i></p>';
@@ -249,6 +307,39 @@ function getItemAssignment ($id) {
 			$item .= '<h2>Report</h2>';
 			$item .= '<iframe name="report" src="'.$row->link_report.'" width="100%" height="600"></iframe>';
 		}
+		return $item;
+	}
+	
+	else {
+		return '<p class="message-warning">Could not load item: entry does not exist.</p>';
+	}
+}
+
+function getItemExam ($id) {
+	if ($currentEntryTable = getEntryWithId('tentamens', $id)) {
+		$row = $currentEntryTable->fetch_object();
+		
+		$item = '<h2>'.$row->weight.' '.$row->subject.'</h2>';
+		$item .= '<p>'.$row->substance.'</p>';
+		
+		$item .= '<p><i>Subject: '.$row->subject
+			  .'<br>Exam Date: '.dateItem($row->date);
+		
+		$item .= '<br>Status: ';
+		if (!empty($row->mark)) {
+			$item .= $row->mark;
+		} else if ($row->date < date("Y-m-d")) {
+			$item .= 'Passed';
+		} else {
+			$item .= 'Upcoming';
+		}
+		
+		if (!empty($row->link)) {
+			$item .= '<br>Link: <a target="_blank" href="'.$row->link.'">'.$row->link.'</a>';
+		}
+		
+		$item .= '</i></p>';
+		$item .= '<a class="button edit-item-button" href="index.php?page=edit-entry&table=tentamens&id='.$id.'">Edit Item</a>';
 		return $item;
 	}
 	

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 27 okt 2015 om 22:16
+-- Gegenereerd op: 31 okt 2015 om 16:26
 -- Serverversie: 5.6.26
 -- PHP-versie: 5.6.12
 
@@ -31,21 +31,24 @@ CREATE TABLE IF NOT EXISTS `tentamens` (
   `date` date NOT NULL,
   `weight` varchar(20) NOT NULL,
   `subject` varchar(40) NOT NULL,
+  `substance` text NOT NULL,
+  `link` text NOT NULL,
   `mark` float NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `tentamens`
 --
 
-INSERT INTO `tentamens` (`id`, `date`, `weight`, `subject`, `mark`) VALUES
-(1, '2015-09-21', 'Toets', 'Moleculaire Genetica', 7.1),
-(2, '2015-10-16', 'Tentamen', 'Moleculaire Genetica', 7.5),
-(3, '2015-10-19', 'Toets', 'Fundamentele Informatica 1', 0),
-(4, '2015-12-11', 'Tentamen', 'Microbiologie', 0),
-(5, '2015-12-17', 'Tentamen', 'Celbiologie', 0),
-(6, '2015-12-22', 'Tentamen', 'Fundamentele Informatica 1', 0),
-(7, '2016-01-05', 'Tentamen', 'Programmeermethoden', 0);
+INSERT INTO `tentamens` (`id`, `date`, `weight`, `subject`, `substance`, `link`, `mark`) VALUES
+(1, '2015-09-21', 'Toets', 'Moleculaire Genetica', '', '', 7.1),
+(2, '2015-10-16', 'Tentamen', 'Moleculaire Genetica', '', 'https://blackboard.leidenuniv.nl/webapps/blackboard/execute/announcement?method=search&context=course_entry&course_id=_155460_1&handle=announcements_entry&mode=view#anonymous_element_13', 7.8),
+(3, '2015-10-19', 'Toets', 'Fundamentele Informatica 1', '', '', 0),
+(4, '2015-12-11', 'Tentamen', 'Microbiologie', '', '', 0),
+(5, '2015-12-17', 'Tentamen', 'Celbiologie', '', '', 0),
+(6, '2015-12-22', 'Tentamen', 'Fundamentele Informatica 1', '', '', 0),
+(7, '2016-01-05', 'Tentamen', 'Programmeermethoden', '', '', 0),
+(8, '2015-11-11', 'Tentamen', 'Celfysiologie', '', '', 0);
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -65,7 +68,7 @@ ALTER TABLE `tentamens`
 -- AUTO_INCREMENT voor een tabel `tentamens`
 --
 ALTER TABLE `tentamens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

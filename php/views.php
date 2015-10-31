@@ -9,7 +9,7 @@ function getContent ($name, $GET, $POST, $FILES) {
 		case 'table_exams';
 		    $ret .= '<div class="paragraph-center col-sm-12">';
 			$ret .= '<h2>Exams:</h2>';
-			$ret .= getTableTentamens();
+			$ret .= getTableExams();
 			$ret .= '</div>';
 		break;
 		
@@ -22,17 +22,29 @@ function getContent ($name, $GET, $POST, $FILES) {
 		
 		case 'table_events';
 		    $ret .= '<div class="paragraph-center col-sm-12">';
-			$ret .= '<h2>Events:</h2>';
-			$ret .= getTableEvents('', true);
+			$ret .= '<h2>Upcoming Events:</h2>';
+			$ret .= getTableEvents('', true, true);
 			$ret .= '</div>';
 		break;
 		
 		case 'item_assignment';
-		    $ret .= '<div class="paragraph-center col-sm-12">';
 			if (isset($GET['id']) && !empty($GET['id'])) {
+				$ret .= '<div class="paragraph-center col-sm-12">';
 				$ret .= getItemAssignment($GET['id']);
+			    $ret .= '</div>';
 			}
-			$ret .= '</div>';
+		break;
+		
+		case 'item_exam';
+			if (isset($GET['id']) && !empty($GET['id'])) {
+				$ret .= '<div class="paragraph-center col-sm-12">';
+				$ret .= getItemExam($GET['id']);
+				$ret .= '</div>';
+				$ret .= '<div class="paragraph-center col-sm-12">';
+				$ret .= '<h2>Planning:</h2>';
+				$ret .= getTablePlanning('tentamens', $GET['id'], false);
+				$ret .= '</div>';
+			}
 		break;
 		
 		case 'form_editItem';
@@ -52,11 +64,11 @@ function getContent ($name, $GET, $POST, $FILES) {
 		break;
 		
 		case 'list_dataItems';
-		    $ret .= '<div class="paragraph-center col-sm-12">';
 			if (isset($GET['table']) && !empty($GET['table'])) {
+				$ret .= '<div class="paragraph-center col-sm-12">';
 				$ret .= getDataItemsList($GET['table']);
+				$ret .= '</div>';
 			}
-			$ret .= '</div>';
 		break;
 		
 		case 'form_login';
@@ -83,6 +95,13 @@ function getContent ($name, $GET, $POST, $FILES) {
 			} else {
 				$ret .= err_404();
 			}
+		break;
+		
+		case 'table_planning':
+		    $ret .= '<div class="paragraph-center col-sm-12">';
+			$ret .= '<h2>Planning:</h2>';
+			$ret .= getTablePlanning('', '', true);
+			$ret .= '</div>';
 		break;
 		
 		default:
@@ -144,7 +163,12 @@ function getSubjectPage ($id) {
 		}
 		
 		$ret .= '<div class="paragraph-center col-sm-12">';
-		$ret .= getTableEvents($subject->name, false);
+		$ret .= '<h2>Planning:</h2>';
+		$ret .= getTablePlanning('subjects', $id, false);
+		$ret .= '</div>';
+		
+		$ret .= '<div class="paragraph-center col-sm-12">';
+		$ret .= getTableEvents($subject->name, false, false);
 		$ret .= '</div>';
 
 		return $ret;

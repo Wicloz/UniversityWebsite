@@ -32,6 +32,10 @@ function getContent ($name, $GET, $POST, $FILES) {
 				$ret .= '<div class="paragraph-center col-sm-12">';
 				$ret .= getItemAssignment($GET['id']);
 			    $ret .= '</div>';
+				$ret .= '<div class="paragraph-center col-sm-12">';
+				$ret .= '<h2>Planning:</h2>';
+				$ret .= getTablePlanning('assignments', $GET['id'], false);
+				$ret .= '</div>';
 			}
 		break;
 		

@@ -56,7 +56,8 @@ function headerContent () {
 
 function buildListItem ($title, $location, $target, $active) {
     $ret = '<li';
-    if ($active == $location) {
+
+    if ($location == $active || $location == substr($active, 0, strpos($active, '&'))) {
         $ret .= ' class="active"';
     }
 	if (!empty($target)) {
@@ -112,7 +113,7 @@ function mainnavContent ($active) {
 		
 		if (!empty($row->url) && !empty($row->sub_names)) {
 		    $subUrls = explode(',', str_replace(', ', ',', $row->sub_urls));
-			if (in_array($active, $subUrls)) {
+			if (in_array($active, $subUrls) || in_array(substr($active, 0, strpos($active, '&')), $subUrls)) {
 				$navbar .= buildListItem($row->name, $row->url, $row->target, $row->url);
 			} else {
 				$navbar .= buildListItem($row->name, $row->url, $row->target, $active);
@@ -163,7 +164,7 @@ function leftnavContent ($active) {
 		if (!empty($row->sub_names)) {
 			$subUrls = explode(',', str_replace(', ', ',', $row->sub_urls));
 			
-			if (in_array($active, $subUrls)) {
+			if (in_array($active, $subUrls) || in_array(substr($active, 0, strpos($active, '&')), $subUrls)) {
 				$subNames = explode(',', str_replace(', ', ',', $row->sub_names));
 				$subSize = count($subNames);
 							

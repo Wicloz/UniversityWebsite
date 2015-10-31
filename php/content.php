@@ -6,11 +6,11 @@ function timeFancy ($time) {
 }
 
 function timeDuration ($time) {
-	$minutes = strtotime(date('i', $time));
-	if (strpos('0', $minutes) === 0) {
+	$minutes = date('i', strtotime($time));
+	if (strpos($minutes, '0') === 0) {
 		$minutes = substr($minutes, 1);
 	}
-	return strtotime(date('G', $time)).'h '.$minutes.'m';
+	return date('G', strtotime($time)).'h '.$minutes.'m';
 }
 
 function dateFancy ($date) {
@@ -190,8 +190,8 @@ function getTableEvents ($subject, $all, $clean) {
 		$assignments = getAllEntriesSorted('assignments', 'end_date');
 		$tentamens = getAllEntriesSorted('tentamens', 'date');
 	} else {
-		$assignments = getEntryWithTestSorted('assignments', 'subject', $subject, 'end_date');
-		$tentamens = getEntryWithTestSorted('tentamens', 'subject', $subject, 'date');
+		$assignments = getEntriesWithTestSorted('assignments', 'subject', $subject, 'end_date');
+		$tentamens = getEntriesWithTestSorted('tentamens', 'subject', $subject, 'date');
 	}
 	
 	$doneT = false;
@@ -260,7 +260,55 @@ function getTableEvents ($subject, $all, $clean) {
 }
 
 function getTablePlanning ($table, $id, $all) {
+	$content = '';
+	if ($all) {
+		$table = getAllEntriesSorted('planning', 'date_start');
+		$headers = array('Date', 'Subject', 'Expected Duration', 'Goal', 'Status');
+	} else {
+		$table = getEntriesWithDoubleTestSorted('planning', 'parent_table', $table, 'parent_id', $id, 'date_start');
+		$headers = array('Date', 'Expected Duration', 'Goal', 'Status');		
+	}
 	
+	if ($table) {
+		while ($row = $table->fetch_object()) {
+			$s1 = '';
+			$s2 = '';
+			if ($row->done) {
+				$s1 = '<s>';
+				$s2 = '</s>';
+			}
+			
+			$content .= '<tr>';
+			
+			$content .= '<td>'.$s1.dateTable($row->date_start).$s2.'</td>';
+			
+			if ($all) {
+				$content .= '<td>'.$row->subject.'</td>';
+			}
+			
+			if ($row->duration == '00:00:00') {
+				$content .= '<td>'.$s1.'Undefined'.$s2.'</td>';
+			} else {
+				$content .= '<td>'.$s1.timeDuration($row->duration).$s2.'</td>';
+			}
+			
+			$content .= '<td>'.$s1.$row->goal.$s2.'</td>';
+			
+			if ($row->done) {
+				$content .= '<td>'.$s1.'Done'.$s2.'</td>';
+			} else {
+				$content .= '<td>'.$s1.'Planned'.$s2.'</td>';
+			}
+			
+			$content .= '</tr>';
+		}
+				
+		return buildFancyTable($headers, $content, '');
+	}
+	
+	else {
+		return '<p class="message-info">No planned events.</p>';
+	}
 }
 
 function getItemAssignment ($id) {

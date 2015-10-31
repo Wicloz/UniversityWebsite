@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 31 okt 2015 om 16:03
+-- Gegenereerd op: 31 okt 2015 om 17:01
 -- Serverversie: 5.6.26
 -- PHP-versie: 5.6.12
 
@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS `planning` (
   `parent_id` int(11) NOT NULL,
   `date_start` date NOT NULL,
   `date_end` date NOT NULL,
+  `subject` varchar(40) NOT NULL,
   `duration` time NOT NULL,
   `goal` text NOT NULL,
   `done` tinyint(1) NOT NULL
@@ -41,9 +42,9 @@ CREATE TABLE IF NOT EXISTS `planning` (
 -- Gegevens worden geëxporteerd voor tabel `planning`
 --
 
-INSERT INTO `planning` (`id`, `parent_table`, `parent_id`, `date_start`, `date_end`, `duration`, `goal`, `done`) VALUES
-(1, 'subjects', 6, '2015-10-31', '2015-10-31', '01:00:00', 'Read:\r\n- CH6, to p153\r\n- CH8, p203 to p211\r\n- CH36, p846 to p849\r\n- CH48, p1132 to p1138', 0),
-(2, 'assignments', 5, '2015-10-31', '2015-11-01', '00:00:00', 'Work on the webpage to meet the requirements for the assignment', 0);
+INSERT INTO `planning` (`id`, `parent_table`, `parent_id`, `date_start`, `date_end`, `subject`, `duration`, `goal`, `done`) VALUES
+(1, 'subjects', 6, '2015-10-31', '2015-10-31', 'Celfysiologie', '01:00:00', 'Read: CH6, to p153; CH8, p203 to p211; CH36, p846 to p849; CH48, p1132 to p1138', 0),
+(2, 'assignments', 5, '2015-10-31', '2015-11-01', 'Studeren & Presenteren', '00:00:00', 'Work on the webpage to meet the requirements for the assignment', 0);
 
 --
 -- Indexen voor geëxporteerde tabellen

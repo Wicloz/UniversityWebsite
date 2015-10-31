@@ -130,7 +130,7 @@ function getViewForPage ($page, $GET, $POST, $FILES) {
 }
 
 function getSubjectPage ($id) {
-	if ($subjects = getEntryWithTest('subjects', 'abbreviation', $id)) {
+	if ($subjects = getEntriesWithTest('subjects', 'abbreviation', $id)) {
 		$subject = $subjects->fetch_object();
 		
 		$ret = '<div class="paragraph-center col-sm-12">';
@@ -164,7 +164,7 @@ function getSubjectPage ($id) {
 		
 		$ret .= '<div class="paragraph-center col-sm-12">';
 		$ret .= '<h2>Planning:</h2>';
-		$ret .= getTablePlanning('subjects', $id, false);
+		$ret .= getTablePlanning('subjects', $subject->id, false);
 		$ret .= '</div>';
 		
 		$ret .= '<div class="paragraph-center col-sm-12">';

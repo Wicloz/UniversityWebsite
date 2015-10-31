@@ -45,7 +45,7 @@ function getEntryWithId ($table, $id) {
 	}
 }
 
-function getEntryWithTest ($table, $column, $test) {
+function getEntriesWithTest ($table, $column, $test) {
 	global $db;
 	if ($result = $db->query("SELECT * FROM {$table} WHERE {$column} = '{$test}'")) {
 		if ($result->num_rows) {
@@ -59,9 +59,23 @@ function getEntryWithTest ($table, $column, $test) {
 	}
 }
 
-function getEntryWithTestSorted ($table, $column, $test, $sort) {
+function getEntriesWithTestSorted ($table, $column, $test, $sort) {
 	global $db;
 	if ($result = $db->query("SELECT * FROM {$table} WHERE {$column} = '{$test}' ORDER BY {$sort} ASC")) {
+		if ($result->num_rows) {
+			return $result;
+			$result->free();
+		} else {
+			return false;
+		}
+	} else {
+		return $db->error;
+	}
+}
+
+function getEntriesWithDoubleTestSorted ($table, $column1, $test1, $column2, $test2, $sort) {
+	global $db;
+	if ($result = $db->query("SELECT * FROM {$table} WHERE {$column1} = '{$test1}' AND {$column2} = '{$test2}' ORDER BY {$sort} ASC")) {
 		if ($result->num_rows) {
 			return $result;
 			$result->free();

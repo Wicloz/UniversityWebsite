@@ -193,6 +193,7 @@ function getSubjectPage ($id) {
 		$ret .= '</div>';
 		
 		$ret .= '<div class="paragraph-center col-sm-12">';
+		$ret .= '<h2>Events:</h2>';
 		$ret .= getTableEvents($subject->name, false, false);
 		$ret .= '</div>';
 

@@ -255,8 +255,12 @@ function getTableEvents ($subject, $all, $clean) {
 	        }
 	    }
 	}
-			
-	return buildFancyTable($headers, $content, '');
+	
+	if (!empty($content)) {
+		return buildFancyTable($headers, $content, '');
+	} else {
+		return '<p class="message-info">No events present.</p>';
+	}
 }
 
 function getTablePlanning ($table, $id, $all) {
@@ -310,7 +314,7 @@ function getTablePlanning ($table, $id, $all) {
 	}
 	
 	else {
-		return '<p class="message-info">No planned events.</p>';
+		return '<p class="message-info">No planning present.</p>';
 	}
 }
 

@@ -35,7 +35,7 @@ function footerContent () {
 						<p>Student Number: s1704362</p>
 						<p>Email: <a href="mailto:deboer.wilco@gmail.com">deboer.wilco@gmail.com</a></p>
 						<p>Umail: <a href="mailto:s1704362@umail.leidenuniv.nl">s1704362@umail.leidenuniv.nl</a></p>
-						<p>Mobile number: +31 0637338259</p>
+						<p>Mobile Number: +31 0637338259</p>
 					</div>
 					<div class="col-sm-1" id="footer-left">
 					</div>

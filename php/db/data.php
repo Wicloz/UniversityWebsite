@@ -87,6 +87,22 @@ function getEntriesWithDoubleTestSorted ($table, $column1, $test1, $column2, $te
 	}
 }
 
+function getAutoIncrementValue ($table) {
+	global $db;
+	if ($result = $db->query("SHOW TABLE STATUS LIKE '{$table}'")) {
+		if ($result->num_rows) {
+			$row = $result->fetch_object();
+			$value = $row->Auto_increment;
+			$result->free();
+			return $value;
+		} else {
+			return false;
+		}
+	} else {
+		return $db->error;
+	}
+}
+
 function getTableFormInfo ($table) {
 	global $db, $db_dbname;
 	if ($result = $db->query("SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA='{$db_dbname}' AND TABLE_NAME='{$table}'")) {

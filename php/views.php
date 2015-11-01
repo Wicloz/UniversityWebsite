@@ -22,8 +22,21 @@ function getContent ($name, $GET, $POST, $FILES) {
 		
 		case 'table_events';
 		    $ret .= '<div class="paragraph-center col-sm-12">';
-			$ret .= '<h2>Events:</h2>';
+			$ret .= '<h2 id="events">Events:</h2>';
+			if (isset($POST['action']) && $POST['action'] == 'insert_event' && isset($POST['date']) && isset($POST['subject']) && isset($POST['task']) && !empty($POST['date']) && !empty($POST['subject']) && !empty($POST['task'])) {
+				$ret .= insertEvent($POST['date'], $POST['subject'], $POST['task']);
+			}
 			$ret .= getTableEvents('', true, false);
+			$ret .= '</div>';
+		break;
+		
+		case 'table_nearfuture';
+		    $ret .= '<div class="paragraph-center col-sm-12">';
+			$ret .= '<h2 id="events">Upcoming Events:</h2>';
+			if (isset($POST['action']) && $POST['action'] == 'insert_event' && isset($POST['date']) && isset($POST['subject']) && isset($POST['task']) && !empty($POST['date']) && !empty($POST['subject']) && !empty($POST['task'])) {
+				$ret .= insertEvent($POST['date'], $POST['subject'], $POST['task']);
+			}
+			$ret .= getTableEvents('', true, true);
 			$ret .= '</div>';
 		break;
 		
@@ -31,13 +44,6 @@ function getContent ($name, $GET, $POST, $FILES) {
 		    $ret .= '<div class="paragraph-center col-sm-12">';
 			$ret .= '<h2>Today:</h2>';
 			$ret .= getTableToday();
-			$ret .= '</div>';
-		break;
-		
-		case 'table_nearfuture';
-		    $ret .= '<div class="paragraph-center col-sm-12">';
-			$ret .= '<h2>Upcoming Events:</h2>';
-			$ret .= getTableEvents('', true, true);
 			$ret .= '</div>';
 		break;
 		

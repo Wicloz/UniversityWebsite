@@ -182,7 +182,9 @@ function getTableAssignments () {
 		$content .= '</tr>';
 	}
 			
-	return buildFancyTable($headers, $content, '');
+	$ret = buildFancyTable($headers, $content, '');
+	$ret .= '<p><a class="button" href="index.php?page=list-entries&table=assignments">Edit Table</a></p>';
+	return $ret;
 }
 
 function getTableExams () {
@@ -208,7 +210,9 @@ function getTableExams () {
 		$content .= '</tr>';
 	}
 			
-	return buildFancyTable($headers, $content, 'table-thinner');
+	$ret = buildFancyTable($headers, $content, 'table-thinner');
+	$ret .= '<p><a class="button table-thinner" href="index.php?page=list-entries&table=tentamens">Edit Table</a></p>';
+	return $ret;
 }
 
 function getTableEvents ($subject, $all, $clean) {
@@ -283,7 +287,7 @@ function getTableEvents ($subject, $all, $clean) {
 				$todayAdded = true;
 			}
 			
-			if (!$clean || date('Y-m-d') < $rowT->date) {
+			if (!$clean || date('Y-m-d') <= $rowT->date) {
 				$content .= '<tr>';
 				$content .= '<td>'.$s1.dateTable($rowT->date).$s2.'</td>';
 				$content .= '<td>'.$s1.$rowT->subject.$s2.'</td>';
@@ -297,6 +301,23 @@ function getTableEvents ($subject, $all, $clean) {
 	        }
 	    }
 	}
+	
+	if (!$todayAdded) {
+		$content .= '<tr>';
+		$content .= '<td><b>'.dateTable(date('Y-m-d')).'</b></td>';
+		$content .= '<td><b>Today is a gift</b></td>';
+		$content .= '<td><b>Thats why it\'s called the present</b></td>';
+		$content .= '<td><b>-</b></td>';
+		$content .= '</tr>';
+		$todayAdded = true;
+	}
+	
+	$content .= '<tr><form action="#events" method="POST"><input type="hidden" name="action" value="insert_event">';
+	$content .= '<td><input type="date" name="date" style="width:100%"></td>';
+	$content .= '<td><input type="text" name="subject" style="width:100%"></td>';
+	$content .= '<td><input type="text" name="task" style="width:100%"></td>';
+	$content .= '<td><input class="button submit-button" type="submit" value="Add"></td>';
+	$content .= '</form></tr>';
 	
 	if (!empty($content)) {
 		return buildFancyTable($headers, $content, '');
@@ -435,11 +456,15 @@ function getTablePlanning ($table, $id, $all, $clean) {
 			}
 		}
 				
-		return buildFancyTable($headers, $content, '');
+		$ret = buildFancyTable($headers, $content, '');
+		$ret .= '<p><a class="button" href="index.php?page=list-entries&table=planning">Edit Table</a></p>';
+		return $ret;
 	}
 	
 	else {
-		return '<p class="message-info">No planning present.</p>';
+		$ret = '<p class="message-info">No planning present.</p>';
+		$ret .= '<p><a class="button" href="index.php?page=list-entries&table=planning">Edit Table</a></p>';
+		return $ret;
 	}
 }
 
@@ -625,7 +650,7 @@ function getDataItemsList ($table) {
 				$content .= '<td>'.$row[$field].'</td>';
 			}
 
-			$content .= '<td><a href="index.php?page=edit-entry&table='.$table.'&id='.$row['id'].'">Edit</a></td>';
+			$content .= '<td><a class="button" href="index.php?page=edit-entry&table='.$table.'&id='.$row['id'].'">Edit</a></td>';
 			$content .= '</tr>';
 		}
 	}

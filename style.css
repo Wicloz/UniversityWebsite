@@ -150,6 +150,10 @@ body {
 	font-size: 18px;
 }
 
+.submit-button {
+	
+}
+
 .table-fancy {
 	border: 1px solid #06123B;
 	width: 100%;
@@ -265,7 +269,7 @@ body {
 	width: 100%;
 }
 
-.submit-button {
+.submit-button-bb {
 	margin: 6px 0px -10px -3px;
 	background: #0099B6 none repeat scroll 0% 0%;
 	border-color: #0099B6;

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 31 okt 2015 om 20:55
+-- Gegenereerd op: 01 nov 2015 om 13:01
 -- Serverversie: 5.6.26
 -- PHP-versie: 5.6.12
 
@@ -41,7 +41,7 @@ INSERT INTO `pages` (`id`, `page`, `content`) VALUES
 (2, 'exams', 'table_exams, table_planning_exams, article_calendars_exams'),
 (3, 'assignments', 'table_assignments, table_planning_assignments'),
 (4, 'assignments_item', 'item_assignment'),
-(5, 'home', 'article_text_introduction, table_today, table_planning_future, table_nearfuture'),
+(5, 'home', 'article_text_introduction, table_today, table_planning_future, article_calendars_agenda, table_nearfuture'),
 (6, 'contact', ''),
 (7, 'schedule', 'article_calendars_schedule, article_calendars_schedule_1ejrnaj, article_calendars_schedule_1ejrvoorj'),
 (8, 'edit-entry', 'form_editItem'),

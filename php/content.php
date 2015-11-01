@@ -223,6 +223,7 @@ function getTableEvents ($subject, $all, $clean) {
 		$exams = getEntriesWithTestSorted('tentamens', 'subject', $subject, 'date');
 	}
 	
+	$todayAdded = false;
 	$doneT = false;
 	$doneA = false;
     if (!$exams || !($rowT = $exams->fetch_object())) {
@@ -239,6 +240,16 @@ function getTableEvents ($subject, $all, $clean) {
 			if ($rowA->completion) {
 				$s1 = '<s>';
 				$s2 = '</s>';
+			}
+			
+			if (!$todayAdded && $rowA->end_date >= date('Y-m-d')) {
+				$content .= '<tr>';
+				$content .= '<td><b>'.dateTable(date('Y-m-d')).'</b></td>';
+				$content .= '<td><b>Today is a gift</b></td>';
+				$content .= '<td><b>Thats why it\'s called the present</b></td>';
+				$content .= '<td><b>-</b></td>';
+				$content .= '</tr>';
+				$todayAdded = true;
 			}
 			
 			if (!$clean || !$rowA->completion) {
@@ -260,6 +271,16 @@ function getTableEvents ($subject, $all, $clean) {
 			if ($rowT->date < date('Y-m-d')) {
 				$s1 = '<s>';
 				$s2 = '</s>';
+			}
+			
+			if (!$todayAdded && $rowT->date >= date('Y-m-d')) {
+				$content .= '<tr>';
+				$content .= '<td><b>'.dateTable(date('Y-m-d')).'</b></td>';
+				$content .= '<td><b>Today is a gift</b></td>';
+				$content .= '<td><b>Thats why it\'s called the present</b></td>';
+				$content .= '<td><b>-</b></td>';
+				$content .= '</tr>';
+				$todayAdded = true;
 			}
 			
 			if (!$clean || date('Y-m-d') < $rowT->date) {

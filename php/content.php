@@ -32,7 +32,7 @@ function dateItem ($date) {
 function assignmentCompletionString ($row) {
 	if ($row->completion) {
 		return 'Complete';
-	} else if ($row->end_date >= date('Y-m-d')) {
+	} else if (date('Y-m-d') < $row->end_date || (date('Y-m-d') == $row->end_date && date('H:i:s') <= $row->end_time)) {
 		return 'Working';
 	} else {
 		return 'Overdue';
@@ -62,7 +62,7 @@ function examMarkString ($row) {
 function planningCompletionString ($row) {
 	if ($row->done) {
 		return 'Done';
-	} else if ($row->date_end >= date('Y-m-d')) {
+	} else if (date('Y-m-d') <= $row->date_end) {
 		return 'Planned';
 	} else {
 		return 'Overdue';

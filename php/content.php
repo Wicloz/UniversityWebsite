@@ -482,7 +482,7 @@ function getTablePlanning ($table, $id, $all, $clean) {
 	if (!empty($table) && !empty($id)) {
 		$content .= '<tr>';
 		$content .= '<td><form action="" method="POST"><input type="hidden" name="action" value="insert_planning"><input type="hidden" name="parent_table" value="'.$table.'"><input type="hidden" name="parent_id" value="'.$id.'">';
-		$content .= '<input type="text" name="date" placeholder="dd-mm-yyyy - dd-mm-yyyy" style="width:100%"></td>';
+		$content .= '<input type="date" name="start_date" style="width:46%"> - <input type="date" name="end_date" style="width:46%"></td>';
 		$content .= '<td><input type="text" name="duration" placeholder="00h 00m" style="width:100%"></td>';
 		$content .= '<td><input type="text" name="goal" style="width:100%"></td>';
 		$content .= '<td>-</td>';

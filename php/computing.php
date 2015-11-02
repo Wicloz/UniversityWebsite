@@ -83,6 +83,30 @@ function insertEvent ($date, $subject, $task) {
 	}
 }
 
+function insertPlanning ($parent_table, $parent_id, $start_date, $end_date, $duration, $goal) {
+	global $last_query;
+	
+	$subject = '';
+	
+	$entry['parent_table'] = $parent_table;
+	$entry['parent_id'] = $parent_id;
+	$entry['date_start'] = date('Y-m-d', strtotime($date_start));
+	$entry['date_end'] = date('Y-m-d', strtotime($date_end));
+	$entry['subject'] = $subject;
+	$entry['duration'] = date('H:i:s', strtotime($duration));
+	$entry['goal'] = $goal;
+	$entry['done'] = '0';
+		
+	$rows = insertEntry('planning', $entry);
+	$ret = '<p class="message-info">'.$last_query.'</p>';
+	if ($rows > 0) {
+		$ret .= '<p class="message-success">Entry Inserted! Rows affected: '.$rows.'</p>';
+	} else {
+		$ret .= '<p class="message-error">Insertion Failed! Error message: '.$rows.'</p>';
+	}
+	return $ret;
+}
+
 function switchEventCompletion ($table, $id) {
 	switch ($table) {
 		case 'assignments':

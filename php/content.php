@@ -426,18 +426,18 @@ function getTableToday () {
 function getTablePlanning ($table, $id, $all, $clean) {
 	$content = '';
 	if ($all) {
-		$table = getAllEntriesSorted('planning', 'date_start');
+		$entries = getAllEntriesSorted('planning', 'date_start');
 		$headers = array('Date', 'Subject', 'Estimated Duration', 'Goal', 'Status', 'Edit');
 	} else if ($id == -1) {
-		$table = getEntriesWithTestSorted('planning', 'parent_table', $table, 'date_start');
+		$entries = getEntriesWithTestSorted('planning', 'parent_table', $table, 'date_start');
 		$headers = array('Date', 'Subject', 'Estimated Duration', 'Goal', 'Status');
 	} else {
-		$table = getEntriesWithDoubleTestSorted('planning', 'parent_table', $table, 'parent_id', $id, 'date_start');
+		$entries = getEntriesWithDoubleTestSorted('planning', 'parent_table', $table, 'parent_id', $id, 'date_start');
 		$headers = array('Date', 'Estimated Duration', 'Goal', 'Status');		
 	}
 	
-	if ($table) {
-		while ($row = $table->fetch_object()) {
+	if ($entries) {
+		while ($row = $entries->fetch_object()) {
 			$s1 = '';
 			$s2 = '';
 			if ($row->done) {
@@ -477,13 +477,24 @@ function getTablePlanning ($table, $id, $all, $clean) {
 				$content .= '</tr>';
 			}
 		}
-				
+	}
+	
+	if (!empty($table) && !empty($id)) {
+		$content .= '<tr>';
+		$content .= '<td><form action="" method="POST"><input type="hidden" name="action" value="insert_planning"><input type="hidden" name="parent_table" value="'.$table.'"><input type="hidden" name="parent_id" value="'.$id.'">';
+		$content .= '<input type="text" name="date" placeholder="dd-mm-yyyy - dd-mm-yyyy" style="width:100%"></td>';
+		$content .= '<td><input type="text" name="duration" placeholder="00h 00m" style="width:100%"></td>';
+		$content .= '<td><input type="text" name="goal" style="width:100%"></td>';
+		$content .= '<td>-</td>';
+		$content .= '<td><input class="button submit-button table-button" type="submit" value="Add"></form></td>';
+		$content .= '</tr>';
+	}
+	
+	if (!empty($content)) {
 		$ret = buildFancyTable($headers, $content, '');
 		$ret .= '<p><a class="button" href="index.php?page=list-entries&table=planning">Edit Table</a></p>';
 		return $ret;
-	}
-	
-	else {
+	} else {
 		$ret = '<p class="message-info">No planning present.</p>';
 		$ret .= '<p><a class="button" href="index.php?page=list-entries&table=planning">Edit Table</a></p>';
 		return $ret;

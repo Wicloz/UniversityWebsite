@@ -316,7 +316,7 @@ function getTableEvents ($subject, $all, $clean) {
 	$content .= '<td><input type="date" name="date" style="width:100%"></td>';
 	$content .= '<td><input type="text" name="subject" style="width:100%"></td>';
 	$content .= '<td><input type="text" name="task" style="width:100%"></td>';
-	$content .= '<td><input class="button submit-button" type="submit" value="Add"></td>';
+	$content .= '<td><input class="button submit-button table-button" type="submit" value="Add"></td>';
 	$content .= '</form></tr>';
 	
 	if (!empty($content)) {

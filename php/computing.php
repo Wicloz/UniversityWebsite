@@ -128,6 +128,10 @@ function switchEventCompletion ($table, $id) {
 			$row = $result->fetch_assoc();
 			$row['done'] = !$row['done'];
 			
+			if ($row['done']) {
+				$row['finished_on'] = date('Y-m-d H:i:s');
+			}
+			
 			$rows = updateEntry($table, $id, $row);
 			
 			if ($rows == false) {

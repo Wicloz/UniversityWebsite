@@ -83,4 +83,36 @@ function insertEvent ($date, $subject, $task) {
 	}
 }
 
+function switchEventCompletion ($table, $id) {
+	switch ($table) {
+		case 'assignments':
+			$result = getEntryWithId($table, $id);
+			$row = $result->fetch_assoc();
+			$row['completion'] = !$row['completion'];
+			
+			$rows = updateEntry($table, $id, $row);
+			
+			if ($rows == false) {
+				$ret = '<p class="message-info">'.$last_query.'</p>';
+				$ret .= '<p class="message-error">Insertion Failed! Error message: '.$rows.'</p>';
+				return $ret;
+			}
+		break;
+		
+		case 'planning':
+			$result = getEntryWithId($table, $id);
+			$row = $result->fetch_assoc();
+			$row['done'] = !$row['done'];
+			
+			$rows = updateEntry($table, $id, $row);
+			
+			if ($rows == false) {
+				$ret = '<p class="message-info">'.$last_query.'</p>';
+				$ret .= '<p class="message-error">Insertion Failed! Error message: '.$rows.'</p>';
+				return $ret;
+			}
+		break;
+	}
+}
+
 ?>

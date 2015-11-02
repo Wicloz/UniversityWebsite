@@ -327,7 +327,7 @@ function getTableEvents ($subject, $all, $clean) {
 }
 
 function getTableToday () {
-	$headers = array('Subject', 'Type', 'Task', 'Status');
+	$headers = array('Subject', 'Type', 'Task', 'Status', 'Edit');
 	$content = '';
 	$assignmentsPre = getAllEntriesSorted('assignments', 'end_date');
 	$exams = getEntriesWithTestSorted('tentamens', 'date', date('Y-m-d'), 'subject');
@@ -366,6 +366,13 @@ function getTableToday () {
 		$content .= '<td>'.$s1.'<a href="index.php?page=assignments_item&id='.$row->id.'">'.$row->desc_short.'</a>'.$s2.'</td>';
 		$content .= '<td>'.$s1.assignmentCompletionString($row).$s2.'</td>';
 		
+		if ($row->completion) {
+			$button = 'Uncomplete';
+		} else {
+			$button = 'Complete';
+		}
+		$content .= '<td><form action="" method="POST"><input type="hidden" name="action" value="switch_event"><input type="hidden" name="table" value="assignments"><input type="hidden" name="id" value="'.$row->id.'"><input class="button submit-button table-button" type="submit" value="'.$button.'"></form></td>';
+		
 		$content .= '</tr>';
 	}
 	
@@ -383,6 +390,7 @@ function getTableToday () {
 		$content .= '<td>'.$s1.'Examination'.$s2.'</td>';
 		$content .= '<td>'.$s1.'<a href="index.php?page=exams_item&id='.$row->id.'">'.$row->weight.' '.$row->subject.'</a>'.$s2.'</td>';
 		$content .= '<td>'.$s1.examCompletionString($row, false).$s2.'</td>';
+		$content .= '<td><a class="button table-button" href="index.php?page=edit-entry&table=tentamens&id='.$row->id.'">Edit</a></td>';
 		
 		$content .= '</tr>';
 	}
@@ -402,6 +410,13 @@ function getTableToday () {
 		$content .= '<td>'.$s1.$row->goal.$s2.'</td>';
 		$content .= '<td>'.$s1.planningCompletionString($row).$s2.'</td>';
 		
+		if ($row->done) {
+			$button = 'Uncomplete';
+		} else {
+			$button = 'Complete';
+		}
+		$content .= '<td><form action="" method="POST"><input type="hidden" name="action" value="switch_event"><input type="hidden" name="table" value="planning"><input type="hidden" name="id" value="'.$row->id.'"><input class="button submit-button table-button" type="submit" value="'.$button.'"></form></td>';
+		
 		$content .= '</tr>';
 	}
 			
@@ -412,7 +427,7 @@ function getTablePlanning ($table, $id, $all, $clean) {
 	$content = '';
 	if ($all) {
 		$table = getAllEntriesSorted('planning', 'date_start');
-		$headers = array('Date', 'Subject', 'Estimated Duration', 'Goal', 'Status');
+		$headers = array('Date', 'Subject', 'Estimated Duration', 'Goal', 'Status', 'Edit');
 	} else if ($id == -1) {
 		$table = getEntriesWithTestSorted('planning', 'parent_table', $table, 'date_start');
 		$headers = array('Date', 'Subject', 'Estimated Duration', 'Goal', 'Status');
@@ -451,6 +466,13 @@ function getTablePlanning ($table, $id, $all, $clean) {
 				
 				$content .= '<td>'.$s1.$row->goal.$s2.'</td>';
 				$content .= '<td>'.$s1.planningCompletionString($row).$s2.'</td>';
+				
+				if ($row->done) {
+					$button = 'Uncomplete';
+				} else {
+					$button = 'Complete';
+				}
+				$content .= '<td><form action="" method="POST"><input type="hidden" name="action" value="switch_event"><input type="hidden" name="table" value="planning"><input type="hidden" name="id" value="'.$row->id.'"><input class="button submit-button table-button" type="submit" value="'.$button.'"></form></td>';
 				
 				$content .= '</tr>';
 			}
@@ -650,7 +672,7 @@ function getDataItemsList ($table) {
 				$content .= '<td>'.$row[$field].'</td>';
 			}
 
-			$content .= '<td><a class="button" href="index.php?page=edit-entry&table='.$table.'&id='.$row['id'].'">Edit</a></td>';
+			$content .= '<td><a class="button table-button" href="index.php?page=edit-entry&table='.$table.'&id='.$row['id'].'">Edit</a></td>';
 			$content .= '</tr>';
 		}
 	}

@@ -43,6 +43,9 @@ function getContent ($name, $GET, $POST, $FILES) {
 		case 'table_today';
 		    $ret .= '<div class="paragraph-center col-sm-12">';
 			$ret .= '<h2>Today:</h2>';
+			if (isset($POST['action']) && $POST['action'] == 'switch_event' && isset($POST['table']) && isset($POST['id']) && !empty($POST['table']) && !empty($POST['id'])) {
+				$ret .= switchEventCompletion($POST['table'], $POST['id']);
+			}
 			$ret .= getTableToday();
 			$ret .= '</div>';
 		break;
@@ -124,6 +127,9 @@ function getContent ($name, $GET, $POST, $FILES) {
 		case 'table_planning':
 		    $ret .= '<div class="paragraph-center col-sm-12">';
 			$ret .= '<h2>Planning:</h2>';
+			if (isset($POST['action']) && $POST['action'] == 'switch_event' && isset($POST['table']) && isset($POST['id']) && !empty($POST['table']) && !empty($POST['id'])) {
+				$ret .= switchEventCompletion($POST['table'], $POST['id']);
+			}
 			$ret .= getTablePlanning('', '', true, false);
 			$ret .= '</div>';
 		break;

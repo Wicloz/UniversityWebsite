@@ -152,6 +152,11 @@ body {
 
 .submit-button {
 	padding: 3px 11px 4px 10px;
+	margin: 0px;
+}
+
+.table-button {
+	margin: -4px 0px;
 }
 
 .table-fancy {

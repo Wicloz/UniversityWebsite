@@ -2,6 +2,8 @@
 require 'items.php';
 require 'errors.php';
 
+$switchedEvent = false;
+
 function tryInsertEvent ($POST) {
 	if (isset($POST['action']) && $POST['action'] == 'insert_event' && isset($POST['date']) && isset($POST['subject']) && isset($POST['task']) && !empty($POST['date']) && !empty($POST['subject']) && !empty($POST['task'])) {
 		return insertEvent($POST['date'], $POST['subject'], $POST['task']);
@@ -18,8 +20,10 @@ function tryInsertPlannning ($POST) {
 	}
 }
 
-function trySwitchEvent ($POST) {
-	if (isset($POST['action']) && $POST['action'] == 'switch_event' && isset($POST['table']) && isset($POST['id']) && !empty($POST['table']) && !empty($POST['id'])) {
+function trySwitchEventCompletion ($POST) {
+	global $switchedEvent;
+	if (!$switchedEvent && isset($POST['action']) && $POST['action'] == 'switch_event' && isset($POST['table']) && isset($POST['id']) && !empty($POST['table']) && !empty($POST['id'])) {
+		$switchedEvent = true;
 		return switchEventCompletion($POST['table'], $POST['id']);
 	} else {
 		return '';
@@ -47,9 +51,7 @@ function getContent ($name, $GET, $POST, $FILES) {
 		case 'table_events';
 		    $ret .= '<div class="paragraph-center col-sm-12">';
 			$ret .= '<h2 id="events">Events:</h2>';
-			if (isset($POST['action']) && $POST['action'] == 'insert_event' && isset($POST['date']) && isset($POST['subject']) && isset($POST['task']) && !empty($POST['date']) && !empty($POST['subject']) && !empty($POST['task'])) {
-				$ret .= insertEvent($POST['date'], $POST['subject'], $POST['task']);
-			}
+			$ret .= tryInsertEvent($POST);
 			$ret .= getTableEvents('', true, false);
 			$ret .= '</div>';
 		break;
@@ -57,9 +59,7 @@ function getContent ($name, $GET, $POST, $FILES) {
 		case 'table_nearfuture';
 		    $ret .= '<div class="paragraph-center col-sm-12">';
 			$ret .= '<h2 id="events">Upcoming Events:</h2>';
-			if (isset($POST['action']) && $POST['action'] == 'insert_event' && isset($POST['date']) && isset($POST['subject']) && isset($POST['task']) && !empty($POST['date']) && !empty($POST['subject']) && !empty($POST['task'])) {
-				$ret .= insertEvent($POST['date'], $POST['subject'], $POST['task']);
-			}
+			$ret .= tryInsertEvent($POST);
 			$ret .= getTableEvents('', true, true);
 			$ret .= '</div>';
 		break;
@@ -67,9 +67,7 @@ function getContent ($name, $GET, $POST, $FILES) {
 		case 'table_today';
 		    $ret .= '<div class="paragraph-center col-sm-12">';
 			$ret .= '<h2>Today:</h2>';
-			if (isset($POST['action']) && $POST['action'] == 'switch_event' && isset($POST['table']) && isset($POST['id']) && !empty($POST['table']) && !empty($POST['id'])) {
-				$ret .= switchEventCompletion($POST['table'], $POST['id']);
-			}
+			$ret .= trySwitchEventCompletion($POST);
 			$ret .= getTableToday();
 			$ret .= '</div>';
 		break;
@@ -81,12 +79,8 @@ function getContent ($name, $GET, $POST, $FILES) {
 			    $ret .= '</div>';
 				$ret .= '<div class="paragraph-center col-sm-12">';
 				$ret .= '<h2>Planning:</h2>';
-				if (isset($POST['action']) && $POST['action'] == 'switch_event' && isset($POST['table']) && isset($POST['id']) && !empty($POST['table']) && !empty($POST['id'])) {
-					$ret .= switchEventCompletion($POST['table'], $POST['id']);
-				}
-				if (isset($POST['action']) && $POST['action'] == 'insert_planning' && isset($POST['parent_table']) && isset($POST['parent_id']) && isset($POST['start_date']) && isset($POST['end_date']) && isset($POST['duration']) && isset($POST['goal']) && !empty($POST['parent_table']) && !empty($POST['parent_id']) && !empty($POST['start_date']) && !empty($POST['end_date']) && !empty($POST['duration']) && !empty($POST['goal'])) {
-					$ret .= insertPlanning($POST['parent_table'], $POST['parent_id'], $POST['start_date'], $POST['end_date'], $POST['duration'], $POST['goal']);
-				}
+				$ret .= trySwitchEventCompletion($POST);
+				$ret .= tryInsertPlanning($POST);
 				$ret .= getTablePlanning('assignments', $GET['id'], false, false);
 				$ret .= '</div>';
 			}
@@ -99,12 +93,8 @@ function getContent ($name, $GET, $POST, $FILES) {
 				$ret .= '</div>';
 				$ret .= '<div class="paragraph-center col-sm-12">';
 				$ret .= '<h2>Planning:</h2>';
-				if (isset($POST['action']) && $POST['action'] == 'switch_event' && isset($POST['table']) && isset($POST['id']) && !empty($POST['table']) && !empty($POST['id'])) {
-					$ret .= switchEventCompletion($POST['table'], $POST['id']);
-				}
-				if (isset($POST['action']) && $POST['action'] == 'insert_planning' && isset($POST['parent_table']) && isset($POST['parent_id']) && isset($POST['start_date']) && isset($POST['end_date']) && isset($POST['duration']) && isset($POST['goal']) && !empty($POST['parent_table']) && !empty($POST['parent_id']) && !empty($POST['start_date']) && !empty($POST['end_date']) && !empty($POST['duration']) && !empty($POST['goal'])) {
-					$ret .= insertPlanning($POST['parent_table'], $POST['parent_id'], $POST['start_date'], $POST['end_date'], $POST['duration'], $POST['goal']);
-				}
+				$ret .= trySwitchEventCompletion($POST);
+				$ret .= tryInsertPlanning($POST);
 				$ret .= getTablePlanning('tentamens', $GET['id'], false, false);
 				$ret .= '</div>';
 			}
@@ -154,7 +144,7 @@ function getContent ($name, $GET, $POST, $FILES) {
 		
 		case 'subjectPage':
 			if (isset($GET['subject']) && !empty($GET['subject'])) {
-				$ret .= getSubjectPage($GET['subject']);
+				$ret .= getSubjectPage($GET['subject'], $POST, $FILES);
 			} else {
 				$ret .= err_404();
 			}
@@ -163,9 +153,7 @@ function getContent ($name, $GET, $POST, $FILES) {
 		case 'table_planning':
 		    $ret .= '<div class="paragraph-center col-sm-12">';
 			$ret .= '<h2>Planning:</h2>';
-			if (isset($POST['action']) && $POST['action'] == 'switch_event' && isset($POST['table']) && isset($POST['id']) && !empty($POST['table']) && !empty($POST['id'])) {
-				$ret .= switchEventCompletion($POST['table'], $POST['id']);
-			}
+			$ret .= trySwitchEventCompletion($POST);
 			$ret .= getTablePlanning('', '', true, false);
 			$ret .= '</div>';
 		break;
@@ -173,9 +161,7 @@ function getContent ($name, $GET, $POST, $FILES) {
 		case 'table_planning_future':
 		    $ret .= '<div class="paragraph-center col-sm-12">';
 			$ret .= '<h2>Upcoming Planning:</h2>';
-			if (isset($POST['action']) && $POST['action'] == 'switch_event' && isset($POST['table']) && isset($POST['id']) && !empty($POST['table']) && !empty($POST['id'])) {
-				$ret .= switchEventCompletion($POST['table'], $POST['id']);
-			}
+			$ret .= trySwitchEventCompletion($POST);
 			$ret .= getTablePlanning('', '', true, true);
 			$ret .= '</div>';
 		break;
@@ -183,9 +169,8 @@ function getContent ($name, $GET, $POST, $FILES) {
 		case 'table_planning_subjects':
 		    $ret .= '<div class="paragraph-center col-sm-12">';
 			$ret .= '<h2>Planning:</h2>';
-			if (isset($POST['action']) && $POST['action'] == 'switch_event' && isset($POST['table']) && isset($POST['id']) && !empty($POST['table']) && !empty($POST['id'])) {
-				$ret .= switchEventCompletion($POST['table'], $POST['id']);
-			}
+			$ret .= trySwitchEventCompletion($POST);
+			$ret .= tryInsertPlanning($POST);
 			$ret .= getTablePlanning('subjects', -1, false, false);
 			$ret .= '</div>';
 		break;
@@ -193,9 +178,7 @@ function getContent ($name, $GET, $POST, $FILES) {
 		case 'table_planning_assignments':
 		    $ret .= '<div class="paragraph-center col-sm-12">';
 			$ret .= '<h2>Planning Assignments:</h2>';
-			if (isset($POST['action']) && $POST['action'] == 'switch_event' && isset($POST['table']) && isset($POST['id']) && !empty($POST['table']) && !empty($POST['id'])) {
-				$ret .= switchEventCompletion($POST['table'], $POST['id']);
-			}
+			$ret .= trySwitchEventCompletion($POST);
 			$ret .= getTablePlanning('assignments', -1, false, false);
 			$ret .= '</div>';
 		break;
@@ -203,9 +186,7 @@ function getContent ($name, $GET, $POST, $FILES) {
 		case 'table_planning_exams':
 		    $ret .= '<div class="paragraph-center col-sm-12">';
 			$ret .= '<h2>Planning Exams:</h2>';
-			if (isset($POST['action']) && $POST['action'] == 'switch_event' && isset($POST['table']) && isset($POST['id']) && !empty($POST['table']) && !empty($POST['id'])) {
-				$ret .= switchEventCompletion($POST['table'], $POST['id']);
-			}
+			$ret .= trySwitchEventCompletion($POST);
 			$ret .= getTablePlanning('tentamens', -1, false, false);
 			$ret .= '</div>';
 		break;
@@ -235,7 +216,7 @@ function getViewForPage ($page, $GET, $POST, $FILES) {
 	return $view;
 }
 
-function getSubjectPage ($id) {
+function getSubjectPage ($id, $POST, $FILES) {
 	if ($subjects = getEntriesWithTest('subjects', 'abbreviation', $id)) {
 		$subject = $subjects->fetch_object();
 		
@@ -270,9 +251,7 @@ function getSubjectPage ($id) {
 		
 		$ret .= '<div class="paragraph-center col-sm-12">';
 		$ret .= '<h2>Events:</h2>';
-		if (isset($POST['action']) && $POST['action'] == 'insert_event' && isset($POST['date']) && isset($POST['subject']) && isset($POST['task']) && !empty($POST['date']) && !empty($POST['subject']) && !empty($POST['task'])) {
-			$ret .= insertEvent($POST['date'], $POST['subject'], $POST['task']);
-		}
+		$ret .= tryInsertEvent($POST);
 		$ret .= getTableEvents($subject->name, false, false);
 		$ret .= '</div>';
 		

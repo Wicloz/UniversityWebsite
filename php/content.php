@@ -430,10 +430,10 @@ function getTablePlanning ($table, $id, $all, $clean) {
 		$headers = array('Date', 'Subject', 'Estimated Duration', 'Goal', 'Status', 'Edit');
 	} else if ($id == -1) {
 		$entries = getEntriesWithTestSorted('planning', 'parent_table', $table, 'date_start');
-		$headers = array('Date', 'Subject', 'Estimated Duration', 'Goal', 'Status');
+		$headers = array('Date', 'Subject', 'Estimated Duration', 'Goal', 'Status', 'Edit');
 	} else {
 		$entries = getEntriesWithDoubleTestSorted('planning', 'parent_table', $table, 'parent_id', $id, 'date_start');
-		$headers = array('Date', 'Estimated Duration', 'Goal', 'Status');		
+		$headers = array('Date', 'Estimated Duration', 'Goal', 'Status', 'Edit');		
 	}
 	
 	if ($entries) {

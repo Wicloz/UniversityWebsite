@@ -2,6 +2,30 @@
 require 'items.php';
 require 'errors.php';
 
+function tryInsertEvent ($POST) {
+	if (isset($POST['action']) && $POST['action'] == 'insert_event' && isset($POST['date']) && isset($POST['subject']) && isset($POST['task']) && !empty($POST['date']) && !empty($POST['subject']) && !empty($POST['task'])) {
+		return insertEvent($POST['date'], $POST['subject'], $POST['task']);
+	} else {
+		return '';
+	}
+}
+
+function tryInsertPlannning ($POST) {
+	if (isset($POST['action']) && $POST['action'] == 'insert_planning' && isset($POST['parent_table']) && isset($POST['parent_id']) && isset($POST['start_date']) && isset($POST['end_date']) && isset($POST['duration']) && isset($POST['goal']) && !empty($POST['parent_table']) && !empty($POST['parent_id']) && !empty($POST['start_date']) && !empty($POST['end_date']) && !empty($POST['duration']) && !empty($POST['goal'])) {
+		return insertPlanning($POST['parent_table'], $POST['parent_id'], $POST['start_date'], $POST['end_date'], $POST['duration'], $POST['goal']);
+	} else {
+		return '';
+	}
+}
+
+function trySwitchEvent ($POST) {
+	if (isset($POST['action']) && $POST['action'] == 'switch_event' && isset($POST['table']) && isset($POST['id']) && !empty($POST['table']) && !empty($POST['id'])) {
+		return switchEventCompletion($POST['table'], $POST['id']);
+	} else {
+		return '';
+	}
+}
+
 function getContent ($name, $GET, $POST, $FILES) {
 	$ret = '';
 	
@@ -246,6 +270,9 @@ function getSubjectPage ($id) {
 		
 		$ret .= '<div class="paragraph-center col-sm-12">';
 		$ret .= '<h2>Events:</h2>';
+		if (isset($POST['action']) && $POST['action'] == 'insert_event' && isset($POST['date']) && isset($POST['subject']) && isset($POST['task']) && !empty($POST['date']) && !empty($POST['subject']) && !empty($POST['task'])) {
+			$ret .= insertEvent($POST['date'], $POST['subject'], $POST['task']);
+		}
 		$ret .= getTableEvents($subject->name, false, false);
 		$ret .= '</div>';
 		

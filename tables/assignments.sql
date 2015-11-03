@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.14
+-- version 4.2.9
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Gegenereerd op: 31 okt 2015 om 20:55
--- Serverversie: 5.6.26
--- PHP-versie: 5.6.12
+-- Host: putter.vuw.leidenuniv.nl:3306
+-- Generation Time: Nov 03, 2015 at 11:29 AM
+-- Server version: 5.5.45-log
+-- PHP Version: 5.3.17
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,20 +14,20 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
--- Database: `app`
+-- Database: `s1704362`
 --
 
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `assignments`
+-- Table structure for table `assignments`
 --
 
 CREATE TABLE IF NOT EXISTS `assignments` (
-  `id` int(11) NOT NULL,
+`id` int(11) NOT NULL,
   `start_date` date NOT NULL,
   `end_date` date NOT NULL,
   `end_time` time NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `assignments` (
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
--- Gegevens worden geëxporteerd voor tabel `assignments`
+-- Dumping data for table `assignments`
 --
 
 INSERT INTO `assignments` (`id`, `start_date`, `end_date`, `end_time`, `subject`, `desc_short`, `desc_full`, `link_assignment`, `link_repository`, `link_report`, `team`, `completion`) VALUES
@@ -53,24 +53,24 @@ INSERT INTO `assignments` (`id`, `start_date`, `end_date`, `end_time`, `subject`
 (5, '2015-09-22', '2015-11-03', '12:00:00', 'Studeren & Presenteren', 'Semester study timetable', 'Produce a semester study timetable that contains: 1. A semester overview, which displays all your classes, the assignment deadlines for each class and exam dates for each class. 2. A detailed weekly planning schedule for the week before your first exam until your last exam. The semester timetable and weekly plans should have an interactive web front-end.  Classes, deadlines, exams and dates should be served from a mySQL database. Deadlines and classes should link to further details on LIACS course websites and the semester overview should link to the weekly plans. Weekly plans should also include other events and activities that you need to plan in the same time periods (e.g. Christmas holidays, part-time jobs, etc).', 'http://liacs.leidenuniv.nl/~wolstencroftkj/Assignment1_SSP.pdf', 'https://github.com/Wicloz/UniversityWebsite', '', '', 0);
 
 --
--- Indexen voor geëxporteerde tabellen
+-- Indexes for dumped tables
 --
 
 --
--- Indexen voor tabel `assignments`
+-- Indexes for table `assignments`
 --
 ALTER TABLE `assignments`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT voor geëxporteerde tabellen
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT voor een tabel `assignments`
+-- AUTO_INCREMENT for table `assignments`
 --
 ALTER TABLE `assignments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

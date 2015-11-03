@@ -83,7 +83,7 @@ function insertEvent ($date, $subject, $task) {
 	}
 }
 
-function insertPlanning ($parent_table, $parent_id, $start_date, $end_date, $duration, $goal) {
+function insertPlanning ($parent_table, $parent_id, $date_start, $date_end, $duration, $goal) {
 	global $last_query;
 	
 	$subject = '';

@@ -257,8 +257,8 @@ function getSubjectPage ($id, $POST, $FILES) {
 		
 		$ret .= '<div class="paragraph-center col-sm-12">';
 		$ret .= '<h2>Planning:</h2>';
-		$ret .= switchEventCompletion($POST);
-		$ret .= insertPlanning($POST);
+		$ret .= trySwitchEventCompletion($POST);
+		$ret .= tryInsertPlanning($POST);
 		$ret .= getTablePlanning('subjects', $subject->id, false, false);
 		$ret .= '</div>';
 

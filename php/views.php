@@ -81,7 +81,7 @@ function getContent ($name, $GET, $POST, $FILES) {
 				$ret .= '<h2>Planning:</h2>';
 				$ret .= trySwitchEventCompletion($POST);
 				$ret .= tryInsertPlanning($POST);
-				$ret .= getTablePlanning('assignments', $GET['id'], false, false);
+				$ret .= getTablePlanning('assignments', $GET['id'], '', false, false);
 				$ret .= '</div>';
 			}
 		break;
@@ -95,7 +95,7 @@ function getContent ($name, $GET, $POST, $FILES) {
 				$ret .= '<h2>Planning:</h2>';
 				$ret .= trySwitchEventCompletion($POST);
 				$ret .= tryInsertPlanning($POST);
-				$ret .= getTablePlanning('tentamens', $GET['id'], false, false);
+				$ret .= getTablePlanning('tentamens', $GET['id'], '', false, false);
 				$ret .= '</div>';
 			}
 		break;
@@ -154,7 +154,7 @@ function getContent ($name, $GET, $POST, $FILES) {
 		    $ret .= '<div class="paragraph-center col-sm-12">';
 			$ret .= '<h2>Planning:</h2>';
 			$ret .= trySwitchEventCompletion($POST);
-			$ret .= getTablePlanning('', '', true, false);
+			$ret .= getTablePlanning('', '', '', true, false);
 			$ret .= '</div>';
 		break;
 		
@@ -162,7 +162,7 @@ function getContent ($name, $GET, $POST, $FILES) {
 		    $ret .= '<div class="paragraph-center col-sm-12">';
 			$ret .= '<h2>Upcoming Planning:</h2>';
 			$ret .= trySwitchEventCompletion($POST);
-			$ret .= getTablePlanning('', '', true, true);
+			$ret .= getTablePlanning('', '', '', true, true);
 			$ret .= '</div>';
 		break;
 		
@@ -171,7 +171,7 @@ function getContent ($name, $GET, $POST, $FILES) {
 			$ret .= '<h2>Planning:</h2>';
 			$ret .= trySwitchEventCompletion($POST);
 			$ret .= tryInsertPlanning($POST);
-			$ret .= getTablePlanning('subjects', -1, false, false);
+			$ret .= getTablePlanning('subjects', -1, '', false, false);
 			$ret .= '</div>';
 		break;
 		
@@ -179,7 +179,7 @@ function getContent ($name, $GET, $POST, $FILES) {
 		    $ret .= '<div class="paragraph-center col-sm-12">';
 			$ret .= '<h2>Planning Assignments:</h2>';
 			$ret .= trySwitchEventCompletion($POST);
-			$ret .= getTablePlanning('assignments', -1, false, false);
+			$ret .= getTablePlanning('assignments', -1, '', false, false);
 			$ret .= '</div>';
 		break;
 		
@@ -187,7 +187,7 @@ function getContent ($name, $GET, $POST, $FILES) {
 		    $ret .= '<div class="paragraph-center col-sm-12">';
 			$ret .= '<h2>Planning Exams:</h2>';
 			$ret .= trySwitchEventCompletion($POST);
-			$ret .= getTablePlanning('tentamens', -1, false, false);
+			$ret .= getTablePlanning('tentamens', -1, '', false, false);
 			$ret .= '</div>';
 		break;
 		
@@ -259,7 +259,7 @@ function getSubjectPage ($id, $POST, $FILES) {
 		$ret .= '<h2>Planning:</h2>';
 		$ret .= trySwitchEventCompletion($POST);
 		$ret .= tryInsertPlanning($POST);
-		$ret .= getTablePlanning('subjects', $subject->id, false, false);
+		$ret .= getTablePlanning('subjects', $subject->id, $subject->name, false, false);
 		$ret .= '</div>';
 
 		return $ret;

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 04 nov 2015 om 13:40
+-- Gegenereerd op: 04 nov 2015 om 14:49
 -- Serverversie: 5.6.26
 -- PHP-versie: 5.6.12
 
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `planning` (
   `goal` text NOT NULL,
   `finished_on` datetime NOT NULL,
   `done` tinyint(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `planning`
@@ -48,9 +48,10 @@ INSERT INTO `planning` (`id`, `parent_table`, `parent_id`, `date_start`, `date_e
 (3, 'assignments', 5, '2015-11-01', '2015-11-01', 'Studeren & Presenteren', '00:00:00', 'Make entries easier to insert and edit, especcially for the planning.', '2015-11-01 22:00:00', 1),
 (4, 'subjects', 4, '2015-11-03', '2015-11-04', 'Basispracticum', '02:00:00', 'Voorbereiden practicum fotosynthese', '0000-00-00 00:00:00', 0),
 (5, 'subjects', 6, '2015-11-02', '2015-11-02', 'Celfysiologie', '00:00:15', 'Lees: Hs10.1; Hs11', '2015-11-02 22:47:30', 1),
-(6, 'subjects', 6, '2015-11-04', '2015-11-05', 'Celfysiologie', '00:20:00', 'Lees: Hs10.4; Hs11', '0000-00-00 00:00:00', 0),
+(6, 'subjects', 6, '2015-11-04', '2015-11-05', 'Celfysiologie', '00:15:00', 'Lees: Hs10.4; Hs11', '0000-00-00 00:00:00', 0),
 (7, 'subjects', 3, '2015-11-03', '2015-11-08', 'Fundamentele Informatica 1', '01:00:00', 'Maak opgavenblad talen', '0000-00-00 00:00:00', 0),
-(8, 'assignments', 3, '2015-11-04', '2015-11-04', 'Programmeermethoden', '02:00:00', 'Afmaken verslag Life', '0000-00-00 00:00:00', 0);
+(8, 'assignments', 3, '2015-11-04', '2015-11-04', 'Programmeermethoden', '02:00:00', 'Afmaken verslag Life', '0000-00-00 00:00:00', 0),
+(10, 'subjects', 2, '2015-11-04', '2015-11-08', 'Programmeermethoden', '00:30:00', 'Maken opgavenblad werkcollege', '0000-00-00 00:00:00', 0);
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -70,7 +71,7 @@ ALTER TABLE `planning`
 -- AUTO_INCREMENT voor een tabel `planning`
 --
 ALTER TABLE `planning`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

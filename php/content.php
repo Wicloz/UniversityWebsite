@@ -423,11 +423,14 @@ function getTableToday () {
 	return buildFancyTable($headers, $content, '');
 }
 
-function getTablePlanning ($table, $id, $all, $clean) {
+function getTablePlanning ($table, $id, $subject, $all, $clean) {
 	$content = '';
 	if ($all) {
 		$entries = getAllEntriesSorted('planning', 'date_start');
 		$headers = array('Date', 'Subject', 'Estimated Duration', 'Goal', 'Status', 'Edit');
+	} else if (!empty($subject)) {
+		$entries = getEntriesWithTestSorted('planning', 'subject', $subject, 'date_start');
+		$headers = array('Date', 'Estimated Duration', 'Goal', 'Status', 'Edit');
 	} else if ($id == -1) {
 		$entries = getEntriesWithTestSorted('planning', 'parent_table', $table, 'date_start');
 		$headers = array('Date', 'Subject', 'Estimated Duration', 'Goal', 'Status', 'Edit');

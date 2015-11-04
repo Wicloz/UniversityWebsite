@@ -47,16 +47,6 @@ if (isset($_GET['page']) && !empty($_GET['page'])) {
 		echo getViewForPage ($page, $GET, $_POST, $_FILES);
 		echo '</div>';
 		echo '<div class="col-sm-2" id="content-left">';
-		/*if (isset($GET['subject']) && !empty($GET['subject']) && $subjects = getEntriesWithTest('subjects', 'abbreviation', $GET['subject'])) {
-			if ($subject = $subjects->fetch_object()) {
-				if ($subject->section == 'informatica') {
-					echo discordSidebarI();
-				}
-				if ($subject->section == 'biologie') {
-					echo discordSidebarB();
-				}
-			}
-		}*/
 		echo '</div>';
 		echo '</div></div>';
 		

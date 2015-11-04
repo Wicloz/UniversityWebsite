@@ -257,12 +257,8 @@ function getSubjectPage ($id, $POST, $FILES) {
 		
 		$ret .= '<div class="paragraph-center col-sm-12">';
 		$ret .= '<h2>Planning:</h2>';
-		if (isset($POST['action']) && $POST['action'] == 'switch_event' && isset($POST['table']) && isset($POST['id']) && !empty($POST['table']) && !empty($POST['id'])) {
-			$ret .= switchEventCompletion($POST['table'], $POST['id']);
-		}
-		if (isset($POST['action']) && $POST['action'] == 'insert_planning' && isset($POST['parent_table']) && isset($POST['parent_id']) && isset($POST['start_date']) && isset($POST['end_date']) && isset($POST['duration']) && isset($POST['goal']) && !empty($POST['parent_table']) && !empty($POST['parent_id']) && !empty($POST['start_date']) && !empty($POST['end_date']) && !empty($POST['duration']) && !empty($POST['goal'])) {
-			$ret .= insertPlanning($POST['parent_table'], $POST['parent_id'], $POST['start_date'], $POST['end_date'], $POST['duration'], $POST['goal']);
-		}
+		$ret .= switchEventCompletion($POST);
+		$ret .= insertPlanning($POST);
 		$ret .= getTablePlanning('subjects', $subject->id, false, false);
 		$ret .= '</div>';
 

@@ -35,37 +35,37 @@ function getContent ($name, $GET, $POST, $FILES) {
 	
 	switch ($name) {
 		case 'table_exams';
-		    $ret .= '<div class="paragraph-center col-sm-12">';
+		    $ret .= '<div class="paragraph-center col-sm-12" id="exams">';
 			$ret .= '<h2>Exams:</h2>';
 			$ret .= getTableExams();
 			$ret .= '</div>';
 		break;
 		
 		case 'table_assignments';
-		    $ret .= '<div class="paragraph-center col-sm-12">';
+		    $ret .= '<div class="paragraph-center col-sm-12" id="assignments">';
 			$ret .= '<h2>Assignments:</h2>';
 			$ret .= getTableAssignments();
 			$ret .= '</div>';
 		break;
 		
 		case 'table_events';
-		    $ret .= '<div class="paragraph-center col-sm-12">';
-			$ret .= '<h2 id="events">Events:</h2>';
+		    $ret .= '<div class="paragraph-center col-sm-12" id="events">';
+			$ret .= '<h2>Events:</h2>';
 			$ret .= tryInsertEvent($POST);
 			$ret .= getTableEvents('', true, false);
 			$ret .= '</div>';
 		break;
 		
 		case 'table_nearfuture';
-		    $ret .= '<div class="paragraph-center col-sm-12">';
-			$ret .= '<h2 id="events">Upcoming Events:</h2>';
+		    $ret .= '<div class="paragraph-center col-sm-12" id="events">';
+			$ret .= '<h2>Upcoming Events:</h2>';
 			$ret .= tryInsertEvent($POST);
 			$ret .= getTableEvents('', true, true);
 			$ret .= '</div>';
 		break;
 		
 		case 'table_today';
-		    $ret .= '<div class="paragraph-center col-sm-12">';
+		    $ret .= '<div class="paragraph-center col-sm-12" id="today">';
 			$ret .= '<h2>Today:</h2>';
 			$ret .= trySwitchEventCompletion($POST);
 			$ret .= getTableToday();
@@ -74,10 +74,10 @@ function getContent ($name, $GET, $POST, $FILES) {
 		
 		case 'item_assignment';
 			if (isset($GET['id']) && !empty($GET['id'])) {
-				$ret .= '<div class="paragraph-center col-sm-12">';
+				$ret .= '<div class="paragraph-center col-sm-12" id="item">';
 				$ret .= getItemAssignment($GET['id']);
 			    $ret .= '</div>';
-				$ret .= '<div class="paragraph-center col-sm-12">';
+				$ret .= '<div class="paragraph-center col-sm-12" id="planning">';
 				$ret .= '<h2>Planning:</h2>';
 				$ret .= trySwitchEventCompletion($POST);
 				$ret .= tryInsertPlanning($POST);
@@ -88,10 +88,10 @@ function getContent ($name, $GET, $POST, $FILES) {
 		
 		case 'item_exam';
 			if (isset($GET['id']) && !empty($GET['id'])) {
-				$ret .= '<div class="paragraph-center col-sm-12">';
+				$ret .= '<div class="paragraph-center col-sm-12" id="item">';
 				$ret .= getItemExam($GET['id']);
 				$ret .= '</div>';
-				$ret .= '<div class="paragraph-center col-sm-12">';
+				$ret .= '<div class="paragraph-center col-sm-12" id="planning">';
 				$ret .= '<h2>Planning:</h2>';
 				$ret .= trySwitchEventCompletion($POST);
 				$ret .= tryInsertPlanning($POST);
@@ -125,7 +125,7 @@ function getContent ($name, $GET, $POST, $FILES) {
 		break;
 		
 		case 'form_login';
-			$ret .= '<div class="paragraph-center col-sm-12">';
+			$ret .= '<div class="paragraph-center col-sm-12" id="login">';
 			$ret .= '</div>';
 		break;
 		
@@ -151,7 +151,7 @@ function getContent ($name, $GET, $POST, $FILES) {
 		break;
 		
 		case 'table_planning':
-		    $ret .= '<div class="paragraph-center col-sm-12">';
+		    $ret .= '<div class="paragraph-center col-sm-12" id="planning">';
 			$ret .= '<h2>Planning:</h2>';
 			$ret .= trySwitchEventCompletion($POST);
 			$ret .= getTablePlanning('', '', '', true, false);
@@ -159,7 +159,7 @@ function getContent ($name, $GET, $POST, $FILES) {
 		break;
 		
 		case 'table_planning_future':
-		    $ret .= '<div class="paragraph-center col-sm-12">';
+		    $ret .= '<div class="paragraph-center col-sm-12" id="planning">';
 			$ret .= '<h2>Upcoming Planning:</h2>';
 			$ret .= trySwitchEventCompletion($POST);
 			$ret .= getTablePlanning('', '', '', true, true);
@@ -167,7 +167,7 @@ function getContent ($name, $GET, $POST, $FILES) {
 		break;
 		
 		case 'table_planning_subjects':
-		    $ret .= '<div class="paragraph-center col-sm-12">';
+		    $ret .= '<div class="paragraph-center col-sm-12" id="planning">';
 			$ret .= '<h2>Planning:</h2>';
 			$ret .= trySwitchEventCompletion($POST);
 			$ret .= tryInsertPlanning($POST);
@@ -176,7 +176,7 @@ function getContent ($name, $GET, $POST, $FILES) {
 		break;
 		
 		case 'table_planning_assignments':
-		    $ret .= '<div class="paragraph-center col-sm-12">';
+		    $ret .= '<div class="paragraph-center col-sm-12" id="planning">';
 			$ret .= '<h2>Planning Assignments:</h2>';
 			$ret .= trySwitchEventCompletion($POST);
 			$ret .= getTablePlanning('assignments', -1, '', false, false);
@@ -184,7 +184,7 @@ function getContent ($name, $GET, $POST, $FILES) {
 		break;
 		
 		case 'table_planning_exams':
-		    $ret .= '<div class="paragraph-center col-sm-12">';
+		    $ret .= '<div class="paragraph-center col-sm-12" id="planning">';
 			$ret .= '<h2>Planning Exams:</h2>';
 			$ret .= trySwitchEventCompletion($POST);
 			$ret .= getTablePlanning('tentamens', -1, '', false, false);
@@ -220,7 +220,7 @@ function getSubjectPage ($id, $POST, $FILES) {
 	if ($subjects = getEntriesWithTest('subjects', 'abbreviation', $id)) {
 		$subject = $subjects->fetch_object();
 		
-		$ret = '<div class="paragraph-center col-sm-12">';
+		$ret = '<div class="paragraph-center col-sm-12" id="item">';
 		$ret .= '<h2>'.$subject->name.'</h2>';
 		$ret .= '<p>'.$subject->content.'</p>';
 		$ret .= '</div>';
@@ -243,19 +243,19 @@ function getSubjectPage ($id, $POST, $FILES) {
 		}
 		
 		if ($links != '<ul>') {
-			$ret .= '<div class="paragraph-left col-sm-12">';
+			$ret .= '<div class="paragraph-left col-sm-12" id="links">';
 			$ret .= '<h2>Links:</h2>';
 			$ret .= $links.'</ul>';
 			$ret .= '</div>';
 		}
 		
-		$ret .= '<div class="paragraph-center col-sm-12">';
+		$ret .= '<div class="paragraph-center col-sm-12" id="events">';
 		$ret .= '<h2>Events:</h2>';
 		$ret .= tryInsertEvent($POST);
 		$ret .= getTableEvents($subject->name, false, false);
 		$ret .= '</div>';
 		
-		$ret .= '<div class="paragraph-center col-sm-12">';
+		$ret .= '<div class="paragraph-center col-sm-12" id="planning">';
 		$ret .= '<h2>Planning:</h2>';
 		$ret .= trySwitchEventCompletion($POST);
 		$ret .= tryInsertPlanning($POST);

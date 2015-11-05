@@ -94,7 +94,7 @@ function getSubjectOverview () {
 			$listA = '';
 			$listE = '';
 			
-			$ret .= '<div class="paragraph-center col-sm-12">';
+			$ret .= '<div class="paragraph-center col-sm-12" id="subject_'.$row->abbreviation.'">';
 			$ret .= '<h2><a href="index.php?page=subjects&subject='.$row->abbreviation.'">'.$row->name.'</a></h2>';
 			
 			while ($assignment = $assignments->fetch_object()) {

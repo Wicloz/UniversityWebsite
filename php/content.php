@@ -151,35 +151,38 @@ function getTableAssignments () {
 	$table = getAllEntriesSorted('assignments', 'end_date');
 	
 	while ($row = $table->fetch_object()) {
-		$s1 = '';
-		$s2 = '';
-		if ($row->completion) {
-			$s1 = '<s>';
-			$s2 = '</s>';
-		}
-		
-		$content .= '<tr>';
-		
-		$content .= '<td>'.$s1.dateTable($row->end_date).', '.timeFancy($row->end_time).$s2.'</td>';
-		$content .= '<td>'.$s1.$row->subject.$s2.'</td>'; 
-		$content .= '<td>'.$s1.'<a href="index.php?page=assignments_item&id='.$row->id.'">'.$row->desc_short.'</a>'.$s2.'</td>';
-		$content .= '<td>'.$s1.$row->team.$s2.'</td>';
-		
-		$content .= '<td>'.$s1;
-		if (!empty($row->link_assignment)) {
-			$content .= '<a target="_blank" href="'.$row->link_assignment.'">Assignment</a>';
-		}
-		if (!empty($row->link_assignment) && !empty($row->link_repository)) {
-			$content .= ' / ';
-		}
-		if (!empty($row->link_repository)) {
-			$content .= '<a target="_blank" href="'.$row->link_repository.'">Repository</a>';
-		}
-		$content .= $s2.'</td>';
-		
-		$content .= '<td>'.$s1.assignmentCompletionString($row).$s2.'</td>';
-		
-		$content .= '</tr>';
+        $data = getEntryWithTest('subjects', 'name', $row->subject)->fetch_object();
+        if ($data->active || !$row->completion) {
+            $s1 = '';
+            $s2 = '';
+            if ($row->completion) {
+                $s1 = '<s>';
+                $s2 = '</s>';
+            }
+            
+            $content .= '<tr>';
+            
+            $content .= '<td>'.$s1.dateTable($row->end_date).', '.timeFancy($row->end_time).$s2.'</td>';
+            $content .= '<td>'.$s1.$row->subject.$s2.'</td>'; 
+            $content .= '<td>'.$s1.'<a href="index.php?page=assignments_item&id='.$row->id.'">'.$row->desc_short.'</a>'.$s2.'</td>';
+            $content .= '<td>'.$s1.$row->team.$s2.'</td>';
+            
+            $content .= '<td>'.$s1;
+            if (!empty($row->link_assignment)) {
+                $content .= '<a target="_blank" href="'.$row->link_assignment.'">Assignment</a>';
+            }
+            if (!empty($row->link_assignment) && !empty($row->link_repository)) {
+                $content .= ' / ';
+            }
+            if (!empty($row->link_repository)) {
+                $content .= '<a target="_blank" href="'.$row->link_repository.'">Repository</a>';
+            }
+            $content .= $s2.'</td>';
+            
+            $content .= '<td>'.$s1.assignmentCompletionString($row).$s2.'</td>';
+            
+            $content .= '</tr>';
+        }
 	}
 			
 	$ret = buildFancyTable($headers, $content, '');
@@ -193,21 +196,29 @@ function getTableExams () {
 	$table = getAllEntriesSorted('tentamens', 'date');
 			
 	while ($row = $table->fetch_object()) {
-		$s1 = '';
-		$s2 = '';
-		if ($row->date < date('Y-m-d')) {
-			$s1 = '<s>';
-			$s2 = '</s>';
-		}
-		
-		$content .= '<tr>';
-		
-		$content .= '<td>'.$s1.dateTable($row->date).$s2.'</td>';
-		$content .= '<td>'.$s1.'<a href="index.php?page=exams_item&id='.$row->id.'">'.$row->weight.'</a>'.$s2.'</td>';
-		$content .= '<td>'.$s1.$row->subject.$s2.'</td>';
-		$content .= '<td>'.$s1.examMarkString($row).$s2.'</td>';
-		
-		$content .= '</tr>';
+        $data = getEntryWithTest('subjects', 'name', $row->subject)->fetch_object();
+        if ($data->active || $row->date >= date('Y-m-d')) {
+            $s1 = '';
+            $s2 = '';
+            if ($row->date < date('Y-m-d')) {
+                $s1 = '<s>';
+                $s2 = '</s>';
+            }
+            
+            $content .= '<tr>';
+            
+            $content .= '<td>'.$s1.dateTable($row->date).$s2.'</td>';
+            $content .= '<td>'.$s1.'<a href="index.php?page=exams_item&id='.$row->id.'">'.$row->weight.'</a>'.$s2.'</td>';
+            $content .= '<td>'.$s1.$row->subject.$s2.'</td>';
+            if (is_numeric(examMarkString($row))) {
+                $content .= '<td>'.examMarkString($row).'</td>';
+            }
+            else {
+                $content .= '<td>'.$s1.examMarkString($row).$s2.'</td>';
+            }
+            
+            $content .= '</tr>';
+        }
 	}
 			
 	$ret = buildFancyTable($headers, $content, 'table-thinner');
@@ -239,62 +250,70 @@ function getTableEvents ($subject, $all, $clean) {
 	
 	while (!$doneT || !$doneA) {
 	    if (!$doneA && ($doneT || $rowA->end_date < $rowT->date)) {
-			$s1 = '';
-			$s2 = '';
-			if ($rowA->completion) {
-				$s1 = '<s>';
-				$s2 = '</s>';
-			}
-			
-			if (!$todayAdded && $rowA->end_date >= date('Y-m-d')) {
-				$content .= '<tr>';
-				$content .= '<td><b>'.dateTable(date('Y-m-d')).'</b></td>';
-				$content .= '<td><b>Today is a gift</b></td>';
-				$content .= '<td><b>Thats why it\'s called the present</b></td>';
-				$content .= '<td><b>-</b></td>';
-				$content .= '</tr>';
-				$todayAdded = true;
-			}
-			
-			if (!$clean || !$rowA->completion) {
-				$content .= '<tr>';
-				$content .= '<td>'.$s1.dateTable($rowA->end_date).$s2.'</td>';
-				$content .= '<td>'.$s1.$rowA->subject.$s2.'</td>';
-				$content .= '<td>'.$s1.'<a href="index.php?page=assignments_item&id='.$rowA->id.'">'.$rowA->desc_short.'</a>'.$s2.'</td>';
-				$content .= '<td>'.$s1.assignmentCompletionString($rowA).$s2.'</td>';
-				$content .= '</tr>';
-			}
-		    
+            $data = getEntryWithTest('subjects', 'name', $rowA->subject)->fetch_object();
+            
+            if (!empty($subject) || $data->active || !$rowA->completion) {
+                $s1 = '';
+                $s2 = '';
+                if ($rowA->completion) {
+                    $s1 = '<s>';
+                    $s2 = '</s>';
+                }
+                
+                if (!$todayAdded && $rowA->end_date >= date('Y-m-d')) {
+                    $content .= '<tr>';
+                    $content .= '<td><b>'.dateTable(date('Y-m-d')).'</b></td>';
+                    $content .= '<td><b>Today is a gift</b></td>';
+                    $content .= '<td><b>Thats why it\'s called the present</b></td>';
+                    $content .= '<td><b>-</b></td>';
+                    $content .= '</tr>';
+                    $todayAdded = true;
+                }
+                
+                if (!$clean || !$rowA->completion) {
+                    $content .= '<tr>';
+                    $content .= '<td>'.$s1.dateTable($rowA->end_date).$s2.'</td>';
+                    $content .= '<td>'.$s1.$rowA->subject.$s2.'</td>';
+                    $content .= '<td>'.$s1.'<a href="index.php?page=assignments_item&id='.$rowA->id.'">'.$rowA->desc_short.'</a>'.$s2.'</td>';
+                    $content .= '<td>'.$s1.assignmentCompletionString($rowA).$s2.'</td>';
+                    $content .= '</tr>';
+                }
+		    }
+            
 		    if (!($rowA = $assignments->fetch_object())) {
 		        $doneA = true;
 		    }
 	    }
 	    else if (!$doneT) {
-			$s1 = '';
-			$s2 = '';
-			if ($rowT->date < date('Y-m-d')) {
-				$s1 = '<s>';
-				$s2 = '</s>';
-			}
-			
-			if (!$todayAdded && $rowT->date >= date('Y-m-d')) {
-				$content .= '<tr>';
-				$content .= '<td><b>'.dateTable(date('Y-m-d')).'</b></td>';
-				$content .= '<td><b>Today is a gift</b></td>';
-				$content .= '<td><b>Thats why it\'s called the present</b></td>';
-				$content .= '<td><b>-</b></td>';
-				$content .= '</tr>';
-				$todayAdded = true;
-			}
-			
-			if (!$clean || date('Y-m-d') <= $rowT->date) {
-				$content .= '<tr>';
-				$content .= '<td>'.$s1.dateTable($rowT->date).$s2.'</td>';
-				$content .= '<td>'.$s1.$rowT->subject.$s2.'</td>';
-				$content .= '<td>'.$s1.'<a href="index.php?page=exams_item&id='.$rowT->id.'">'.$rowT->weight.' '.$rowT->subject.'</a>'.$s2.'</td>';
-				$content .= '<td>'.$s1.examCompletionString($rowT, false).$s2.'</td>';
-				$content .= '</tr>';
-			}
+            $data = getEntryWithTest('subjects', 'name', $rowT->subject)->fetch_object();
+            
+            if (!empty($subject) || $data->active || $rowT->date >= date('Y-m-d')) {
+                $s1 = '';
+                $s2 = '';
+                if ($rowT->date < date('Y-m-d')) {
+                    $s1 = '<s>';
+                    $s2 = '</s>';
+                }
+                
+                if (!$todayAdded && $rowT->date >= date('Y-m-d')) {
+                    $content .= '<tr>';
+                    $content .= '<td><b>'.dateTable(date('Y-m-d')).'</b></td>';
+                    $content .= '<td><b>Today is a gift</b></td>';
+                    $content .= '<td><b>Thats why it\'s called the present</b></td>';
+                    $content .= '<td><b>-</b></td>';
+                    $content .= '</tr>';
+                    $todayAdded = true;
+                }
+                
+                if (!$clean || date('Y-m-d') <= $rowT->date) {
+                    $content .= '<tr>';
+                    $content .= '<td>'.$s1.dateTable($rowT->date).$s2.'</td>';
+                    $content .= '<td>'.$s1.$rowT->subject.$s2.'</td>';
+                    $content .= '<td>'.$s1.'<a href="index.php?page=exams_item&id='.$rowT->id.'">'.$rowT->weight.' '.$rowT->subject.'</a>'.$s2.'</td>';
+                    $content .= '<td>'.$s1.examCompletionString($rowT, false).$s2.'</td>';
+                    $content .= '</tr>';
+                }
+            }
 	        
 	        if (!($rowT = $exams->fetch_object())) {
                 $doneT = true;
@@ -441,51 +460,58 @@ function getTablePlanning ($table, $id, $subject, $all, $clean) {
 	
 	if ($entries) {
 		while ($row = $entries->fetch_object()) {
-			$s1 = '';
-			$s2 = '';
-			if ($row->done) {
-				$s1 = '<s>';
-				$s2 = '</s>';
-			}
-			
-			if (!$clean || !$row->done) {
-				$content .= '<tr>';
-				
-				if ($row->date_start == $row->date_end) {
-					$content .= '<td>'.$s1.dateTable($row->date_start).$s2.'</td>';	
-				} else {
-					$content .= '<td>'.$s1.dateTable($row->date_start).' - '.dateTable($row->date_end).$s2.'</td>';	
-				}
-				
-				if ($all || $id == -1) {
-					$content .= '<td>'.$s1.$row->subject.$s2.'</td>';
-				}
-				
-				if ($row->duration == '00:00:00') {
-					$content .= '<td>'.$s1.'Undefined'.$s2.'</td>';
-				} else {
-					$content .= '<td>'.$s1.timeDuration($row->duration).$s2.'</td>';
-				}
-				
-				$content .= '<td>'.$s1.$row->goal.$s2.'</td>';
-				$content .= '<td>'.$s1.planningCompletionString($row).$s2.'</td>';
-				
-				if ($row->done) {
-					$button = 'Uncomplete';
-				} else {
-					$button = 'Complete';
-				}
-				$content .= '<td><form action="" method="POST"><input type="hidden" name="action" value="switch_event"><input type="hidden" name="table" value="planning"><input type="hidden" name="id" value="'.$row->id.'"><input class="button submit-button table-button" type="submit" value="'.$button.'"></form></td>';
-				
-				$content .= '</tr>';
-			}
-		}
+            $data = getEntryWithTest('subjects', 'name', $row->subject)->fetch_object();
+            
+            if (!$row->done || $id >= 0 || $data->active) {
+                $s1 = '';
+                $s2 = '';
+                if ($row->done) {
+                    $s1 = '<s>';
+                    $s2 = '</s>';
+                }
+                
+                if (!$clean || !$row->done) {
+                    $content .= '<tr>';
+                    
+                    if ($row->date_start == $row->date_end) {
+                        $content .= '<td>'.$s1.dateTable($row->date_start).$s2.'</td>';	
+                    } else {
+                        $content .= '<td>'.$s1.dateTable($row->date_start).' - '.dateTable($row->date_end).$s2.'</td>';	
+                    }
+                    
+                    if ($all || $id == -1) {
+                        $content .= '<td>'.$s1.$row->subject.$s2.'</td>';
+                    }
+                    
+                    if ($row->duration == '00:00:00') {
+                        $content .= '<td>'.$s1.'Undefined'.$s2.'</td>';
+                    } else {
+                        $content .= '<td>'.$s1.timeDuration($row->duration).$s2.'</td>';
+                    }
+                    
+                    $content .= '<td>'.$s1.$row->goal.$s2.'</td>';
+                    $content .= '<td>'.$s1.planningCompletionString($row).$s2.'</td>';
+                    
+                    if ($row->done) {
+                        $button = 'Uncomplete';
+                    } else {
+                        $button = 'Complete';
+                    }
+                    $content .= '<td><form action="" method="POST"><input type="hidden" name="action" value="switch_event"><input type="hidden" name="table" value="planning"><input type="hidden" name="id" value="'.$row->id.'"><input class="button submit-button table-button" type="submit" value="'.$button.'"></form></td>';
+                    
+                    $content .= '</tr>';
+                }
+            }
+        }
 	}
 	
-	if (!empty($table) && !empty($id)) {
+	if (!empty($table) && $id >= 0) {
 		$content .= '<tr>';
 		$content .= '<td><form action="" method="POST"><input type="hidden" name="action" value="insert_planning"><input type="hidden" name="parent_table" value="'.$table.'"><input type="hidden" name="parent_id" value="'.$id.'">';
 		$content .= '<input type="date" name="start_date" style="width:46%"> - <input type="date" name="end_date" style="width:46%"></td>';
+        if (empty($subject) && empty($table)) {
+            $content .= '<td><input type="text" name="subject"></td>';
+        }
 		$content .= '<td><input type="text" name="duration" placeholder="00h 00m" style="width:100%"></td>';
 		$content .= '<td><input type="text" name="goal" style="width:100%"></td>';
 		$content .= '<td>-</td>';
@@ -507,11 +533,12 @@ function getTablePlanning ($table, $id, $subject, $all, $clean) {
 function getItemAssignment ($id) {
 	if ($currentEntryTable = getEntryWithId('assignments', $id)) {
 		$row = $currentEntryTable->fetch_object();
+        $subject = getEntryWithTest('subjects', 'name', $row->subject)->fetch_object();
 		
 		$item = '<h2>'.$row->desc_short.'</h2>';
 		$item .= '<p>'.$row->desc_full.'</p>';
 		
-		$item .= '<p><i>Subject: '.$row->subject
+		$item .= '<p><i>Subject: <a href="index.php?page=subjects&subject='.$subject->abbreviation.'">'.$row->subject.'</a>'
 			  .'<br>Date Assigned: '.dateItem($row->start_date)
 			  .'<br>Deadline: '.dateItem($row->end_date).', '.timeFancy($row->end_time);
 			   
@@ -555,11 +582,12 @@ function getItemAssignment ($id) {
 function getItemExam ($id) {
 	if ($currentEntryTable = getEntryWithId('tentamens', $id)) {
 		$row = $currentEntryTable->fetch_object();
+        $subject = getEntryWithTest('subjects', 'name', $row->subject)->fetch_object();
 		
 		$item = '<h2>'.$row->weight.' '.$row->subject.'</h2>';
 		$item .= '<p>'.$row->substance.'</p>';
 		
-		$item .= '<p><i>Subject: '.$row->subject
+		$item .= '<p><i>Subject: <a href="index.php?page=subjects&subject='.$subject->abbreviation.'">'.$row->subject.'</a>'
 			  .'<br>Exam Date: '.dateItem($row->date);
 		
 		$item .= '<br>Status: '.examCompletionString($row, true);

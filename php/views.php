@@ -154,7 +154,7 @@ function getContent ($name, $GET, $POST, $FILES) {
 		    $ret .= '<div class="paragraph-center col-sm-12" id="planning">';
 			$ret .= '<h2>Planning:</h2>';
 			$ret .= trySwitchEventCompletion($POST);
-			$ret .= getTablePlanning('', '', '', true, false);
+			$ret .= getTablePlanning('', -2, '', true, false);
 			$ret .= '</div>';
 		break;
 		
@@ -162,7 +162,7 @@ function getContent ($name, $GET, $POST, $FILES) {
 		    $ret .= '<div class="paragraph-center col-sm-12" id="planning">';
 			$ret .= '<h2>Upcoming Planning:</h2>';
 			$ret .= trySwitchEventCompletion($POST);
-			$ret .= getTablePlanning('', '', '', true, true);
+			$ret .= getTablePlanning('', -2, '', true, true);
 			$ret .= '</div>';
 		break;
 		
@@ -223,6 +223,7 @@ function getSubjectPage ($id, $POST, $FILES) {
 		$ret = '<div class="paragraph-center col-sm-12" id="item">';
 		$ret .= '<h2>'.$subject->name.'</h2>';
 		$ret .= '<p>'.$subject->content.'</p>';
+        $ret .= '<p><a class="button subject-button" href="index.php?page=edit-entry&table=subjects&id='.$subject->id.'">Edit Item</a><p>';
 		$ret .= '</div>';
 		
 		$links = '<ul>';

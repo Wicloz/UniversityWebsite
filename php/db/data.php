@@ -45,6 +45,20 @@ function getEntryWithId ($table, $id) {
 	}
 }
 
+function getEntryWithTest ($table, $column, $test) {
+	global $db;
+	if ($result = $db->query("SELECT * FROM {$table} WHERE {$column} = '{$test}'")) {
+		if ($result->num_rows) {
+			return $result;
+			$result->free();
+		} else {
+			return false;
+		}
+	} else {
+		return $db->error;
+	}
+}
+
 function getEntriesWithTest ($table, $column, $test) {
 	global $db;
 	if ($result = $db->query("SELECT * FROM {$table} WHERE {$column} = '{$test}'")) {

@@ -79,12 +79,16 @@ function discordSidebarB () {
 
 function parseSubjectNav ($row) {
 	$subjects = getAllEntriesSorted('subjects', 'name');
-	while ($subject = $subjects->fetch_object()) {
-		if ($subject->active) {
-			$sub_names[] = $subject->name;
-			$sub_urls[] = 'index.php?page=subjects&subject='.$subject->abbreviation;
-		}
-	}
+    while ($subject = $subjects->fetch_object()) {
+        if ($subject->active) {
+            $sub_names[] = $subject->name;
+            $sub_urls[] = 'index.php?page=subjects&subject='.$subject->abbreviation;
+        }
+    }
+    if (!isset($sub_names) || !isset($sub_urls)) {
+        $sub_names[] = 'No Subjects';
+        $sub_urls[] = 'index.php?page=subjects&subject=none';
+    }
 	$row->sub_names = implode(', ', $sub_names);
 	$row->sub_urls = implode(', ', $sub_urls);
 	$row->url = '';

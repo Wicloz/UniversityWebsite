@@ -2,11 +2,13 @@
 require 'connection.php';
 
 if (isset($_POST['action']) && !empty($_POST['action'])) {
-    $command = '!'.$_POST['action'];
-    if (isset($_POST['info']) && !empty($_POST['info'])) {
-        $command .= ' '.$_POST['info'];
+    if (in_array($_POST['action'], $allowedCommands)) {
+        $command = '!'.$_POST['action'];
+        if (isset($_POST['info']) && !empty($_POST['info'])) {
+            $command .= ' '.$_POST['info'];
+        }
+        postCommand($command);
     }
-    postCommand($command);
 }
 ?>
 

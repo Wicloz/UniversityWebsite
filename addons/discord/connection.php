@@ -6,6 +6,8 @@ use Discord\Discord;
 
 // Channel to post bot commands
 $botChannel = '142026676581171200';
+// Commands that the site is allowed to post
+$allowedCommands = array('play', 'search', 'volume', 'pause', 'resume', 'skip', 'queue', 'shuffle');
 // Get discord client
 $discord = getDiscordClient();
 

@@ -34,7 +34,7 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
 <body>
     <div id="content" class="container-fluid">
         <div class="jumbotron">
-            <h1>Wheatley Music Bot Web Interface <span style="font-size:22">(V1.6)</span></h1>
+            <h1>Wheatley Music Bot Web Interface <span style="font-size:22">(V1.9)</span></h1>
             <p>For people too lazy to type the commands, or for people that just love buttons.</p>
         </div>
         <div class="row">
@@ -78,7 +78,7 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
                             <input class="button" type="submit" value="Submit Volume">
                         </div>
                         <div class="col-sm-3">
-                            <input id="volumeSlider" type="range" name="info" min="1" max="100" value="15" step="1">
+                            <input id="volumeSlider" type="range" name="info" min="1" max="100" value="<?php echo(getVolume()); ?>" step="1">
                         </div>
                         <div class="col-sm-3">
                             <span class="bare-text">Selected Volume: <span id="selectedVolume">15</span>%</span>

@@ -14,9 +14,10 @@ function getDiscordClient() {
     // Email/Password for Discord
     $email_address = getenv('DISCORD_EMAIL');
     $password = getenv('DISCORD_PASSWORD');
+    $tokenFile = 'token.__'.$email_address.'__.dat';
 
     // Create a client using the cached token
-    $discord = new Discord($email_address, $password, file_get_contents('discord.token'));
+    $discord = new Discord($email_address, $password, file_get_contents($tokenFile));
     
     // Check authorization of the client
     try {
@@ -36,7 +37,7 @@ function getDiscordClient() {
     }
 
     // Cache the token for next queries
-    file_put_contents('discord.token', $discord->token());
+    file_put_contents($tokenFile, $discord->token());
 
     // Return client
     return $discord;

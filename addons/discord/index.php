@@ -44,7 +44,7 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
                 
             }
             else {
-                die ($_SERVER['REMOTE_USER']);
+                
             }
         ?>
         <div class="row">

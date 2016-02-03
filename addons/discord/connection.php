@@ -1,59 +1,82 @@
 <?php
-require __DIR__ . '/vendor/autoload.php';
+require 'vendor/autoload.php';
+require 'db/data.php';
 $dotenv = new Dotenv\Dotenv(__DIR__);
 $dotenv->load();
 use Discord\Discord;
 
-// Channel to post bot commands
 $botChannel = '142026676581171200';
-// Commands that the site is allowed to post
-$allowedCommands = array('play', 'search', 'volume', 'pause', 'resume', 'skip', 'queue', 'shuffle');
-// Get discord client
-$discord = getDiscordClient();
+$allowedCommands = array('play', 'search', 'volume', 'pause', 'resume', 'queue', 'shuffle');
 
-// Creates a discord client using a cached token if possible
-function getDiscordClient() {
-    // Email/Password for Discord
+function getDefaultClient () {
     $email_address = getenv('DISCORD_EMAIL');
     $password = getenv('DISCORD_PASSWORD');
-    $tokenFile = 'token.__'.$email_address.'__.dat';
-
-    // Create a client using the cached token
-    $discord = new Discord($email_address, $password, file_get_contents($tokenFile));
+    $client = 'default';
     
-    // Check authorization of the client
-    try {
-        $discord->api('user')->me();
+    $discord = getDiscordClient($client);
+    if (!$discord) {
+        addNewClient($client, $email_address, $password);
+        $discord = getDiscordClient($client);
     }
     
-    // Try to log into Discord, retry if unsuccesfull
-    catch(Exception $e) {
-        $succes = false;
-        while (!$succes) {
-            try {
-                $discord = new Discord($email_address, $password);
-                $succes = true;
-            }
-            catch(Exception $e) {}
-        }
-    }
-
-    // Cache the token for next queries
-    file_put_contents($tokenFile, $discord->token());
-
-    // Return client
     return $discord;
 }
 
-// Interaction
-function postCommand($command) {
-    global $discord, $botChannel;
-    return $discord->api('channel')->messages()->create($botChannel, $command);
+function getDiscordClient ($client) {
+    $token = getToken($client);
+    if (!$token) {
+        return false;
+    }
+    $discord = new Discord('', '', $token);
+    try {
+        $discord->api('user')->me();
+    }
+    catch(Exception $e) {
+        deleteClient($client);
+        return false;
+    }
+    return $discord;
 }
 
-function getVolume($force=false) {
+function addNewClient ($client, $email_address, $password) {
+    $token = createToken($email_address, $password);
+    setToken($client, $token);
+}
+
+function createToken ($email_address, $password) {
+    $succes = false;
+    while (!$succes) {
+        try {
+            $discord = new Discord($email_address, $password);
+            $succes = true;
+        }
+        catch(Exception $e) {}
+    }
+    
+    try {
+        $discord->api('user')->me();
+        return $discord->token();
+    }
+    catch(Exception $e) {
+        return false;
+    }
+}
+
+// Interaction
+function postCommand ($command) {
+    global $discord, $botChannel;
+    if ($discord) {
+        return $discord->api('channel')->messages()->create($botChannel, $command);
+    }
+}
+
+function getVolume ($force=false) {
     global $discord, $botChannel;
     $limit = 100;
+    
+    if (!$discord) {
+        return 15;
+    }
     
     if ($force) {
         postCommand('!volume');

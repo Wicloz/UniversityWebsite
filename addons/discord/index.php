@@ -36,9 +36,17 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
 <body>
     <div id="content" class="container-fluid">
         <div class="jumbotron">
-            <h1>Wheatley Music Bot Web Interface <span style="font-size:22">(V1.9)</span></h1>
+            <h1>Wheatley Music Bot Web Interface <span style="font-size:22">(V2.0)</span></h1>
             <p>For people too lazy to type the commands, or for people that just love buttons.</p>
         </div>
+        <?php
+            if (false) {
+                
+            }
+            else {
+                die ($_SERVER['REMOTE_USER']);
+            }
+        ?>
         <div class="row">
             <div class="col-sm-12">
                 <!--Play a song or playlist-->

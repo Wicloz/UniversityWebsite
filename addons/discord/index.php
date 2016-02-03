@@ -48,7 +48,7 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
                     if (!$discord || $discord->api('user')->me()['email'] == getenv('DISCORD_EMAIL')) {
                         echo('    <div class="row">
                     <form action="" method="POST">
-                        <div class="col-sm-1">
+                        <div class="col-sm-2">
                             <input type="hidden" name="action" value="login">
                             <input class="button" type="submit" value="Authenticate">
                         </div>
@@ -65,11 +65,11 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
                 <!--Play a song or playlist-->
                 <div class="row">
                     <form action="" method="POST">
-                        <div class="col-sm-1">
+                        <div class="col-sm-2">
                             <input type="hidden" name="action" value="play">
                             <input class="button" type="submit" value="Play">
                         </div>
-                        <div class="col-sm-9">
+                        <div class="col-sm-10">
                             <input class="field" type="text" name="info" placeholder="Enter a song to be played ...">
                         </div>
                     </form>
@@ -77,11 +77,11 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
                 <!--Search a song-->
                 <div class="row">
                     <form action="" method="POST">
-                        <div class="col-sm-1">
+                        <div class="col-sm-2">
                             <input type="hidden" name="action" value="search">
                             <input class="button" type="submit" value="Search">
                         </div>
-                        <div class="col-sm-9">
+                        <div class="col-sm-10">
                             <input class="field" type="text" name="info" placeholder="Enter a max of 5 keywords ...">
                         </div>
                     </form>
@@ -91,19 +91,19 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
                     <form action="" method="POST">
                         <input type="hidden" name="action" value="volume">
                         <input type="hidden" name="info" value="15">
-                        <div class="col-sm-1">
+                        <div class="col-sm-2">
                             <input id="resetVolume" class="button" type="submit" value="Reset Volume">
                         </div>
                     </form>
                     <form action="" method="POST">
                         <input type="hidden" name="action" value="volume">
-                        <div class="col-sm-1">
+                        <div class="col-sm-2">
                             <input class="button" type="submit" value="Submit Volume">
                         </div>
                         <div class="col-sm-3">
                             <input id="volumeSlider" type="range" name="info" min="1" max="100" value="<?php echo(getVolume()); ?>" step="1">
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-5">
                             <span class="bare-text">Selected Volume: <span id="selectedVolume">15</span>%</span>
                             <span class="bare-text"> - </span>
                             <span class="bare-text">Current Volume: <span id="currentVolume"><?php echo(getVolume()); ?></span>%</span>
@@ -112,13 +112,13 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
                 </div>
                 <!--Pause and Resume-->
                 <div class="row">
-                    <div class="col-sm-1">
+                    <div class="col-sm-2">
                         <form action="" method="POST">
                             <input type="hidden" name="action" value="pause">
                             <input class="button" type="submit" value="Pause Song">
                         </form>
                     </div>
-                    <div class="col-sm-1">
+                    <div class="col-sm-2">
                         <form action="" method="POST">
                             <input type="hidden" name="action" value="resume">
                             <input class="button" type="submit" value="Resume Song">
@@ -127,7 +127,7 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
                 </div>
                 <!--Skip current song-->
                 <div class="row">
-                    <div class="col-sm-2">
+                    <div class="col-sm-4">
                         <form action="" method="POST">
                             <input type="hidden" name="action" value="skip">
                             <input class="button" type="submit" value="Skip Song">
@@ -136,7 +136,7 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
                 </div>
                 <!--Check the queue-->
                 <div class="row">
-                    <div class="col-sm-2">
+                    <div class="col-sm-4">
                         <form action="" method="POST">
                             <input type="hidden" name="action" value="queue">
                             <input class="button" type="submit" value="Check Queue">
@@ -145,7 +145,7 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
                 </div>
                 <!--Shuffle the queue-->
                 <div class="row">
-                    <div class="col-sm-2">
+                    <div class="col-sm-4">
                         <form action="" method="POST">
                             <input type="hidden" name="action" value="shuffle">
                             <input class="button" type="submit" value="Shuffle Queue">
@@ -154,7 +154,7 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
                 </div>
                 <!--Random debug stuff-->
                 <div class="row">
-                    <div class="col-sm-2">
+                    <div class="col-sm-12">
                         <span style="color:red">
                             <?php
                             ?>

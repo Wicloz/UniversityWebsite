@@ -7,7 +7,7 @@ use Discord\Discord;
 
 $clientUID = md5($_SERVER['HTTP_USER_AGENT'] . $_SERVER['REMOTE_ADDR']);
 $botChannel = '142026676581171200';
-$allowedCommands = array('play', 'search', 'volume', 'pause', 'resume', 'queue', 'shuffle');
+$allowedCommands = array('play', 'search', 'volume', 'pause', 'resume', 'queue', 'shuffle', 'skip');
 $discord = getDiscordClient($clientUID);
 if (!$discord) {
     $discord = getDefaultClient();
@@ -65,6 +65,16 @@ function createToken ($email_address, $password) {
     catch(Exception $e) {
         return false;
     }
+}
+
+function isDefault () {
+    global $discord;
+    return $discord->api('user')->me()['email'] == getenv('DISCORD_EMAIL');
+}
+
+function startsWith($haystack, $needle) {
+    // search backwards starting from haystack length characters from the end
+    return $needle === "" || strrpos($haystack, $needle, -strlen($haystack)) !== FALSE;
 }
 
 // Interaction

@@ -7,10 +7,12 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
     }
     if (in_array($_POST['action'], $allowedCommands)) {
         $command = '!'.$_POST['action'];
-        if (isset($_POST['info']) && !empty($_POST['info'])) {
-            $command .= ' '.$_POST['info'];
+        if (!startsWith($command, '!skip') || !isDefault()) {
+            if (isset($_POST['info']) && !empty($_POST['info'])) {
+                $command .= ' '.$_POST['info'];
+            }
+            postCommand($command);
         }
-        postCommand($command);
     }
 }
 ?>
@@ -45,7 +47,7 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
         <div class="row">
             <div class="col-sm-12">
                 <?php
-                    if (!$discord || $discord->api('user')->me()['email'] == getenv('DISCORD_EMAIL')) {
+                    if (!$discord || isDefault()) {
                         echo('    <div class="row">
                     <form action="" method="POST">
                         <div class="col-sm-2">

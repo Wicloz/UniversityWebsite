@@ -5,9 +5,10 @@ $dotenv = new Dotenv\Dotenv(__DIR__);
 $dotenv->load();
 use Discord\Discord;
 
+$clientUID = md5($_SERVER['HTTP_USER_AGENT'] . $_SERVER['REMOTE_ADDR']);
 $botChannel = '142026676581171200';
 $allowedCommands = array('play', 'search', 'volume', 'pause', 'resume', 'queue', 'shuffle');
-$discord = getDiscordClient('');
+$discord = getDiscordClient($clientUID);
 if (!$discord) {
     $discord = getDefaultClient();
 }

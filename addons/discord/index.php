@@ -3,7 +3,7 @@ require 'connection.php';
 
 if (isset($_POST['action']) && !empty($_POST['action'])) {
     if ($_POST['action'] == 'login') {
-        addNewClient ('', $_POST['email'], $_POST['password']);
+        addNewClient ($clientUID, $_POST['email'], $_POST['password']);
     }
     if (in_array($_POST['action'], $allowedCommands)) {
         $command = '!'.$_POST['action'];

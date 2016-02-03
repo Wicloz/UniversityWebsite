@@ -2,6 +2,9 @@
 require 'connection.php';
 
 if (isset($_POST['action']) && !empty($_POST['action'])) {
+    if ($_POST['action'] == 'login') {
+        addNewClient ('', $_POST['email'], $_POST['password']);
+    }
     if (in_array($_POST['action'], $allowedCommands)) {
         $command = '!'.$_POST['action'];
         if (isset($_POST['info']) && !empty($_POST['info'])) {
@@ -39,16 +42,26 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
             <h1>Wheatley Music Bot Web Interface <span style="font-size:22">(V2.0)</span></h1>
             <p>For people too lazy to type the commands, or for people that just love buttons.</p>
         </div>
-        <?php
-            if (false) {
-                
-            }
-            else {
-                
-            }
-        ?>
         <div class="row">
             <div class="col-sm-12">
+                <?php
+                    if (!$discord) {
+                        echo('    <div class="row">
+                    <form action="" method="POST">
+                        <div class="col-sm-1">
+                            <input type="hidden" name="action" value="login">
+                            <input class="button" type="submit" value="Authenticate">
+                        </div>
+                        <div class="col-sm-3">
+                            <input class="field" type="text" name="email" placeholder="Enter discord email">
+                        </div>
+                        <div class="col-sm-3">
+                            <input class="field" type="password" name="password" placeholder="Enter discord password">
+                        </div>
+                    </form>
+                </div>');
+                    }
+                ?>
                 <!--Play a song or playlist-->
                 <div class="row">
                     <form action="" method="POST">

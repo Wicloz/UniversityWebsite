@@ -7,6 +7,10 @@ use Discord\Discord;
 
 $botChannel = '142026676581171200';
 $allowedCommands = array('play', 'search', 'volume', 'pause', 'resume', 'queue', 'shuffle');
+$discord = getDiscordClient('');
+if (!$discord) {
+    $discord = getDefaultClient();
+}
 
 function getDefaultClient () {
     $email_address = getenv('DISCORD_EMAIL');

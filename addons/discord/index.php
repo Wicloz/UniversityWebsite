@@ -45,7 +45,7 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
         <div class="row">
             <div class="col-sm-12">
                 <?php
-                    if (!$discord) {
+                    if (!$discord || $discord->api('user')->me()['email'] == getenv('DISCORD_EMAIL')) {
                         echo('    <div class="row">
                     <form action="" method="POST">
                         <div class="col-sm-1">

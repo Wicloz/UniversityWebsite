@@ -1,2 +1,3 @@
 *.7z
 php/db/dbsettings.php
+addons/discord/db/dbsettings.php

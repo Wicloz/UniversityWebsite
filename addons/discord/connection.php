@@ -1,8 +1,6 @@
 <?php
 require 'vendor/autoload.php';
 require 'db/data.php';
-$dotenv = new Dotenv\Dotenv(__DIR__);
-$dotenv->load();
 use Discord\Discord;
 
 $clientUID = md5($_SERVER['HTTP_USER_AGENT'] . $_SERVER['REMOTE_ADDR']);
@@ -14,8 +12,8 @@ if (!$discord) {
 }
 
 function getDefaultClient () {
-    $email_address = getenv('DISCORD_EMAIL');
-    $password = getenv('DISCORD_PASSWORD');
+    $email_address = 'wilco.deboer@live.nl';
+    $password = 'CookieJuice.1';
     $client = 'default';
     
     $discord = getDiscordClient($client);

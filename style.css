@@ -305,7 +305,7 @@ body {
 }
 /* end style login box*/
 
-/* padding navabar items
+/* padding navbar items
 .navbar-nav > li > a, .navbar-brand {
     padding-top: 10px;
     padding-bottom: 10px;
@@ -396,4 +396,12 @@ body {
 
 .navbox > ul > .active > a, .navbox > ul > .active > a:focus, .navbox > ul > .active > a:hover {
     color: #8592bb;
+}
+
+.navbar-toggle {
+    border-color: #b6bdd6;
+}
+
+.navbar-toggle .icon-bar {
+    background-color: #b6bdd6;
 }

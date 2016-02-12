@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.14
+-- version 4.2.9
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Gegenereerd op: 05 nov 2015 om 19:15
--- Serverversie: 5.6.26
--- PHP-versie: 5.6.12
+-- Host: putter.vuw.leidenuniv.nl:3306
+-- Generation Time: Feb 12, 2016 at 10:44 AM
+-- Server version: 5.5.46-log
+-- PHP Version: 5.3.17
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,20 +14,20 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
--- Database: `app`
+-- Database: `s1704362`
 --
 
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `navigation`
+-- Table structure for table `navigation`
 --
 
 CREATE TABLE IF NOT EXISTS `navigation` (
-  `id` int(11) NOT NULL,
+`id` int(11) NOT NULL,
   `name` varchar(20) NOT NULL,
   `url` text NOT NULL,
   `sub_names` text NOT NULL,
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `navigation` (
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
--- Gegevens worden geëxporteerd voor tabel `navigation`
+-- Dumping data for table `navigation`
 --
 
 INSERT INTO `navigation` (`id`, `name`, `url`, `sub_names`, `sub_urls`, `header`, `target`) VALUES
@@ -45,27 +45,27 @@ INSERT INTO `navigation` (`id`, `name`, `url`, `sub_names`, `sub_urls`, `header`
 (2, 'Semester Overview', 'index.php?page=semester-overview', 'Semester Overview, Assignments, Exams, Planning', 'index.php?page=semester-overview, index.php?page=assignments, index.php?page=exams, index.php?page=planning', 'Overview', ''),
 (3, 'Subjects', '%SUBJECTS%', '', '', 'Subjects', ''),
 (5, 'Schedule I&B', 'index.php?page=schedule', '', '', '', ''),
-(6, 'Notes', 'https://onedrive.live.com/view.aspx?resid=7A26A4E50EEC48CB!401&ithint=onenote%2c&app=OneNote&authkey=!ALF9KqGbBDdyK_M', '', '', '', '_blank');
+(6, 'Notes', 'https://onedrive.live.com/redir?resid=7A26A4E50EEC48CB!487&authkey=!AAWHeOocCttgeYQ&ithint=onenote%2c', '', '', '', '_blank');
 
 --
--- Indexen voor geëxporteerde tabellen
+-- Indexes for dumped tables
 --
 
 --
--- Indexen voor tabel `navigation`
+-- Indexes for table `navigation`
 --
 ALTER TABLE `navigation`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT voor geëxporteerde tabellen
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT voor een tabel `navigation`
+-- AUTO_INCREMENT for table `navigation`
 --
 ALTER TABLE `navigation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

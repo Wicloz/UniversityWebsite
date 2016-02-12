@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.14
+-- version 4.2.9
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Gegenereerd op: 05 nov 2015 om 19:15
--- Serverversie: 5.6.26
--- PHP-versie: 5.6.12
+-- Host: putter.vuw.leidenuniv.nl:3306
+-- Generation Time: Feb 12, 2016 at 10:44 AM
+-- Server version: 5.5.46-log
+-- PHP Version: 5.3.17
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,26 +14,26 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
--- Database: `app`
+-- Database: `s1704362`
 --
 
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `pages`
+-- Table structure for table `pages`
 --
 
 CREATE TABLE IF NOT EXISTS `pages` (
-  `id` int(11) NOT NULL,
+`id` int(11) NOT NULL,
   `page` varchar(30) NOT NULL,
   `content` text NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 --
--- Gegevens worden geëxporteerd voor tabel `pages`
+-- Dumping data for table `pages`
 --
 
 INSERT INTO `pages` (`id`, `page`, `content`) VALUES
@@ -50,27 +50,28 @@ INSERT INTO `pages` (`id`, `page`, `content`) VALUES
 (11, 'upload', 'form_uploadAny'),
 (12, 'subjects', 'subjectPage'),
 (18, 'exams_item', 'item_exam'),
-(19, 'planning', 'table_planning');
+(19, 'planning', 'table_planning'),
+(20, 'upload', 'form_uploadAny');
 
 --
--- Indexen voor geëxporteerde tabellen
+-- Indexes for dumped tables
 --
 
 --
--- Indexen voor tabel `pages`
+-- Indexes for table `pages`
 --
 ALTER TABLE `pages`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT voor geëxporteerde tabellen
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT voor een tabel `pages`
+-- AUTO_INCREMENT for table `pages`
 --
 ALTER TABLE `pages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

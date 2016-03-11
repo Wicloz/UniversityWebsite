@@ -101,6 +101,20 @@ function getEntriesWithDoubleTestSorted ($table, $column1, $test1, $column2, $te
 	}
 }
 
+function getSubjects () {
+	global $db;
+	if ($result = $db->query("SELECT * FROM subjects WHERE NOT section = 'hc' UNION SELECT * FROM subjects WHERE abbreviation = 'hcbls' UNION SELECT * FROM subjects WHERE section = 'hc' AND NOT abbreviation = 'hcbls'")) {
+		if ($result->num_rows) {
+			return $result;
+			$result->free();
+		} else {
+			return false;
+		}
+	} else {
+		return $db->error;
+	}
+}
+
 function getAutoIncrementValue ($table) {
 	global $db;
 	if ($result = $db->query("SHOW TABLE STATUS LIKE '{$table}'")) {

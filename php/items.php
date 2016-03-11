@@ -70,7 +70,7 @@ function buildListItem ($title, $location, $target, $active) {
 }
 
 function discordSidebarI () {
-	return '<iframe class="discord" src="https://discordapp.com/widget?id=107472497242275840&theme=dark" allowtransparency="true" frameborder="0"></iframe>';
+	return '';
 }
 
 function discordSidebarB () {
@@ -78,7 +78,7 @@ function discordSidebarB () {
 }
 
 function parseSubjectNav ($row) {
-	$subjects = getAllEntriesSorted('subjects', 'name');
+	$subjects = getSubjects();
     while ($subject = $subjects->fetch_object()) {
         if ($subject->active) {
             $sub_names[] = $subject->name;

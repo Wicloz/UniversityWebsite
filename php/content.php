@@ -84,7 +84,7 @@ function buildFancyTable ($headers, $content, $class) {
 
 function getSubjectOverview () {
     $ret = '';
-	$subjects = getAllEntriesSorted('subjects', 'name');
+	$subjects = getSubjects();
 	
 	while ($row = $subjects->fetch_object()) {
 		if ($row->active) {

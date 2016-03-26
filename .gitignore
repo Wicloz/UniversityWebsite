@@ -2,3 +2,4 @@
 php/db/dbsettings.php
 addons/discord/db/dbsettings.php
 */templates_c/
+*/cache/

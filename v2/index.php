@@ -1,5 +1,9 @@
 <?php
-include('vendor\smarty\smarty\libs\Smarty.class.php');
+require 'vendor/smarty/smarty/libs/Smarty.class.php';
 $smarty = new Smarty;
-$smarty->display('main.tpl');
+
+$smarty->caching = true;
+$smarty->cache_lifetime = 120;
+
+$smarty->display('templates/main.tpl');
 ?>

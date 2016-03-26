@@ -1,5 +1,4 @@
 *.7z
-php/db/dbsettings.php
-addons/discord/db/dbsettings.php
+dbsettings.php
 */templates_c/
 */cache/

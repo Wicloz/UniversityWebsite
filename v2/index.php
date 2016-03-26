@@ -4,8 +4,8 @@ require 'app/include.php';
 
 if (isset($_GET['page']) && !empty($_GET['page'])) {
     $smarty = new Smarty;
-    #$smarty->caching = true;
-    #$smarty->cache_lifetime = 120;
+    $smarty->caching = true;
+    $smarty->cache_lifetime = 120;
     
     $GET = '';
 	foreach ($_GET as $key => $value) {

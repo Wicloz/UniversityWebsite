@@ -11,9 +11,25 @@
         <div class="collapse navbar-collapse" id="mainNavbar">
             <ul class="nav navbar-nav">
                 {foreach $topnav as $item}
-                <li{if $item.active} class="active"{/if}>
-                    <a href="{$item.location}"{if $item.target != ""} target={$item.target}{/if}>{$item.title}</a>
-                </li>
+                    {if $item.subItems == ""}
+                        <li{if $item.active} class="active"{/if}>
+                            <a href="{$item.location}"{if $item.target != ""} target={$item.target}{/if}>{$item.title}</a>
+                        </li>
+                    {else}
+                        <li class="dropdown{if $item.active} active{/if}">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                                {$item.title}
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                {foreach $item.subItems as $subitem}
+                                    <li{if $subitem.active} class="active"{/if}>
+                                        <a href="{$subitem.location}">{$subitem.title}</a>
+                                    </li>
+                                {/foreach}
+                            </ul>
+                        </li>
+                    {/if}
                 {/foreach}
             </ul>
             <ul class="nav navbar-nav navbar-right">

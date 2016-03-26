@@ -45,10 +45,6 @@ function getEntriesWithDoubleTestSorted ($table, $column1, $test1, $column2, $te
 	return doGetQuery("SELECT * FROM {$table} WHERE {$column1} = '{$test1}' AND {$column2} = '{$test2}' ORDER BY {$sort} ASC");
 }
 
-function getSubjects () {
-	return doGetQuery("SELECT * FROM subjects WHERE NOT section = 'hc' UNION SELECT * FROM subjects WHERE abbreviation = 'hcbls' UNION SELECT * FROM subjects WHERE section = 'hc' AND NOT abbreviation = 'hcbls'");
-}
-
 function getAutoIncrementValue ($table) {
 	return doGetQuery("SHOW TABLE STATUS LIKE '{$table}'");
 }

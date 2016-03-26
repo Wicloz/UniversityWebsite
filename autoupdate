@@ -1,4 +1,5 @@
 #!/bin/bash
-# script to upload the site
+# script to update and upload the site
 
+git pull -r
 rsync -av ./* s1704362@liacs.leidenuniv.nl:public_html/

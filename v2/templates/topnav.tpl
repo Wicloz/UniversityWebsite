@@ -12,7 +12,7 @@
             <ul class="nav navbar-nav">
                 {foreach $topnav as $item}
                 <li{if $item.active} class="active"{/if}>
-                    <a href="{$item.location}"{if $item.target != ""} target={$item.target}{/fi}>{$item.title}</a>
+                    <a href="{$item.location}"{if $item.target != ""} target={$item.target}{/if}>{$item.title}</a>
                 </li>
                 {/foreach}
             </ul>

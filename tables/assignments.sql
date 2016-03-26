@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: putter.vuw.leidenuniv.nl:3306
--- Generation Time: Feb 12, 2016 at 10:44 AM
--- Server version: 5.5.46-log
+-- Generation Time: Mar 26, 2016 at 07:05 PM
+-- Server version: 5.5.47-log
 -- PHP Version: 5.3.17
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `assignments` (
   `link_report` text NOT NULL,
   `team` varchar(100) NOT NULL,
   `completion` tinyint(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `assignments`
@@ -54,7 +54,18 @@ INSERT INTO `assignments` (`id`, `start_date`, `end_date`, `end_time`, `subject`
 (6, '2015-11-11', '2015-12-04', '17:00:00', 'Programmeermethoden', 'Programmeeropdracht 4: Othello', 'Het is de bedoeling om een C++-programma te maken dat de gebruiker in staat stelt het spel Othello (zie ook Reversi) te spelen via een eenvoudig menu. Othello-borden worden in het C++-programma gerepresenteerd door ingewikkelde pointer-structuren. Het is de bedoeling een klasse OthelloBord te maken, die onder meer memberfuncties heeft als afdrukken, spelerzet en computerzet. Uiteraard heeft deze klasse ook een constructor en een destructor. Verder moeten gedane zetten met behulp van een stapel ongedaan gemaakt kunnen worden, en kan het aantal vervolgpartijen worden uitgerekend.', 'http://liacs.leidenuniv.nl/~kosterswa/pm/op4pm.php', 'https://github.com/Wicloz/PMPO/tree/master/PMPO_Othello', '', 'Jevan Kolk', 1),
 (7, '2015-11-17', '2015-11-24', '11:15:00', 'Studeren & Presenteren', 'Presentation Human Microbiome', 'Each group of two will have ten minutes to explain their theory as an oral presentation. You can use slides and/or draw diagrams on the chalk boards available. During the presentation:<br>1. Explain the current theory, using diagrams and analogies if they are helpful.<br>2. Explain the origins and history of the theory (i.e. who proposed it and when, what was the prevailing theory before this was proposed, and are there any credible ideas that may contradict the current theory).<br>3. Briefly give your own opinion of the theory. Is it credible? Has it stood the test of time?<br>Both members of each team should be involved with researching and preparing the presentation and both members of the team should be involved with presenting.', 'http://liacs.leidenuniv.nl/~wolstencroftkj/Assignment2_SSP.pdf', 'https://drive.google.com/drive/folders/0B44Sn7Hnnnhhb3lib2hBZFZ0NlU', 'https://docs.google.com/presentation/d/1swmxPdS5kHq7Yv_6EO_p7YHtWSZGPKpV8A42M3h2LIQ/edit?usp=sharing', 'Martijn Blokker', 1),
 (9, '2015-12-08', '2015-12-11', '17:00:00', 'Studeren & Presenteren', 'Written article Human Microbiome', 'In groups of two, explain the same scientific theory as a written article of no more than 3 pages (one report per group of two).<br><br>In this exercise, imagine that you are a science journalist writing about this theory just after it has been proposed. You are writing for a general audience without much scientific knowledge, so you will need to engage their interest and help them understand why this discovery is important.<br>In your report, explain the theory, but also explain why this theory is important for society. Will it change the world? If so, how? How will this work influence future research? You might also wish to discuss whether or not the theory is controversial. If it is, who is it controversial for?', 'http://liacs.leidenuniv.nl/~wolstencroftkj/Assignment3_SSP.pdf', 'https://nl.sharelatex.com/project/5666b4b1182bc84705fe5f8b', 'https://nl.sharelatex.com/project/5666b4b1182bc84705fe5f8b/output/output.pdf', 'Martijn Blokker', 1),
-(10, '0000-00-00', '2016-04-21', '09:00:00', 'Biochemie', 'Presentatie', '', '', '', '', '', 0);
+(10, '0000-00-00', '2016-04-21', '09:00:00', 'Biochemie', 'Presentatie', '', '', '', '', '', 0),
+(12, '2016-02-16', '2016-02-23', '00:00:00', 'Logica', 'Homework 1', '', 'http://liacs.leidenuniv.nl/~bonsanguemm/Logic/hw2016.1.pdf', '', '', '', 1),
+(13, '2016-02-24', '2016-03-27', '23:59:00', 'Databases', 'Practical Assignment 1', 'This practical assignment consists of three parts and should be delivered by March 27th 23:59pm.', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3497614-dt-content-rid-3488943_1/courses/4031DABA6-1516FWN/assignment.pdf', '', '', '', 1),
+(14, '2016-02-15', '2016-03-21', '12:00:00', 'Algoritmiek', 'Programmeeropdracht 1 (brute force)', 'Een mogelijke werkwijze bij het programmeren is:      Lees de opdracht helemaal door, want bijvoorbeeld vragen die je in het verslag moet beantwoorden, kunnen helpen bij de implementatie.     Toestand-actie-ruimtes zoals die in het verslag moeten komen, behandelen we bij het derde college, op vrijdag 19 februari 2016 en bij het werkcollege van donderdag 25 februari.     Implementeer achtereenvolgens:         constructor(s)         functie drukaf         functie eindstand         functie doezet(kolom), zowel voor gewoon vooruitzetten als voor slaan         recursieve functie winst (aantal)         functie doerandomzet         functie bestezet     Het is verstandig om in principe na elke nieuwe functie (of deel daarvan) te testen of het programma doet wat je verwacht, door de op dat moment geschreven functies aan te roepen vanuit main.cc.', 'http://liacs.leidenuniv.nl/~graafjmde/ALGO/een2016.pdf', 'https://github.com/Wicloz/ALGPO/tree/master/ALGPO_BruteForce', '', 'Jevan Kolk', 1),
+(15, '2016-03-01', '2016-03-08', '00:00:00', 'Logica', 'Homework 2', '', 'http://liacs.leidenuniv.nl/~bonsanguemm/Logic/hw2016.2.pdf', '', '', '', 1),
+(16, '2016-03-15', '2016-03-22', '00:00:00', 'Orientatie I&B', 'Lees artikel door Ewen Callaway', '', 'https://app.perusall.com/courses/informatica-and-biologie/callaway-2011/dXdtWrYuymGPWZbxY', '', '', '', 1),
+(17, '2016-03-14', '2016-05-30', '23:59:00', 'Onderzoek & Onderzoekers', '3 verslagen interviews inleveren', '', 'https://studiegids.leidenuniv.nl/courses/show/55111/onderzoek-onderzoekers', '', '', '', 0),
+(18, '2016-03-14', '2016-06-13', '23:59:00', 'Onderzoek & Onderzoekers', 'Beoordeel de 3 verslagen', '', 'https://studiegids.leidenuniv.nl/courses/show/55111/onderzoek-onderzoekers', '', '', '', 0),
+(19, '2016-03-22', '2016-04-03', '00:00:00', 'Logica', 'Homework 3', '', 'http://liacs.leidenuniv.nl/~bonsanguemm/Logic/hw2016.3.pdf', '', '', '', 0),
+(20, '2016-03-22', '2016-03-29', '11:15:00', 'Orientatie I&B', 'Doe de R cursus op DataCamp', '', 'https://www.datacamp.com/courses/free-introduction-to-r', '', '', '', 1),
+(21, '0000-00-00', '2016-04-25', '13:00:00', 'Biochemie', 'Verslag LDH inleveren', '', '', '', '', '', 0),
+(22, '2016-03-24', '2016-04-18', '12:00:00', 'Algoritmiek', 'Programmeeropdracht 2 (knock out)', 'Het programma en Makefile per e-mail sturen naar: j.m.de.graaf@liacs.leidenuniv.nl<br>Zorg dat het onderwerp van je mail begint met ”[ALGO]”, dat scheelt de docent een hoop gezoek. Het verslag (inclusief het programma) moet op papier worden ingeleverd in de daartoe bestemde doos met opschrift Algoritmiek in de postkamer van Informatica, kamer 156. Voor elke week te laat inleveren gaat er een punt van het cijfer af. Vermeld overal duidelijk de namen van de makers.', 'http://liacs.leidenuniv.nl/~graafjmde/ALGO/twee2016.pdf', '', '', '', 0);
 
 --
 -- Indexes for dumped tables
@@ -74,7 +85,7 @@ ALTER TABLE `assignments`
 -- AUTO_INCREMENT for table `assignments`
 --
 ALTER TABLE `assignments`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

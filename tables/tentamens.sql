@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: putter.vuw.leidenuniv.nl:3306
--- Generation Time: Feb 12, 2016 at 10:44 AM
--- Server version: 5.5.46-log
+-- Generation Time: Mar 26, 2016 at 07:05 PM
+-- Server version: 5.5.47-log
 -- PHP Version: 5.3.17
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -49,7 +49,7 @@ INSERT INTO `tentamens` (`id`, `date`, `weight`, `subject`, `substance`, `link`,
 (6, '2015-12-22', 'Tentamen', 'Fundamentele Informatica 1', '', '', 9.5),
 (7, '2016-01-05', 'Tentamen', 'Programmeermethoden', '', '', 9),
 (8, '2015-11-11', 'Tentamen', 'Celfysiologie', 'Biochemische reacties: (Thermodynamica, Vrije energie, Biochemische reacties, Evenwichten)<br>- H6.1, H6.2, H6.3<br><br>Membraantransport: (Membraantransport, Diffusie, Transporteiwitten, Osmose)<br>- H8.2, H8.3, H8.4<br>- H36.2 (''Short-Distance Transport of Water Across Plasma Membranes'')<br>- H48.2, H48.3 (behalve ''Evolution'')<br><br>Energietransformatie: (Redoxprocessen, Fotosystemen, Protonenpompen, Fosforylering)<br>- H10.1, H10.4<br>- H11<br><br>Powerpoints, Notities en Syllabus', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3345291-dt-content-rid-3087777_1/xid-3087777_1', 8.8),
-(9, '2016-02-04', 'Toets', 'Biochemie', '', '', 0),
+(9, '2016-02-04', 'Toets', 'Biochemie', '', '', 9.51),
 (10, '2016-04-25', 'Tentamen', 'Biochemie', '', '', 0),
 (11, '2016-03-24', 'Toets', 'Biochemie', '', '', 0);
 

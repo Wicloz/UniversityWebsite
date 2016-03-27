@@ -1,0 +1,25 @@
+<?php
+class DB {
+    private static $_instance = null;
+    private $_pdo,
+            $_query,
+            $_error = false,
+            $_results,
+            $_count = 0;
+
+    private function __construct() {
+        try {
+            $this->_pdo = new PDO('mysql:host='.Config::get('mysql/host').';dbname'.Config::get('mysql/db'), Config::get('mysql/username'), Config::get('mysql/password'));
+        } catch (PDOException $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public static function instance ($reset = false) {
+        if (!isset(self::$_instance) || $reset) {
+            self::$_instance = new DB();
+        }
+        return self::$_instance;
+    }
+}
+?>

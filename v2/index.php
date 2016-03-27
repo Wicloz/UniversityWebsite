@@ -1,7 +1,7 @@
 <?php
 error_reporting(E_ALL);
 require 'vendor/smarty/smarty/libs/Smarty.class.php';
-require 'app/include.php';
+require_once 'app/core/init.php';
 
 if (isset($_GET['page']) && !empty($_GET['page'])) {
     $smarty = new Smarty;

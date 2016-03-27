@@ -62,7 +62,7 @@ class Validate {
             }
         }
 
-        if (empty($this->getErrors())) {
+        if (empty($this->_errors)) {
             $this->_passed = true;
         }
     }

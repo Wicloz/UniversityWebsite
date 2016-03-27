@@ -3,7 +3,12 @@ function arrayToUrlString ($array) {
     $urlString = '';
     if (!empty($array)) {
         foreach ($array as $key => $value) {
-            $urlString .= '&'.$key.'='.$value;
+            if (empty($urlString)) {
+                $urlString .= '?';
+            } else {
+                $urlString .= '&';
+            }
+            $urlString .= $key.'='.$value;
         }
     }
     return $urlString;

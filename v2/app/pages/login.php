@@ -1,7 +1,7 @@
 <?php
 function createPage ($smarty) {
-    $data = DB::instance();
-    $smarty->assign('test', Config::get('mysql/username'));
+    $data = DB::instance()->get("navigation", array("name", "=", "Home"));
+    $smarty->assign('test', $data->error());
     return $smarty;
 }
 ?>

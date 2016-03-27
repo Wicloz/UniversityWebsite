@@ -5,7 +5,7 @@ require 'app/include.php';
 
 if (isset($_GET['page']) && !empty($_GET['page'])) {
     $smarty = new Smarty;
-    $smarty->debugging = true;
+    #$smarty->debugging = true;
     #$smarty->caching = true;
     #$smarty->cache_lifetime = 120;
 

@@ -13,6 +13,7 @@
                     <input type="password" name="password" id="password">
                 </div>
                 <input type="hidden" name="action" value="login">
+                <input type="hidden" name="token" value="{$token|default:""}">
                 <input class="button submit-button" type="submit" value="Login">
             </form>
         </p>
@@ -38,6 +39,7 @@
                     <input type="password" name="password_again" id="password_again">
                 </div>
                 <input type="hidden" name="action" value="register">
+                <input type="hidden" name="token" value="{$token|default:""}">
                 <input class="button submit-button" type="submit" value="Register">
             </form>
         </p>

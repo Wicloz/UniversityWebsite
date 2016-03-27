@@ -56,9 +56,9 @@ function topnav ($get) {
                 $active = true;
             }
             if (empty($row->url)) {
-                $subItems[] = ["title" => $subName,
-                               "location" => $subUrls[$index],
-                               "active" => $activeSub];
+                $subItems[] = array("title" => $subName,
+                                    "location" => $subUrls[$index],
+                                    "active" => $activeSub);
             }
         }
 
@@ -66,11 +66,11 @@ function topnav ($get) {
             $subItems = "";
         }
         
-        $navout[] = ["title" => $row->name,
-                     "location" => $row->url,
-                     "target" => $row->target,
-                     "active" => $active,
-                     "subItems" => $subItems];
+        $navout[] = array("title" => $row->name,
+                          "location" => $row->url,
+                          "target" => $row->target,
+                          "active" => $active,
+                          "subItems" => $subItems);
     }
     
     return $navout;
@@ -96,14 +96,14 @@ function sidenav ($get) {
                 if ($activeSub) {
                     $active = true;
                 }
-                $subItems[] = ["title" => $subName,
-                               "location" => $subUrls[$index],
-                               "active" => $activeSub];
+                $subItems[] = array("title" => $subName,
+                                    "location" => $subUrls[$index],
+                                    "active" => $activeSub);
             }
             
             if ($active) {
-                $navout[] = ["header" => $row->header,
-                             "content" => $subItems];
+                $navout[] = array("header" => $row->header,
+                                  "content" => $subItems);
             }
         }
     }

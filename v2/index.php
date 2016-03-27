@@ -9,14 +9,7 @@ if (isset($_GET['page']) && !empty($_GET['page'])) {
     #$smarty->caching = true;
     #$smarty->cache_lifetime = 120;
 
-    $GET = '';
-	foreach ($_GET as $key => $value) {
-		if ($key != 'page') {
-			$GET[$key] = $value;
-		}
-	}
     $cache_id = md5(arrayToUrlString($_GET).'&'.arrayToUrlString($_POST));
-
     $pageFile = 'app/pages/'.$_GET['page'].'.php';
     $templateFile = 'templates/pages/'.$_GET['page'].'.tpl';
 

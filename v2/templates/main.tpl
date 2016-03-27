@@ -11,6 +11,7 @@
                     {block name=content_right}{/block}
                 </div>
                 <div class="col-sm-8" id="content-main">
+                    {include file="notifications.tpl"}
                     {block name=content_center}{/block}
                 </div>
                 <div class="col-sm-2" id="content-left">

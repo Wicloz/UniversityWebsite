@@ -1,20 +1,65 @@
 <?php
 function createPage ($smarty) {
-    $data = DB::instance()->get("navigation", array("", "name", "=", "Home", "OR", "1", "=", "1"));
-    $results = '';
+    if (Input::get('action') === 'register' && Input::exists()) {
+        $validate = new Validate();
+        $validate->check($_POST, array(
+            'name' => array(
+                'name' => 'Username',
+                'required' => true,
+                'min' => 1,
+                'max' => 50
+            ),
+            'sid' => array(
+                'name' => 'Student Number',
+                'required' => true,
+                'wildcard' => 's???????',
+                'unique' => 'users/student_id'
+            ),
+            'password' => array(
+                'name' => 'Password',
+                'required' => true,
+                'min' => 4
+            ),
+            'password_again' => array(
+                'name' => 'Repeat Password',
+                'required' => true,
+                'matches' => 'password'
+            )
+        ));
 
-    foreach ($data->results() as $result) {
-        $results .= $result->name.'<br>';
+        if ($validate->passed()) {
+
+        }
+        else {
+            $smarty->assign('errors', $validate->getErrors());
+        }
     }
 
-    #$results .= $data->first()->name;
+    if (Input::get('action') === 'login' && Input::exists()) {
+        $validate = new Validate();
+        $validate->check($_POST, array(
+            'sid' => array(
+                'name' => 'Student Number',
+                'required' => true,
+                'min' => 8,
+                'max' => 8
+            ),
+            'password' => array(
+                'name' => 'Password',
+                'required' => true
+            )
+        ));
 
-    DB::instance()->update("users", 2, array(
-        'name' => 'test2',
-        'password' => '1234'
-    ));
+        if ($validate->passed()) {
 
-    $smarty->assign('test', $results);
+        }
+        else {
+            $smarty->assign('errors', $validate->getErrors());
+        }
+    }
+
+    $smarty->assign('sid', Input::get('sid'));
+    $smarty->assign('name', Input::get('name'));
     return $smarty;
 }
 ?>

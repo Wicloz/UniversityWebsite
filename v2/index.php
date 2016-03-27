@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL);
 require 'vendor/smarty/smarty/libs/Smarty.class.php';
 require 'app/include.php';
 

@@ -1,5 +1,5 @@
 <?php
 require 'db/interaction.php';
-require 'php/navigation.php';
-require 'php/errors.php';
+require 'functions/navigation.php';
+require 'includes/errors/errors.php';
 ?>

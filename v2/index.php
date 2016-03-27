@@ -15,7 +15,7 @@ if (isset($_GET['page']) && !empty($_GET['page'])) {
 			$GET[$key] = $value;
 		}
 	}
-    $cache_id = createFullUrl($_GET['page'], $GET);
+    $cache_id = md5(arrayToUrlString($_GET).'&'.arrayToUrlString($_POST));
 
     $pageFile = 'app/pages/'.$_GET['page'].'.php';
     $templateFile = 'templates/pages/'.$_GET['page'].'.tpl';
@@ -42,13 +42,13 @@ if (isset($_GET['page']) && !empty($_GET['page'])) {
 	header('Location: ?page=home');
 }
 
-function createFullUrl ($page, $get) {
-    $url = '?page='.$page;
-    if (!empty($get)) {
-        foreach ($get as $key => $value) {
-            $url .= '&'.$key.'='.$value;
+function arrayToUrlString ($array) {
+    $urlString = '';
+    if (!empty($array)) {
+        foreach ($array as $key => $value) {
+            $urlString .= '&'.$key.'='.$value;
         }
     }
-    return $url;
+    return $urlString;
 }
 ?>

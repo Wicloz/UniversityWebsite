@@ -58,25 +58,62 @@ class DB {
         return $this->_count;
     }
 
+    public function results ($index = -1) {
+        if ($index >= 0) {
+            if ($index < count($this->_results)) {
+                return $this->_results[$index];
+            } else {
+                return $this->_results[count($this->_results) - 1];
+            }
+        }
+        return $this->_results;
+    }
+
+    public function first () {
+        return $this->results(0);
+    }
+
     private function action ($action, $table, $where = array()) {
         $values = array();
+        $sql = "";
 
-        if (count($where) > 0) {
-            $operators = array('==', '>', '<', '>=', '<=');
-            $field = $where[0];
-            $operator = $where[1];
-            $values = array($where[2]);
-            $sql = "{$action} FROM {$table} WHERE {$field} {$operator} '?'";
+        if (count($where) % 4 === 0) {
+            $inversions_allowed = array('', 'NOT');
+            $operators_allowed = array('=', '>', '<', '>=', '<=');
+            $concatenators_allowed = array('OR', 'AND', 'OR NOT', 'AND NOT');
+
+            $sql = "{$action} FROM {$table} WHERE ";
+
+            for ($i = 0; $i < count($where); $i += 4) {
+                if (in_array($where[$i + 0], $concatenators_allowed) || ($i === 0 && in_array($where[$i + 0], $inversions_allowed))) {
+                    $sql .= $where[$i + 0].' ';
+                } else {
+                    die('Invalid Query Request: ' . implode(', ', $where));
+                }
+
+                $sql .= $this->_mysql->escape_string($where[$i + 1]).' ';
+
+                if (in_array($where[$i + 2], $operators_allowed)) {
+                    $sql .= $where[$i + 2].' ? ';
+                } else {
+                    die('Invalid Query Request: ' . implode(', ', $where));
+                }
+
+                $values[] = $where[$i + 3];
+            }
+        }
+
+        elseif (count($where) > 0) {
+            die('Invalid Query Request Length (' . count($where) . '): ' . implode(', ', $where));
         }
 
         else {
             $sql = "{$action} FROM {$table}";
         }
 
-        if (isset($sql)) {
-            if (!$this->query($sql, $values)->error()) {
-                return $this;
-            }
+        if (!empty($sql)) {
+            $this->query($sql, $values);
+            return $this;
         }
 
         return false;
@@ -91,11 +128,11 @@ class DB {
     }
 
     public function autoIncrementValue ($table) {
-    	return $this->query("SHOW TABLE STATUS LIKE '?'", array($table));
+    	return $this->query("SHOW TABLE STATUS LIKE ?", array($table));
     }
 
     public function tableFormInfo ($table) {
-    	return $this->query("SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA='?' AND TABLE_NAME='?'", array(Config::get('mysql/db'), $table));
+    	return $this->query("SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA=? AND TABLE_NAME=?", array(Config::get('mysql/db'), $table));
     }
 }
 ?>

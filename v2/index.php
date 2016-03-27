@@ -41,14 +41,4 @@ if (isset($_GET['page']) && !empty($_GET['page'])) {
 } else {
 	header('Location: ?page=home');
 }
-
-function arrayToUrlString ($array) {
-    $urlString = '';
-    if (!empty($array)) {
-        foreach ($array as $key => $value) {
-            $urlString .= '&'.$key.'='.$value;
-        }
-    }
-    return $urlString;
-}
 ?>

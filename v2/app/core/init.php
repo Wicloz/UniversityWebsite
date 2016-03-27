@@ -25,6 +25,7 @@ spl_autoload_register(function($class) {
 });
 
 require_once 'app/functions/sanitize.php';
+require_once 'app/functions/misc.php';
 require_once 'app/functions/navigation.php';
 require_once 'app/db/interaction.php';
 require_once 'app/includes/errors/errors.php';

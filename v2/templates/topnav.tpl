@@ -11,7 +11,7 @@
         <div class="collapse navbar-collapse" id="mainNavbar">
             <ul class="nav navbar-nav">
                 {foreach $topnav as $item}
-                    {if $item.subItems == ""}
+                    {if $item.location != ""}
                         <li{if $item.active} class="active"{/if}>
                             <a href="{$item.location}"{if $item.target != ""} target={$item.target}{/if}>{$item.title}</a>
                         </li>

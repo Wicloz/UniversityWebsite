@@ -6,19 +6,19 @@ function isActive ($getHas, $encodedMust) {
     foreach ($getHas as $key => $value) {
         $pairsHas[] = $key.'='.$value;
     }
-    
+
     foreach ($pairsMust as $pair) {
         if (!in_array($pair, $pairsHas)) {
             $active = false;
         }
     }
-    
+
     return $active;
 }
 
 function parseSubjectNav ($row) {
-    $subjects = getSubjectsSQL();
-    
+    $subjects = data_subjects();
+
     while ($subject = $subjects->fetch_object()) {
         if ($subject->active) {
             $sub_names[] = $subject->name;
@@ -29,7 +29,7 @@ function parseSubjectNav ($row) {
         $sub_names[] = 'No Subjects';
         $sub_urls[] = '?page=subjects&subject=none';
     }
-    
+
     $row->sub_names = implode(', ', $sub_names);
     $row->sub_urls = implode(', ', $sub_urls);
     $row->url = '';
@@ -39,16 +39,16 @@ function parseSubjectNav ($row) {
 function topnav ($get) {
     $navin = getAllEntries('navigation');
     $navout = array();
-    
+
     while ($row = $navin->fetch_object()) {
         if ($row->url == '%SUBJECTS%') {
             $row = parseSubjectNav($row);
         }
-        
+
         $subNames = explode(',', str_replace(', ', ',', $row->sub_names));
         $subUrls = explode(',', str_replace(', ', ',', $row->sub_urls));
         $active = isActive($get, $row->url);
-        
+
         $subItems = array();
         foreach ($subNames as $index => $subName) {
             $activeSub = isActive($get, $subUrls[$index]);
@@ -62,34 +62,30 @@ function topnav ($get) {
             }
         }
 
-        if (empty($subItems)) {
-            $subItems = "";
-        }
-        
         $navout[] = array("title" => $row->name,
                           "location" => $row->url,
                           "target" => $row->target,
                           "active" => $active,
                           "subItems" => $subItems);
     }
-    
+
     return $navout;
 }
 
 function sidenav ($get) {
     $navin = getAllEntries('navigation');
     $navout = array();
-    
+
     while ($row = $navin->fetch_object()) {
         if ($row->url == '%SUBJECTS%') {
             $row = parseSubjectNav($row);
         }
-        
+
         if (!empty($row->sub_names)) {
-            $active = false;
             $subNames = explode(',', str_replace(', ', ',', $row->sub_names));
             $subUrls = explode(',', str_replace(', ', ',', $row->sub_urls));
-            
+            $active = false;
+
             $subItems = array();
             foreach ($subNames as $index => $subName) {
                 $activeSub = isActive($get, $subUrls[$index]);
@@ -100,14 +96,14 @@ function sidenav ($get) {
                                     "location" => $subUrls[$index],
                                     "active" => $activeSub);
             }
-            
+
             if ($active) {
                 $navout[] = array("header" => $row->header,
                                   "content" => $subItems);
             }
         }
     }
-    
+
     return $navout;
 }
 ?>

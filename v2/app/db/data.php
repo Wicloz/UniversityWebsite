@@ -1,24 +1,29 @@
 <?php
 require 'connect.php';
-require 'files.php';
-$last_query = '';
+$last_setQuery = '';
+$last_getQuery = '';
+$last_setError = '';
+$last_getError = '';
 
 function doGetQuery ($query) {
-    global $db;
+    global $db, $last_getQuery, $last_getError;
+    $last_getQuery = $query;
+    $last_getError = "";
+
     if ($result = $db->query($query)) {
-		if ($result->num_rows) {
-			return $result;
-			$result->free();
-		} else {
-			return false;
-		}
-	} else {
-		return $db->error;
-	}
+    	if ($result->num_rows > 0) {
+    		return $result;
+    		$result->free();
+    	} else {
+    		$last_getError = 0;
+    	}
+    } else {
+    	$last_getError = $db->error;
+    }
 }
 
 function getAllEntries ($table) {
-	return doGetQuery("SELECT * FROM {$table}");
+    return doGetQuery("SELECT * FROM {$table}");
 }
 
 function getAllEntriesSorted ($table, $column) {
@@ -55,52 +60,58 @@ function getTableFormInfo ($table) {
 }
 
 function insertEntry ($table, $entry) {
-	global $db, $last_query;
-	
+	global $db, $last_setQuery, $last_setError;
+
 	foreach ($entry as $key => $value) {
 		$key_items[] = $db->escape_string($key);
 		$value_items[] = '\''.$db->escape_string($value).'\'';
 	}
 	$keys = implode(', ', $key_items);
 	$values = implode(', ', $value_items);
-	
+
 	$qry = "INSERT INTO {$db->escape_string($table)} ({$keys}) VALUES ({$values})";
-	$last_query = $qry;
-	
+	$last_setQuery = $qry;
+    $last_setError = "";
+
 	if ($update = $db->query($qry)) {
 		return $db->affected_rows;
 	} else {
+        $last_setError = $db->error;
 		return $db->error;
 	}
 }
 
 function updateEntry ($table, $id, $entry) {
-	global $db, $last_query;
-	
+	global $db, $last_query, $last_setError;
+
 	foreach ($entry as $key => $value) {
 		$updates[] = $db->escape_string($key).'='.'\''.$db->escape_string($value).'\'';
 	}
 	$update = implode(', ', $updates);
-	
+
 	$qry = "UPDATE {$db->escape_string($table)} SET {$update} WHERE id = {$id}";
-	$last_query = $qry;
-	
-	if ($update = $db->query($qry)) {	
+	$last_setQuery = $qry;
+    $last_setError = "";
+
+	if ($update = $db->query($qry)) {
 		return $db->affected_rows;
 	} else {
+        $last_setError = $db->error;
 		return $db->error;
 	}
 }
 
 function deleteEntry ($table, $id) {
-	global $db, $last_query;
-	
+	global $db, $last_query, $last_setError;
+
 	$qry = "DELETE FROM {$db->escape_string($table)} WHERE id = {$db->escape_string($id)}";
-	$last_query = $qry;
-	
-	if ($update = $db->query($qry)) {	
+	$last_setQuery = $qry;
+    $last_setError = "";
+
+	if ($update = $db->query($qry)) {
 		return $db->affected_rows;
 	} else {
+        $last_setError = $db->error;
 		return $db->error;
 	}
 }

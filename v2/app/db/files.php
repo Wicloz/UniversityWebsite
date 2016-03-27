@@ -15,7 +15,7 @@ function removeFile ($file) {
 
 function uploadFileAny ($FILES, $target) {
 	$tmp_name = $FILES['file']['tmp_name'];
-	
+
 	if (move_uploaded_file($tmp_name, $target)) {
 		return 'File Uploaded!';
 	} else {
@@ -28,23 +28,23 @@ function uploadFileMedia ($FILES, $subfolder) {
 	$extension = strtolower(substr($name, strpos($name, '.') + 1));
 	$type = $FILES['file']['type'];
 	$size = $FILES['file']['size'];
-	
+
 	$accepted_types = array('image/jpeg', 'image/png', 'image/gif');
 	$accepted_extensions = array('jpg', 'jpeg', 'png', 'gif');
 	$max_size = 2097152;
-	
+
 	$tmp_name = $FILES['file']['tmp_name'];
 	$target = 'media/'.$subfolder.'/'.$name;
-	
+
 	if (in_array($extension, $accepted_extensions) && in_array($type, $accepted_types)) {
 		if ($size <= $max_size) {
 			$exists = false;
 			if (file_exists($target)) {
 				$exists = true;
 			}
-			
+
 			if (move_uploaded_file($tmp_name, $target)) {
-				
+
 				$entry['file'] = $target;
 				if ($exists) {
 					$table = getAllEntries('media');
@@ -56,9 +56,9 @@ function uploadFileMedia ($FILES, $subfolder) {
 					}
 					updateEntry('media', $id, $entry);
 				} else {
-					insertEntry('media', $entry);	
+					insertEntry('media', $entry);
 				}
-				
+
 				return 'File Uploaded!';
 			} else {
 				return 'Upload Failed!';

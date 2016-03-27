@@ -17,9 +17,9 @@ function isActive ($getHas, $encodedMust) {
 }
 
 function parseSubjectNav ($row) {
-    $subjects = data_subjects();
+    $subjects = query_subjects();
 
-    while ($subject = $subjects->fetch_object()) {
+    foreach ($subjects as $subject) {
         if ($subject->active) {
             $sub_names[] = $subject->name;
             $sub_urls[] = '?page=subjects&subject='.$subject->abbreviation;
@@ -37,10 +37,10 @@ function parseSubjectNav ($row) {
 }
 
 function topnav ($get) {
-    $navin = getAllEntries('navigation');
+    $navin = DB::instance()->get("navigation");
     $navout = array();
 
-    while ($row = $navin->fetch_object()) {
+    foreach ($navin->results() as $row) {
         if ($row->url == '%SUBJECTS%') {
             $row = parseSubjectNav($row);
         }
@@ -77,10 +77,10 @@ function topnav ($get) {
 }
 
 function sidenav ($get) {
-    $navin = getAllEntries('navigation');
+    $navin = DB::instance()->get("navigation");
     $navout = array();
 
-    while ($row = $navin->fetch_object()) {
+    foreach ($navin->results() as $row) {
         if ($row->url == '%SUBJECTS%') {
             $row = parseSubjectNav($row);
         }

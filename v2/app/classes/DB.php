@@ -5,7 +5,7 @@ class DB {
             $_pdo,
             $_query,
             $_error = false,
-            $_results,
+            $_results = array(),
             $_count = 0;
 
     private function __construct () {
@@ -27,6 +27,7 @@ class DB {
     public function query ($sql, $params = array()) {
         $this->_error = false;
         $this->_count = 0;
+        $params = array_values($params);
 
         if ($this->_query = $this->_pdo->prepare($sql)) {
             if (count($params)) {
@@ -74,10 +75,12 @@ class DB {
     }
 
     private function action ($action, $table, $where = array()) {
+        $action = $this->_mysql->escape_string($action);
+        $table = $this->_mysql->escape_string($table);
         $values = array();
         $sql = "";
 
-        if (count($where) % 4 === 0) {
+        if (count($where) !== 0 && count($where) % 4 === 0) {
             $inversions_allowed = array('', 'NOT');
             $operators_allowed = array('=', '>', '<', '>=', '<=');
             $concatenators_allowed = array('OR', 'AND', 'OR NOT', 'AND NOT');
@@ -124,15 +127,52 @@ class DB {
     }
 
     public function delete ($table, $where = array()) {
-        return $this->action("DELETE", $table, $where);
+        if (!$this->action("DELETE", $table, $where)->error()) {
+            return $this;
+        }
+        return false;
+    }
+
+    public function insert ($table, $data = array()) {
+        if (!empty($data)) {
+            foreach ($data as $key => $value) {
+                $key_items[] = $this->_mysql->escape_string($key);
+                $value_items[] = '?';
+            }
+
+            $keys = '`'.implode('`, `', $key_items).'`';
+            $values = implode(', ', $value_items);
+            $sql = "INSERT INTO {$this->_mysql->escape_string($table)} ({$keys}) VALUES ({$values})";
+
+            if (!$this->query($sql, $data)->error()) {
+                return $this;
+            }
+        }
+        return false;
+    }
+
+    public function update ($table, $id, $data = array()) {
+        if (!empty($data)) {
+            foreach ($data as $key => $value) {
+        		$updates[] = $this->_mysql->escape_string($key).' = ?';
+        	}
+
+        	$update = implode(', ', $updates);
+            $sql = "UPDATE {$this->_mysql->escape_string($table)} SET {$update} WHERE id = {$id}";
+
+            if (!$this->query($sql, $data)->error()) {
+                return $this;
+            }
+        }
+        return false;
     }
 
     public function autoIncrementValue ($table) {
-    	return $this->query("SHOW TABLE STATUS LIKE ?", array($table));
+    	return $this->query("SHOW TABLE STATUS LIKE ?", array($this->_mysql->escape_string($table)));
     }
 
     public function tableFormInfo ($table) {
-    	return $this->query("SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA=? AND TABLE_NAME=?", array(Config::get('mysql/db'), $table));
+    	return $this->query("SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA=? AND TABLE_NAME=?", array(Config::get('mysql/db'), $this->_mysql->escape_string($table)));
     }
 }
 ?>

@@ -9,6 +9,11 @@ function createPage ($smarty) {
 
     #$results .= $data->first()->name;
 
+    DB::instance()->update("users", 2, array(
+        'name' => 'test2',
+        'password' => '1234'
+    ));
+
     $smarty->assign('test', $results);
     return $smarty;
 }

@@ -15,23 +15,28 @@ if (isset($_GET['page']) && !empty($_GET['page'])) {
 			$GET[$key] = $value;
 		}
 	}
-    $urlEnd = createFullUrl($_GET['page'], $GET);
-
-    $smarty->assign('topnav', topnav($_GET));
-    $smarty->assign('sidenav', sidenav($_GET));
+    $cache_id = createFullUrl($_GET['page'], $GET);
 
     $pageFile = 'app/pages/'.$_GET['page'].'.php';
     $templateFile = 'templates/pages/'.$_GET['page'].'.tpl';
 
     if (file_exists($pageFile) && file_exists($templateFile)) {
         require $pageFile;
-        $smarty = createPage($smarty);
-        $smarty->display($templateFile, $urlEnd);
+        if(!$smarty->isCached($templateFile, $cache_id)) {
+            $smarty->assign('topnav', topnav($_GET));
+            $smarty->assign('sidenav', sidenav($_GET));
+            $smarty = createPage($smarty);
+        }
+        $smarty->display($templateFile, $cache_id);
     }
 
     else {
-        $smarty->assign('error', err_404());
-        $smarty->display('templates/error.tpl', $urlEnd);
+        if(!$smarty->isCached($templateFile, $cache_id)) {
+            $smarty->assign('topnav', topnav($_GET));
+            $smarty->assign('sidenav', sidenav($_GET));
+            $smarty->assign('error', err_404());
+        }
+        $smarty->display('templates/error.tpl', $cache_id);
     }
 } else {
 	header('Location: ?page=home');

@@ -40,23 +40,17 @@ class User {
 
     public function forceLogin ($remember = false) {
         if ($this->dataExists()) {
+            DB::instance()->delete("user_sessions", array("", "user_id", "=", $this->data()->id));
             Session::put($this->_sessionId, $this->data()->id);
             Session::put($this->_sessionLogged, true);
             $this->_loggedIn = true;
 
             if ($remember) {
                 $hash = Hash::hashUnique();
-                $dbHash = $this->_db->get("user_sessions", array("", "user_id", "=", $this->data()->id));
-
-                if (!$dbHash->count()) {
-                    $this->_db->insert("user_sessions", array(
-                        'user_id' => $this->data()->id,
-                        'hash' => $hash
-                    ));
-                } else {
-                    $hash = $dbHash->first()->hash;
-                }
-
+                $this->_db->insert("user_sessions", array(
+                    'user_id' => $this->data()->id,
+                    'hash' => $hash
+                ));
                 Cookie::put(Config::get('remember/cookie_name'), $hash, Config::get('remember/cookie_expiry'));
             }
         }

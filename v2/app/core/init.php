@@ -41,7 +41,7 @@ if (Cookie::exists(Config::get('remember/cookie_name')) && !User::loggedIn()) {
     $hashCheck = DB::instance()->get("user_sessions", array("", "hash", "=", $cookieHash));
     if ($hashCheck->count()) {
         $user = new User($hashCheck->first()->user_id);
-        $user->forceLogin();
+        $user->forceLogin(true);
     }
 }
 ?>

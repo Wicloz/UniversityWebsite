@@ -84,7 +84,7 @@ class DB {
         return $this;
     }
 
-    private function action ($action, $table, $where = array()) {
+    private function action ($action, $table, $where = array(), $order = array()) {
         $action = $this->_mysql->escape_string($action);
         $table = $this->_mysql->escape_string($table);
         $values = array();
@@ -92,7 +92,7 @@ class DB {
 
         if (count($where) !== 0 && count($where) % 4 === 0) {
             $inversions_allowed = array('', 'NOT');
-            $operators_allowed = array('=', '>', '<', '>=', '<=');
+            $operators_allowed = array('=', '!=', '>', '<', '>=', '<=');
             $concatenators_allowed = array('OR', 'AND', 'OR NOT', 'AND NOT');
 
             $sql = "{$action} FROM {$table} WHERE ";
@@ -115,16 +115,20 @@ class DB {
                 $values[] = $where[$i + 3];
             }
         }
-
         elseif (count($where) > 0) {
             die('Invalid Query Request Length (' . count($where) . '): ' . implode(', ', $where));
         }
-
         else {
             $sql = "{$action} FROM {$table}";
         }
 
         if (!empty($sql)) {
+            if (count($order) === 2) {
+                $field = $this->_mysql->escape_string($order[0]);
+                $direction = $this->_mysql->escape_string($order[1]);
+                $sql .= " ORDER BY {$field} {$direction}";
+            }
+
             $this->query($sql, $values);
             return $this;
         }
@@ -132,8 +136,8 @@ class DB {
         die("No query was excecuted!");
     }
 
-    public function get ($table, $where = array()) {
-        return $this->action("SELECT *", $table, $where);
+    public function get ($table, $where = array(), $order = array()) {
+        return $this->action("SELECT *", $table, $where, $order);
     }
 
     public function delete ($table, $where = array()) {

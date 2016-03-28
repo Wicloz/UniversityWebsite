@@ -1,5 +1,8 @@
 <?php
 function query_subjects () {
-	return DB::instance()->query("SELECT * FROM subjects WHERE NOT section = 'hc' UNION SELECT * FROM subjects WHERE abbreviation = 'hcbls' UNION SELECT * FROM subjects WHERE section = 'hc' AND NOT abbreviation = 'hcbls'")->results();
+	$results1 = DB::instance()->get("subjects", array("", "section", "!=", "hc"), array("name", "ASC"))->results();
+	$results2 = DB::instance()->get("subjects", array("", "abbreviation", "=", "hcbls"))->results();
+	$results3 = DB::instance()->get("subjects", array("", "section", "=", "hc", "AND", "abbreviation", "!=", "hcbls"), array("name", "ASC"))->results();
+	return array_merge($results1, $results2, $results3);
 }
 ?>

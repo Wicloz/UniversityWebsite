@@ -9,7 +9,7 @@ class User {
     public function create ($data = array()) {
         $result = $this->_db->insert("users", $data);
         if ($result->error()) {
-            throw new Exception('There was a problem creating this account: '.$result->error());
+            throw new Exception('There was an unexpected problem creating this account: '.$result->error());
         }
     }
 

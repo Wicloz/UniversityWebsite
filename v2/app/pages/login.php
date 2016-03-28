@@ -1,5 +1,7 @@
 <?php
 function createPage ($smarty) {
+    DB::instance()->query("asdasd");
+
     if (Input::exists() && Token::check(Input::get('token'))) {
         if (Input::get('action') === 'register') {
             $smarty = User::tryRegister($smarty);

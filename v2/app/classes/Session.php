@@ -9,7 +9,10 @@ class Session {
     }
 
     public static function get ($name) {
-        return $_SESSION[$name];
+        if (self::exists($name)) {
+            return $_SESSION[$name];
+        }
+        return '';
     }
 
     public static function delete ($name) {
@@ -39,36 +42,40 @@ class Session {
         return '';
     }
 
-    public static function addSuccess ($content = '') {
-        self::flashWriteArray('successes', array($content));
+    public static function addSuccess ($message = '') {
+        self::flashWriteArray('successes', array($message));
     }
 
-    public static function addSuccessArray ($content = array()) {
-        self::flashWriteArray('successes', $content);
+    public static function addSuccessArray ($message = array()) {
+        self::flashWriteArray('successes', $message);
     }
 
-    public static function addInfo ($content = '') {
-        self::flashWriteArray('info', array($content));
+    public static function addInfo ($message = '') {
+        self::flashWriteArray('info', array($message));
     }
 
-    public static function addInfoArray ($content = array()) {
-        self::flashWriteArray('info', $content);
+    public static function addInfoArray ($message = array()) {
+        self::flashWriteArray('info', $message);
     }
 
-    public static function addWarning ($content = '') {
-        self::flashWriteArray('warnings', array($content));
+    public static function addWarning ($message = '') {
+        self::flashWriteArray('warnings', array($message));
     }
 
-    public static function addWarningArray ($content = array()) {
-        self::flashWriteArray('warnings', $content);
+    public static function addWarningArray ($message = array()) {
+        self::flashWriteArray('warnings', $message);
     }
 
-    public static function addError ($content = '') {
-        self::flashWriteArray('errors', array($content));
+    public static function addError ($message = '') {
+        self::flashWriteArray('errors', array($message));
     }
 
-    public static function addErrorArray ($content = array()) {
-        self::flashWriteArray('errors', $content);
+    public static function addErrorArray ($message = array()) {
+        self::flashWriteArray('errors', $message);
+    }
+
+    public static function getCacheId () {
+        return json_encode(self::get('successes')).json_encode(self::get('info')).json_encode(self::get('warnings')).json_encode(self::get('errors'));
     }
 }
 ?>

@@ -24,30 +24,6 @@ class DB {
         return self::$_instance;
     }
 
-    public function query ($sql, $params = array()) {
-        $this->_error = false;
-        $this->_count = 0;
-        $params = array_values($params);
-
-        if ($this->_query = $this->_pdo->prepare($sql)) {
-            if (count($params)) {
-                foreach ($params as $index => $param) {
-                    $this->_query->bindValue($index + 1, $this->_mysql->escape_string($param));
-                }
-            }
-
-            if ($this->_query->execute()) {
-                $this->_results = $this->_query->fetchAll(PDO::FETCH_OBJ);
-                $this->_count = $this->_query->rowCount();
-            }
-            else {
-                $this->_error = $this->_query->errorInfo();
-            }
-        }
-
-        return $this;
-    }
-
     public function error () {
         if ($this->_error) {
             $this->_error = implode(', ', $this->_error);
@@ -72,6 +48,39 @@ class DB {
 
     public function first () {
         return $this->results(0);
+    }
+
+    private function setError ($error = array(0, 0, '')) {
+        $this->_error = $error;
+        Session::addError($this->error());
+        $this->_count = 0;
+    }
+
+    public function query ($sql, $params = array()) {
+        $this->_error = false;
+        $params = array_values($params);
+
+        if ($this->_query = $this->_pdo->prepare($sql)) {
+            if (count($params)) {
+                foreach ($params as $index => $param) {
+                    $this->_query->bindValue($index + 1, $this->_mysql->escape_string($param));
+                }
+            }
+
+            if ($this->_query->execute()) {
+                $this->_results = $this->_query->fetchAll(PDO::FETCH_OBJ);
+                $this->_count = $this->_query->rowCount();
+            }
+            else {
+                $this->setError($this->_query->errorInfo());
+            }
+        }
+
+        else {
+            $this->setError(array(0, 0, "Could not prepare SQL query: {$sql}"));
+        }
+
+        return $this;
     }
 
     private function action ($action, $table, $where = array()) {
@@ -119,7 +128,7 @@ class DB {
             return $this;
         }
 
-        return false;
+        die("No query was excecuted!");
     }
 
     public function get ($table, $where = array()) {
@@ -144,7 +153,7 @@ class DB {
             $this->query($sql, $data);
             return $this;
         }
-        return false;
+        die("No query was excecuted!");
     }
 
     public function update ($table, $id, $data = array()) {
@@ -159,7 +168,7 @@ class DB {
             $this->query($sql, $data);
             return $this;
         }
-        return false;
+        die("No query was excecuted!");
     }
 
     public function autoIncrementValue ($table) {

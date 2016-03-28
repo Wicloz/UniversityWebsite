@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 28 mrt 2016 om 22:35
+-- Gegenereerd op: 29 mrt 2016 om 00:21
 -- Serverversie: 5.6.26
 -- PHP-versie: 5.6.12
 
@@ -30,7 +30,6 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL,
   `student_id` varchar(8) NOT NULL,
   `password` varchar(60) NOT NULL,
-  `salt` varchar(22) NOT NULL,
   `permission_group` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
@@ -44,8 +43,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Gegevens worden geëxporteerd voor tabel `users`
 --
 
-INSERT INTO `users` (`id`, `student_id`, `password`, `salt`, `permission_group`, `name`, `email`, `umail`, `phone`, `joined`, `last_online`) VALUES
-(1, 's1704362', '$2y$10$gNvXxXMHRS/8YbGgCNwh0uPJ.jGsuVMsse14qCiAjlaPadR4kfeGq', 'gNvXxXMHRS/8YbGgCNwh05', 1, 'Wilco de Boer', 'deboer.wilco@gmail.com', 's1704362@umail.leidenuniv.nl', '+310637338259', '2016-03-28 17:57:28', '0000-00-00 00:00:00');
+INSERT INTO `users` (`id`, `student_id`, `password`, `permission_group`, `name`, `email`, `umail`, `phone`, `joined`, `last_online`) VALUES
+(1, 's1704362', '$2y$10$gNvXxXMHRS/8YbGgCNwh0uPJ.jGsuVMsse14qCiAjlaPadR4kfeGq', 1, 'Wilco de Boer', 'deboer.wilco@gmail.com', 's1704362@umail.leidenuniv.nl', '+310637338259', '2016-03-28 17:57:28', '0000-00-00 00:00:00');
 
 --
 -- Indexen voor geëxporteerde tabellen

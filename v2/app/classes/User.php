@@ -113,11 +113,9 @@ class User {
 
         if ($validate->passed()) {
             try {
-                $salt = Hash::generateSalt();
                 User::create(array(
                     'student_id' => Input::get('sid'),
-                    'password' => Hash::hashPassword(Input::get('password'), $salt),
-                    'salt' => $salt,
+                    'password' => Hash::hashPassword(Input::get('password'), Hash::generateSalt()),
                     'permission_group' => 0,
                     'name' => Input::get('name'),
                     'email' => Input::get('email'),

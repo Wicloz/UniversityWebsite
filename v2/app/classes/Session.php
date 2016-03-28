@@ -17,5 +17,20 @@ class Session {
             unset($_SESSION[$name]);
         }
     }
+
+    public static function flashWrite ($name, $content = '') {
+        if (!self::exists($name)) {
+            self::put($name, $content);
+        }
+    }
+
+    public static function flashRead ($name) {
+        if (self::exists($name)) {
+            $content = self::get($name);
+            self::delete($name);
+            return $content;
+        }
+        return '';
+    }
 }
 ?>

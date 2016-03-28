@@ -127,10 +127,7 @@ class DB {
     }
 
     public function delete ($table, $where = array()) {
-        if (!$this->action("DELETE", $table, $where)->error()) {
-            return $this;
-        }
-        return false;
+        return $this->action("DELETE", $table, $where);
     }
 
     public function insert ($table, $data = array()) {
@@ -144,9 +141,8 @@ class DB {
             $values = implode(', ', $value_items);
             $sql = "INSERT INTO {$this->_mysql->escape_string($table)} ({$keys}) VALUES ({$values})";
 
-            if (!$this->query($sql, $data)->error()) {
-                return $this;
-            }
+            $this->query($sql, $data);
+            return $this;
         }
         return false;
     }
@@ -160,9 +156,8 @@ class DB {
         	$update = implode(', ', $updates);
             $sql = "UPDATE {$this->_mysql->escape_string($table)} SET {$update} WHERE id = {$id}";
 
-            if (!$this->query($sql, $data)->error()) {
-                return $this;
-            }
+            $this->query($sql, $data);
+            return $this;
         }
         return false;
     }

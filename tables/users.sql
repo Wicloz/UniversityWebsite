@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 28 mrt 2016 om 02:31
+-- Gegenereerd op: 28 mrt 2016 om 16:33
 -- Serverversie: 5.6.26
 -- PHP-versie: 5.6.12
 
@@ -28,21 +28,24 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL,
-  `name` varchar(50) NOT NULL,
   `student_id` varchar(8) NOT NULL,
-  `password` varchar(64) NOT NULL,
-  `salt` varchar(32) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `salt` varchar(100) NOT NULL,
   `permission_group` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `umail` varchar(50) NOT NULL,
+  `phone` varchar(14) NOT NULL,
   `joined` datetime NOT NULL,
   `last_online` datetime NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `student_id`, `password`, `salt`, `permission_group`, `joined`, `last_online`) VALUES
-(10, 'Wilco de Boer', 's1704362', 'ecd6d69b2f843b18e9a433cb948d552981b3d6911fb950d41ef92d3c1e35f708', 'A/mBâ;‚Éªk4±þ‡ðM6I»‡‰.’gôü*‰', 0, '2016-03-28 02:29:12', '0000-00-00 00:00:00');
+INSERT INTO `users` (`id`, `student_id`, `password`, `salt`, `permission_group`, `name`, `email`, `umail`, `phone`, `joined`, `last_online`) VALUES
+(13, 's1704362', '$2y$10$.2HoNcjQa2IMsDok6p0GAO9S66mmCrSsxx5D8IddlWZ/7xpb9q9ZO', '.2HoNcjQa2IMsDok6p0GAOEoRFEkcA==', 0, 'Wilco de Boer', '', 's1704362@umail.leidenuniv.nl', '', '2016-03-28 16:21:38', '0000-00-00 00:00:00');
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -62,7 +65,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT voor een tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

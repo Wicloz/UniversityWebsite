@@ -39,11 +39,17 @@ class User {
         if (!empty($userid) && !empty($password) && $this->find($userid)) {
             if (Hash::checkPassword($password, $this->data()->password)) {
                 Session::put($this->_session, $this->data()->id);
+                Session::put(Config::get('session/loggedIn'), true);
                 $this->_loggedIn = true;
                 return true;
             }
         }
         return false;
+    }
+
+    public function logout () {
+        Session::delete($this->_session);
+        Session::delete(Config::get('session/loggedIn'));
     }
 
     public function isLoggedIn () {
@@ -55,8 +61,7 @@ class User {
     }
 
     public static function loggedIn () {
-        $user = new User();
-        return $user->isLoggedIn();
+        return (Session::get(Config::get('session/loggedIn')) === true) ? true : false;
     }
 
     public static function currentData () {
@@ -71,7 +76,7 @@ class User {
         }
     }
 
-    public static function tryRegister ($smarty) {
+    public static function tryRegister () {
         $validate = new Validate();
         $validate->check($_POST, array(
             'name' => array(
@@ -126,7 +131,7 @@ class User {
                 $user->login(Input::get('sid'), Input::get('password'));
 
                 Session::addSuccess('You have been succesfully registered!');
-                Redirect::to('?page=home');
+                Redirect::to('?page=profile');
             } catch(Exception $e) {
                 Session::addError($e->getMessage());
             }
@@ -135,11 +140,9 @@ class User {
         else {
             Session::addErrorArray($validate->getErrors());
         }
-
-        return $smarty;
     }
 
-    public static function tryLogin ($smarty) {
+    public static function tryLogin () {
         $validate = new Validate();
         $validate->check($_POST, array(
             'sid' => array(
@@ -160,7 +163,7 @@ class User {
 
             if ($login) {
                 Session::addSuccess('You have been logged in!');
-                Redirect::to('?page=home');
+                Redirect::to('?page=profile');
             } else {
                 Session::addError('Invalid student number or password.');
             }
@@ -169,8 +172,6 @@ class User {
         else {
             Session::addErrorArray($validate->getErrors());
         }
-
-        return $smarty;
     }
 }
 ?>

@@ -3,10 +3,10 @@ $pageHasRandom = false;
 function createPage ($smarty) {
     if (Input::exists() && Token::check(Input::get('token'))) {
         if (Input::get('action') === 'register') {
-            $smarty = User::tryRegister($smarty);
+            $smarty = User::tryRegister();
         }
         if (Input::get('action') === 'login') {
-            $smarty = User::tryLogin($smarty);
+            $smarty = User::tryLogin();
         }
     }
 

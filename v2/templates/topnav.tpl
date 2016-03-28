@@ -34,9 +34,15 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="?page=login">
-                        <span class="glyphicon glyphicon-log-in"></span> Login
-                    </a>
+                    {if $loggedIn}
+                        <a href="?page=profile">
+                            <span class="glyphicon glyphicon-log-in"></span> Profile
+                        </a>
+                    {else}
+                        <a href="?page=login">
+                            <span class="glyphicon glyphicon-log-in"></span> Login
+                        </a>
+                    {/if}
                 </li>
             </ul>
         </div>

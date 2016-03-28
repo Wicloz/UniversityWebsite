@@ -2,6 +2,7 @@
 error_reporting(E_ALL);
 require_once 'vendor/smarty/smarty/libs/Smarty.class.php';
 require_once 'app/core/init.php';
+require_once 'main.php';
 
 if (isset($_GET['page']) && !empty($_GET['page'])) {
     $smarty = new Smarty;
@@ -16,17 +17,10 @@ if (isset($_GET['page']) && !empty($_GET['page'])) {
     if (file_exists($pageFile) && file_exists($templateFile)) {
         require $pageFile;
         if($pageHasRandom || !$smarty->isCached($templateFile, $cache_id)) {
-            $smarty->assign('username', User::currentData()->name);
-            $smarty->assign('topnav', topnav($_GET));
-            $smarty->assign('sidenav', sidenav($_GET));
             $smarty = createPage($smarty);
+            $smarty = pageAddMain($smarty);
         }
-        if (true) {
-            $smarty->assign('successes', Session::flashRead('successes'));
-            $smarty->assign('infos', Session::flashRead('info'));
-            $smarty->assign('warnings', Session::flashRead('warnings'));
-            $smarty->assign('errors', Session::flashRead('errors'));
-        }
+        $smarty = pageAddMessages($smarty);
         $smarty->display($templateFile, $cache_id);
     }
 

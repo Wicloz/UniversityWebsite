@@ -21,6 +21,7 @@ $GLOBALS['config'] = array(
     ),
 
     'session' => array(
+        'loggedIn' => 's1704362_univ_loggedIn',
         'loggedIn_id' => 's1704362_univ_userId',
         'token_name' => 's1704362_univ_token'
     )

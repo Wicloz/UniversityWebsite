@@ -5,6 +5,7 @@ function pageAddMain ($smarty) {
         $smarty->assign('user_name', User::currentData()->name);
     }
 
+    $smarty->assign('token', Token::generate());
     $smarty->assign('topnav', topnav($_GET));
     $smarty->assign('sidenav', sidenav($_GET));
 

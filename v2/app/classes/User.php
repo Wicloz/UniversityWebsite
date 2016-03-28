@@ -9,6 +9,7 @@ class User {
     public function __construct ($user = null) {
         $this->_db = DB::instance();
         $this->_sessionId = Config::get('session/loggedIn_id');
+        $this->_sessionLogged = Config::get('session/loggedIn');
 
         if (!$user) {
             if (Session::exists($this->_sessionId)) {
@@ -50,17 +51,17 @@ class User {
         return false;
     }
 
-    public function logout () {
-        Session::delete($this->_sessionId);
-        Session::delete($this->_sessionLogged);
-    }
-
     public function data () {
         return $this->_userdata;
     }
 
     public static function loggedIn () {
         return (Session::get(Config::get('session/loggedIn')) === true) ? true : false;
+    }
+
+    public static function logout () {
+        Session::delete(Config::get('session/loggedIn_id'));
+        Session::delete(Config::get('session/loggedIn'));
     }
 
     public static function currentData () {

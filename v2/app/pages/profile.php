@@ -1,18 +1,20 @@
 <?php
 $pageHasRandom = false;
 function createPage ($smarty) {
+    if (!User::loggedIn()) {
+        Redirect::to('?page=login');
+    }
+
     if (Input::exists() && Token::check(Input::get('token'))) {
         if (Input::get('action') === 'logout') {
-            $user = new User();
-            if ($user->isLoggedIn()) {
-                $user->logout();
+            if (User::loggedIn()) {
+                User::logout();
                 Session::addSuccess('You have been logged out!');
                 Redirect::to('?page=login');
             }
         }
     }
-
-    $smarty->assign('token', Token::generate());
+    
     return $smarty;
 }
 ?>

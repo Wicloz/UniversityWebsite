@@ -1,19 +1,21 @@
 <?php
 class User {
     private $_db,
-            $_session,
+            $_sessionId,
+            $_sessionLogged,
             $_userdata = null,
             $_loggedIn = false;
 
     public function __construct ($user = null) {
         $this->_db = DB::instance();
-        $this->_session = Config::get('session/loggedIn_id');
+        $this->_sessionId = Config::get('session/loggedIn_id');
 
         if (!$user) {
-            if (Session::exists($this->_session)) {
-                $user = Session::get($this->_session);
-                if ($this->find($user)) {
+            if (Session::exists($this->_sessionId)) {
+                if ($this->find(Session::get($this->_sessionId))) {
                     $this->_loggedIn = true;
+                } else {
+                    $this->logout();
                 }
             }
         }
@@ -37,9 +39,10 @@ class User {
 
     public function login ($userid = '', $password = '') {
         if (!empty($userid) && !empty($password) && $this->find($userid)) {
+            $this->_loggedIn = false;
             if (Hash::checkPassword($password, $this->data()->password)) {
-                Session::put($this->_session, $this->data()->id);
-                Session::put(Config::get('session/loggedIn'), true);
+                Session::put($this->_sessionId, $this->data()->id);
+                Session::put($this->_sessionLogged, true);
                 $this->_loggedIn = true;
                 return true;
             }
@@ -48,12 +51,8 @@ class User {
     }
 
     public function logout () {
-        Session::delete($this->_session);
-        Session::delete(Config::get('session/loggedIn'));
-    }
-
-    public function isLoggedIn () {
-        return $this->_loggedIn;
+        Session::delete($this->_sessionId);
+        Session::delete($this->_sessionLogged);
     }
 
     public function data () {
@@ -72,7 +71,7 @@ class User {
     public static function create ($data = array()) {
         $result = DB::instance()->insert("users", $data);
         if ($result->error()) {
-            throw new Exception('There was an unexpected problem creating this account: '.$result->error());
+            throw new Exception('There was an unexpected problem creating the account: '.$result->error());
         }
     }
 

@@ -16,6 +16,7 @@ if (isset($_GET['page']) && !empty($_GET['page'])) {
     if (file_exists($pageFile) && file_exists($templateFile)) {
         require $pageFile;
         if($pageHasRandom || !$smarty->isCached($templateFile, $cache_id)) {
+            $smarty->assign('username', User::currentData()->name);
             $smarty->assign('topnav', topnav($_GET));
             $smarty->assign('sidenav', sidenav($_GET));
             $smarty = createPage($smarty);

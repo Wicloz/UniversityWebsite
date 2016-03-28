@@ -6,13 +6,17 @@ class Hash {
 
     public static function generateSalt () {
         $salt = mcrypt_create_iv(22, MCRYPT_DEV_URANDOM);
-        $salt = base64_encode($salt);
+        $salt = substr(base64_encode($salt), 0, 22);
         $salt = str_replace('+', '.', $salt);
         return $salt;
     }
 
     public static function hashPassword ($password, $salt) {
         return crypt($password, '$2y$10$'.$salt.'$');
+    }
+
+    public static function checkPassword ($password, $hash) {
+        return crypt($password, $hash) === $hash;
     }
 
     public static function createUnique () {

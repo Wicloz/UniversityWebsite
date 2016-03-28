@@ -3,6 +3,11 @@ require_once 'dbsettings.php';
 session_start();
 
 $GLOBALS['config'] = array(
+    'smarty' => array(
+        'caching' => false,
+        'cache_lifetime' => 120
+    ),
+
     'mysql' => array(
         'host' => $db_host,
         'username' => $db_username,
@@ -16,7 +21,6 @@ $GLOBALS['config'] = array(
     ),
 
     'session' => array(
-        'session_name' => 'user',
         'token_name' => 's1704362_univ_token'
     )
 );
@@ -29,5 +33,4 @@ require_once 'app/functions/sanitize.php';
 require_once 'app/functions/misc.php';
 require_once 'app/functions/queries.php';
 require_once 'app/functions/navigation.php';
-require_once 'app/includes/errors/errors.php';
 ?>

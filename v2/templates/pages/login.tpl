@@ -14,7 +14,7 @@
                 </div>
                 <input type="hidden" name="action" value="login">
                 <input type="hidden" name="token" value="{$token|default:""}">
-                <input class="button submit-button" type="submit" value="Login">
+                <input class="button submit-button" type="submit" value="Log in">
             </form>
         </p>
     </div>

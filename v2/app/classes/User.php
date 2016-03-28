@@ -65,6 +65,7 @@ class User {
                     'joined' => date('Y-m-d H:i:s')
                 ));
                 Session::addSuccess('You have been succesfully registered!');
+                Redirect::to('?page=home');
             } catch(Exception $e) {
                 Session::addError($e->getMessage());
             }
@@ -92,7 +93,14 @@ class User {
         ));
 
         if ($validate->passed()) {
-            Session::addSuccess('You have been logged in!');
+            $user = new User();
+            try {
+
+                Session::addSuccess('You have been logged in!');
+                Redirect::to('?page=home');
+            } catch(Exception $e) {
+                Session::addError($e->getMessage());
+            }
         }
 
         else {

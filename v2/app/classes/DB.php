@@ -61,7 +61,9 @@ class DB {
     public function query ($sql, $params = array()) {
         $this->_error = false;
         $params = array_values($params);
-        Session::addInfo($sql.': '.json_encode($params));
+        if (Config::get('php/debug')) {
+            Session::addInfo($sql.': '.json_encode($params));    
+        }
 
         if ($this->_query = $this->_pdo->prepare($sql)) {
             if (count($params)) {

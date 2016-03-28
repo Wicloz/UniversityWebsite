@@ -10,8 +10,8 @@ function createPage ($smarty) {
         }
     }
 
-    $smarty->assign('sid', Input::get('sid'));
     $smarty->assign('name', Input::get('name'));
+    $smarty->assign('sid', Input::get('sid'));
     $smarty->assign('email', Input::get('email'));
     $smarty->assign('phone', Input::get('phone'));
     return $smarty;

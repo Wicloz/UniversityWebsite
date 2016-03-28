@@ -3,6 +3,10 @@ require_once 'dbsettings.php';
 session_start();
 
 $GLOBALS['config'] = array(
+    'php' => array(
+        'debug' => true
+    ),
+
     'smarty' => array(
         'caching' => false,
         'cache_lifetime' => 120
@@ -24,6 +28,75 @@ $GLOBALS['config'] = array(
         'loggedIn' => 's1704362univ_loggedIn',
         'loggedId' => 's1704362univ_userId',
         'token_name' => 's1704362univ_token'
+    ),
+
+    'validation' => array(
+        'user_info' => array(
+            'name' => array(
+                'name' => 'Username',
+                'min' => 1,
+                'max' => 50
+            ),
+            'sid' => array(
+                'name' => 'Student Number',
+                'wildcard' => 's???????'
+            ),
+            'email' => array(
+                'name' => 'Email Address',
+                'wildcard' => '*@*.*'
+            ),
+            'phone' => array(
+                'name' => 'Mobile/Phone Number',
+                'max' => 14
+            )
+        ),
+        'register_info' => array(
+            'name' => array(
+                'name' => 'Username',
+                'required' => true,
+                'min' => 1,
+                'max' => 50
+            ),
+            'sid' => array(
+                'name' => 'Student Number',
+                'required' => true,
+                'wildcard' => 's???????',
+                'unique' => 'users/student_id'
+            ),
+            'email' => array(
+                'name' => 'Email Address',
+                'wildcard' => '*@*.*'
+            ),
+            'phone' => array(
+                'name' => 'Mobile/Phone Number',
+                'max' => 14
+            )
+        ),
+        'password' => array(
+            'password' => array(
+                'name' => 'Password',
+                'required' => true,
+                'min' => 4,
+                'max' => 72
+            ),
+            'password_again' => array(
+                'name' => 'Repeat Password',
+                'required' => true,
+                'matches' => 'password'
+            )
+        ),
+        'login' => array(
+            'sid' => array(
+                'name' => 'Student Number',
+                'required' => true,
+                'wildcard' => 's???????'
+            ),
+            'password' => array(
+                'name' => 'Password',
+                'required' => true,
+                'max' => 72
+            )
+        )
     )
 );
 

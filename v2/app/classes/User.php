@@ -67,6 +67,15 @@ class User {
         return false;
     }
 
+    public function update ($data = array(), $id = null) {
+        if ($this->_loggedIn) {
+            if (!$id) {
+                $id = $this->data()->id;
+            }
+            $this->_db->update("users", $id, $data);
+        }
+    }
+
     public function data () {
         return $this->_userdata;
     }
@@ -100,39 +109,7 @@ class User {
 
     public static function tryRegister () {
         $validate = new Validate();
-        $validate->check($_POST, array(
-            'name' => array(
-                'name' => 'Username',
-                'required' => true,
-                'min' => 1,
-                'max' => 50
-            ),
-            'sid' => array(
-                'name' => 'Student Number',
-                'required' => true,
-                'wildcard' => 's???????',
-                'unique' => 'users/student_id'
-            ),
-            'password' => array(
-                'name' => 'Password',
-                'required' => true,
-                'min' => 4,
-                'max' => 72
-            ),
-            'password_again' => array(
-                'name' => 'Repeat Password',
-                'required' => true,
-                'matches' => 'password'
-            ),
-            'email' => array(
-                'name' => 'Email Address',
-                'wildcard' => '*@*.*'
-            ),
-            'phone' => array(
-                'name' => 'Mobile/Phone Number',
-                'max' => 14
-            )
-        ));
+        $validate->check($_POST, array_merge(Config::get('validation/register_info'), Config::get('validation/password')));
 
         if ($validate->passed()) {
             try {
@@ -166,18 +143,7 @@ class User {
 
     public static function tryLogin () {
         $validate = new Validate();
-        $validate->check($_POST, array(
-            'sid' => array(
-                'name' => 'Student Number',
-                'required' => true,
-                'wildcard' => 's???????'
-            ),
-            'password' => array(
-                'name' => 'Password',
-                'required' => true,
-                'max' => 72
-            )
-        ));
+        $validate->check($_POST, Config::get('validation/login'));
 
         if ($validate->passed()) {
             $user = new User();

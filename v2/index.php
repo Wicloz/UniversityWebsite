@@ -9,7 +9,7 @@ if (isset($_GET['page']) && !empty($_GET['page'])) {
     #$smarty->caching = true;
     #$smarty->cache_lifetime = 120;
 
-    $cache_id = md5(arrayToUrlString($_GET).'&'.arrayToUrlString($_POST));
+    $cache_id = md5(json_encode($_GET).json_encode($_POST).json_encode($_SESSION));
     $pageFile = 'app/pages/'.$_GET['page'].'.php';
     $templateFile = 'templates/pages/'.$_GET['page'].'.tpl';
 
@@ -19,6 +19,10 @@ if (isset($_GET['page']) && !empty($_GET['page'])) {
             $smarty->assign('topnav', topnav($_GET));
             $smarty->assign('sidenav', sidenav($_GET));
             $smarty = createPage($smarty);
+            $smarty->assign('successes', Session::flashRead('successes'));
+            $smarty->assign('infos', Session::flashRead('info'));
+            $smarty->assign('warnings', Session::flashRead('warnings'));
+            $smarty->assign('errors', Session::flashRead('errors'));
         }
         $smarty->display($templateFile, $cache_id);
     }
@@ -28,6 +32,10 @@ if (isset($_GET['page']) && !empty($_GET['page'])) {
             $smarty->assign('topnav', topnav($_GET));
             $smarty->assign('sidenav', sidenav($_GET));
             $smarty->assign('error', err_404());
+            $smarty->assign('successes', Session::flashRead('successes'));
+            $smarty->assign('infos', Session::flashRead('info'));
+            $smarty->assign('warnings', Session::flashRead('warnings'));
+            $smarty->assign('errors', Session::flashRead('errors'));
         }
         $smarty->display('templates/error.tpl', $cache_id);
     }

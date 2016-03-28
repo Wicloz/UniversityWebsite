@@ -1,5 +1,12 @@
-{if $infos|default:"" != "" || $warnings|default:"" != "" || $errors|default:"" != ""}
+{if $successes|default:"" != "" || $infos|default:"" != "" || $warnings|default:"" != "" || $errors|default:"" != ""}
     <div class="paragraph-center col-sm-12">
+        {if $successes|default:"" != ""}
+            <p class="message-success">
+                {foreach $successes as $success}
+                    {$success}<br>
+                {/foreach}
+            </p>
+        {/if}
         {if $infos|default:"" != ""}
             <p class="message-info">
                 {foreach $infos as $info}

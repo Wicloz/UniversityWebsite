@@ -52,13 +52,14 @@ class User {
                     'permission_group' => 0,
                     'joined' => date('Y-m-d H:i:s')
                 ));
+                Session::addSuccess('You have been succesfully registered!');
             } catch(Exception $e) {
-                die($e->getMessage());
+                Session::addError($e->getMessage());
             }
         }
 
         else {
-            $smarty->assign('errors', $validate->getErrors());
+            Session::addErrorArray($validate->getErrors());
         }
 
         return $smarty;
@@ -79,11 +80,11 @@ class User {
         ));
 
         if ($validate->passed()) {
-
+            Session::addSuccess('You have been logged in!');
         }
 
         else {
-            $smarty->assign('errors', $validate->getErrors());
+            Session::addErrorArray($validate->getErrors());
         }
 
         return $smarty;

@@ -21,7 +21,7 @@ class Validate {
                 }
             }
 
-            if ($mustCheck) {
+            if ($mustCheck && !empty($item_value)) {
                 foreach ($rules as $rule_key => $rule_value) {
                     if ($rule_key !== 'name' && $rule_key !== 'required') {
                         switch ($rule_key) {

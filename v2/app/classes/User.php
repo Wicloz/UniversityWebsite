@@ -31,25 +31,37 @@ class User {
             'password' => array(
                 'name' => 'Password',
                 'required' => true,
-                'min' => 4
+                'min' => 4,
+                'max' => 72
             ),
             'password_again' => array(
                 'name' => 'Repeat Password',
                 'required' => true,
                 'matches' => 'password'
+            ),
+            'email' => array(
+                'name' => 'Email Address',
+                'wildcard' => '*@*.*'
+            ),
+            'phone' => array(
+                'name' => 'Mobile/Phone Number',
+                'max' => 14
             )
         ));
 
         if ($validate->passed()) {
             $user = new User();
             try {
-                $salt = Hash::generateSalt(32);
+                $salt = Hash::generateSalt();
                 $user->create(array(
-                    'name' => Input::get('name'),
                     'student_id' => Input::get('sid'),
-                    'password' => Hash::createHash(Input::get('password'), $salt),
+                    'password' => Hash::hashPassword(Input::get('password'), $salt),
                     'salt' => $salt,
                     'permission_group' => 0,
+                    'name' => Input::get('name'),
+                    'email' => Input::get('email'),
+                    'umail' => Input::get('sid').'@umail.leidenuniv.nl',
+                    'phone' => Input::get('phone'),
                     'joined' => date('Y-m-d H:i:s')
                 ));
                 Session::addSuccess('You have been succesfully registered!');

@@ -5,11 +5,11 @@
         <p>
             <form action="" method="POST">
                 <div class="form-row">
-                    <label for="sid">Student Number:</label>
+                    <label for="sid"><span style="color:red;">*</span>Student Number:</label>
                     <input type="text" name="sid" id="sid" value="{$sid}">
                 </div>
                 <div class="form-row">
-                    <label for="password">Password:</label>
+                    <label for="password"><span style="color:red;">*</span>Password:</label>
                     <input type="password" name="password" id="password">
                 </div>
                 <input type="hidden" name="action" value="login">
@@ -23,20 +23,28 @@
         <p>
             <form action="" method="POST">
                 <div class="form-row">
-                    <label for="name">Full Name:</label>
+                    <label for="name"><span style="color:red;">*</span>Full Name:</label>
                     <input type="text" name="name" id="name" value="{$name}">
                 </div>
                 <div class="form-row">
-                    <label for="sid">Student Number:</label>
+                    <label for="sid"><span style="color:red;">*</span>Student Number:</label>
                     <input type="text" name="sid" id="sid" value="{$sid}">
                 </div>
                 <div class="form-row">
-                    <label for="password">Desired Password:</label>
+                    <label for="password"><span style="color:red;">*</span>Desired Password:</label>
                     <input type="password" name="password" id="password">
                 </div>
                 <div class="form-row">
-                    <label for="password_again">Repeat Desired Password:</label>
+                    <label for="password_again"><span style="color:red;">*</span>Repeat Desired Password:</label>
                     <input type="password" name="password_again" id="password_again">
+                </div>
+                <div class="form-row">
+                    <label for="email">Email Address:</label>
+                    <input type="text" name="email" id="email" value="{$email}">
+                </div>
+                <div class="form-row">
+                    <label for="phone">Mobile/Phone Number:</label>
+                    <input type="text" name="phone" id="phone" value="{$phone}">
                 </div>
                 <input type="hidden" name="action" value="register">
                 <input type="hidden" name="token" value="{$token|default:""}">

@@ -8,7 +8,7 @@ class User {
 
     public function __construct ($user = null) {
         $this->_db = DB::instance();
-        $this->_sessionId = Config::get('session/loggedIn_id');
+        $this->_sessionId = Config::get('session/loggedId');
         $this->_sessionLogged = Config::get('session/loggedIn');
 
         if (!$user) {
@@ -38,13 +38,35 @@ class User {
         return false;
     }
 
-    public function login ($userid = '', $password = '') {
+    public function forceLogin ($remember = false) {
+        if ($this->dataExists()) {
+            Session::put($this->_sessionId, $this->data()->id);
+            Session::put($this->_sessionLogged, true);
+            $this->_loggedIn = true;
+
+            if ($remember) {
+                $hash = Hash::hashUnique();
+                $dbHash = $this->_db->get("user_sessions", array("", "user_id", "=", $this->data()->id));
+
+                if (!$dbHash->count()) {
+                    $this->_db->insert("user_sessions", array(
+                        'user_id' => $this->data()->id,
+                        'hash' => $hash
+                    ));
+                } else {
+                    $hash = $dbHash->first()->hash;
+                }
+
+                Cookie::put(Config::get('remember/cookie_name'), $hash, Config::get('remember/cookie_expiry'));
+            }
+        }
+    }
+
+    public function login ($userid = '', $password = '', $remember = false) {
         if (!empty($userid) && !empty($password) && $this->find($userid)) {
             $this->_loggedIn = false;
             if (Hash::checkPassword($password, $this->data()->password)) {
-                Session::put($this->_sessionId, $this->data()->id);
-                Session::put($this->_sessionLogged, true);
-                $this->_loggedIn = true;
+                $this->forceLogin ($remember);
                 return true;
             }
         }
@@ -55,12 +77,18 @@ class User {
         return $this->_userdata;
     }
 
+    public function dataExists () {
+        return !empty($this->_userdata);
+    }
+
     public static function loggedIn () {
         return (Session::get(Config::get('session/loggedIn')) === true) ? true : false;
     }
 
     public static function logout () {
-        Session::delete(Config::get('session/loggedIn_id'));
+        DB::instance()->delete("user_sessions", array("", "user_id", "=", Session::get(Config::get('session/loggedId'))));
+        Cookie::delete(Config::get('remember/cookie_name'));
+        Session::delete(Config::get('session/loggedId'));
         Session::delete(Config::get('session/loggedIn'));
     }
 
@@ -159,7 +187,8 @@ class User {
 
         if ($validate->passed()) {
             $user = new User();
-            $login = $user->login(Input::get('sid'), Input::get('password'));
+            $remember = (Input::get('remember') == true) ? true : false;
+            $login = $user->login(Input::get('sid'), Input::get('password'), $remember);
 
             if ($login) {
                 Session::addSuccess('You have been logged in!');

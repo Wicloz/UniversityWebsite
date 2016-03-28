@@ -16,14 +16,14 @@ $GLOBALS['config'] = array(
     ),
 
     'remember' => array(
-        'cookie_name' => 's1704362_univ_hash',
+        'cookie_name' => 's1704362univ_remember',
         'cookie_expiry' => 604800
     ),
 
     'session' => array(
-        'loggedIn' => 's1704362_univ_loggedIn',
-        'loggedIn_id' => 's1704362_univ_userId',
-        'token_name' => 's1704362_univ_token'
+        'loggedIn' => 's1704362univ_loggedIn',
+        'loggedId' => 's1704362univ_userId',
+        'token_name' => 's1704362univ_token'
     )
 );
 
@@ -35,4 +35,13 @@ require_once 'app/functions/sanitize.php';
 require_once 'app/functions/misc.php';
 require_once 'app/functions/queries.php';
 require_once 'app/functions/navigation.php';
+
+if (Cookie::exists(Config::get('remember/cookie_name')) && !User::loggedIn()) {
+    $cookieHash = Cookie::get(Config::get('remember/cookie_name'));
+    $hashCheck = DB::instance()->get("user_sessions", array("", "hash", "=", $cookieHash));
+    if ($hashCheck->count()) {
+        $user = new User($hashCheck->first()->user_id);
+        $user->forceLogin();
+    }
+}
 ?>

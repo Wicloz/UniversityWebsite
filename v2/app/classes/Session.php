@@ -4,15 +4,15 @@ class Session {
         return isset($_SESSION[$name]);
     }
 
-    public static function put ($name, $value) {
-        return $_SESSION[$name] = $value;
-    }
-
     public static function get ($name) {
         if (self::exists($name)) {
             return $_SESSION[$name];
         }
         return '';
+    }
+
+    public static function put ($name, $value) {
+        return $_SESSION[$name] = $value;
     }
 
     public static function delete ($name) {

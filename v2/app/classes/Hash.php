@@ -19,8 +19,8 @@ class Hash {
         return crypt($password, $hash) === $hash;
     }
 
-    public static function createUnique () {
-        return self::hashString(uniqid());
+    public static function hashUnique () {
+        return self::hashString(uniqid(), self::generateSalt());
     }
 }
 ?>

@@ -12,6 +12,10 @@
                     <label for="password"><span style="color:red;">*</span>Password:</label>
                     <input type="password" name="password" id="password">
                 </div>
+                <div class="form-row">
+                    <input type="checkbox" name="remember" id="remember" value="1">
+                    <label for="remember">Remember me</label>
+                </div>
                 <input type="hidden" name="action" value="login">
                 <input type="hidden" name="token" value="{$token|default:""}">
                 <input class="button submit-button" type="submit" value="Log in">

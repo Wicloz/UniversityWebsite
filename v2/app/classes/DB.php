@@ -39,8 +39,10 @@ class DB {
         if ($index >= 0) {
             if ($index < count($this->_results)) {
                 return $this->_results[$index];
-            } else {
+            } elseif (count($this->_results) > 0) {
                 return $this->_results[count($this->_results) - 1];
+            } else {
+                return null;
             }
         }
         return $this->_results;

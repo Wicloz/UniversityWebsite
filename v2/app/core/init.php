@@ -1,5 +1,6 @@
 <?php
 require_once 'dbsettings.php';
+error_reporting(E_ALL);
 session_start();
 
 $GLOBALS['config'] = array(
@@ -112,19 +113,12 @@ function customErrorHandler($errno, $errstr, $errfile, $errline)
     switch ($errno) {
         case E_USER_ERROR:
             Session::addError("[{$errno}] {$errstr}");
+            echo "<br />";
             echo "<b>ERROR</b> [$errno] $errstr<br />\n";
             echo "  Fatal error on line $errline in file $errfile";
             echo ", PHP " . PHP_VERSION . " (" . PHP_OS . ")<br />\n";
             echo "Aborting...<br />\n";
             exit(1);
-            break;
-
-        case E_USER_WARNING:
-            Session::addWarning("[{$errno}] {$errstr}");
-            break;
-
-        case E_USER_NOTICE:
-            Session::addWarning("[{$errno}] {$errstr}");
             break;
 
         default:

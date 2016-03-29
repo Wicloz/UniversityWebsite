@@ -4,7 +4,7 @@ class DateFormat {
         if ($timestamp === '') {
             $timestamp = time();
         }
-        return date('Y-m-d H:i:s', $time);
+        return date('Y-m-d H:i:s', $timestamp);
     }
 }
 ?>

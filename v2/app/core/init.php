@@ -105,7 +105,6 @@ spl_autoload_register(function($class) {
 
 require_once 'app/functions/sanitize.php';
 require_once 'app/functions/misc.php';
-require_once 'app/functions/queries.php';
 require_once 'app/functions/navigation.php';
 
 Users::init();

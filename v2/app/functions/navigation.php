@@ -17,7 +17,7 @@ function isActive ($getHas, $encodedMust) {
 }
 
 function parseSubjectNav ($row) {
-    $subjects = query_subjects();
+    $subjects = Queries::subjects();
 
     foreach ($subjects as $subject) {
         if ($subject->active) {

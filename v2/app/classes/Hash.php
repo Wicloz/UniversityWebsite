@@ -11,8 +11,8 @@ class Hash {
         return $salt;
     }
 
-    public static function hashPassword ($password, $salt) {
-        return crypt($password, '$2y$10$'.$salt.'$');
+    public static function hashPassword ($password) {
+        return crypt($password, '$2y$10$'.self::generateSalt().'$');
     }
 
     public static function checkPassword ($password, $hash) {

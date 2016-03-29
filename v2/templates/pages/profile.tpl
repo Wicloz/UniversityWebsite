@@ -31,6 +31,10 @@
         <p>
             <form action="" method="POST">
                 <div class="form-row">
+                    <label for="password">Current Password:</label>
+                    <input type="password" name="password_current" id="password">
+                </div>
+                <div class="form-row">
                     <label for="password">Desired Password:</label>
                     <input type="password" name="password" id="password">
                 </div>

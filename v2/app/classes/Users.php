@@ -60,56 +60,5 @@ class Users {
             throw new Exception('There was an unexpected problem creating the account: '.$result->error().'.');
         }
     }
-
-    public static function tryRegister () {
-        $validate = new Validate();
-        $validate->check($_POST, array_merge(Config::get('validation/register_info'), Config::get('validation/set_password')));
-
-        if ($validate->passed()) {
-            try {
-                self::create(array(
-                    'student_id' => Input::get('sid'),
-                    'password' => Hash::hashPassword(Input::get('password'), Hash::generateSalt()),
-                    'permission_group' => 0,
-                    'name' => Input::get('name'),
-                    'email' => Input::get('email'),
-                    'umail' => Input::get('sid').'@umail.leidenuniv.nl',
-                    'phone' => Input::get('phone'),
-                    'joined' => date('Y-m-d H:i:s')
-                ));
-
-                self::login(Input::get('sid'), Input::get('password'));
-
-                Session::addSuccess('You have been succesfully registered!');
-                Redirect::to('?page=profile');
-            } catch(Exception $e) {
-                Session::addError($e->getMessage());
-            }
-        }
-
-        else {
-            Session::addErrorArray($validate->getErrors());
-        }
-    }
-
-    public static function tryLogin () {
-        $validate = new Validate();
-        $validate->check($_POST, Config::get('validation/login'));
-
-        if ($validate->passed()) {
-            $login = self::login(Input::get('sid'), Input::get('password'), Input::getCheck('remember'));
-
-            if ($login) {
-                Session::addSuccess('You have been logged in!');
-                Redirect::to('?page=profile');
-            } else {
-                Session::addError('Invalid student number or password.');
-            }
-        }
-
-        else {
-            Session::addErrorArray($validate->getErrors());
-        }
-    }
 }
 ?>

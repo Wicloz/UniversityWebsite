@@ -47,10 +47,25 @@ function createPage ($smarty) {
 
         if (Input::get('action') === 'update_pass') {
             $validate = new Validate();
-            $validate->check($_POST, Config::get('validation/set_password'));
+            $validate->check($_POST, array_merge(Config::get('validation/set_password'), array(
+                'password_current' => array(
+                    'name' => 'Current Password',
+                    'required' => true,
+                    'max' => 72
+                )
+            )));
 
             if ($validate->passed()) {
-                
+                if (Hash::checkPassword(Input::get('password_current'), Users::currentData()->password)) {
+                    if (Users::currentUser()->update(array('password' => Hash::hashPassword(Input::get('password'))))) {
+                        Session::addSuccess('Password changed!');
+                    } else {
+                        Session::addError('Could not change password.');
+                    }
+                } else {
+                    Session::addError('Invalid current password.');
+                }
+
             }
 
             else {

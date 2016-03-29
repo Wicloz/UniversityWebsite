@@ -20,10 +20,8 @@ function parseSubjectNav ($row) {
     $subjects = Queries::subjects();
 
     foreach ($subjects as $subject) {
-        if ($subject->active) {
-            $sub_names[] = $subject->name;
-            $sub_urls[] = '?page=subjects&subject='.$subject->abbreviation;
-        }
+        $sub_names[] = $subject->name;
+        $sub_urls[] = '?page=subjects&subject='.$subject->abbreviation;
     }
     if (!isset($sub_names) || !isset($sub_urls)) {
         $sub_names[] = 'No Subjects';

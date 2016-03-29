@@ -13,4 +13,13 @@ function arrayToUrlString ($array) {
     }
     return $urlString;
 }
+
+function extractFields ($dataObjects, $field) {
+    $values = array();
+    foreach ($dataObjects as $dataObject) {
+        $dataArray = (array) $dataObject;
+        $values[] = $dataArray[$field];
+    }
+    return $values;
+}
 ?>

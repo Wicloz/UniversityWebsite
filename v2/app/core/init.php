@@ -123,13 +123,13 @@ function customErrorHandler($errno, $errstr, $errfile, $errline)
             break;
 
         default:
-            Session::addWarning("[{$errno}] {$errstr}");
+            Session::addWarning("[{$errno}] {$errstr} in file $errfile on line $errline");
             break;
     }
 
     return true;
 }
-set_error_handler("customErrorHandler");
+#set_error_handler("customErrorHandler");
 
 require_once 'app/functions/sanitize.php';
 require_once 'app/functions/misc.php';

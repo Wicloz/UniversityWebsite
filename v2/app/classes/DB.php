@@ -62,7 +62,7 @@ class DB {
         $this->_error = false;
         $params = array_values($params);
         if (Config::get('php/debug')) {
-            Session::addInfo($sql.': '.json_encode($params));    
+            Session::addInfo($sql.': '.json_encode($params));
         }
 
         if ($this->_query = $this->_pdo->prepare($sql)) {
@@ -94,7 +94,7 @@ class DB {
         $values = array();
         $sql = "";
 
-        if (count($where) !== 0 && count($where) % 4 === 0) {
+        if (count($where) && count($where) % 4 === 0) {
             $inversions_allowed = array('', 'NOT');
             $operators_allowed = array('=', '!=', '>', '<', '>=', '<=');
             $concatenators_allowed = array('OR', 'AND', 'OR NOT', 'AND NOT');
@@ -102,7 +102,7 @@ class DB {
             $sql = "{$action} FROM {$table} WHERE ";
 
             for ($i = 0; $i < count($where); $i += 4) {
-                if (in_array($where[$i + 0], $concatenators_allowed) || ($i === 0 && in_array($where[$i + 0], $inversions_allowed))) {
+                if (($i !== 0 && in_array($where[$i + 0], $concatenators_allowed)) || ($i === 0 && in_array($where[$i + 0], $inversions_allowed))) {
                     $sql .= $where[$i + 0].' ';
                 } else {
                     die('Invalid Query Request: ' . implode(', ', $where));
@@ -127,10 +127,20 @@ class DB {
         }
 
         if (!empty($sql)) {
-            if (count($order) === 2) {
-                $field = $this->_mysql->escape_string($order[0]);
-                $direction = $this->_mysql->escape_string($order[1]);
-                $sql .= " ORDER BY {$field} {$direction}";
+            if (count($order) % 2 === 0) {
+                for ($i = 0; $i < count($order); $i += 2) {
+                    if ($i === 0) {
+                        $sql .= " ORDER BY ";
+                    } else {
+                        $sql .= ", ";
+                    }
+                    $field = $this->_mysql->escape_string($order[$i + 0]);
+                    $direction = $this->_mysql->escape_string($order[$i + 1]);
+                    $sql .= " {$field} {$direction}";
+                }
+            }
+            else {
+                die('Invalid Sort Request Length (' . count($order) . '): ' . implode(', ', $order));
             }
 
             $this->query($sql, $values);

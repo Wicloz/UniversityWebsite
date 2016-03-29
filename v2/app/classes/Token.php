@@ -1,7 +1,7 @@
 <?php
 class Token {
     public static function generate () {
-        return Session::put(Config::get('session/token_name'), md5(uniqid()));
+        return Session::put(Config::get('session/token_name'), md5(Hash::hashUnique()));
     }
 
     public static function check ($token) {

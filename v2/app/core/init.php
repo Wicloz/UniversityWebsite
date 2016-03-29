@@ -25,7 +25,6 @@ $GLOBALS['config'] = array(
     ),
 
     'session' => array(
-        'loggedIn' => 's1704362univ_loggedIn',
         'loggedId' => 's1704362univ_userId',
         'token_name' => 's1704362univ_token'
     ),
@@ -72,7 +71,7 @@ $GLOBALS['config'] = array(
                 'max' => 14
             )
         ),
-        'password' => array(
+        'set_password' => array(
             'password' => array(
                 'name' => 'Password',
                 'required' => true,
@@ -109,12 +108,13 @@ require_once 'app/functions/misc.php';
 require_once 'app/functions/queries.php';
 require_once 'app/functions/navigation.php';
 
-if (Cookie::exists(Config::get('remember/cookie_name')) && !User::loggedIn()) {
+Users::init();
+if (Cookie::exists(Config::get('remember/cookie_name')) && !Users::loggedIn()) {
     $cookieHash = Cookie::get(Config::get('remember/cookie_name'));
     $hashCheck = DB::instance()->get("user_sessions", array("", "hash", "=", $cookieHash));
     if ($hashCheck->count()) {
         $user = new User($hashCheck->first()->user_id);
-        $user->forceLogin(true);
+        Users::forceLogin($user, true);
     }
 }
 ?>

@@ -3,12 +3,14 @@ $pageHasRandom = false;
 function createPage ($smarty) {
     if (Input::exists() && Token::check(Input::get('token'))) {
         if (Input::get('action') === 'register') {
-            User::tryRegister();
+            Users::tryRegister();
         }
         if (Input::get('action') === 'login') {
-            User::tryLogin();
+            Users::tryLogin();
         }
     }
+
+    $smarty->assign('remember', Input::getCheck('remember'));
 
     $smarty->assign('name', Input::get('name'));
     $smarty->assign('sid', Input::get('sid'));

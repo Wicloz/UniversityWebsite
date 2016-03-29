@@ -27,5 +27,9 @@ class Input {
             return '';
         }
     }
+
+    public static function getCheck ($item) {
+        return (Input::get($item) == true) ? true : false;
+    }
 }
 ?>

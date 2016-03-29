@@ -1,8 +1,8 @@
 <?php
 function pageAddMain ($smarty) {
-    $smarty->assign('loggedIn', User::loggedIn());
-    if (User::loggedIn()) {
-        $smarty->assign('user_name', User::currentData()->name);
+    $smarty->assign('loggedIn', Users::loggedIn());
+    if (Users::loggedIn()) {
+        $smarty->assign('user_name', Users::currentData()->name);
     }
 
     $smarty->assign('token', Token::generate());

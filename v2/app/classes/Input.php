@@ -32,6 +32,10 @@ class Input {
         }
     }
 
+    public static function has ($item) {
+        return self::get($item) !== '';
+    }
+
     public static function getCheck ($item) {
         return (Input::get($item) == true) ? true : false;
     }

@@ -28,7 +28,7 @@ function createPage ($smarty) {
                 $data = array();
 
                 foreach ($fields as $field => $value) {
-                    if (!empty(Input::get($value))) {
+                    if (Input::has($value)) {
                         $data[$field] = Input::get($value);
                     }
                 }

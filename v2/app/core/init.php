@@ -134,6 +134,8 @@ require_once 'app/functions/sanitize.php';
 require_once 'app/functions/misc.php';
 require_once 'app/functions/navigation.php';
 
+Session::addInfo('PHP version: ' . PHP_VERSION);
+
 Users::init();
 if (Cookie::exists(Config::get('remember/cookie_name')) && !Users::loggedIn()) {
     $cookieHash = Cookie::get(Config::get('remember/cookie_name'));

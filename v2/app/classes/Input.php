@@ -33,7 +33,7 @@ class Input {
     }
 
     public static function has ($item) {
-        return self::get($item) !== '';
+        return isset($_POST[$item]) || isset($_GET[$item]);
     }
 
     public static function getCheck ($item) {

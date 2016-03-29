@@ -35,8 +35,8 @@
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     {if $loggedIn}
-                        <a href="?page=profile">
-                            <span class="glyphicon glyphicon-log-in"></span> Profile
+                        <a href="?page=profile&action=logout&token={$token}">
+                            <span class="glyphicon glyphicon-log-in"></span> Logout
                         </a>
                     {else}
                         <a href="?page=login">

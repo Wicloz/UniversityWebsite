@@ -1,6 +1,6 @@
 <?php
 class Input {
-    public static function exists ($type = 'post') {
+    public static function exists ($type = 'any') {
         switch ($type) {
             case 'post':
                 return !empty($_POST);
@@ -8,6 +8,10 @@ class Input {
 
             case 'get':
                 return !empty($_GET);
+            break;
+
+            case 'any':
+                return !empty($_POST) || !empty($_GET);
             break;
 
             default:

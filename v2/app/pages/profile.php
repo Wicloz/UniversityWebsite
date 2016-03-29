@@ -44,6 +44,19 @@ function createPage ($smarty) {
                 Session::addErrorArray($validate->getErrors());
             }
         }
+
+        if (Input::get('action') === 'update_pass') {
+            $validate = new Validate();
+            $validate->check($_POST, Config::get('validation/set_password'));
+
+            if ($validate->passed()) {
+                
+            }
+
+            else {
+                Session::addErrorArray($validate->getErrors());
+            }
+        }
     }
 
     $smarty->assign('name', Users::currentData()->name);

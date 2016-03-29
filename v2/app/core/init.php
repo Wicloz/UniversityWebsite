@@ -2,6 +2,7 @@
 require_once 'dbsettings.php';
 error_reporting(E_ALL);
 session_start();
+date_default_timezone_set('Europe/Amsterdam');
 
 $GLOBALS['config'] = array(
     'php' => array(
@@ -134,7 +135,8 @@ require_once 'app/functions/sanitize.php';
 require_once 'app/functions/misc.php';
 require_once 'app/functions/navigation.php';
 
-Session::addInfo('PHP version: ' . PHP_VERSION);
+Session::addInfo('PHP Version: ' . PHP_VERSION);
+Session::addInfo('Current Time: ' . date('H:i:s'));
 
 Users::init();
 if (Cookie::exists(Config::get('remember/cookie_name')) && !Users::loggedIn()) {
@@ -144,5 +146,8 @@ if (Cookie::exists(Config::get('remember/cookie_name')) && !Users::loggedIn()) {
         $user = new User($hashCheck->first()->user_id);
         Users::forceLogin($user, true);
     }
+}
+if (Users::loggedIn()) {
+    Users::currentUser()->update(array('last_online' => DateFormat::sql()));
 }
 ?>

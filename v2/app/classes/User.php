@@ -56,7 +56,7 @@ class User {
     }
 
     public function isLoggedIn () {
-        return ($this->_loggedIn && $this->exists());
+        return $this->_loggedIn && $this->exists();
     }
 
     public function hasPermission ($key) {

@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: putter.vuw.leidenuniv.nl:3306
--- Generation Time: Feb 12, 2016 at 10:44 AM
--- Server version: 5.5.46-log
+-- Generation Time: Mar 29, 2016 at 08:31 PM
+-- Server version: 5.5.47-log
 -- PHP Version: 5.3.17
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `planning` (
   `goal` text NOT NULL,
   `finished_on` datetime NOT NULL,
   `done` tinyint(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `planning`
@@ -74,7 +74,28 @@ INSERT INTO `planning` (`id`, `parent_table`, `parent_id`, `date_start`, `date_e
 (36, 'tentamens', 5, '2015-12-14', '2015-12-14', 'Celbiologie', '02:30:00', 'Herhaal eerste 3 powerpoints + gemiste colleges', '2015-12-14 22:21:42', 1),
 (37, 'tentamens', 5, '2015-12-15', '2015-12-15', 'Celbiologie', '02:30:00', 'Herhaal college 7 en 8', '2015-12-15 18:55:04', 1),
 (38, 'subjects', 9, '2016-02-08', '2016-02-09', 'Biochemie', '01:00:00', 'Maak excel sheet NADH/BSA', '2016-02-09 15:48:00', 1),
-(39, 'subjects', 12, '2016-02-09', '2016-02-12', 'Logica', '02:30:00', 'Lees 1.4: Semantics of propositional logic', '2016-02-12 09:25:31', 1);
+(39, 'subjects', 12, '2016-02-09', '2016-02-12', 'Logica', '02:30:00', 'Lees 1.4: Semantics of propositional logic', '2016-02-12 12:21:04', 1),
+(40, 'subjects', 12, '2016-02-16', '2016-02-19', 'Logica', '01:00:00', 'Lees 1.2: Natural deduction', '2016-02-18 16:11:57', 1),
+(41, 'subjects', 9, '2016-02-20', '2016-02-21', 'Biochemie', '01:30:00', 'Werk excel sheets en labjournaal bij, print gegevens uit', '2016-02-21 15:47:32', 1),
+(42, 'subjects', 12, '2016-02-20', '2016-02-20', 'Logica', '01:00:00', 'Maak opgaven 1.2', '2016-02-20 14:56:15', 1),
+(43, 'assignments', 12, '2016-02-20', '2016-02-21', 'Logica', '00:15:00', 'Controleer antwoorden en lever in', '2016-02-21 15:47:33', 1),
+(44, 'subjects', 9, '2016-03-12', '2016-03-13', 'Biochemie', '01:00:00', 'Bereid volgend practicum voor (begin labjournaal + maak schema)', '2016-03-12 17:32:33', 1),
+(46, 'subjects', 11, '2016-02-27', '2016-02-27', 'Databases', '01:30:00', 'Maak opgaven eerste werkcollege', '2016-02-27 15:55:02', 1),
+(47, 'subjects', 11, '2016-03-01', '2016-03-01', 'Databases', '01:30:00', 'Maak opgaven tweede werkcollege', '2016-03-01 15:48:26', 1),
+(49, 'subjects', 12, '2016-03-01', '2016-03-01', 'Logica', '01:00:00', 'Lees 1.4.3 en 1.4.4', '2016-03-01 21:29:16', 1),
+(50, 'subjects', 11, '2016-03-02', '2016-03-02', 'Databases', '00:30:00', 'Herhaal laatste gedeelte college', '2016-03-03 10:46:09', 1),
+(51, 'subjects', 9, '2016-03-07', '2016-03-11', 'Biochemie', '05:00:00', 'Werk labjournaal bij', '2016-03-11 16:32:59', 1),
+(52, 'assignments', 15, '2016-03-07', '2016-03-07', 'Logica', '00:30:00', 'Controleer antwoorden en lever in', '2016-03-07 17:38:18', 1),
+(53, 'subjects', 12, '2016-03-15', '2016-03-17', 'Logica', '01:00:00', 'Lees 1.5.1 en 1.5.2', '2016-03-18 11:26:54', 1),
+(54, 'assignments', 14, '2016-03-19', '2016-03-20', 'Algoritmiek', '00:30:00', 'Maak programma volledig af', '2016-03-19 15:38:06', 1),
+(55, 'assignments', 14, '2016-03-19', '2016-03-20', 'Algoritmiek', '01:00:00', 'Schrijf stuk verslag over recursie', '2016-03-19 17:26:46', 1),
+(57, 'assignments', 14, '2016-03-19', '2016-03-20', 'Algoritmiek', '01:30:00', 'Schrijf verslag af (met Jevan)', '2016-03-20 14:50:34', 1),
+(58, 'subjects', 9, '2016-03-19', '2016-03-20', 'Biochemie', '01:00:00', 'Werk excel bestand bij (temparatuur, terugreactie en Lineweaver-Burk)', '2016-03-19 21:17:54', 1),
+(59, 'assignments', 16, '2016-03-19', '2016-03-21', 'Orientatie I&B', '01:00:00', 'Lees artikel op Perusall', '2016-03-21 15:18:34', 1),
+(60, 'subjects', 10, '2016-03-24', '2016-03-28', 'Algoritmiek', '01:00:00', 'Haal werkcollege 24-03-2016 in', '2016-03-28 22:26:04', 1),
+(61, 'subjects', 11, '2016-03-24', '2016-03-24', 'Databases', '01:30:00', 'Haal college 23-03-2016 in', '2016-03-24 13:01:08', 1),
+(62, 'subjects', 12, '2016-03-24', '2016-03-24', 'Logica', '00:10:00', 'Lees 1.5.3: Horn Clauses', '2016-03-24 13:24:31', 1),
+(63, 'subjects', 9, '2016-03-28', '2016-03-28', 'Biochemie', '00:15:00', 'Berijd practicum van disdag voor (Aanenten bacteriën)', '2016-03-29 08:41:59', 1);
 
 --
 -- Indexes for dumped tables
@@ -94,7 +115,7 @@ ALTER TABLE `planning`
 -- AUTO_INCREMENT for table `planning`
 --
 ALTER TABLE `planning`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=40;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=64;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

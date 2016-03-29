@@ -11,7 +11,7 @@ function createPage ($smarty) {
                     Users::create(array(
                         'student_id' => Input::get('sid'),
                         'password' => Hash::hashPassword(Input::get('password')),
-                        'permission_group' => 0,
+                        'permission_group' => 1,
                         'name' => Input::get('name'),
                         'email' => Input::get('email'),
                         'umail' => Input::get('sid').'@umail.leidenuniv.nl',

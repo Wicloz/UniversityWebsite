@@ -58,5 +58,21 @@ class User {
     public function isLoggedIn () {
         return ($this->_loggedIn && $this->exists());
     }
+
+    public function hasPermission ($key) {
+        if (!empty($key)) {
+            $group = $this->_db->get('permissions', array("", "id", "=", $this->data()->permission_group));
+
+            if ($group->count()) {
+                $permissions = json_decode($group->first()->permissions, true);
+
+                if (!empty($permissions[$key])) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 }
 ?>

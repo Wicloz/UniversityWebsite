@@ -18,6 +18,14 @@ class Users {
         return self::$_currentUser;
     }
 
+    public static function isEditor () {
+        return self::$_currentUser->hasPermission('editor');
+    }
+
+    public static function isAdmin () {
+        return self::$_currentUser->hasPermission('admin');
+    }
+
     public static function forceLogin ($user = null, $remember = false) {
         if ($user->exists()) {
             DB::instance()->delete("user_sessions", array("", "user_id", "=", $user->id()));

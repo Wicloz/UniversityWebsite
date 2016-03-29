@@ -12,8 +12,8 @@
             <ul class="nav navbar-nav">
                 {foreach $topnav as $item}
                     {if $item.location != ""}
-                        <li{if $item.active} class="active"{/if}>
-                            <a href="{$item.location}"{if $item.target != ""} target={$item.target}{/if}>{$item.title}</a>
+                        <li {if $item.active}class="active"{/if}>
+                            <a href="{$item.location}" {if $item.target != ""}target={$item.target}{/if}>{$item.title}</a>
                         </li>
                     {else}
                         <li class="dropdown{if $item.active} active{/if}">
@@ -23,7 +23,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 {foreach $item.subItems as $subitem}
-                                    <li{if $subitem.active} class="active"{/if}>
+                                    <li {if $subitem.active}class="active"{/if}>
                                         <a href="{$subitem.location}">{$subitem.title}</a>
                                     </li>
                                 {/foreach}

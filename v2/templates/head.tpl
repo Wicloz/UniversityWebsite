@@ -1,5 +1,5 @@
 <head>
-    <title>{$title|default:"Wilco de Boer"}</title>
+    <title>{$title|default:"s1704362"}</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">

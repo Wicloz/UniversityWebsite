@@ -13,7 +13,7 @@
                     <input type="password" name="password" id="password">
                 </div>
                 <div class="form-row">
-                    <input type="checkbox" name="remember" id="remember" value="1">
+                    <input type="checkbox" name="remember" id="remember" value="1" {if $remember}checked{/if}>
                     <label for="remember">Remember me</label>
                 </div>
                 <input type="hidden" name="action" value="login">

@@ -20,7 +20,7 @@ function createPage ($smarty) {
                         'email' => Input::get('email'),
                         'umail' => Input::get('sid').'@umail.leidenuniv.nl',
                         'phone' => Input::get('phone'),
-                        'joined' => DateFormat::sql();
+                        'joined' => DateFormat::sql()
                     ));
 
                     Users::login(Input::get('sid'), Input::get('password'));

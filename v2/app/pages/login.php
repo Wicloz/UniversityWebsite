@@ -1,6 +1,10 @@
 <?php
 $pageHasRandom = false;
 function createPage ($smarty) {
+    if (Users::loggedIn()) {
+        Redirect::to('?page=profile');
+    }
+
     if (Input::exists() && Token::check(Input::get('token'))) {
         if (Input::get('action') === 'register') {
             $validate = new Validate();

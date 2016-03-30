@@ -15,7 +15,7 @@
                         <li>
                             {$assignment.date} - <a href="?page=assignments_item&id={$assignment.id}">{$assignment.description}</a>
                         </li>
-                        {if $subject.ass_line_index === $assignment@key}
+                        {if $subject.ass_line_index === $assignment@index}
                             <hr style="margin:0px;border-color:#06123B;margin-right:40%;">
                         {/if}
                     {/foreach}
@@ -31,7 +31,7 @@
                         <li>
                             {$exam.date} - <a href="?page=assignments_item&id={$assignment.id}">{$exam.description}</a>
                         </li>
-                        {if $subject.ex_line_index === $exam@key}
+                        {if $subject.ex_line_index === $exam@index}
                             <hr style="margin:0px;border-color:#06123B;margin-right:40%;">
                         {/if}
                     {/foreach}

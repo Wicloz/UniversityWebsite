@@ -1,8 +1,8 @@
 <?php
 class Queries {
-    static function subjects ($active = false) {
+    static function subjects ($inActive = false) {
         $activeSearch = array();
-        if (!$active) {
+        if (!$inActive) {
             $activeSearch = array("AND", "active", "=", "1");
         }
     	$results1 = DB::instance()->get("subjects", array_merge(array("", "section", "!=", "hc"), $activeSearch), array("name", "ASC"))->results();

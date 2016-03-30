@@ -9,6 +9,24 @@ class DateFormat {
         return date('Y-m-d H:i:s', $timestamp);
     }
 
+    public static function sqlDate ($timestamp = null) {
+        if (!$timestamp) {
+            $timestamp = time();
+        } else {
+            $timestamp = strtotime($timestamp);
+        }
+        return date('Y-m-d', $timestamp);
+    }
+
+    public static function sqlTime ($timestamp = null) {
+        if (!$timestamp) {
+            $timestamp = time();
+        } else {
+            $timestamp = strtotime($timestamp);
+        }
+        return date('H:i:s', $timestamp);
+    }
+
     public static function timeDefault ($timestamp = null) {
         if (!$timestamp) {
             $timestamp = time();

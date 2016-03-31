@@ -42,11 +42,11 @@ class DateFormat {
         } else {
             $timestamp = strtotime($timestamp);
         }
-    	$minutes = date('i', strtotime($timestamp));
+    	$minutes = date('i', $timestamp);
     	if (strpos($minutes, '0') === 0) {
     		$minutes = substr($minutes, 1);
     	}
-    	return date('G', strtotime($timestamp)).'h '.$minutes.'m';
+    	return date('G', $timestamp).'h '.$minutes.'m';
     }
 
     public static function dateDefault ($timestamp = null) {

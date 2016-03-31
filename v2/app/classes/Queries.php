@@ -12,11 +12,11 @@ class Queries {
     }
 
     static function assignmentsForSubject ($subjectname) {
-        return DB::instance()->get("assignments", array("", "subject", "=", $subjectname), array("end_date", "ASC", "end_time", "ASC"))->results();
+        return DB::instance()->get("assignments", array("", "subject_name", "=", $subjectname), array("end_date", "ASC", "end_time", "ASC"))->results();
     }
 
     static function examsForSubject ($subjectname) {
-        return DB::instance()->get("exams", array("", "subject", "=", $subjectname), array("date", "ASC"))->results();
+        return DB::instance()->get("exams", array("", "subject_name", "=", $subjectname), array("date", "ASC"))->results();
     }
 
     static function article ($name) {

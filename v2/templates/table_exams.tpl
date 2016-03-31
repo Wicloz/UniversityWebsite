@@ -26,8 +26,8 @@
                 </td>
                 <td>
                     {$s1}
-                        <a href="?page=subjects&subject={$row->subject_abb}">
-                            {$row->subject}
+                        <a href="?page=subjects&subject={$row->subject}">
+                            {$row->subject_name}
                         </a>
                     {$s2}
                 </td>

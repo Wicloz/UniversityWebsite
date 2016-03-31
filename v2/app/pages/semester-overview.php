@@ -31,7 +31,7 @@ function createPage ($smarty) {
             $subject_data[$index]['exams'][] = array(
                 'id' => $exam->id,
                 'date' => DateFormat::dateList($exam->date),
-                'description' => $exam->weight.' '.$exam->subject
+                'description' => $exam->weight.' '.$exam->subject_name
             );
             if (strtotime($exam->date) < strtotime('today')) {
                 $subject_data[$index]['ex_line_index'] = $index2;
@@ -40,6 +40,7 @@ function createPage ($smarty) {
     }
 
     $smarty->assign('subjects', $subject_data);
+    $smarty->assign('events', Tables::events(true));
     return $smarty;
 }
 ?>

@@ -12,6 +12,8 @@ class Tables {
         $data = DB::instance()->get("assignments", $search, array("end_date", "ASC", "end_time", "ASC"));
 
         $results = array();
+        $index = 0;
+        $now_pos = 0;
         foreach ($data->results() as $entry) {
             if (in_array($entry->subject_name, $subject_names)) {
                 if ($entry->completion) {
@@ -23,14 +25,27 @@ class Tables {
                 }
 
                 $entry->subject = $subject_abbreviations[array_search($entry->subject_name, $subject_names)];
+                if (strtotime($entry->end_date.' '.$entry->end_time) < strtotime('now')) {
+                    $now_pos = $index + 1;
+                }
 
                 $entry->start_date = DateFormat::dateTable($entry->start_date);
                 $entry->end_date = DateFormat::dateTable($entry->end_date);
                 $entry->end_time = DateFormat::timeDefault($entry->end_time);
 
                 $results[] = $entry;
+                $index++;
             }
         }
+        $today = new stdClass();
+        $today->completion = false;
+        $today->end_date = '<b>'.DateFormat::dateTable().'</b>';
+        $today->end_time = '<b<'.DateFormat::timeDefault().'</b>';
+        $today->subject_name = '</a><b>Today is a gift</b><a href="">';
+        $today->desc_short = '</a><b>Thats why it\'s called the present</b><a href="">';
+        $today->team = '';
+        $today->state = '<b>-</b>';
+        array_splice($results, $now_pos, 0, array($today));
 
         return $results;
     }
@@ -47,6 +62,8 @@ class Tables {
         $data = DB::instance()->get("exams", $search, array("date", "ASC"));
 
         $results = array();
+        $index = 0;
+        $now_pos = 0;
         foreach ($data->results() as $entry) {
             if (in_array($entry->subject_name, $subject_names)) {
                 $entry->completion = true;
@@ -58,11 +75,22 @@ class Tables {
                 }
 
                 $entry->subject = $subject_abbreviations[array_search($entry->subject_name, $subject_names)];
+                if (strtotime($entry->date) < strtotime('today')) {
+                    $now_pos = $index + 1;
+                }
                 $entry->date = DateFormat::dateTable($entry->date);
 
                 $results[] = $entry;
+                $index++;
             }
         }
+        $today = new stdClass();
+        $today->completion = false;
+        $today->date = '<b>'.DateFormat::dateTable().'</b>';
+        $today->weight = '</a><b>Today is a gift</b><a href="">';
+        $today->subject_name = '</a><b>Thats why it\'s called the present</b><a href="">';
+        $today->mark = '<b>-</b>';
+        array_splice($results, $now_pos, 0, array($today));
 
         return $results;
     }
@@ -111,7 +139,8 @@ class Tables {
         ", $searchParams);
 
         $results = $data->results();
-        foreach ($results as $entry) {
+        $now_pos = 0;
+        foreach ($results as $index => $entry) {
             if ($entry->done) {
                 $entry->state = 'Done';
             } elseif (strtotime($entry->date_end) < strtotime('today')) {
@@ -120,10 +149,23 @@ class Tables {
                 $entry->state = 'Planned';
             }
 
+            if (strtotime($entry->date_end) < strtotime('today')) {
+                $now_pos = $index + 1;
+            }
+
             $entry->date_start = DateFormat::dateTable($entry->date_start);
             $entry->date_end = DateFormat::dateTable($entry->date_end);
             $entry->duration = DateFormat::timeDuration($entry->duration);
         }
+        $today = new stdClass();
+        $today->done = false;
+        $today->date_start = '<b>'.DateFormat::dateTable().'</b>';
+        $today->date_end = '<b>'.DateFormat::dateTable().'</b>';
+        $today->subject_name = '</a><b>Today is a gift</b><a href="">';
+        $today->duration = '<b>-</b>';
+        $today->goal = '<b>Thats why it\'s called the present</b>';
+        $today->state = '<b>-</b>';
+        array_splice($results, $now_pos, 0, array($today));
 
         return $results;
     }
@@ -161,9 +203,23 @@ class Tables {
         ", $searchParams);
 
         $results = $data->results();
-        foreach ($results as $entry) {
+        $now_pos = 0;
+        foreach ($results as $index => $entry) {
+            if ($entry->type === 'assignment' && strtotime($entry->date) < strtotime('now')) {
+                $now_pos = $index + 1;
+            } elseif (strtotime($entry->date) < strtotime('today')) {
+                $now_pos = $index + 1;
+            }
             self::parseEvent($entry);
         }
+        $today = new stdClass();
+        $today->completion = false;
+        $today->date = '<b>'.DateFormat::dateTable().'</b>';
+        $today->type = '<b>-</b>';
+        $today->subject_name = '</a><b>Today is a gift</b><a href="">';
+        $today->task = '<b>Thats why it\'s called the present</b>';
+        $today->state = '<b>-</b>';
+        array_splice($results, $now_pos, 0, array($today));
 
         return $results;
     }
@@ -216,7 +272,7 @@ class Tables {
         ));
 
         $results = $data->results();
-        foreach ($results as $entry) {
+        foreach ($results as $index => $entry) {
             self::parseEvent($entry);
         }
 

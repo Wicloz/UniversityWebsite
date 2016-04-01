@@ -191,7 +191,8 @@ class DB {
     }
 
     public function autoIncrementValue ($table) {
-    	return $this->query("SHOW TABLE STATUS LIKE ?", array($this->_mysql->escape_string($table)));
+    	$this->query("SHOW TABLE STATUS LIKE ?", array($this->_mysql->escape_string($table)));
+        return $this->first()->Auto_increment;
     }
 
     public function tableFormInfo ($table) {

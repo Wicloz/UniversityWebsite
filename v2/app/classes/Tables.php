@@ -4,42 +4,44 @@ class Tables {
         if (Input::exists() && Token::check(Input::get('token')) && Input::get('action') === 'switch_completion') {
             Update::switchCompletion();
         }
-
-        $search = array();
-        if (!$history) {
-            $search = array("", "concat(end_date, end_time)", ">", DateFormat::sql());
+        if (Input::exists() && Token::check(Input::get('token')) && Input::get('action') === 'item_insert') {
+            Update::insertItem();
         }
 
-        $dataSubjects = Queries::subjects();
-        $subject_names = extractFields($dataSubjects, 'name');
-        $subject_abbreviations = extractFields($dataSubjects, 'abbreviation');
-        $data = DB::instance()->get("assignments", $search, array("end_date", "ASC", "end_time", "ASC"));
+        $searchString = "";
+        $searchParams = array();
+        if (!$history) {
+            $searchString .= "AND concat(A.end_date, A.end_time) > ?";
+            $searchParams[] = DateFormat::sql();
+        }
 
-        $results = array();
-        $index = 0;
+        $data = DB::instance()->query("
+            SELECT A.*, S.name as 'subject_name', S.abbreviation as 'subject'
+                FROM `assignments` A
+                INNER JOIN `subjects` S
+                ON A.subject_name = S.name OR A.subject=S.abbreviation
+                WHERE S.active {$searchString}
+                ORDER BY end_date ASC, end_time ASC
+        ", $searchParams);
+
+        $results = $data->results();
         $now_pos = 0;
-        foreach ($data->results() as $entry) {
-            if (in_array($entry->subject_name, $subject_names)) {
-                if ($entry->completion) {
-                    $entry->state = 'Complete';
-                } elseif (strtotime($entry->end_date.' '.$entry->end_time) < strtotime('now')) {
-                    $entry->state = 'Overdue';
-                } else {
-                    $entry->state = 'Working';
-                }
-
-                $entry->subject = $subject_abbreviations[array_search($entry->subject_name, $subject_names)];
-                if (strtotime($entry->end_date.' '.$entry->end_time) < strtotime('now')) {
-                    $now_pos = $index + 1;
-                }
-
-                $entry->start_date = DateFormat::dateTable($entry->start_date);
-                $entry->end_date = DateFormat::dateTable($entry->end_date);
-                $entry->end_time = DateFormat::timeDefault($entry->end_time);
-
-                $results[] = $entry;
-                $index++;
+        foreach ($results as $index => $entry) {
+            if ($entry->completion) {
+                $entry->state = 'Complete';
+            } elseif (strtotime($entry->end_date.' '.$entry->end_time) < strtotime('now')) {
+                $entry->state = 'Overdue';
+            } else {
+                $entry->state = 'Working';
             }
+
+            if (strtotime($entry->end_date.' '.$entry->end_time) < strtotime('now')) {
+                $now_pos = $index + 1;
+            }
+
+            $entry->start_date = DateFormat::dateTable($entry->start_date);
+            $entry->end_date = DateFormat::dateTable($entry->end_date);
+            $entry->end_time = DateFormat::timeDefault($entry->end_time);
         }
         $today = new stdClass();
         $today->todayRow = true;
@@ -56,38 +58,42 @@ class Tables {
     }
 
     public static function exams ($history) {
-        $search = array();
-        if (!$history) {
-            $search = array("", "date", ">=", DateFormat::sqlDate());
+        if (Input::exists() && Token::check(Input::get('token')) && Input::get('action') === 'item_insert') {
+            Update::insertItem();
         }
 
-        $dataSubjects = Queries::subjects();
-        $subject_names = extractFields($dataSubjects, 'name');
-        $subject_abbreviations = extractFields($dataSubjects, 'abbreviation');
-        $data = DB::instance()->get("exams", $search, array("date", "ASC"));
+        $searchString = "";
+        $searchParams = array();
+        if (!$history) {
+            $searchString .= "AND E.date >= ?";
+            $searchParams[] = DateFormat::sqlDate();
+        }
 
-        $results = array();
-        $index = 0;
+        $data = DB::instance()->query("
+            SELECT E.*, S.name as 'subject_name', S.abbreviation as 'subject'
+                FROM `exams` E
+                INNER JOIN `subjects` S
+                ON E.subject_name = S.name OR E.subject=S.abbreviation
+                WHERE S.active {$searchString}
+                ORDER BY date ASC
+        ", $searchParams);
+
+        $results = $data->results();
         $now_pos = 0;
-        foreach ($data->results() as $entry) {
-            if (in_array($entry->subject_name, $subject_names)) {
-                $entry->completion = true;
-                if (strtotime($entry->date) >= strtotime('today')) {
-                    $entry->mark = 'Upcoming';
-                    $entry->completion = false;
-                } elseif ($entry->mark == 0) {
-                    $entry->mark = 'N/A';
-                }
-
-                $entry->subject = $subject_abbreviations[array_search($entry->subject_name, $subject_names)];
-                if (strtotime($entry->date) < strtotime('today')) {
-                    $now_pos = $index + 1;
-                }
-                $entry->date = DateFormat::dateTable($entry->date);
-
-                $results[] = $entry;
-                $index++;
+        foreach ($results as $index => $entry) {
+            $entry->completion = true;
+            if (strtotime($entry->date) >= strtotime('today')) {
+                $entry->mark = 'Upcoming';
+                $entry->completion = false;
+            } elseif ($entry->mark == 0) {
+                $entry->mark = 'N/A';
             }
+
+            if (strtotime($entry->date) < strtotime('today')) {
+                $now_pos = $index + 1;
+            }
+
+            $entry->date = DateFormat::dateTable($entry->date);
         }
         $today = new stdClass();
         $today->todayRow = true;
@@ -104,6 +110,9 @@ class Tables {
     public static function planning ($history, $parent_table = null, $parent_id = null) {
         if (Input::exists() && Token::check(Input::get('token')) && Input::get('action') === 'switch_completion') {
             Update::switchCompletion();
+        }
+        if (Input::exists() && Token::check(Input::get('token')) && Input::get('action') === 'item_insert') {
+            Update::insertItem();
         }
 
         $searchString = "";
@@ -184,6 +193,9 @@ class Tables {
     public static function events ($history, $subject = null) {
         if (Input::exists() && Token::check(Input::get('token')) && Input::get('action') === 'switch_completion') {
             Update::switchCompletion();
+        }
+        if (Input::exists() && Token::check(Input::get('token')) && Input::get('action') === 'item_insert') {
+            Update::insertItem();
         }
 
         $searchString1 = "";
@@ -308,6 +320,7 @@ class Tables {
             } else {
                 $object->state = 'Working';
             }
+            $object->date = DateFormat::dateTimeTable($object->date);
         } elseif ($object->type === 'exam') {
             if (strtotime($object->date) >= strtotime('today')) {
                 $object->state = 'Upcoming';
@@ -316,6 +329,7 @@ class Tables {
                 $object->state = 'Passed';
                 $object->completion = 1;
             }
+            $object->date = DateFormat::dateTable($object->date);
         } elseif ($object->type === 'planning') {
             if ($object->completion) {
                 $object->state = 'Done';
@@ -324,9 +338,8 @@ class Tables {
             } else {
                 $object->state = 'Planned';
             }
+            $object->date = DateFormat::dateTable($object->date);
         }
-
-        $object->date = DateFormat::dateTable($object->date);
     }
 }
 ?>

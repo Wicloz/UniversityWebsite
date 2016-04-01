@@ -84,5 +84,14 @@ class DateFormat {
         }
     	return date('d F Y', $timestamp);
     }
+
+    public static function dateTimeTable ($timestamp = null) {
+        if (!$timestamp) {
+            $timestamp = time();
+        } else {
+            $timestamp = strtotime($timestamp);
+        }
+        return date('d-m-Y, H:i', $timestamp);
+    }
 }
 ?>

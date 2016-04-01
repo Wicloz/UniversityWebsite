@@ -44,11 +44,11 @@
                 </div>
                 <div class="form-row">
                     <label for="email">Email Address:</label>
-                    <input type="text" name="email" id="email" value="{$email}">
+                    <input type="email" name="email" id="email" value="{$email}">
                 </div>
                 <div class="form-row">
                     <label for="phone">Mobile/Phone Number:</label>
-                    <input type="text" name="phone" id="phone" value="{$phone}">
+                    <input type="tel" name="phone" id="phone" value="{$phone}">
                 </div>
                 <input type="hidden" name="action" value="register">
                 <input type="hidden" name="token" value="{$token|default:""}">

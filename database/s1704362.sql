@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: putter.vuw.leidenuniv.nl:3306
--- Generation Time: Apr 01, 2016 at 11:06 PM
+-- Generation Time: Apr 01, 2016 at 11:18 PM
 -- Server version: 5.5.47-log
 -- PHP Version: 5.3.17
 
@@ -190,7 +190,7 @@ CREATE TABLE IF NOT EXISTS `planning` (
   `goal` text NOT NULL,
   `finished_on` datetime NOT NULL,
   `done` tinyint(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `planning`
@@ -248,7 +248,9 @@ INSERT INTO `planning` (`id`, `parent_table`, `parent_id`, `date_start`, `date_e
 (60, 'subjects', 10, '2016-03-24', '2016-03-28', '01:00:00', 'Haal werkcollege 24-03-2016 in', '2016-03-28 22:26:04', 1),
 (61, 'subjects', 11, '2016-03-24', '2016-03-24', '01:30:00', 'Haal college 23-03-2016 in', '2016-03-24 13:01:08', 1),
 (62, 'subjects', 12, '2016-03-24', '2016-03-24', '00:10:00', 'Lees 1.5.3: Horn Clauses', '2016-03-24 13:24:31', 1),
-(63, 'subjects', 9, '2016-03-28', '2016-03-28', '00:15:00', 'Berijd practicum van disdag voor (Aanenten bacteriën)', '2016-03-29 08:41:59', 1);
+(63, 'subjects', 9, '2016-03-28', '2016-03-28', '00:15:00', 'Berijd practicum van disdag voor (Aanenten bacteriën)', '2016-03-29 08:41:59', 1),
+(64, 'subjects', 9, '2016-04-03', '2016-04-03', '00:30:00', 'Berijd practicum maandag voor (Overproductie VirF)', '0000-00-00 00:00:00', 0),
+(65, 'assignments', 19, '2016-04-02', '2016-04-02', '00:30:00', 'Controleer antwoorden en lever in', '0000-00-00 00:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -263,7 +265,7 @@ CREATE TABLE IF NOT EXISTS `subjects` (
   `section` varchar(20) NOT NULL,
   `content` text NOT NULL,
   `active` tinyint(1) NOT NULL,
-  `book_pdf` text NOT NULL,
+  `link_book` text NOT NULL,
   `link_home` text NOT NULL,
   `link_powerpoints` text NOT NULL,
   `link_schedule` text NOT NULL,
@@ -275,7 +277,7 @@ CREATE TABLE IF NOT EXISTS `subjects` (
 -- Dumping data for table `subjects`
 --
 
-INSERT INTO `subjects` (`id`, `name`, `abbreviation`, `section`, `content`, `active`, `book_pdf`, `link_home`, `link_powerpoints`, `link_schedule`, `link_assignments`, `link_marks`) VALUES
+INSERT INTO `subjects` (`id`, `name`, `abbreviation`, `section`, `content`, `active`, `link_book`, `link_home`, `link_powerpoints`, `link_schedule`, `link_assignments`, `link_marks`) VALUES
 (1, 'Studeren & Presenteren', 'stpr', 'inf', '', 0, '', 'http://liacs.leidenuniv.nl/~wolstencroftkj/ssp.html', 'http://liacs.leidenuniv.nl/~wolstencroftkj/ssp.html#Lectures', 'http://liacs.leidenuniv.nl/~wolstencroftkj/SSPTimetable.pdf', 'http://liacs.leidenuniv.nl/~wolstencroftkj/ssp.html#Assignments', ''),
 (2, 'Programmeermethoden', 'pr', 'inf', '', 0, 'media\\books\\AbsoluteC++.pdf', 'http://liacs.leidenuniv.nl/~kosterswa/pm/', 'http://liacs.leidenuniv.nl/~kosterswa/pm/college.php', 'http://liacs.leidenuniv.nl/~kosterswa/pm/inhoud.php', 'http://liacs.leidenuniv.nl/~kosterswa/pm/opdrachten.php', 'http://liacs.leidenuniv.nl/~kosterswa/pm/cijf/res.html'),
 (3, 'Fundamentele Informatica 1', 'fi1', 'inf', '', 0, 'media\\books\\DS.pdf', 'http://liacs.leidenuniv.nl/~hoogeboomhj/fi1/', 'http://liacs.leidenuniv.nl/~hoogeboomhj/fi1/', 'http://liacs.leidenuniv.nl/~hoogeboomhj/fi1/', '', 'http://liacs.leidenuniv.nl/~hoogeboomhj/fi1/fi1-cijfers-dec-2015-site.pdf'),
@@ -317,7 +319,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `student_id`, `password`, `permission_group`, `name`, `email`, `umail`, `phone`, `joined`, `last_online`) VALUES
-(1, 's1704362', '$2y$10$md.8ZZYtVVwldcTcUmlQ0uAjZF6Hx5CJRJErF8cNLZ0czXVVGMhvW', 3, 'Wilco de Boer', 'deboer.wilco@gmail.com', 's1704362@umail.leidenuniv.nl', '+310637338259', '2016-03-28 17:57:28', '2016-04-02 01:05:48');
+(1, 's1704362', '$2y$10$md.8ZZYtVVwldcTcUmlQ0uAjZF6Hx5CJRJErF8cNLZ0czXVVGMhvW', 3, 'Wilco de Boer', 'deboer.wilco@gmail.com', 's1704362@umail.leidenuniv.nl', '+310637338259', '2016-03-28 17:57:28', '2016-04-02 01:17:22');
 
 -- --------------------------------------------------------
 
@@ -329,14 +331,14 @@ CREATE TABLE IF NOT EXISTS `user_sessions` (
 `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `hash` varchar(64) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `user_sessions`
 --
 
 INSERT INTO `user_sessions` (`id`, `user_id`, `hash`) VALUES
-(28, 1, '4b14f9f57aef98e623451a27c92a486976c76a8daf2df190a526d1eebaec76a7');
+(29, 1, '6abb3e679eeb4538fbb60719076d2916426241e120987ba2330c5f0a14bf9745');
 
 --
 -- Indexes for dumped tables
@@ -429,7 +431,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT for table `planning`
 --
 ALTER TABLE `planning`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=64;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=66;
 --
 -- AUTO_INCREMENT for table `subjects`
 --
@@ -444,7 +446,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT for table `user_sessions`
 --
 ALTER TABLE `user_sessions`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=29;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=30;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

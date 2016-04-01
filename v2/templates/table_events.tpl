@@ -1,10 +1,12 @@
 <table class="table-fancy">
     <tr>
         <th>Date</th>
-        {if !empty($type)}
+        {if !empty($show_type)}
             <th>Type</th>
         {/if}
-        <th>Subject</th>
+        {if empty($subject_name)}
+            <th>Subject</th>
+        {/if}
         <th>Task</th>
         <th>Status</th>
     </tr>
@@ -19,7 +21,7 @@
             <td>
                 {$s1}{$row->date}{$s2}
             </td>
-            {if !empty($type)}
+            {if !empty($show_type)}
                 <td>
                     {$s1}
                         {if $row->type === 'assignment'}
@@ -32,13 +34,15 @@
                     {$s2}
                 </td>
             {/if}
-            <td>
-                {$s1}
-                    <a href="?page=subjects&subject={$row->subject}">
-                        {$row->subject_name}
-                    </a>
-                {$s2}
-            </td>
+            {if empty($subject_name)}
+                <td>
+                    {$s1}
+                        <a href="?page=subjects&subject={$row->subject}">
+                            {$row->subject_name}
+                        </a>
+                    {$s2}
+                </td>
+            {/if}
             <td>
                 {$s1}
                     {if $row->type === 'assignment'}
@@ -70,29 +74,33 @@
             </td>
         </tr>
     {/foreach}
-    <tr>
-        <form action="" method="POST">
-            <input type="hidden" name="action" value="item_insert">
-            <input type="hidden" name="table" value="events">
-            <input type="hidden" name="token" value="{$token|default:""}">
-            <td>
-                <input type="datetime" name="date" id="date" value="">
-            </td>
-            <td>
-                <select name="subject" id="subject">
-                    {foreach Queries::subjects() as $subject}
-                        <option value="{$subject->abbreviation}" {if Input::get('subject') === $subject->abbreviation}selected{/if}>
-                            {$subject->name}
-                        </option>
-                    {/foreach}
-                </select>
-            </td>
-            <td>
-                <input type="text" name="task" id="task" value="">
-            </td>
-            <td>
-                <input class="button submit-button table-button" type="submit" value="Add">
-            </td>
-        </form>
-    </tr>
+    {if Users::isEditor()}
+        <tr>
+            <form action="" method="POST">
+                <input type="hidden" name="action" value="item_insert">
+                <input type="hidden" name="table" value="events">
+                <input type="hidden" name="token" value="{$token|default:""}">
+                <td>
+                    <input type="datetime" name="date" id="date" value="">
+                </td>
+                {if empty($subject_name)}
+                    <td>
+                        <select name="subject" id="subject">
+                            {foreach Queries::subjects() as $subject}
+                            <option value="{$subject->abbreviation}" {if Input::get('subject') === $subject->abbreviation}selected{/if}>
+                                {$subject->name}
+                            </option>
+                            {/foreach}
+                        </select>
+                    </td>
+                {/if}
+                <td>
+                    <input type="text" name="task" id="task" value="">
+                </td>
+                <td>
+                    <input class="button submit-button table-button" type="submit" value="Add">
+                </td>
+            </form>
+        </tr>
+    {/if}
 </table>

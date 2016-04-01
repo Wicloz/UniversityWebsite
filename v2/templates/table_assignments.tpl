@@ -66,41 +66,45 @@
             </td>
         </tr>
     {/foreach}
-    <tr>
-        <form action="" method="POST">
-            <input type="hidden" name="action" value="item_insert">
-            <input type="hidden" name="table" value="assignments">
-            <input type="hidden" name="token" value="{$token|default:""}">
-            <td>
-                <input type="date" name="date" id="date" value="">,
-                <input type="time" name="time" id="time" value="">
-            </td>
-            <td>
-                <select name="subject" id="subject">
-                    {foreach Queries::subjects() as $subject}
-                    <option value="{$subject->abbreviation}" {if Input::get('subject') === $subject->abbreviation}selected{/if}>
-                        {$subject->name}
-                    </option>
-                    {/foreach}
-                </select>
-            </td>
-            <td>
-                <input type="text" name="task" id="task" value="">
-            </td>
-            <td>
-                <input type="text" name="team" id="team" value="">
-            </td>
-            <td>
-                <input type="url" name="link" id="link" value="">
-            </td>
-            <td>
-                <input class="button submit-button table-button" type="submit" value="Add">
-            </td>
-        </form>
-    </tr>
+    {if Users::isEditor()}
+        <tr>
+            <form action="" method="POST">
+                <input type="hidden" name="action" value="item_insert">
+                <input type="hidden" name="table" value="assignments">
+                <input type="hidden" name="token" value="{$token|default:""}">
+                <td>
+                    <input type="date" name="date" id="date" value="">,
+                    <input type="time" name="time" id="time" value="">
+                </td>
+                <td>
+                    <select name="subject" id="subject">
+                        {foreach Queries::subjects() as $subject}
+                        <option value="{$subject->abbreviation}" {if Input::get('subject') === $subject->abbreviation}selected{/if}>
+                            {$subject->name}
+                        </option>
+                        {/foreach}
+                    </select>
+                </td>
+                <td>
+                    <input type="text" name="task" id="task" value="">
+                </td>
+                <td>
+                    <input type="text" name="team" id="team" value="">
+                </td>
+                <td>
+                    <input type="url" name="link" id="link" value="">
+                </td>
+                <td>
+                    <input class="button submit-button table-button" type="submit" value="Add">
+                </td>
+            </form>
+        </tr>
+    {/if}
 </table>
-<p>
-    <a href="?page=list-entries&table=assignments" class="button">
-        Edit Table
-    </a>
-</p>
+{if Users::isEditor()}
+    <p>
+        <a href="?page=edit-table&table=assignments" class="button">
+            Edit Table
+        </a>
+    </p>
+{/if}

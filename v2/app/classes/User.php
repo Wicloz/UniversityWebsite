@@ -2,6 +2,7 @@
 class User {
     private $_db,
             $_userdata = null,
+            $_goupData = null,
             $_loggedIn = false;
 
     public function __construct ($userId = 0) {
@@ -28,6 +29,7 @@ class User {
 
         if ($data->count()) {
             $this->_userdata = $data->first();
+            $this->_goupData = $this->_db->get('permissions', array("", "id", "=", $this->data()->permission_group))->first();
             return true;
         }
 
@@ -60,15 +62,10 @@ class User {
     }
 
     public function hasPermission ($key) {
-        if (!empty($key)) {
-            $group = $this->_db->get('permissions', array("", "id", "=", $this->data()->permission_group));
-
-            if ($group->count()) {
-                $permissions = json_decode($group->first()->permissions, true);
-
-                if (!empty($permissions[$key])) {
-                    return true;
-                }
+        if (!empty($key) && $this->isLoggedIn()) {
+            $permissions = json_decode($this->_goupData->permissions, true);
+            if (!empty($permissions[$key])) {
+                return true;
             }
         }
 

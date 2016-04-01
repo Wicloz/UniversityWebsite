@@ -46,8 +46,8 @@ class Tables {
         $today = new stdClass();
         $today->todayRow = true;
         $today->completion = false;
-        $today->end_date = '<b>'.DateFormat::dateTable().'</b>';
-        $today->end_time = '<b<'.DateFormat::timeDefault().'</b>';
+        $today->end_date = '<b>'.DateFormat::dateTable();
+        $today->end_time = DateFormat::timeDefault().'</b>';
         $today->subject_name = '</a><b>Today is a gift</b><a href="">';
         $today->desc_short = '</a><b>Thats why it\'s called the present</b><a href="">';
         $today->team = '';
@@ -202,8 +202,8 @@ class Tables {
         $searchString2 = "";
         $searchParams = array();
         if (isset($subject)) {
-            $searchString1 .= "AND S.subject_name = ?";
-            $searchString2 .= "AND S.subject_name = ?";
+            $searchString1 .= "AND S.name = ?";
+            $searchString2 .= "AND S.name = ?";
             $searchParams[] = $subject;
         }
         if (!$history) {
@@ -242,7 +242,7 @@ class Tables {
         $today = new stdClass();
         $today->todayRow = true;
         $today->completion = false;
-        $today->date = '<b>'.DateFormat::dateTable().'</b>';
+        $today->date = '<b>'.DateFormat::dateTimeTable().'</b>';
         $today->type = '<b>-</b>';
         $today->subject_name = '</a><b>Today is a gift</b><a href="">';
         $today->task = '<b>Thats why it\'s called the present</b>';

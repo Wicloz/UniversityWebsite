@@ -5,8 +5,8 @@ function createPage ($smarty) {
     $subjects = Queries::subjects();
 
     foreach ($subjects as $index => $subject) {
-        $assignments = Queries::assignmentsForSubject($subject->name);
-        $exams = Queries::examsForSubject($subject->name);
+        $assignments = Queries::assignmentsForSubject($subject->abbreviation);
+        $exams = Queries::examsForSubject($subject->abbreviation);
         $subject_data[$index] = array(
             'abbreviation' => $subject->abbreviation,
             'name' => $subject->name,

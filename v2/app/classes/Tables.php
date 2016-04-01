@@ -19,7 +19,7 @@ class Tables {
             SELECT A.*, S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `assignments` A
                 INNER JOIN `subjects` S
-                ON A.subject_name = S.name OR A.subject=S.abbreviation
+                ON A.subject_name = S.name OR A.subject = S.abbreviation
                 WHERE S.active {$searchString}
                 ORDER BY end_date ASC, end_time ASC
         ", $searchParams);
@@ -27,13 +27,7 @@ class Tables {
         $results = $data->results();
         $now_pos = 0;
         foreach ($results as $index => $entry) {
-            if ($entry->completion) {
-                $entry->state = 'Complete';
-            } elseif (strtotime($entry->end_date.' '.$entry->end_time) < strtotime('now')) {
-                $entry->state = 'Overdue';
-            } else {
-                $entry->state = 'Working';
-            }
+            $entry = Queries::parseAssignment($entry);
 
             if (strtotime($entry->end_date.' '.$entry->end_time) < strtotime('now')) {
                 $now_pos = $index + 1;
@@ -73,7 +67,7 @@ class Tables {
             SELECT E.*, S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `exams` E
                 INNER JOIN `subjects` S
-                ON E.subject_name = S.name OR E.subject=S.abbreviation
+                ON E.subject_name = S.name OR E.subject = S.abbreviation
                 WHERE S.active {$searchString}
                 ORDER BY date ASC
         ", $searchParams);
@@ -81,13 +75,7 @@ class Tables {
         $results = $data->results();
         $now_pos = 0;
         foreach ($results as $index => $entry) {
-            $entry->completion = true;
-            if (strtotime($entry->date) >= strtotime('today')) {
-                $entry->mark = 'Upcoming';
-                $entry->completion = false;
-            } elseif ($entry->mark == 0) {
-                $entry->mark = 'N/A';
-            }
+            $entry = Queries::parseExam($entry);
 
             if (strtotime($entry->date) < strtotime('today')) {
                 $now_pos = $index + 1;
@@ -115,13 +103,15 @@ class Tables {
             Update::insertItem();
         }
 
+        $searchStringBegin = "WHERE S.active";
         $searchString = "";
         $searchParams = array();
         if (isset($parent_table)) {
-            $searchString .= "AND P.parent_table = ?";
+            $searchString .= " AND P.parent_table = ?";
             $searchParams[] = $parent_table;
             if (isset($parent_id)) {
-                $searchString .= "AND P.parent_id = ?";
+                $searchString .= " AND P.parent_id = ?";
+                $searchStringBegin = "WHERE 1=1";
                 $searchParams[] = $parent_id;
             }
         }
@@ -137,7 +127,7 @@ class Tables {
                 FROM `planning` P
                 INNER JOIN `subjects` S
                 ON P.parent_table = 'subjects' AND P.parent_id = S.id
-                WHERE S.active {$searchString}
+                {$searchStringBegin} {$searchString}
             UNION
             SELECT P.*, S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `planning` P
@@ -145,7 +135,7 @@ class Tables {
                 ON P.parent_table = 'assignments' AND P.parent_id = A.id
                 INNER JOIN `subjects` S
                 ON A.subject_name = S.name
-                WHERE S.active {$searchString}
+                {$searchStringBegin} {$searchString}
             UNION
             SELECT P.*, S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `planning` P
@@ -153,20 +143,14 @@ class Tables {
                 ON P.parent_table = 'exams' AND P.parent_id = E.id
                 INNER JOIN `subjects` S
                 ON E.subject_name = S.name
-                WHERE S.active {$searchString}
+                {$searchStringBegin} {$searchString}
             ORDER BY date_start
         ", $searchParams);
 
         $results = $data->results();
         $now_pos = 0;
         foreach ($results as $index => $entry) {
-            if ($entry->done) {
-                $entry->state = 'Done';
-            } elseif (strtotime($entry->date_end) < strtotime('today')) {
-                $entry->state = 'Overdue';
-            } else {
-                $entry->state = 'Planned';
-            }
+            $entry = Queries::parsePlanning($entry);
 
             if (strtotime($entry->date_end) < strtotime('today')) {
                 $now_pos = $index + 1;
@@ -202,13 +186,16 @@ class Tables {
         $searchString2 = "";
         $searchParams = array();
         if (isset($subject)) {
-            $searchString1 .= "AND S.name = ?";
-            $searchString2 .= "AND S.name = ?";
+            $searchString1 .= "WHERE S.name = ?";
+            $searchString2 .= "WHERE S.name = ?";
             $searchParams[] = $subject;
+        } else {
+            $searchString1 .= "WHERE S.active";
+            $searchString2 .= "WHERE S.active";
         }
         if (!$history) {
-            $searchString1 .= "AND concat(A.end_date, ' ', A.end_time) > ?";
-            $searchString2 .= "AND concat(E.date, ' 24:00:00') >= ?";
+            $searchString1 .= " AND concat(A.end_date, ' ', A.end_time) > ?";
+            $searchString2 .= " AND concat(E.date, ' 24:00:00') >= ?";
             $searchParams[] = DateFormat::sql();
         }
 
@@ -219,13 +206,13 @@ class Tables {
                 FROM `assignments` A
                 INNER JOIN `subjects` S
                 ON A.subject_name = S.name
-                WHERE S.active {$searchString1}
+                {$searchString1}
             UNION
             SELECT E.id, E.date, concat(E.weight, ' ', S.name) as 'task', E.mark as 'completion', 'exam' as 'type', S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `exams` E
                 INNER JOIN `subjects` S
                 ON E.subject_name = S.name
-                WHERE S.active {$searchString2}
+                {$searchString2}
             ORDER BY date
         ", $searchParams);
 
@@ -262,19 +249,19 @@ class Tables {
                 FROM `assignments` A
                 INNER JOIN `subjects` S
                 ON A.subject_name = S.name
-                WHERE S.active AND A.end_date = ?
+                WHERE A.end_date = ?
             UNION
             SELECT E.id, E.date, concat(E.weight, ' ', S.name) as 'task', E.mark as 'completion', 'exam' as 'type', S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `exams` E
                 INNER JOIN `subjects` S
                 ON E.subject_name = S.name
-                WHERE S.active AND E.date = ?
+                WHERE E.date = ?
             UNION
             SELECT P.id, P.date_end as 'date', P.goal as 'task', P.done as 'completion', 'planning' as 'type', S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `planning` P
                 INNER JOIN `subjects` S
                 ON P.parent_table = 'subjects' AND P.parent_id = S.id
-                WHERE S.active AND P.date_start <= ? AND P.date_end >= ?
+                WHERE P.date_start <= ? AND P.date_end >= ?
             UNION
             SELECT P.id, P.date_end as 'date', P.goal as 'task', P.done as 'completion', 'planning' as 'type', S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `planning` P
@@ -282,7 +269,7 @@ class Tables {
                 ON P.parent_table = 'assignments' AND P.parent_id = A.id
                 INNER JOIN `subjects` S
                 ON A.subject_name = S.name
-                WHERE S.active AND P.date_start <= ? AND P.date_end >= ?
+                WHERE P.date_start <= ? AND P.date_end >= ?
             UNION
             SELECT P.id, P.date_end as 'date', P.goal as 'task', P.done as 'completion', 'planning' as 'type', S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `planning` P
@@ -290,7 +277,7 @@ class Tables {
                 ON P.parent_table = 'exams' AND P.parent_id = E.id
                 INNER JOIN `subjects` S
                 ON E.subject_name = S.name
-                WHERE S.active AND P.date_start <= ? AND P.date_end >= ?
+                WHERE P.date_start <= ? AND P.date_end >= ?
             ORDER BY date
         ", array(
             DateFormat::sqlDate(),

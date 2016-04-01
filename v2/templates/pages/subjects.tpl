@@ -1,49 +1,49 @@
 {extends file="../main.tpl"}
 {block name=content_center}
     <div class="paragraph-center col-sm-12">
-        <h2>{$subject_name}</h2>
-        <p>{$subject_content}</p>
+        <h2>{$subject->name}</h2>
+        <p>{$subject->content}</p>
         <p>
-            <a class="button subject-button" href="?page=edit-entry&table=subjects&id={$subject_id}">
+            <a class="button subject-button" href="?page=edit-entry&table=subjects&id={$subject->id}">
                 Edit Item
             </a>
         </p>
     </div>
-    {if !empty($link_home) || !empty($link_schedule) || !empty($link_powerpoints) || !empty($link_assignments) || !empty($link_marks)}
-        <div class="paragraph-center col-sm-12">
+    {if !empty($subject->link_home) || !empty($subject->link_schedule) || !empty($subject->link_powerpoints) || !empty($subject->link_assignments) || !empty($subject->link_marks)}
+        <div class="paragraph-left col-sm-12">
             <h2>Links:</h2>
             <ul>
-                {if !empty($link_home)}
+                {if !empty($subject->link_home)}
                     <li>
-                        <a href="{$link_home}" target="_blank">
+                        <a href="{$subject->link_home}" target="_blank">
                             Main Page
                         </a>
                     </li>
                 {/if}
-                {if !empty($link_schedule)}
+                {if !empty($subject->link_schedule)}
                     <li>
-                        <a href="{$link_schedule}" target="_blank">
+                        <a href="{$subject->link_schedule}" target="_blank">
                             Schedule
                         </a>
                     </li>
                 {/if}
-                {if !empty($link_powerpoints)}
+                {if !empty($subject->link_powerpoints)}
                     <li>
-                        <a href="{$link_powerpoints}" target="_blank">
+                        <a href="{$subject->link_powerpoints}" target="_blank">
                             College Slides
                         </a>
                     </li>
                 {/if}
-                {if !empty($link_assignments)}
+                {if !empty($subject->link_assignments)}
                     <li>
-                        <a href="{$link_assignments}" target="_blank">
+                        <a href="{$subject->link_assignments}" target="_blank">
                             Assignments
                         </a>
                     </li>
                 {/if}
-                {if !empty($link_marks)}
+                {if !empty($subject->link_marks)}
                     <li>
-                        <a href="{$link_marks}" target="_blank">
+                        <a href="{$subject->link_marks}" target="_blank">
                             Marks
                         </a>
                     </li>

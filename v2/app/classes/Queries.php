@@ -11,12 +11,46 @@ class Queries {
     	return array_merge($results1, $results2, $results3);
     }
 
-    static function assignmentsForSubject ($subjectname) {
-        return DB::instance()->get("assignments", array("", "subject_name", "=", $subjectname), array("end_date", "ASC", "end_time", "ASC"))->results();
+    static function assignment ($id) {
+        return DB::instance()->query("
+            SELECT A.*, S.name as 'subject_name', S.abbreviation as 'subject'
+                FROM `assignments` A
+                INNER JOIN `subjects` S
+                ON A.subject_name = S.name OR A.subject = S.abbreviation
+                WHERE A.id = ?
+        ", array($id))->first();
     }
 
-    static function examsForSubject ($subjectname) {
-        return DB::instance()->get("exams", array("", "subject_name", "=", $subjectname), array("date", "ASC"))->results();
+    static function exam ($id) {
+        return DB::instance()->query("
+            SELECT E.*, S.name as 'subject_name', S.abbreviation as 'subject'
+                FROM `exams` E
+                INNER JOIN `subjects` S
+                ON E.subject_name = S.name OR E.subject = S.abbreviation
+                WHERE E.id = ?
+        ", array($id))->first();
+    }
+
+    static function assignmentsForSubject ($subject) {
+        return DB::instance()->query("
+            SELECT A.*, S.name as 'subject_name', S.abbreviation as 'subject'
+                FROM `assignments` A
+                INNER JOIN `subjects` S
+                ON A.subject_name = S.name OR A.subject = S.abbreviation
+                WHERE S.abbreviation = ?
+                ORDER BY end_date ASC, end_time ASC
+        ", array($subject))->results();
+    }
+
+    static function examsForSubject ($subject) {
+        return DB::instance()->query("
+            SELECT E.*, S.name as 'subject_name', S.abbreviation as 'subject'
+                FROM `exams` E
+                INNER JOIN `subjects` S
+                ON E.subject_name = S.name OR E.subject = S.abbreviation
+                WHERE S.abbreviation = ?
+                ORDER BY date ASC
+        ", array($subject))->results();
     }
 
     static function article ($name) {
@@ -25,6 +59,39 @@ class Queries {
             return $data->first()->content;
         }
         return '<p class="message-error">Article with name \''.$name.'\' not found.</p>';
+    }
+
+    public static function parseAssignment ($object) {
+        if ($object->completion) {
+            $object->state = 'Complete';
+        } elseif (strtotime($object->end_date.' '.$object->end_time) < strtotime('now')) {
+            $object->state = 'Overdue';
+        } else {
+            $object->state = 'Working';
+        }
+        return $object;
+    }
+
+    public static function parseExam ($object) {
+        $object->completion = true;
+        if (strtotime($object->date) >= strtotime('today')) {
+            $object->mark = 'Upcoming';
+            $object->completion = false;
+        } elseif ($object->mark == 0) {
+            $object->mark = 'N/A';
+        }
+        return $object;
+    }
+
+    public static function parsePlanning ($object) {
+        if ($object->done) {
+            $object->state = 'Done';
+        } elseif (strtotime($object->date_end) < strtotime('today')) {
+            $object->state = 'Overdue';
+        } else {
+            $object->state = 'Planned';
+        }
+        return $object;
     }
 }
 ?>

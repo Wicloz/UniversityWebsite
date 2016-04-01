@@ -1,7 +1,7 @@
 <table class="table-fancy">
     <tr>
         <th>Date</th>
-        {if empty($subject_name)}
+        {if empty($subject) && empty($item)}
             <th>Subject</th>
         {/if}
         <th>Estimated Duration</th>
@@ -19,7 +19,7 @@
             <td>
                 {$s1}{$row->date_start} - {$row->date_end}{$s2}
             </td>
-            {if empty($subject_name)}
+            {if empty($subject) && empty($item)}
                 <td>
                     {$s1}
                         <a href="?page=subjects&subject={$row->subject}">
@@ -50,20 +50,20 @@
             </td>
         </tr>
     {/foreach}
-    {if Users::isEditor() && !empty($table_parentI) && !empty($table_parentT)}
+    {if Users::isEditor() && !empty($table_parentT) && !empty($table_parentI)}
         <tr>
             <form action="" method="POST">
                 <input type="hidden" name="action" value="item_insert">
                 <input type="hidden" name="table" value="planning">
-                <input type="hidden" name="parent_table" value="{$table_parentI}">
-                <input type="hidden" name="parent_id" value="{$table_parentT}">
+                <input type="hidden" name="parent_table" value="{$table_parentT}">
+                <input type="hidden" name="parent_id" value="{$table_parentI}">
                 <input type="hidden" name="token" value="{$token|default:""}">
                 <td>
                     <input type="date" name="date_start" id="date_start" value="">
                     -
                     <input type="date" name="date_end" id="date_end" value="">
                 </td>
-                {if empty($subject_name)}
+                {if empty($subject) && empty($item)}
                     <td>
                         <select name="subject" id="subject">
                             {foreach Queries::subjects() as $subject}

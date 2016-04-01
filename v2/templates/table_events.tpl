@@ -4,7 +4,7 @@
         {if !empty($show_type)}
             <th>Type</th>
         {/if}
-        {if empty($subject_name)}
+        {if empty($subject) && empty($item)}
             <th>Subject</th>
         {/if}
         <th>Task</th>
@@ -34,7 +34,7 @@
                     {$s2}
                 </td>
             {/if}
-            {if empty($subject_name)}
+            {if empty($subject) && empty($item)}
                 <td>
                     {$s1}
                         <a href="?page=subjects&subject={$row->subject}">
@@ -83,7 +83,7 @@
                 <td>
                     <input type="datetime" name="date" id="date" value="">
                 </td>
-                {if empty($subject_name)}
+                {if empty($subject) && empty($item)}
                     <td>
                         <select name="subject" id="subject">
                             {foreach Queries::subjects() as $subject}

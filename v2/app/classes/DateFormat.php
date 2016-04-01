@@ -93,5 +93,14 @@ class DateFormat {
         }
         return date('d-m-Y, H:i', $timestamp);
     }
+
+    public static function dateTimeItem ($timestamp = null) {
+        if (!$timestamp) {
+            $timestamp = time();
+        } else {
+            $timestamp = strtotime($timestamp);
+        }
+        return date('d F Y, H:i', $timestamp);
+    }
 }
 ?>

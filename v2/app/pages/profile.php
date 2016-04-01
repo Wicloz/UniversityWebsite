@@ -15,10 +15,10 @@ function createPage ($smarty) {
         }
 
         if (Input::get('action') === 'update_info') {
-            $validate = new Validate();
-            $validate->check($_POST, Config::get('validation/user_info'));
+            $validation = new Validate();
+            $validation->check($_POST, Config::get('validation/user_info'));
 
-            if ($validate->passed()) {
+            if ($validation->passed()) {
                 $fields = array(
                     'name' => 'name',
                     'student_id' => 'sid',
@@ -41,13 +41,13 @@ function createPage ($smarty) {
             }
 
             else {
-                Session::addErrorArray($validate->getErrors());
+                Session::addErrorArray($validation->getErrors());
             }
         }
 
         if (Input::get('action') === 'update_pass') {
-            $validate = new Validate();
-            $validate->check($_POST, array_merge(Config::get('validation/set_password'), array(
+            $validation = new Validate();
+            $validation->check($_POST, array_merge(Config::get('validation/set_password'), array(
                 'password_current' => array(
                     'name' => 'Current Password',
                     'required' => true,
@@ -55,7 +55,7 @@ function createPage ($smarty) {
                 )
             )));
 
-            if ($validate->passed()) {
+            if ($validation->passed()) {
                 if (Hash::checkPassword(Input::get('password_current'), Users::currentData()->password)) {
                     if (Users::currentUser()->update(array('password' => Hash::hashPassword(Input::get('password'))))) {
                         Session::addSuccess('Password changed!');
@@ -69,7 +69,7 @@ function createPage ($smarty) {
             }
 
             else {
-                Session::addErrorArray($validate->getErrors());
+                Session::addErrorArray($validation->getErrors());
             }
         }
     }

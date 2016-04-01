@@ -1,6 +1,10 @@
 <?php
 class Tables {
     public static function assignments ($history) {
+        if (Input::exists() && Token::check(Input::get('token')) && Input::get('action') === 'switch_completion') {
+            Update::switchCompletion();
+        }
+
         $search = array();
         if (!$history) {
             $search = array("", "concat(end_date, end_time)", ">", DateFormat::sql());

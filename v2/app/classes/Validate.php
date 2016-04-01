@@ -45,7 +45,7 @@ class Validate {
 
                             case 'matches':
                                 if ($item_value !== $source[$rule_value]) {
-                                    $this->addError("'{$rules['name']}' must be equal to '{$items[$rule_value]['name']}' but was not.");
+                                    $this->addError("'{$rules['name']}' must be equal to the field '{$items[$rule_value]['name']}' but was not.");
                                 }
                             break;
 

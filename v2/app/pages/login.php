@@ -7,10 +7,10 @@ function createPage ($smarty) {
 
     if (Input::exists() && Token::check(Input::get('token'))) {
         if (Input::get('action') === 'register') {
-            $validate = new Validate();
-            $validate->check($_POST, array_merge(Config::get('validation/register_info'), Config::get('validation/set_password')));
+            $validation = new Validate();
+            $validation->check($_POST, array_merge(Config::get('validation/register_info'), Config::get('validation/set_password')));
 
-            if ($validate->passed()) {
+            if ($validation->passed()) {
                 try {
                     Users::create(array(
                         'student_id' => Input::get('sid'),
@@ -33,15 +33,15 @@ function createPage ($smarty) {
             }
 
             else {
-                Session::addErrorArray($validate->getErrors());
+                Session::addErrorArray($validation->getErrors());
             }
         }
 
         if (Input::get('action') === 'login') {
-            $validate = new Validate();
-            $validate->check($_POST, Config::get('validation/login'));
+            $validation = new Validate();
+            $validation->check($_POST, Config::get('validation/login'));
 
-            if ($validate->passed()) {
+            if ($validation->passed()) {
                 $login = Users::login(Input::get('sid'), Input::get('password'), Input::getCheck('remember'));
 
                 if ($login) {
@@ -53,7 +53,7 @@ function createPage ($smarty) {
             }
 
             else {
-                Session::addErrorArray($validate->getErrors());
+                Session::addErrorArray($validation->getErrors());
             }
         }
     }

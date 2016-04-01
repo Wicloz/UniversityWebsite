@@ -19,7 +19,7 @@ class Tables {
             SELECT A.*, S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `assignments` A
                 INNER JOIN `subjects` S
-                ON A.subject_name = S.name OR A.subject = S.abbreviation
+                ON A.subject = S.abbreviation
                 WHERE S.active {$searchString}
                 ORDER BY end_date ASC, end_time ASC
         ", $searchParams);
@@ -67,7 +67,7 @@ class Tables {
             SELECT E.*, S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `exams` E
                 INNER JOIN `subjects` S
-                ON E.subject_name = S.name OR E.subject = S.abbreviation
+                ON E.subject = S.abbreviation
                 WHERE S.active {$searchString}
                 ORDER BY date ASC
         ", $searchParams);
@@ -134,7 +134,7 @@ class Tables {
                 INNER JOIN `assignments` A
                 ON P.parent_table = 'assignments' AND P.parent_id = A.id
                 INNER JOIN `subjects` S
-                ON A.subject_name = S.name
+                ON A.subject = S.abbreviation
                 {$searchStringBegin} {$searchString}
             UNION
             SELECT P.*, S.name as 'subject_name', S.abbreviation as 'subject'
@@ -142,7 +142,7 @@ class Tables {
                 INNER JOIN `exams` E
                 ON P.parent_table = 'exams' AND P.parent_id = E.id
                 INNER JOIN `subjects` S
-                ON E.subject_name = S.name
+                ON E.subject = S.abbreviation
                 {$searchStringBegin} {$searchString}
             ORDER BY date_start
         ", $searchParams);
@@ -205,13 +205,13 @@ class Tables {
             SELECT A.id, concat(A.end_date, ' ', A.end_time) as 'date', A.desc_short as 'task', A.completion as 'completion', 'assignment' as 'type', S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `assignments` A
                 INNER JOIN `subjects` S
-                ON A.subject_name = S.name
+                ON A.subject = S.abbreviation
                 {$searchString1}
             UNION
             SELECT E.id, E.date, concat(E.weight, ' ', S.name) as 'task', E.mark as 'completion', 'exam' as 'type', S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `exams` E
                 INNER JOIN `subjects` S
-                ON E.subject_name = S.name
+                ON E.subject = S.abbreviation
                 {$searchString2}
             ORDER BY date
         ", $searchParams);
@@ -248,13 +248,13 @@ class Tables {
             SELECT A.id, concat(A.end_date, ' ', A.end_time) as 'date', A.desc_short as 'task', A.completion as 'completion', 'assignment' as 'type', S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `assignments` A
                 INNER JOIN `subjects` S
-                ON A.subject_name = S.name
+                ON A.subject = S.abbreviation
                 WHERE A.end_date = ?
             UNION
             SELECT E.id, E.date, concat(E.weight, ' ', S.name) as 'task', E.mark as 'completion', 'exam' as 'type', S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `exams` E
                 INNER JOIN `subjects` S
-                ON E.subject_name = S.name
+                ON E.subject = S.abbreviation
                 WHERE E.date = ?
             UNION
             SELECT P.id, P.date_end as 'date', P.goal as 'task', P.done as 'completion', 'planning' as 'type', S.name as 'subject_name', S.abbreviation as 'subject'
@@ -268,7 +268,7 @@ class Tables {
                 INNER JOIN `assignments` A
                 ON P.parent_table = 'assignments' AND P.parent_id = A.id
                 INNER JOIN `subjects` S
-                ON A.subject_name = S.name
+                ON A.subject = S.abbreviation
                 WHERE P.date_start <= ? AND P.date_end >= ?
             UNION
             SELECT P.id, P.date_end as 'date', P.goal as 'task', P.done as 'completion', 'planning' as 'type', S.name as 'subject_name', S.abbreviation as 'subject'
@@ -276,7 +276,7 @@ class Tables {
                 INNER JOIN `exams` E
                 ON P.parent_table = 'exams' AND P.parent_id = E.id
                 INNER JOIN `subjects` S
-                ON E.subject_name = S.name
+                ON E.subject = S.abbreviation
                 WHERE P.date_start <= ? AND P.date_end >= ?
             ORDER BY date
         ", array(

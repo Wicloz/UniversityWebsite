@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.9
+-- version 4.4.14
 -- http://www.phpmyadmin.net
 --
--- Host: putter.vuw.leidenuniv.nl:3306
--- Generation Time: Mar 29, 2016 at 08:32 PM
--- Server version: 5.5.47-log
--- PHP Version: 5.3.17
+-- Host: 127.0.0.1
+-- Gegenereerd op: 02 apr 2016 om 00:05
+-- Serverversie: 5.6.26
+-- PHP-versie: 5.6.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,20 +14,20 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `s1704362`
+-- Database: `app`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `navigation`
+-- Tabelstructuur voor tabel `navigation`
 --
 
 CREATE TABLE IF NOT EXISTS `navigation` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `name` varchar(20) NOT NULL,
   `url` text NOT NULL,
   `sub_names` text NOT NULL,
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `navigation` (
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `navigation`
+-- Gegevens worden geëxporteerd voor tabel `navigation`
 --
 
 INSERT INTO `navigation` (`id`, `name`, `url`, `sub_names`, `sub_urls`, `header`, `target`) VALUES
@@ -48,24 +48,24 @@ INSERT INTO `navigation` (`id`, `name`, `url`, `sub_names`, `sub_urls`, `header`
 (6, 'Notes', 'https://onedrive.live.com/redir?resid=7A26A4E50EEC48CB!487&authkey=!AAWHeOocCttgeYQ&ithint=onenote%2c', '', '', '', '_blank');
 
 --
--- Indexes for dumped tables
+-- Indexen voor geëxporteerde tabellen
 --
 
 --
--- Indexes for table `navigation`
+-- Indexen voor tabel `navigation`
 --
 ALTER TABLE `navigation`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT voor geëxporteerde tabellen
 --
 
 --
--- AUTO_INCREMENT for table `navigation`
+-- AUTO_INCREMENT voor een tabel `navigation`
 --
 ALTER TABLE `navigation`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

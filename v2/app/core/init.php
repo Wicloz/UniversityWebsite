@@ -136,6 +136,12 @@ require_once 'app/functions/sanitize.php';
 require_once 'app/functions/misc.php';
 require_once 'app/functions/navigation.php';
 
+$subjects = Queries::subjects(true);
+foreach ($subjects as $subject) {
+    DB::instance()->query("UPDATE `exams` SET subject = ? WHERE subject = ?", array($subject->abbreviation, $subject->name));
+    DB::instance()->query("UPDATE `assignments` SET subject = ? WHERE subject = ?", array($subject->abbreviation, $subject->name));
+}
+
 Users::init();
 if (Cookie::exists(Config::get('remember/cookie_name')) && !Users::loggedIn()) {
     $cookieHash = Cookie::get(Config::get('remember/cookie_name'));

@@ -1,8 +1,8 @@
 <?php
 class Queries {
-    static function subjects ($isActive = false) {
+    static function subjects ($inactive = false) {
         $activeSearch = array();
-        if (!$isActive) {
+        if (!$inactive) {
             $activeSearch = array("AND", "active", "=", "1");
         }
     	$results1 = DB::instance()->get("subjects", array_merge(array("", "section", "!=", "hc"), $activeSearch), array("name", "ASC"))->results();
@@ -16,7 +16,7 @@ class Queries {
             SELECT A.*, S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `assignments` A
                 INNER JOIN `subjects` S
-                ON A.subject_name = S.name OR A.subject = S.abbreviation
+                ON A.subject = S.abbreviation
                 WHERE A.id = ?
         ", array($id))->first();
     }
@@ -26,7 +26,7 @@ class Queries {
             SELECT E.*, S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `exams` E
                 INNER JOIN `subjects` S
-                ON E.subject_name = S.name OR E.subject = S.abbreviation
+                ON E.subject = S.abbreviation
                 WHERE E.id = ?
         ", array($id))->first();
     }
@@ -36,7 +36,7 @@ class Queries {
             SELECT A.*, S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `assignments` A
                 INNER JOIN `subjects` S
-                ON A.subject_name = S.name OR A.subject = S.abbreviation
+                ON A.subject = S.abbreviation
                 WHERE S.abbreviation = ?
                 ORDER BY end_date ASC, end_time ASC
         ", array($subject))->results();
@@ -47,7 +47,7 @@ class Queries {
             SELECT E.*, S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `exams` E
                 INNER JOIN `subjects` S
-                ON E.subject_name = S.name OR E.subject = S.abbreviation
+                ON E.subject = S.abbreviation
                 WHERE S.abbreviation = ?
                 ORDER BY date ASC
         ", array($subject))->results();

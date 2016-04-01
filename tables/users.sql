@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 29 mrt 2016 om 00:21
+-- Gegenereerd op: 02 apr 2016 om 00:06
 -- Serverversie: 5.6.26
 -- PHP-versie: 5.6.12
 
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `student_id`, `password`, `permission_group`, `name`, `email`, `umail`, `phone`, `joined`, `last_online`) VALUES
-(1, 's1704362', '$2y$10$gNvXxXMHRS/8YbGgCNwh0uPJ.jGsuVMsse14qCiAjlaPadR4kfeGq', 1, 'Wilco de Boer', 'deboer.wilco@gmail.com', 's1704362@umail.leidenuniv.nl', '+310637338259', '2016-03-28 17:57:28', '0000-00-00 00:00:00');
+(1, 's1704362', '$2y$10$md.8ZZYtVVwldcTcUmlQ0uAjZF6Hx5CJRJErF8cNLZ0czXVVGMhvW', 3, 'Wilco de Boer', 'deboer.wilco@gmail.com', 's1704362@umail.leidenuniv.nl', '+310637338259', '2016-03-28 17:57:28', '2016-04-02 00:06:00');
 
 --
 -- Indexen voor geëxporteerde tabellen

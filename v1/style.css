@@ -2,7 +2,7 @@ h1, h2, h3 {
     text-align: center;
 }
 
-h1 > a, h1 > a:focus, h1 > a:hover, h2 > a, h2 > a:focus, h2 > a:hover {
+h2 > a, h2 > a:focus, h2 > a:hover {
 	text-align: center;
 	text-decoration: none;
 	color: inherit;
@@ -297,7 +297,7 @@ body {
 }
 
 #loginFormText {
-
+	
 }
 
 #loginFormList > li {

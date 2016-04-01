@@ -5,8 +5,9 @@ session_start();
 date_default_timezone_set('Europe/Amsterdam');
 
 $GLOBALS['config'] = array(
-    'php' => array(
-        'debug' => true
+    'debug' => array(
+        'debug' => true,
+        'qrydump' => false
     ),
 
     'smarty' => array(
@@ -135,8 +136,10 @@ require_once 'app/functions/sanitize.php';
 require_once 'app/functions/misc.php';
 require_once 'app/functions/navigation.php';
 
-Session::addInfo('PHP Version: ' . PHP_VERSION);
-Session::addInfo('Current Time: ' . date('H:i:s'));
+if (Config::get('debug/debug')) {
+    Session::addInfo('PHP Version: ' . PHP_VERSION);
+    Session::addInfo('Current Time: ' . date('H:i:s'));
+}
 
 Users::init();
 if (Cookie::exists(Config::get('remember/cookie_name')) && !Users::loggedIn()) {

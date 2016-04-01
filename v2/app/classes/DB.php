@@ -61,7 +61,7 @@ class DB {
     public function query ($sql, $params = array()) {
         $this->_error = false;
         $params = array_values($params);
-        if (Config::get('php/debug')) {
+        if (Config::get('debug/qrydump')) {
             Session::addInfo($sql.': '.json_encode($params));
         }
 

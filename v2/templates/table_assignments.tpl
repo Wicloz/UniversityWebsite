@@ -52,7 +52,18 @@
                     {$s2}
                 </td>
                 <td>
-                    {$row->state}
+                    {if empty($row->todayRow)}
+                        <form action="" method="POST">
+                            <input type="hidden" name="action" value="switch_completion">
+                            <input type="hidden" name="table" value="assignments">
+                            <input type="hidden" name="id" value="{$row->id}">
+                            <input type="hidden" name="done" value="{!$row->completion}">
+                            <input type="hidden" name="token" value="{$token|default:""}">
+                            <input class="button submit-button table-button" type="submit" value="{$row->state}">
+                        </form>
+                    {else}
+                        {$row->state}
+                    {/if}
                 </td>
             </tr>
         {/foreach}
@@ -62,3 +73,8 @@
         No assignments were found.
     </p>
 {/if}
+<p>
+    <a href="?page=list-entries&table=assignments" class="button">
+        Edit Table
+    </a>
+</p>

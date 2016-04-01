@@ -1,20 +1,34 @@
 <?php
 class Update {
+    public static function doUpdate () {
+        if (Input::exists() && Token::check(Input::get('token'))) {
+            switch (Input::get('action')) {
+                case 'switch_completion':
+                    Update::switchCompletion();
+                break;
+            }
+        }
+    }
+
     public static function switchCompletion () {
         $validation = new Validate();
-        $validate->check($_POST, array(
+        $validation->check($_POST, array(
             'action' => array(
                 'name' => 'Action',
+                'required' => true,
                 'wildcard' => 'switch_completion'
             ),
             'table' => array(
-                'name' => 'Table Name'
+                'name' => 'Table Name',
+                'required' => true
             ),
             'id' => array(
-                'name' => 'Entry ID'
+                'name' => 'Entry ID',
+                'required' => true
             ),
             'done' => array(
-                'name' => 'Completion State'
+                'name' => 'Completion State',
+                'required' => false
             )
         ));
 
@@ -24,16 +38,17 @@ class Update {
                 case 'assignments':
                     if (Users::isEditor()) {
                         DB::instance()->update("assignments", Input::get('id'), array('completion' => $completion));
-                    }
-                break;
-                case 'exams':
-                    if (Users::isEditor()) {
-                        DB::instance()->update("exams", Input::get('id'), array('completion' => $completion));
+                        Redirect::to('');
+                    } else {
+                        Redirect::error(403);
                     }
                 break;
                 case 'planning':
                     if (Users::isEditor()) {
                         DB::instance()->update("planning", Input::get('id'), array('done' => $completion));
+                        Redirect::to('');
+                    } else {
+                        Redirect::error(403);
                     }
                 break;
             }

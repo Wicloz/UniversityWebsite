@@ -136,11 +136,6 @@ require_once 'app/functions/sanitize.php';
 require_once 'app/functions/misc.php';
 require_once 'app/functions/navigation.php';
 
-if (Config::get('debug/debug')) {
-    Session::addInfo('PHP Version: ' . PHP_VERSION);
-    Session::addInfo('Current Time: ' . date('H:i:s'));
-}
-
 Users::init();
 if (Cookie::exists(Config::get('remember/cookie_name')) && !Users::loggedIn()) {
     $cookieHash = Cookie::get(Config::get('remember/cookie_name'));

@@ -42,6 +42,7 @@ class Tables {
             }
         }
         $today = new stdClass();
+        $today->todayRow = true;
         $today->completion = false;
         $today->end_date = '<b>'.DateFormat::dateTable().'</b>';
         $today->end_time = '<b<'.DateFormat::timeDefault().'</b>';
@@ -89,6 +90,7 @@ class Tables {
             }
         }
         $today = new stdClass();
+        $today->todayRow = true;
         $today->completion = false;
         $today->date = '<b>'.DateFormat::dateTable().'</b>';
         $today->weight = '</a><b>Today is a gift</b><a href="">';
@@ -100,6 +102,10 @@ class Tables {
     }
 
     public static function planning ($history, $parent_table = null, $parent_id = null) {
+        if (Input::exists() && Token::check(Input::get('token')) && Input::get('action') === 'switch_completion') {
+            Update::switchCompletion();
+        }
+
         $searchString = "";
         $searchParams = array();
         if (isset($parent_table)) {
@@ -162,6 +168,7 @@ class Tables {
             $entry->duration = DateFormat::timeDuration($entry->duration);
         }
         $today = new stdClass();
+        $today->todayRow = true;
         $today->done = false;
         $today->date_start = '<b>'.DateFormat::dateTable().'</b>';
         $today->date_end = '<b>'.DateFormat::dateTable().'</b>';
@@ -175,6 +182,10 @@ class Tables {
     }
 
     public static function events ($history, $subject = null) {
+        if (Input::exists() && Token::check(Input::get('token')) && Input::get('action') === 'switch_completion') {
+            Update::switchCompletion();
+        }
+
         $searchString1 = "";
         $searchString2 = "";
         $searchParams = array();
@@ -217,6 +228,7 @@ class Tables {
             self::parseEvent($entry);
         }
         $today = new stdClass();
+        $today->todayRow = true;
         $today->completion = false;
         $today->date = '<b>'.DateFormat::dateTable().'</b>';
         $today->type = '<b>-</b>';
@@ -229,6 +241,10 @@ class Tables {
     }
 
     public static function today () {
+        if (Input::exists() && Token::check(Input::get('token')) && Input::get('action') === 'switch_completion') {
+            Update::switchCompletion();
+        }
+
         $data = DB::instance()->query("
             SELECT A.id, concat(A.end_date, ' ', A.end_time) as 'date', A.desc_short as 'task', A.completion as 'completion', 'assignment' as 'type', S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `assignments` A

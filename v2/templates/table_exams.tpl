@@ -42,3 +42,8 @@
         No exams were found.
     </p>
 {/if}
+<p>
+    <a href="?page=list-entries&table=exams" class="button">
+        Edit Table
+    </a>
+</p>

@@ -36,7 +36,7 @@ class Update {
         ));
 
         if ($validation->passed()) {
-            $completion = (empty(Input::get('done'))) ? 0 : 1;
+            $completion = (Input::get('done')) ? 0 : 1;
             switch (Input::get('table')) {
                 case 'assignments':
                     if (Users::isEditor()) {

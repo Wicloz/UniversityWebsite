@@ -41,6 +41,7 @@ class Update {
                 case 'assignments':
                     if (Users::isEditor()) {
                         DB::instance()->update("assignments", Input::get('id'), array('completion' => $completion));
+                        Session::addSuccess('Assignment completion switched!');
                         Redirect::to('');
                     } else {
                         Redirect::error(403);
@@ -53,6 +54,7 @@ class Update {
                             $finishedDate = DateFormat::sql();
                         }
                         DB::instance()->update("planning", Input::get('id'), array('finished_on' => $finishedDate, 'done' => $completion));
+                        Session::addSuccess('Planning completion switched!');
                         Redirect::to('');
                     } else {
                         Redirect::error(403);
@@ -93,6 +95,7 @@ class Update {
                             'link_assignment' => Input::get('link'),
                             'team' => Input::get('team')
                         ));
+                        Session::addSuccess('Assignment added!');
                         Redirect::to("?page=assignments_item&id={$id}");
                     } else {
                         Redirect::error(403);
@@ -106,6 +109,7 @@ class Update {
                             'weight' => Input::get('weight'),
                             'subject' => Input::get('subject')
                         ));
+                        Session::addSuccess('Exam added!');
                         Redirect::to("?page=exams_item&id={$id}");
                     } else {
                         Redirect::error(403);
@@ -121,6 +125,7 @@ class Update {
                             'duration' => Input::get('duration'),
                             'goal' => Input::get('goal')
                         ));
+                        Session::addSuccess('Planning added!');
                         Redirect::to('');
                     } else {
                         Redirect::error(403);
@@ -135,6 +140,7 @@ class Update {
                                 'weight' => substr(Input::get('task'), 0, strpos(Input::get('task'), ' ')),
                                 'subject' => Input::get('subject')
                             ));
+                            Session::addSuccess('Exam added!');
                             Redirect::to("?page=exams_item&id={$id}");
                         }
                         else {
@@ -145,6 +151,7 @@ class Update {
                                 'subject' => Input::get('subject'),
                                 'desc_short' => Input::get('task')
                             ));
+                            Session::addSuccess('Assignment added!');
                             Redirect::to("?page=assignments_item&id={$id}");
                         }
                     } else {

@@ -117,6 +117,22 @@ class Queries {
         return $info;
     }
 
+    public static function itemList ($table) {
+        $entries = DB::instance()->get($table)->results();
+        foreach ($entries as $index => $entry) {
+            $entries[$index] = (array) $entry;
+        }
+        return $entries;
+    }
+
+    public static function itemListHeaders ($table) {
+        $infoData = DB::tableFormInfo($table);
+        if ($infoData->error()) {
+            Redirect::error(404);
+        }
+        return extractFields($infoData->results(), 'COLUMN_NAME');
+    }
+
     public static function parseAssignment ($object) {
         if ($object->completion) {
             $object->state = 'Complete';

@@ -42,9 +42,11 @@
                 {/if}
             </p>
         {/if}
-        <a class="button edit-item-button" href="index.php?page=edit-entry&table=assignments&id={$item->id}">
-            Edit Item
-        </a>
+        {if Users::isEditor()}
+            <a class="button edit-item-button" href="index.php?page=edit-entry&table=assignments&id={$item->id}">
+                Edit Item
+            </a>
+        {/if}
     </div>
     {if !empty($item->link_report)}
         <div class="paragraph-center col-sm-12">

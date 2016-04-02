@@ -4,9 +4,11 @@
         <h2>{$subject->name}</h2>
         <p>{$subject->content}</p>
         <p>
-            <a class="button subject-button" href="?page=edit-entry&table=subjects&id={$subject->id}">
-                Edit Item
-            </a>
+            {if Users::isAdmin()}
+                <a class="button subject-button" href="?page=edit-entry&table=subjects&id={$subject->id}">
+                    Edit Item
+                </a>
+            {/if}
         </p>
     </div>
     {if !empty($subject->link_home) || !empty($subject->link_schedule) || !empty($subject->link_powerpoints) || !empty($subject->link_assignments) || !empty($subject->link_marks) || !empty($subject->link_book)}

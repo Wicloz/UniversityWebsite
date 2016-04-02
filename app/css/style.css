@@ -405,7 +405,3 @@ body {
 .navbar-toggle .icon-bar {
     background-color: #b6bdd6;
 }
-
-.bootstrap-datetimepicker-widget.dropdown-menu.top {
-    margin-bottom: -330px;
-}

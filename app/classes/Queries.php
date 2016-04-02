@@ -62,11 +62,10 @@ class Queries {
     }
 
     public static function editableEntry ($table, $id) {
-        $infoData = DB::tableFormInfo($table);
-        if ($infoData->error()) {
+        $info = DB::tableFormInfo($table);
+        if (empty($info)) {
             Redirect::error(404);
         }
-        $info = $infoData->results();
         if ($id !== 'create') {
             $entry = (array) DB::instance()->get($table, array("", "id", "=", $id))->first();
             if (empty($entry)) {
@@ -126,8 +125,8 @@ class Queries {
     }
 
     public static function itemListHeaders ($table) {
-        $infoData = DB::tableFormInfo($table);
-        if ($infoData->error()) {
+        $info = DB::tableFormInfo($table);
+        if (empty($info)) {
             Redirect::error(404);
         }
         return extractFields($infoData->results(), 'COLUMN_NAME');

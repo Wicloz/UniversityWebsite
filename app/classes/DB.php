@@ -25,7 +25,7 @@ class DB {
     }
 
     public function error () {
-        if ($this->_error) {
+        if (is_array($this->_error)) {
             return implode(', ', $this->_error);
         }
         return $this->_error;
@@ -54,7 +54,10 @@ class DB {
 
     private function setError ($error = array(0, 0, '')) {
         $this->_error = $error;
-        Session::addError($this->error());
+        if (Config::get('debug/debug')) {
+            Session::addError($this->error());
+        }
+        $this->_results = array();
         $this->_count = 0;
     }
 
@@ -72,12 +75,12 @@ class DB {
                 }
             }
 
-            if ($this->_query->execute()) {
+            $this->_query->execute();
+            if ($this->_query->errorInfo()[2]) {
+                $this->setError($this->_query->errorInfo());
+            } else {
                 $this->_results = $this->_query->fetchAll(PDO::FETCH_OBJ);
                 $this->_count = $this->_query->rowCount();
-            }
-            else {
-                $this->setError($this->_query->errorInfo());
             }
         }
 
@@ -191,12 +194,12 @@ class DB {
     }
 
     public static function autoIncrementValue ($table) {
-    	DB::instance()->query("SHOW TABLE STATUS LIKE ?", array($table));
-        return DB::instance()->first()->Auto_increment;
+    	self::instance()->query("SHOW TABLE STATUS LIKE ?", array($table));
+        return self::instance()->first()->Auto_increment;
     }
 
     public static function tableFormInfo ($table) {
-    	return DB::instance()->query("SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ?", array(Config::get('mysql/db'), $table));
+    	return self::instance()->query("SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ?", array(Config::get('mysql/db'), $table))->results();
     }
 }
 ?>

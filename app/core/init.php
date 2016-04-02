@@ -7,6 +7,7 @@ date_default_timezone_set('Europe/Amsterdam');
 $GLOBALS['config'] = array(
     'debug' => array(
         'debug' => false,
+        'smartyDebug' => false,
         'qrydump' => false
     ),
 

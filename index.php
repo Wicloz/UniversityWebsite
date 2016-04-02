@@ -6,7 +6,7 @@ require_once 'main.php';
 
 if (isset($_GET['page']) && !empty($_GET['page'])) {
     $smarty = new Smarty;
-    #$smarty->debugging = true;
+    $smarty->debugging = Config::get('debug/smartyDebug');
     $smarty->caching = Config::get('smarty/caching');
     $smarty->cache_lifetime = Config::get('smarty/cache_lifetime');
 

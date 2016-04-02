@@ -5,7 +5,7 @@
         <p>{$item->substance}</p>
         <p><i>
             Subject:
-            <a href="index.php?page=subjects&subject={$item->subject}">
+            <a href="?page=subjects&subject={$item->subject}">
                 {$item->subject_name}
             </a>
             <br>
@@ -18,7 +18,7 @@
             {/if}
         </i></p>
         {if Users::isEditor()}
-            <a class="button edit-item-button" href="index.php?page=edit-entry&table=exams&id={$item->id}">
+            <a class="button edit-item-button" href="?page=edit-entry&table=exams&id={$item->id}">
                 Edit Item
             </a>
         {/if}

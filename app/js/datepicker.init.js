@@ -5,7 +5,7 @@ $(function () {
             vertical: 'bottom'
         },
         sideBySide: true,
-        format: 'DD/MM/YYYY, HH:mm'
+        format: 'MM/DD/YYYY, HH:mm'
     });
 });
 $(function () {
@@ -14,7 +14,7 @@ $(function () {
             horizontal: 'auto',
             vertical: 'bottom'
         },
-        format: 'DD/MM/YYYY'
+        format: 'MM/DD/YYYY'
     });
 });
 $(function () {

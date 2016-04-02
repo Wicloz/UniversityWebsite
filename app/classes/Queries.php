@@ -1,6 +1,6 @@
 <?php
 class Queries {
-    static function subjects ($inactive = false) {
+    public static function subjects ($inactive = false) {
         $activeSearch = array();
         if (!$inactive) {
             $activeSearch = array("AND", "active", "=", "1");
@@ -11,7 +11,7 @@ class Queries {
     	return array_merge($results1, $results2, $results3);
     }
 
-    static function assignment ($id) {
+    public static function assignment ($id) {
         return DB::instance()->query("
             SELECT A.*, S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `assignments` A
@@ -21,7 +21,7 @@ class Queries {
         ", array($id))->first();
     }
 
-    static function exam ($id) {
+    public static function exam ($id) {
         return DB::instance()->query("
             SELECT E.*, S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `exams` E
@@ -31,7 +31,7 @@ class Queries {
         ", array($id))->first();
     }
 
-    static function assignmentsForSubject ($subject) {
+    public static function assignmentsForSubject ($subject) {
         return DB::instance()->query("
             SELECT A.*, S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `assignments` A
@@ -42,7 +42,7 @@ class Queries {
         ", array($subject))->results();
     }
 
-    static function examsForSubject ($subject) {
+    public static function examsForSubject ($subject) {
         return DB::instance()->query("
             SELECT E.*, S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `exams` E
@@ -53,12 +53,68 @@ class Queries {
         ", array($subject))->results();
     }
 
-    static function article ($name) {
+    public static function article ($name) {
         $data = DB::instance()->get("articles", array("", "name", "=", $name));
         if ($data->count()) {
             return $data->first()->content;
         }
         return '<p class="message-error">Article with name \''.$name.'\' not found.</p>';
+    }
+
+    public static function editableEntry ($table, $id) {
+        $infoData = DB::tableFormInfo($table);
+        if ($infoData->error()) {
+            Redirect::error(404);
+        }
+        $info = $infoData->results();
+        if ($id !== 'create') {
+            $entry = (array) DB::instance()->get($table, array("", "id", "=", $id))->first();
+            if (empty($entry)) {
+                Redirect::error(404);
+            }
+        }
+
+        foreach ($info as $column) {
+            $column->value = ($id !== 'create') ? $entry[$column->COLUMN_NAME] : '';
+            $column->attributes = '';
+            switch ($column->DATA_TYPE) {
+                case 'text':
+                    $column->type = 'textarea';
+                break;
+                case 'varchar':
+                    $column->type = 'text';
+                break;
+
+                case 'date':
+                    $column->type = 'date';
+                break;
+                case 'time':
+                    $column->type = 'time';
+                break;
+                case 'datetime':
+                    $column->type = 'datetime';
+                break;
+
+                case 'tinyint':
+                    $column->type = 'checkbox';
+                    $column->checked = $column->value;
+                    $column->value = '1';
+                break;
+
+                case 'int':
+                    $column->type = 'number';
+                case 'float':
+                    $column->type = 'number';
+                    $column->attributes .= 'step="0.1"';
+                break;
+
+                default:
+                    $column->type = 'text';
+                break;
+            }
+        }
+
+        return $info;
     }
 
     public static function parseAssignment ($object) {

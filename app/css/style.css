@@ -405,3 +405,12 @@ body {
 .navbar-toggle .icon-bar {
     background-color: #b6bdd6;
 }
+
+/*form styling*/
+.form-row > input {
+    max-width: 100%;
+}
+
+.form-row > textarea {
+    width: 100%;
+}

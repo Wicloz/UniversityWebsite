@@ -86,7 +86,7 @@ class Update {
             switch (Input::get('table')) {
                 case 'assignments':
                     if (Users::isEditor()) {
-                        $id = DB::instance()->autoIncrementValue('assignments');
+                        $id = DB::autoIncrementValue('assignments');
                         DB::instance()->insert("assignments", array(
                             'start_date' => DateFormat::sqlDate(),
                             'end_date' => DateFormat::sql(Input::get('date').', '.Input::get('time')),
@@ -103,7 +103,7 @@ class Update {
                 break;
                 case 'exams':
                     if (Users::isEditor()) {
-                        $id = DB::instance()->autoIncrementValue('exams');
+                        $id = DB::autoIncrementValue('exams');
                         DB::instance()->insert("exams", array(
                             'date' => DateFormat::sqlDate(Input::get('date')),
                             'weight' => Input::get('weight'),
@@ -134,7 +134,7 @@ class Update {
                 case 'events':
                     if (Users::isEditor()) {
                         if (strpos(Input::get('task'), 'Toets') === 0 || strpos(Input::get('task'), 'Tentamen') === 0) {
-                            $id = DB::instance()->autoIncrementValue('exams');
+                            $id = DB::autoIncrementValue('exams');
                             DB::instance()->insert("exams", array(
                                 'date' => DateFormat::sqlDate(Input::get('date')),
                                 'weight' => substr(Input::get('task'), 0, strpos(Input::get('task'), ' ')),
@@ -144,7 +144,7 @@ class Update {
                             Redirect::to("?page=exams_item&id={$id}");
                         }
                         else {
-                            $id = DB::instance()->autoIncrementValue('assignments');
+                            $id = DB::autoIncrementValue('assignments');
                             DB::instance()->insert("assignments", array(
                                 'start_date' => DateFormat::sqlDate(),
                                 'end_date' => DateFormat::sql(Input::get('date')),
@@ -163,6 +163,125 @@ class Update {
 
         else {
             Session::addErrorArray($validation->getErrors());
+        }
+    }
+
+    public static function adminInsertItem () {
+        if (Users::isAdmin()) {
+            $validation = new Validate();
+            $validation->check($_POST, array(
+                'action' => array(
+                    'name' => 'Action',
+                    'required' => true,
+                    'wildcard' => 'admin_item_insert'
+                ),
+                'table' => array(
+                    'name' => 'Table Name',
+                    'required' => true
+                ),
+                'id' => array(
+                    'name' => 'Entry ID',
+                    'required' => true,
+                    'wildcard' => 'create'
+                )
+            ));
+
+            if ($validation->passed()) {
+                $data = array();
+                foreach ($_POST as $key => $value) {
+                    if (!empty($value) && $key !== 'token' && $key !== 'action' && $key !== 'table' && $key !== 'id') {
+                        $data[$key] = $value;
+                    }
+                }
+                $id = DB::autoIncrementValue(Input::get('table'));
+                DB::instance()->insert(Input::get('table'), $data);
+                Session::addSuccess('Entry inserted!');
+                Redirect::to('?page=edit-entry&table='.Input::get('table').'&id='.$id);
+            }
+
+            else {
+                Session::addErrorArray($validation->getErrors());
+            }
+        }
+
+        else {
+            Redirect::error(403);
+        }
+    }
+
+    public static function adminUpdateItem () {
+        if (Users::isAdmin()) {
+            $validation = new Validate();
+            $validation->check($_POST, array(
+                'action' => array(
+                    'name' => 'Action',
+                    'required' => true,
+                    'wildcard' => 'admin_item_update'
+                ),
+                'table' => array(
+                    'name' => 'Table Name',
+                    'required' => true
+                ),
+                'id' => array(
+                    'name' => 'Entry ID',
+                    'required' => true
+                )
+            ));
+
+            if ($validation->passed()) {
+                $data = array();
+                foreach ($_POST as $key => $value) {
+                    if (!empty($value) && $key !== 'token' && $key !== 'action' && $key !== 'table' && $key !== 'id') {
+                        $data[$key] = $value;
+                    }
+                }
+                DB::instance()->update(Input::get('table'), Input::get('id'), $data);
+                Session::addSuccess('Entry updated!');
+                Redirect::to('');
+            }
+
+            else {
+                Session::addErrorArray($validation->getErrors());
+            }
+        }
+
+        else {
+            Redirect::error(403);
+        }
+    }
+
+    public static function adminDeleteItem () {
+        if (Users::isAdmin()) {
+            $validation = new Validate();
+            $validation->check($_POST, array(
+                'action' => array(
+                    'name' => 'Action',
+                    'required' => true,
+                    'wildcard' => 'admin_item_delete'
+                ),
+                'table' => array(
+                    'name' => 'Table Name',
+                    'required' => true
+                ),
+                'id' => array(
+                    'name' => 'Entry ID',
+                    'required' => true
+                )
+            ));
+
+            if ($validation->passed()) {
+                DB::instance()->delete(Input::get('table'), array("", "id", "=", Input::get('id')));
+                Session::addSuccess('Entry deleted!');
+                Redirect::to('?page=home');
+            }
+
+            else {
+                Session::addErrorArray($validation->getErrors());
+            }
+        }
+
+        else {
+            Redirect::error(403);
         }
     }
 }

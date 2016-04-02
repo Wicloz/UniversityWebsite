@@ -26,7 +26,7 @@ class DB {
 
     public function error () {
         if ($this->_error) {
-            $this->_error = implode(', ', $this->_error);
+            return implode(', ', $this->_error);
         }
         return $this->_error;
     }
@@ -190,13 +190,13 @@ class DB {
         die("No query was excecuted!");
     }
 
-    public function autoIncrementValue ($table) {
-    	$this->query("SHOW TABLE STATUS LIKE ?", array($this->_mysql->escape_string($table)));
-        return $this->first()->Auto_increment;
+    public static function autoIncrementValue ($table) {
+    	DB::instance()->query("SHOW TABLE STATUS LIKE ?", array($table));
+        return DB::instance()->first()->Auto_increment;
     }
 
-    public function tableFormInfo ($table) {
-    	return $this->query("SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA=? AND TABLE_NAME=?", array(Config::get('mysql/db'), $this->_mysql->escape_string($table)));
+    public static function tableFormInfo ($table) {
+    	return DB::instance()->query("SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ?", array(Config::get('mysql/db'), $table));
     }
 }
 ?>

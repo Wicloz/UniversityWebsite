@@ -135,17 +135,5 @@ function customErrorHandler($errno, $errstr, $errfile, $errline)
 require_once 'app/functions/sanitize.php';
 require_once 'app/functions/misc.php';
 require_once 'app/functions/navigation.php';
-
 Users::init();
-if (Cookie::exists(Config::get('remember/cookie_name')) && !Users::loggedIn()) {
-    $cookieHash = Cookie::get(Config::get('remember/cookie_name'));
-    $hashCheck = DB::instance()->get("user_sessions", array("", "hash", "=", $cookieHash));
-    if ($hashCheck->count()) {
-        $user = new User($hashCheck->first()->user_id);
-        Users::forceLogin($user, true);
-    }
-}
-if (Users::loggedIn()) {
-    Users::currentUser()->update(array('last_online' => DateFormat::sql()));
-}
 ?>

@@ -4,6 +4,18 @@ class Users {
 
     public static function init () {
         self::$_currentUser = new User();
+        DB::instance()->delete("user_sessions", array("", "expiry", "<", DateFormat::sql()));
+        if (Cookie::exists(Config::get('remember/cookie_name')) && !Users::loggedIn()) {
+            $cookieHash = Cookie::get(Config::get('remember/cookie_name'));
+            $hashCheck = DB::instance()->get("user_sessions", array("", "hash", "=", $cookieHash));
+            if ($hashCheck->count()) {
+                $user = new User($hashCheck->first()->user_id);
+                self::forceLogin($user, true);
+            }
+        }
+        if (self::loggedIn()) {
+            self::currentUser()->update(array('last_online' => DateFormat::sql()));
+        }
     }
 
     public static function loggedIn () {
@@ -28,14 +40,15 @@ class Users {
 
     public static function forceLogin ($user = null, $remember = false) {
         if ($user->exists()) {
-            DB::instance()->delete("user_sessions", array("", "user_id", "=", $user->id()));
+            DB::instance()->delete("user_sessions", array("", "hash", "=", Cookie::get(Config::get('remember/cookie_name'))));
             Session::put(Config::get('session/loggedId'), $user->id());
 
             if ($remember) {
                 $hash = Hash::hashUnique();
                 DB::instance()->insert("user_sessions", array(
                     'user_id' => $user->id(),
-                    'hash' => $hash
+                    'hash' => $hash,
+                    'expiry' => DateFormat::sql(time() + Config::get('remember/cookie_expiry'))
                 ));
                 Cookie::put(Config::get('remember/cookie_name'), $hash, Config::get('remember/cookie_expiry'));
             }
@@ -56,7 +69,7 @@ class Users {
     }
 
     public static function logout () {
-        DB::instance()->delete("user_sessions", array("", "user_id", "=", Session::get(Config::get('session/loggedId'))));
+        DB::instance()->delete("user_sessions", array("", "hash", "=", Cookie::get(Config::get('remember/cookie_name'))));
         Cookie::delete(Config::get('remember/cookie_name'));
         Session::delete(Config::get('session/loggedId'));
         self::$_currentUser = new User();

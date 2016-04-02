@@ -3,7 +3,7 @@ class DateFormat {
     public static function sql ($timestamp = null) {
         if (!$timestamp) {
             $timestamp = time();
-        } else {
+        } elseif (!is_numeric($timestamp)) {
             $timestamp = strtotime($timestamp);
         }
         return date('Y-m-d H:i:s', $timestamp);
@@ -12,7 +12,7 @@ class DateFormat {
     public static function sqlDate ($timestamp = null) {
         if (!$timestamp) {
             $timestamp = time();
-        } else {
+        } elseif (!is_numeric($timestamp)) {
             $timestamp = strtotime($timestamp);
         }
         return date('Y-m-d', $timestamp);
@@ -21,7 +21,7 @@ class DateFormat {
     public static function sqlTime ($timestamp = null) {
         if (!$timestamp) {
             $timestamp = time();
-        } else {
+        } elseif (!is_numeric($timestamp)) {
             $timestamp = strtotime($timestamp);
         }
         return date('H:i:s', $timestamp);
@@ -30,7 +30,7 @@ class DateFormat {
     public static function timeDefault ($timestamp = null) {
         if (!$timestamp) {
             $timestamp = time();
-        } else {
+        } elseif (!is_numeric($timestamp)) {
             $timestamp = strtotime($timestamp);
         }
     	return date('H:i', $timestamp);
@@ -39,7 +39,7 @@ class DateFormat {
     public static function timeDuration ($timestamp = null) {
         if (!$timestamp) {
             $timestamp = time();
-        } else {
+        } elseif (!is_numeric($timestamp)) {
             $timestamp = strtotime($timestamp);
         }
     	$minutes = date('i', $timestamp);
@@ -52,7 +52,7 @@ class DateFormat {
     public static function dateDefault ($timestamp = null) {
         if (!$timestamp) {
             $timestamp = time();
-        } else {
+        } elseif (!is_numeric($timestamp)) {
             $timestamp = strtotime($timestamp);
         }
     	return date('d-m-Y', $timestamp);
@@ -61,7 +61,7 @@ class DateFormat {
     public static function dateTable ($timestamp = null) {
         if (!$timestamp) {
             $timestamp = time();
-        } else {
+        } elseif (!is_numeric($timestamp)) {
             $timestamp = strtotime($timestamp);
         }
     	return date('d-m-Y', $timestamp);
@@ -70,7 +70,7 @@ class DateFormat {
     public static function dateList ($timestamp = null) {
         if (!$timestamp) {
             $timestamp = time();
-        } else {
+        } elseif (!is_numeric($timestamp)) {
             $timestamp = strtotime($timestamp);
         }
     	return date('d F Y', $timestamp);
@@ -79,7 +79,7 @@ class DateFormat {
     public static function dateItem ($timestamp = null) {
         if (!$timestamp) {
             $timestamp = time();
-        } else {
+        } elseif (!is_numeric($timestamp)) {
             $timestamp = strtotime($timestamp);
         }
     	return date('d F Y', $timestamp);
@@ -88,7 +88,7 @@ class DateFormat {
     public static function dateTimeTable ($timestamp = null) {
         if (!$timestamp) {
             $timestamp = time();
-        } else {
+        } elseif (!is_numeric($timestamp)) {
             $timestamp = strtotime($timestamp);
         }
         return date('d-m-Y, H:i', $timestamp);
@@ -97,7 +97,7 @@ class DateFormat {
     public static function dateTimeItem ($timestamp = null) {
         if (!$timestamp) {
             $timestamp = time();
-        } else {
+        } elseif (!is_numeric($timestamp)) {
             $timestamp = strtotime($timestamp);
         }
         return date('d F Y, H:i', $timestamp);

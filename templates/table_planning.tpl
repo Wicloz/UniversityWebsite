@@ -59,9 +59,9 @@
                 <input type="hidden" name="parent_id" value="{$table_parentI}">
                 <input type="hidden" name="token" value="{$token|default:""}">
                 <td>
-                    <input type="date" name="date_start" id="date_start" value="" class="date">
+                    <input type="date" name="date_start" id="date_start" placeholder="yyyy-mm-dd" value="" class="date">
                     -
-                    <input type="date" name="date_end" id="date_end" value="" class="date">
+                    <input type="date" name="date_end" id="date_end" placeholder="yyyy-mm-dd" value="" class="date">
                 </td>
                 {if empty($subject) && empty($item)}
                     <td>

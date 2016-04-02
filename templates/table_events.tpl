@@ -81,7 +81,7 @@
                 <input type="hidden" name="table" value="events">
                 <input type="hidden" name="token" value="{$token|default:""}">
                 <td>
-                    <input type="datetime" name="date" id="date" value="" class="datetime">
+                    <input type="datetime" name="date" id="date" placeholder="yyyy-mm-dd, hh:mm" value="" class="datetime">
                 </td>
                 {if empty($subject) && empty($item)}
                     <td>

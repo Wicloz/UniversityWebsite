@@ -42,7 +42,7 @@
                 <input type="hidden" name="table" value="exams">
                 <input type="hidden" name="token" value="{$token|default:""}">
                 <td>
-                    <input type="date" name="date" id="date" value="" class="date">
+                    <input type="date" name="date" id="date" placeholder="yyyy-mm-dd" value="" class="date">
                 </td>
                 <td>
                     <input type="text" name="weight" id="weight" value="" list="weights" autocomplete="off" >

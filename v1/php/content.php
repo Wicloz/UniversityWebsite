@@ -85,7 +85,7 @@ function buildFancyTable ($headers, $content, $class) {
 function getSubjectOverview () {
     $ret = '';
 	$subjects = getSubjects();
-	
+
 	while ($row = $subjects->fetch_object()) {
 		if ($row->active) {
 			$assignments = getAllEntriesSorted('assignments', 'end_date');
@@ -93,10 +93,10 @@ function getSubjectOverview () {
 			$hr = '</li><hr style="margin:0px;border-color:#06123B;margin-right:40%;">';
 			$listA = '';
 			$listE = '';
-			
+
 			$ret .= '<div class="paragraph-center col-sm-12" id="subject_'.$row->abbreviation.'">';
 			$ret .= '<h2><a href="index.php?page=subjects&subject='.$row->abbreviation.'">'.$row->name.'</a></h2>';
-			
+
 			while ($assignment = $assignments->fetch_object()) {
 				if ($assignment->subject == $row->name) {
 					$listA .= '<li>';
@@ -120,7 +120,7 @@ function getSubjectOverview () {
 					}
 				}
 			}
-			
+
 			if ($listA) {
 				$ret .= '<h3 style="text-align:left;">Assignments</h3><ul>';
 				if (strpos($listA, $hr) === false) {
@@ -137,11 +137,11 @@ function getSubjectOverview () {
 				$ret .= $listE;
 				$ret .= '</ul>';
 			}
-			
+
 			$ret .= '</div>';
 		}
 	}
-	
+
 	return $ret;
 }
 
@@ -149,7 +149,7 @@ function getTableAssignments () {
 	$headers = array('Deadline', 'Subject', 'Task', 'Team', 'Links', 'Status');
 	$content = '';
 	$table = getAllEntriesSorted('assignments', 'end_date');
-	
+
 	while ($row = $table->fetch_object()) {
         $data = getEntryWithTest('subjects', 'name', $row->subject)->fetch_object();
         if ($data->active || !$row->completion) {
@@ -159,14 +159,14 @@ function getTableAssignments () {
                 $s1 = '<s>';
                 $s2 = '</s>';
             }
-            
+
             $content .= '<tr>';
-            
+
             $content .= '<td>'.$s1.dateTable($row->end_date).', '.timeFancy($row->end_time).$s2.'</td>';
-            $content .= '<td>'.$s1.$row->subject.$s2.'</td>'; 
+            $content .= '<td>'.$s1.$row->subject.$s2.'</td>';
             $content .= '<td>'.$s1.'<a href="index.php?page=assignments_item&id='.$row->id.'">'.$row->desc_short.'</a>'.$s2.'</td>';
             $content .= '<td>'.$s1.$row->team.$s2.'</td>';
-            
+
             $content .= '<td>'.$s1;
             if (!empty($row->link_assignment)) {
                 $content .= '<a target="_blank" href="'.$row->link_assignment.'">Assignment</a>';
@@ -178,13 +178,13 @@ function getTableAssignments () {
                 $content .= '<a target="_blank" href="'.$row->link_repository.'">Repository</a>';
             }
             $content .= $s2.'</td>';
-            
+
             $content .= '<td>'.$s1.assignmentCompletionString($row).$s2.'</td>';
-            
+
             $content .= '</tr>';
         }
 	}
-			
+
 	$ret = buildFancyTable($headers, $content, '');
 	$ret .= '<p><a class="button" href="index.php?page=list-entries&table=assignments">Edit Table</a></p>';
 	return $ret;
@@ -194,7 +194,7 @@ function getTableExams () {
 	$headers = array('Date', 'Weight', 'Subject', 'Mark');
 	$content = '';
 	$table = getAllEntriesSorted('tentamens', 'date');
-			
+
 	while ($row = $table->fetch_object()) {
         $data = getEntryWithTest('subjects', 'name', $row->subject)->fetch_object();
         if ($data->active || $row->date >= date('Y-m-d')) {
@@ -204,9 +204,9 @@ function getTableExams () {
                 $s1 = '<s>';
                 $s2 = '</s>';
             }
-            
+
             $content .= '<tr>';
-            
+
             $content .= '<td>'.$s1.dateTable($row->date).$s2.'</td>';
             $content .= '<td>'.$s1.'<a href="index.php?page=exams_item&id='.$row->id.'">'.$row->weight.'</a>'.$s2.'</td>';
             $content .= '<td>'.$s1.$row->subject.$s2.'</td>';
@@ -216,11 +216,11 @@ function getTableExams () {
             else {
                 $content .= '<td>'.$s1.examMarkString($row).$s2.'</td>';
             }
-            
+
             $content .= '</tr>';
         }
 	}
-			
+
 	$ret = buildFancyTable($headers, $content, 'table-thinner');
 	$ret .= '<p><a class="button table-thinner" href="index.php?page=list-entries&table=tentamens">Edit Table</a></p>';
 	return $ret;
@@ -229,7 +229,7 @@ function getTableExams () {
 function getTableEvents ($subject, $all, $clean) {
 	$headers = array('Date', 'Subject', 'Task', 'Status');
 	$content = '';
-	
+
 	if ($all) {
 		$assignments = getAllEntriesSorted('assignments', 'end_date');
 		$exams = getAllEntriesSorted('tentamens', 'date');
@@ -237,7 +237,7 @@ function getTableEvents ($subject, $all, $clean) {
 		$assignments = getEntriesWithTestSorted('assignments', 'subject', $subject, 'end_date');
 		$exams = getEntriesWithTestSorted('tentamens', 'subject', $subject, 'date');
 	}
-	
+
 	$todayAdded = false;
 	$doneT = false;
 	$doneA = false;
@@ -247,11 +247,11 @@ function getTableEvents ($subject, $all, $clean) {
 	if (!$assignments || !($rowA = $assignments->fetch_object())) {
         $doneA = true;
     }
-	
+
 	while (!$doneT || !$doneA) {
 	    if (!$doneA && ($doneT || $rowA->end_date < $rowT->date)) {
             $data = getEntryWithTest('subjects', 'name', $rowA->subject)->fetch_object();
-            
+
             if (!empty($subject) || $data->active || !$rowA->completion) {
                 $s1 = '';
                 $s2 = '';
@@ -259,7 +259,7 @@ function getTableEvents ($subject, $all, $clean) {
                     $s1 = '<s>';
                     $s2 = '</s>';
                 }
-                
+
                 if (!$todayAdded && $rowA->end_date >= date('Y-m-d')) {
                     $content .= '<tr>';
                     $content .= '<td><b>'.dateTable(date('Y-m-d')).'</b></td>';
@@ -269,7 +269,7 @@ function getTableEvents ($subject, $all, $clean) {
                     $content .= '</tr>';
                     $todayAdded = true;
                 }
-                
+
                 if (!$clean || !$rowA->completion) {
                     $content .= '<tr>';
                     $content .= '<td>'.$s1.dateTable($rowA->end_date).$s2.'</td>';
@@ -279,14 +279,14 @@ function getTableEvents ($subject, $all, $clean) {
                     $content .= '</tr>';
                 }
 		    }
-            
+
 		    if (!($rowA = $assignments->fetch_object())) {
 		        $doneA = true;
 		    }
 	    }
 	    else if (!$doneT) {
             $data = getEntryWithTest('subjects', 'name', $rowT->subject)->fetch_object();
-            
+
             if (!empty($subject) || $data->active || $rowT->date >= date('Y-m-d')) {
                 $s1 = '';
                 $s2 = '';
@@ -294,7 +294,7 @@ function getTableEvents ($subject, $all, $clean) {
                     $s1 = '<s>';
                     $s2 = '</s>';
                 }
-                
+
                 if (!$todayAdded && $rowT->date >= date('Y-m-d')) {
                     $content .= '<tr>';
                     $content .= '<td><b>'.dateTable(date('Y-m-d')).'</b></td>';
@@ -304,7 +304,7 @@ function getTableEvents ($subject, $all, $clean) {
                     $content .= '</tr>';
                     $todayAdded = true;
                 }
-                
+
                 if (!$clean || date('Y-m-d') <= $rowT->date) {
                     $content .= '<tr>';
                     $content .= '<td>'.$s1.dateTable($rowT->date).$s2.'</td>';
@@ -314,13 +314,13 @@ function getTableEvents ($subject, $all, $clean) {
                     $content .= '</tr>';
                 }
             }
-	        
+
 	        if (!($rowT = $exams->fetch_object())) {
                 $doneT = true;
 	        }
 	    }
 	}
-	
+
 	if (!$todayAdded) {
 		$content .= '<tr>';
 		$content .= '<td><b>'.dateTable(date('Y-m-d')).'</b></td>';
@@ -330,14 +330,14 @@ function getTableEvents ($subject, $all, $clean) {
 		$content .= '</tr>';
 		$todayAdded = true;
 	}
-	
+
 	$content .= '<tr><form action="#events" method="POST"><input type="hidden" name="action" value="insert_event">';
 	$content .= '<td><input type="date" name="date" style="width:100%"></td>';
 	$content .= '<td><input type="text" name="subject" style="width:100%" value="'.$subject.'"></td>';
 	$content .= '<td><input type="text" name="task" style="width:100%"></td>';
 	$content .= '<td><input class="button submit-button table-button" type="submit" value="Add"></td>';
 	$content .= '</form></tr>';
-	
+
 	if (!empty($content)) {
 		return buildFancyTable($headers, $content, '');
 	} else {
@@ -351,25 +351,25 @@ function getTableToday () {
 	$assignmentsPre = getAllEntriesSorted('assignments', 'end_date');
 	$exams = getEntriesWithTestSorted('tentamens', 'date', date('Y-m-d'), 'subject');
 	$planningPre = getAllEntriesSorted('planning', 'date_start');
-	
+
 	$assignments = array();
 	while ($assignmentsPre && $row = $assignmentsPre->fetch_object()) {
 		if (date('Y-m-d') == $row->end_date || (!$row->completion && $row->end_date < date('Y-m-d'))) {
 			$assignments[] = $row;
 		}
 	}
-	
+
 	$planning = array();
 	while ($planningPre && $row = $planningPre->fetch_object()) {
 		if ((date('Y-m-d') >= $row->date_start && date('Y-m-d') <= $row->date_end) || (!$row->done && $row->date_end < date('Y-m-d'))) {
 			$planning[] = $row;
 		}
 	}
-	
+
 	if (!$assignments && !$exams && empty($planning)) {
 		return '<p class="message-info">Nothing to do today.</p>';
 	}
-	
+
 	foreach ($assignments as $row) {
 		$s1 = '';
 		$s2 = '';
@@ -377,24 +377,24 @@ function getTableToday () {
 			$s1 = '<s>';
 			$s2 = '</s>';
 		}
-		
+
 		$content .= '<tr>';
-		
-		$content .= '<td>'.$s1.$row->subject.$s2.'</td>'; 
+
+		$content .= '<td>'.$s1.$row->subject.$s2.'</td>';
 		$content .= '<td>'.$s1.'Assignment Deadline'.$s2.'</td>';
 		$content .= '<td>'.$s1.'<a href="index.php?page=assignments_item&id='.$row->id.'">'.$row->desc_short.'</a>'.$s2.'</td>';
 		$content .= '<td>'.$s1.assignmentCompletionString($row).$s2.'</td>';
-		
+
 		if ($row->completion) {
 			$button = 'Uncomplete';
 		} else {
 			$button = 'Complete';
 		}
 		$content .= '<td><form action="" method="POST"><input type="hidden" name="action" value="switch_event"><input type="hidden" name="table" value="assignments"><input type="hidden" name="id" value="'.$row->id.'"><input class="button submit-button table-button" type="submit" value="'.$button.'"></form></td>';
-		
+
 		$content .= '</tr>';
 	}
-	
+
 	while ($exams && $row = $exams->fetch_object()) {
 		$s1 = '';
 		$s2 = '';
@@ -402,18 +402,18 @@ function getTableToday () {
 			$s1 = '<s>';
 			$s2 = '</s>';
 		}
-		
+
 		$content .= '<tr>';
-		
+
 		$content .= '<td>'.$s1.$row->subject.$s2.'</td>';
 		$content .= '<td>'.$s1.'Examination'.$s2.'</td>';
 		$content .= '<td>'.$s1.'<a href="index.php?page=exams_item&id='.$row->id.'">'.$row->weight.' '.$row->subject.'</a>'.$s2.'</td>';
 		$content .= '<td>'.$s1.examCompletionString($row, false).$s2.'</td>';
 		$content .= '<td><a class="button table-button" href="index.php?page=edit-entry&table=tentamens&id='.$row->id.'">Edit</a></td>';
-		
+
 		$content .= '</tr>';
 	}
-	
+
 	foreach ($planning as $row) {
 		$s1 = '';
 		$s2 = '';
@@ -421,24 +421,24 @@ function getTableToday () {
 			$s1 = '<s>';
 			$s2 = '</s>';
 		}
-		
+
 		$content .= '<tr>';
-		
+
 		$content .= '<td>'.$s1.$row->subject.$s2.'</td>';
 		$content .= '<td>'.$s1.'Planning'.$s2.'</td>';
 		$content .= '<td>'.$s1.$row->goal.$s2.'</td>';
 		$content .= '<td>'.$s1.planningCompletionString($row).$s2.'</td>';
-		
+
 		if ($row->done) {
 			$button = 'Uncomplete';
 		} else {
 			$button = 'Complete';
 		}
 		$content .= '<td><form action="" method="POST"><input type="hidden" name="action" value="switch_event"><input type="hidden" name="table" value="planning"><input type="hidden" name="id" value="'.$row->id.'"><input class="button submit-button table-button" type="submit" value="'.$button.'"></form></td>';
-		
+
 		$content .= '</tr>';
 	}
-			
+
 	return buildFancyTable($headers, $content, '');
 }
 
@@ -455,13 +455,13 @@ function getTablePlanning ($table, $id, $subject, $all, $clean) {
 		$headers = array('Date', 'Subject', 'Estimated Duration', 'Goal', 'Status', 'Edit');
 	} else {
 		$entries = getEntriesWithDoubleTestSorted('planning', 'parent_table', $table, 'parent_id', $id, 'date_start');
-		$headers = array('Date', 'Estimated Duration', 'Goal', 'Status', 'Edit');		
+		$headers = array('Date', 'Estimated Duration', 'Goal', 'Status', 'Edit');
 	}
-	
+
 	if ($entries) {
 		while ($row = $entries->fetch_object()) {
             $data = getEntryWithTest('subjects', 'name', $row->subject)->fetch_object();
-            
+
             if (!$row->done || $id >= 0 || $data->active) {
                 $s1 = '';
                 $s2 = '';
@@ -469,42 +469,42 @@ function getTablePlanning ($table, $id, $subject, $all, $clean) {
                     $s1 = '<s>';
                     $s2 = '</s>';
                 }
-                
+
                 if (!$clean || !$row->done) {
                     $content .= '<tr>';
-                    
+
                     if ($row->date_start == $row->date_end) {
-                        $content .= '<td>'.$s1.dateTable($row->date_start).$s2.'</td>';	
+                        $content .= '<td>'.$s1.dateTable($row->date_start).$s2.'</td>';
                     } else {
-                        $content .= '<td>'.$s1.dateTable($row->date_start).' - '.dateTable($row->date_end).$s2.'</td>';	
+                        $content .= '<td>'.$s1.dateTable($row->date_start).' - '.dateTable($row->date_end).$s2.'</td>';
                     }
-                    
+
                     if ($all || $id == -1) {
                         $content .= '<td>'.$s1.$row->subject.$s2.'</td>';
                     }
-                    
+
                     if ($row->duration == '00:00:00') {
                         $content .= '<td>'.$s1.'Undefined'.$s2.'</td>';
                     } else {
                         $content .= '<td>'.$s1.timeDuration($row->duration).$s2.'</td>';
                     }
-                    
+
                     $content .= '<td>'.$s1.$row->goal.$s2.'</td>';
                     $content .= '<td>'.$s1.planningCompletionString($row).$s2.'</td>';
-                    
+
                     if ($row->done) {
                         $button = 'Uncomplete';
                     } else {
                         $button = 'Complete';
                     }
                     $content .= '<td><form action="" method="POST"><input type="hidden" name="action" value="switch_event"><input type="hidden" name="table" value="planning"><input type="hidden" name="id" value="'.$row->id.'"><input class="button submit-button table-button" type="submit" value="'.$button.'"></form></td>';
-                    
+
                     $content .= '</tr>';
                 }
             }
         }
 	}
-	
+
 	if (!empty($table) && $id >= 0) {
 		$content .= '<tr>';
 		$content .= '<td><form action="" method="POST"><input type="hidden" name="action" value="insert_planning"><input type="hidden" name="parent_table" value="'.$table.'"><input type="hidden" name="parent_id" value="'.$id.'">';
@@ -518,7 +518,7 @@ function getTablePlanning ($table, $id, $subject, $all, $clean) {
 		$content .= '<td><input class="button submit-button table-button" type="submit" value="Add"></form></td>';
 		$content .= '</tr>';
 	}
-	
+
 	if (!empty($content)) {
 		$ret = buildFancyTable($headers, $content, '');
 		$ret .= '<p><a class="button" href="index.php?page=list-entries&table=planning">Edit Table</a></p>';
@@ -534,21 +534,21 @@ function getItemAssignment ($id) {
 	if ($currentEntryTable = getEntryWithId('assignments', $id)) {
 		$row = $currentEntryTable->fetch_object();
         $subject = getEntryWithTest('subjects', 'name', $row->subject)->fetch_object();
-		
+
 		$item = '<h2>'.$row->desc_short.'</h2>';
 		$item .= '<p>'.$row->desc_full.'</p>';
-		
+
 		$item .= '<p><i>Subject: <a href="index.php?page=subjects&subject='.$subject->abbreviation.'">'.$row->subject.'</a>'
 			  .'<br>Date Assigned: '.dateItem($row->start_date)
 			  .'<br>Deadline: '.dateItem($row->end_date).', '.timeFancy($row->end_time);
-			   
+
 		if (!empty($row->team)) {
 			$item .= '<br>Team: '.$row->team;
 		}
-		
+
 		$item .= '<br>Status: ';
 		$item .= assignmentCompletionString($row).'</i></p>';
-		
+
 		if (!empty($row->link_assignment) || !empty($row->link_repository) || !empty($row->link_report)) {
 			$item .= '<p><b>Links:</b><br>';
 			if (!empty($row->link_assignment)) {
@@ -562,9 +562,9 @@ function getItemAssignment ($id) {
 			}
 			$item .= '</p>';
 		}
-		
+
 		$item .= '<a class="button edit-item-button" href="index.php?page=edit-entry&table=assignments&id='.$id.'">Edit Item</a>';
-		
+
 		if (!empty($row->link_report)) {
 			$item .= '</div>';
 			$item .= '<div class="paragraph-center col-sm-12">';
@@ -573,7 +573,7 @@ function getItemAssignment ($id) {
 		}
 		return $item;
 	}
-	
+
 	else {
 		return '<p class="message-warning">Could not load item: entry does not exist.</p>';
 	}
@@ -583,24 +583,24 @@ function getItemExam ($id) {
 	if ($currentEntryTable = getEntryWithId('tentamens', $id)) {
 		$row = $currentEntryTable->fetch_object();
         $subject = getEntryWithTest('subjects', 'name', $row->subject)->fetch_object();
-		
+
 		$item = '<h2>'.$row->weight.' '.$row->subject.'</h2>';
 		$item .= '<p>'.$row->substance.'</p>';
-		
+
 		$item .= '<p><i>Subject: <a href="index.php?page=subjects&subject='.$subject->abbreviation.'">'.$row->subject.'</a>'
 			  .'<br>Exam Date: '.dateItem($row->date);
-		
+
 		$item .= '<br>Status: '.examCompletionString($row, true);
-		
+
 		if (!empty($row->link)) {
 			$item .= '<br>Link: <a target="_blank" href="'.$row->link.'">'.$row->link.'</a>';
 		}
-		
+
 		$item .= '</i></p>';
 		$item .= '<a class="button edit-item-button" href="index.php?page=edit-entry&table=tentamens&id='.$id.'">Edit Item</a>';
 		return $item;
 	}
-	
+
 	else {
 		return '<p class="message-warning">Could not load item: entry does not exist.</p>';
 	}
@@ -615,14 +615,14 @@ function getEditItemForm ($table, $id) {
 			return '<p class="message-warning">Could not load form: entry does not exist.</p>';
 		}
 	}
-	
+
 	if ($columnInfo = getTableFormInfo($table)) {
 		while ($row = $columnInfo->fetch_object()) {
 			if ($row->COLUMN_NAME != 'id') {
 				$type = 'text';
 				$value = '';
 				$arguments = '';
-				
+
 				switch ($row->DATA_TYPE) {
 					case 'tinyint':
 						$type = 'checkbox';
@@ -643,7 +643,7 @@ function getEditItemForm ($table, $id) {
 						//$type = 'number';
 					break;
 				}
-				
+
 				if ($id != 'create') {
 					if ($row->DATA_TYPE != 'tinyint') {
 						$value = $currentEntry[$row->COLUMN_NAME];
@@ -652,27 +652,27 @@ function getEditItemForm ($table, $id) {
 						$arguments .= 'checked="true"';
 					}
 				}
-				
+
 				if ($row->COLUMN_NAME == 'password') {
 					$type = 'password';
 					$arguments .= 'autocomplete="off"';
 					$value = 'password';
 				}
-				
+
 				if (!empty($row->CHARACTER_MAXIMUM_LENGTH) && $row->CHARACTER_MAXIMUM_LENGTH <= 100) {
 					$arguments .= 'size="'.$row->CHARACTER_MAXIMUM_LENGTH.'"';
 				}
-				
+
 				$form .= $row->COLUMN_NAME.':<br>';
 				$form .= '<input name="'.$row->COLUMN_NAME.'" type="'.$type.'" value="'.$value.'" '.$arguments.'><br>';
 			}
 		}
 	}
-	
+
 	else {
 		return err_501();
 	}
-	
+
 	if ($id == 'create') {
 		$form .= '<br><input type="submit" value="Insert">';
 		$form .= '<input name="action" value="insert" type="hidden">';
@@ -681,10 +681,10 @@ function getEditItemForm ($table, $id) {
 		$form .= '<input name="action" value="update" type="hidden">';
 		$form .= '<input name="action" value="delete" type="checkbox"> Delete';
 	}
-	
+
 	$form .= '<input name="table" value="'.$table.'" type="hidden"><input name="id" value="'.$id.'" type="hidden">';
 	$form .= '</form>';
-	
+
 	return $form;
 }
 
@@ -701,15 +701,15 @@ function getDataItemsList ($table) {
 			}
 		}
 	}
-	
+
 	else {
 		return err_501();
 	}
-	
+
 	if ($items = getAllEntries($table)) {
 		while ($row = $items->fetch_assoc()) {
 			$content .= '<tr>';
-						
+
 			foreach ($headers as $field) {
 				$content .= '<td>'.$row[$field].'</td>';
 			}
@@ -718,26 +718,26 @@ function getDataItemsList ($table) {
 			$content .= '</tr>';
 		}
 	}
-	
+
 	else {
 		return err_501();
 	}
-	
+
 	$headers[$i] = 'Edit';
 	$ret = buildFancyTable($headers, $content, '');
 	$ret .= '<p><a class="button" href="index.php?page=edit-entry&table='.$table.'&id=create">Add Item</a></p>';
-	
+
 	return $ret;
 }
 
 function getUploadFileForm () {
 	$form = '<form action="upload.php" method="POST" enctype="multipart/form-data">';
-	
+
 	$form .= '<input type="file" name="file"><br>';
 	$form .= 'Target file location:<br>';
 	$form .= '<input type="text" name="target"><br><br>';
 	$form .= '<input type="submit" value="Upload">';
-	
+
 	$form .= '<form>';
 	return $form;
 }

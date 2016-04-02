@@ -73,8 +73,8 @@
                 <input type="hidden" name="table" value="assignments">
                 <input type="hidden" name="token" value="{$token|default:""}">
                 <td>
-                    <input type="date" name="date" id="date" value="">,
-                    <input type="time" name="time" id="time" value="">
+                    <input type="date" name="date" id="date" value="" class="date">,
+                    <input type="time" name="time" id="time" value="" class="time">
                 </td>
                 <td>
                     <select name="subject" id="subject">

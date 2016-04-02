@@ -11,7 +11,7 @@ h1 > a, h1 > a:focus, h1 > a:hover, h2 > a, h2 > a:focus, h2 > a:hover {
 
 body {
 	background-color: #dfe3ee;
-	background-image: url("media/backgrounds/texture.png");
+	background-image: url("../../media/backgrounds/texture.png");
 	/*background-position: top;
 	background-repeat: no-repeat;
 	background-size: cover;*/
@@ -20,13 +20,13 @@ body {
 #header {
 	height: 80px;
 	background-color: #0c2577;
-	background-image: url("media/backgrounds/quantum-tunnel.jpg");
+	background-image: url("../../media/backgrounds/quantum-tunnel.jpg");
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
 }
 
-#header img {
+#header > a > img {
 	height: 80px;
 	float: left;
 }
@@ -53,7 +53,7 @@ body {
 	color: #000;
 	border: 0px dotted #000;
 	border-top-width: 1px;
-	background-image: url("media/backgrounds/swatch-grayblue.png");
+	background-image: url("../../media/backgrounds/swatch-grayblue.png");
 	margin-bottom: 0px;
 }
 
@@ -112,22 +112,22 @@ body {
 .message-info {
     color: #00529B;
     background-color: #BDE5F8;
-	background-image: url('media/icons/info.png');
+	background-image: url('../../media/icons/info.png');
 }
 .message-success {
     color: #4F8A10;
     background-color: #DFF2BF;
-	background-image:url('media/icons/success.png');
+	background-image:url('../../media/icons/success.png');
 }
 .message-warning {
     color: #9F6000;
     background-color: #FEEFB3;
-	background-image: url('media/icons/warning.png');
+	background-image: url('../../media/icons/warning.png');
 }
 .message-error {
     color: #D8000C;
     background-color: #FFBABA;
-	background-image: url('media/icons/error.png');
+	background-image: url('../../media/icons/error.png');
 }
 
 .button {
@@ -172,25 +172,25 @@ body {
 	margin-bottom: 10px;
 }
 
-.table-fancy tr {
+.table-fancy > tbody > tr {
     border-bottom: 1px solid #06123B;
 }
 
-.table-fancy td, .table-fancy th {
+.table-fancy > tbody > tr > td, .table-fancy > tbody > tr > th {
     padding: 6px;
 	border: 1px dotted #06123B;
 	overflow: hidden;
 }
 
-.table-fancy th {
+.table-fancy > tbody > tr > th {
 	border-bottom: 2px solid #06123B;
 }
 
-.table-fancy tr:nth-child(2n) {
+.table-fancy > tbody > tr:nth-child(2n) {
     background-color: #dfe3ee;
 }
 
-.table-fancy tr:nth-child(2n+1) {
+.table-fancy > tbody > tr:nth-child(2n+1) {
     background-color: #fff;
 }
 
@@ -404,4 +404,8 @@ body {
 
 .navbar-toggle .icon-bar {
     background-color: #b6bdd6;
+}
+
+.bootstrap-datetimepicker-widget.dropdown-menu.top {
+    margin-bottom: -330px;
 }

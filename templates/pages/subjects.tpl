@@ -9,7 +9,7 @@
             </a>
         </p>
     </div>
-    {if !empty($subject->link_home) || !empty($subject->link_schedule) || !empty($subject->link_powerpoints) || !empty($subject->link_assignments) || !empty($subject->link_marks)}
+    {if !empty($subject->link_home) || !empty($subject->link_schedule) || !empty($subject->link_powerpoints) || !empty($subject->link_assignments) || !empty($subject->link_marks) || !empty($subject->link_book)}
         <div class="paragraph-left col-sm-12">
             <h2>Links:</h2>
             <ul>
@@ -45,6 +45,13 @@
                     <li>
                         <a href="{$subject->link_marks}" target="_blank">
                             Marks
+                        </a>
+                    </li>
+                {/if}
+                {if !empty($subject->link_book)}
+                    <li>
+                        <a href="{$subject->link_book}" target="_blank">
+                            Book
                         </a>
                     </li>
                 {/if}

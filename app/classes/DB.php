@@ -75,12 +75,11 @@ class DB {
                 }
             }
 
-            $this->_query->execute();
-            if ($this->_query->errorInfo()[2]) {
-                $this->setError($this->_query->errorInfo());
-            } else {
+            if ($this->_query->execute()) {
                 $this->_results = $this->_query->fetchAll(PDO::FETCH_OBJ);
-                $this->_count = $this->_query->rowCount();
+                $this->_count = $this->_query->rowCount();    
+            } else {
+                $this->setError($this->_query->errorInfo());
             }
         }
 

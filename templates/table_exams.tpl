@@ -42,17 +42,17 @@
                 <input type="hidden" name="table" value="exams">
                 <input type="hidden" name="token" value="{$token|default:""}">
                 <td>
-                    <input type="date" name="date" id="date" placeholder="yyyy-mm-dd" value="" class="date">
+                    <input type="date" name="date" placeholder="yyyy-mm-dd" value="" class="date">
                 </td>
                 <td>
-                    <input type="text" name="weight" id="weight" value="" list="weights" autocomplete="off" >
+                    <input type="text" name="weight" value="" list="weights" autocomplete="off" >
                     <datalist id="weights">
                         <option value="Tentamen">
                         <option value="Toets">
                     </datalist>
                 </td>
                 <td>
-                    <select name="subject" id="subject">
+                    <select name="subject">
                         {foreach Queries::subjects() as $subject}
                             <option value="{$subject->abbreviation}" {if Input::get('subject') === $subject->abbreviation}selected{/if}>
                                 {$subject->name}

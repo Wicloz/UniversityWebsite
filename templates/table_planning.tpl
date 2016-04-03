@@ -50,37 +50,36 @@
             </td>
         </tr>
     {/foreach}
-    {if Users::isEditor() && !empty($table_parentT) && !empty($table_parentI)}
+    {if Users::isEditor()}
         <tr>
             <form action="" method="POST">
                 <input type="hidden" name="action" value="item_insert">
                 <input type="hidden" name="table" value="planning">
-                <input type="hidden" name="parent_table" value="{$table_parentT}">
-                <input type="hidden" name="parent_id" value="{$table_parentI}">
+                <input type="hidden" name="parent_table" value="{$table_parentT|default:"subjects"}">
                 <input type="hidden" name="token" value="{$token|default:""}">
                 <td>
-                    <input type="date" name="date_start" id="date_start" placeholder="yyyy-mm-dd" value="" class="date">
+                    <input type="date" name="date_start" placeholder="yyyy-mm-dd" value="" class="date">
                     -
-                    <input type="date" name="date_end" id="date_end" placeholder="yyyy-mm-dd" value="" class="date">
+                    <input type="date" name="date_end" placeholder="yyyy-mm-dd" value="" class="date">
                 </td>
                 {if empty($subject) && empty($item)}
                     <td>
-                        <select name="subject" id="subject">
+                        <select name="parent_id">
                             {foreach Queries::subjects() as $subject}
-                                <option value="{$subject->abbreviation}" {if Input::get('subject') === $subject->abbreviation}selected{/if}>
+                                <option value="{$subject->id}" {if Input::get('subject') === $subject->abbreviation}selected{/if}>
                                     {$subject->name}
                                 </option>
                             {/foreach}
                         </select>
                     </td>
                 {else}
-                    <input type="hidden" name="subject" value="{if !empty($subject->abbreviation)}{$subject->abbreviation}{elseif !empty($item->subject)}{$item->subject}{/if}">
+                    <input type="hidden" name="parent_id" value="{$table_parentI|default:""}">
                 {/if}
                 <td>
-                    <input type="text" name="duration" id="duration" value="" class="duration">
+                    <input type="text" name="duration" value="" class="duration">
                 </td>
                 <td>
-                    <input type="text" name="goal" id="goal" value="">
+                    <input type="text" name="goal" value="">
                 </td>
                 <td>
                     <input class="button submit-button table-button" type="submit" value="Add">

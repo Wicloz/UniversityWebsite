@@ -73,11 +73,11 @@
                 <input type="hidden" name="table" value="assignments">
                 <input type="hidden" name="token" value="{$token|default:""}">
                 <td>
-                    <input type="date" name="date" id="date" placeholder="yyyy-mm-dd" value="" class="date">,
-                    <input type="time" name="time" id="time" placeholder="hh:mm:ss" value="" class="time">
+                    <input type="date" name="date" placeholder="yyyy-mm-dd" value="" class="date">,
+                    <input type="time" name="time" placeholder="hh:mm:ss" value="" class="time">
                 </td>
                 <td>
-                    <select name="subject" id="subject">
+                    <select name="subject">
                         {foreach Queries::subjects() as $subject}
                             <option value="{$subject->abbreviation}" {if Input::get('subject') === $subject->abbreviation}selected{/if}>
                                 {$subject->name}
@@ -86,13 +86,13 @@
                     </select>
                 </td>
                 <td>
-                    <input type="text" name="task" id="task" value="">
+                    <input type="text" name="task" value="">
                 </td>
                 <td>
-                    <input type="text" name="team" id="team" value="">
+                    <input type="text" name="team" value="">
                 </td>
                 <td>
-                    <input type="url" name="link" id="link" value="">
+                    <input type="url" name="link" value="">
                 </td>
                 <td>
                     <input class="button submit-button table-button" type="submit" value="Add">

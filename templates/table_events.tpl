@@ -81,11 +81,11 @@
                 <input type="hidden" name="table" value="events">
                 <input type="hidden" name="token" value="{$token|default:""}">
                 <td>
-                    <input type="datetime" name="date" id="date" placeholder="yyyy-mm-dd, hh:mm" value="" class="datetime">
+                    <input type="datetime" name="date" placeholder="yyyy-mm-dd, hh:mm" value="" class="datetime">
                 </td>
                 {if empty($subject)}
                     <td>
-                        <select name="subject" id="subject">
+                        <select name="subject">
                             {foreach Queries::subjects() as $subject}
                                 <option value="{$subject->abbreviation}" {if Input::get('subject') === $subject->abbreviation}selected{/if}>
                                     {$subject->name}
@@ -97,7 +97,7 @@
                     <input type="hidden" name="subject" value="{$subject->abbreviation}">
                 {/if}
                 <td>
-                    <input type="text" name="task" id="task" value="">
+                    <input type="text" name="task" value="">
                 </td>
                 <td>
                     <input class="button submit-button table-button" type="submit" value="Add">

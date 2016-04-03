@@ -20,5 +20,6 @@
             </div>
         </div>
         {include file="footer.tpl"}
+        {include file="scripts.tpl"}
     </body>
 </html>

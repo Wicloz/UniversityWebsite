@@ -48,7 +48,7 @@
                     {$s2}
                 </td>
                 <td>
-                    {if $row->type === 'assignment' || $row->type === 'planning'}
+                    {if Users::isEditor() && ($row->type === 'assignment' || $row->type === 'planning')}
                         <form action="" method="POST">
                             <input type="hidden" name="action" value="switch_completion">
                             <input type="hidden" name="table" value="{if $row->type === 'assignment'}assignments{else}{$row->type}{/if}">

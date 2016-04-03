@@ -51,7 +51,7 @@
                 {$s2}
             </td>
             <td>
-                {if empty($row->todayRow)}
+                {if Users::isEditor() && empty($row->todayRow)}
                     <form action="" method="POST">
                         <input type="hidden" name="action" value="switch_completion">
                         <input type="hidden" name="table" value="assignments">

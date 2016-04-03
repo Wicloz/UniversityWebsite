@@ -79,9 +79,9 @@
                 <td>
                     <select name="subject" id="subject">
                         {foreach Queries::subjects() as $subject}
-                        <option value="{$subject->abbreviation}" {if Input::get('subject') === $subject->abbreviation}selected{/if}>
-                            {$subject->name}
-                        </option>
+                            <option value="{$subject->abbreviation}" {if Input::get('subject') === $subject->abbreviation}selected{/if}>
+                                {$subject->name}
+                            </option>
                         {/foreach}
                     </select>
                 </td>

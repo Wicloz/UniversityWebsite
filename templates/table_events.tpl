@@ -4,7 +4,7 @@
         {if !empty($show_type)}
             <th>Type</th>
         {/if}
-        {if empty($subject) && empty($item)}
+        {if empty($subject)}
             <th>Subject</th>
         {/if}
         <th>Task</th>
@@ -83,16 +83,18 @@
                 <td>
                     <input type="datetime" name="date" id="date" placeholder="yyyy-mm-dd, hh:mm" value="" class="datetime">
                 </td>
-                {if empty($subject) && empty($item)}
+                {if empty($subject)}
                     <td>
                         <select name="subject" id="subject">
                             {foreach Queries::subjects() as $subject}
-                            <option value="{$subject->abbreviation}" {if Input::get('subject') === $subject->abbreviation}selected{/if}>
-                                {$subject->name}
-                            </option>
+                                <option value="{$subject->abbreviation}" {if Input::get('subject') === $subject->abbreviation}selected{/if}>
+                                    {$subject->name}
+                                </option>
                             {/foreach}
                         </select>
                     </td>
+                {else}
+                    <input type="hidden" name="subject" value="{$subject->abbreviation}">
                 {/if}
                 <td>
                     <input type="text" name="task" id="task" value="">

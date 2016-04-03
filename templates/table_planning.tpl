@@ -67,12 +67,14 @@
                     <td>
                         <select name="subject" id="subject">
                             {foreach Queries::subjects() as $subject}
-                            <option value="{$subject->abbreviation}" {if Input::get('subject') === $subject->abbreviation}selected{/if}>
-                                {$subject->name}
-                            </option>
+                                <option value="{$subject->abbreviation}" {if Input::get('subject') === $subject->abbreviation}selected{/if}>
+                                    {$subject->name}
+                                </option>
                             {/foreach}
                         </select>
                     </td>
+                {else}
+                    <input type="hidden" name="subject" value="{if !empty($subject->abbreviation)}{$subject->abbreviation}{elseif !empty($item->subject)}{$item->subject}{/if}">
                 {/if}
                 <td>
                     <input type="text" name="duration" id="duration" value="" class="duration">

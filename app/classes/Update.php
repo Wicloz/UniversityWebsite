@@ -86,78 +86,206 @@ class Update {
             switch (Input::get('table')) {
                 case 'assignments':
                     if (Users::isEditor()) {
-                        $id = DB::autoIncrementValue('assignments');
-                        DB::instance()->insert("assignments", array(
-                            'start_date' => DateFormat::sqlDate(),
-                            'end_date' => DateFormat::sql(Input::get('date').', '.Input::get('time')),
-                            'subject' => Input::get('subject'),
-                            'desc_short' => Input::get('task'),
-                            'link_assignment' => Input::get('link'),
-                            'team' => Input::get('team')
-                        ));
-                        Session::addSuccess('Assignment added!');
-                        Redirect::to("?page=assignments_item&id={$id}");
+                        self::insertItemAssignment();
                     } else {
                         Redirect::error(403);
                     }
                 break;
                 case 'exams':
                     if (Users::isEditor()) {
-                        $id = DB::autoIncrementValue('exams');
-                        DB::instance()->insert("exams", array(
-                            'date' => DateFormat::sqlDate(Input::get('date')),
-                            'weight' => Input::get('weight'),
-                            'subject' => Input::get('subject')
-                        ));
-                        Session::addSuccess('Exam added!');
-                        Redirect::to("?page=exams_item&id={$id}");
+                        self::insertItemExam();
                     } else {
                         Redirect::error(403);
                     }
                 break;
                 case 'planning':
                     if (Users::isEditor()) {
-                        DB::instance()->insert("planning", array(
-                            'parent_table' => Input::get('parent_table'),
-                            'parent_id' => Input::get('parent_id'),
-                            'date_start' => DateFormat::sqlDate(Input::get('date_start')),
-                            'date_end' => DateFormat::sqlDate(Input::get('date_end')),
-                            'duration' => Input::get('duration'),
-                            'goal' => Input::get('goal')
-                        ));
-                        Session::addSuccess('Planning added!');
-                        Redirect::to('');
+                        self::insertItemPlanning();
                     } else {
                         Redirect::error(403);
                     }
                 break;
                 case 'events':
                     if (Users::isEditor()) {
-                        if (strpos(Input::get('task'), 'Toets') === 0 || strpos(Input::get('task'), 'Tentamen') === 0) {
-                            $id = DB::autoIncrementValue('exams');
-                            DB::instance()->insert("exams", array(
-                                'date' => DateFormat::sqlDate(Input::get('date')),
-                                'weight' => substr(Input::get('task'), 0, strpos(Input::get('task'), ' ')),
-                                'subject' => Input::get('subject')
-                            ));
-                            Session::addSuccess('Exam added!');
-                            Redirect::to("?page=exams_item&id={$id}");
-                        }
-                        else {
-                            $id = DB::autoIncrementValue('assignments');
-                            DB::instance()->insert("assignments", array(
-                                'start_date' => DateFormat::sqlDate(),
-                                'end_date' => DateFormat::sql(Input::get('date')),
-                                'subject' => Input::get('subject'),
-                                'desc_short' => Input::get('task')
-                            ));
-                            Session::addSuccess('Assignment added!');
-                            Redirect::to("?page=assignments_item&id={$id}");
-                        }
+                        self::insertItemEvent();
                     } else {
                         Redirect::error(403);
                     }
                 break;
+            }
+        }
+
+        else {
+            Session::addErrorArray($validation->getErrors());
+        }
+    }
+
+    private static function insertItemAssignment () {
+        $validation = new Validate();
+        $validation->check($_POST, array(
+            'date' => array(
+                'name' => 'Date',
+                'required' => false
+            ),
+            'time' => array(
+                'name' => 'Time',
+                'required' => false
+            ),
+            'subject' => array(
+                'name' => 'Subject',
+                'required' => true
+            ),
+            'task' => array(
+                'name' => 'Task',
+                'required' => true
+            ),
+            'team' => array(
+                'name' => 'Team',
+                'required' => false
+            ),
+            'link' => array(
+                'name' => 'Assignment Link',
+                'required' => false
+            )
+        ));
+
+        if ($validation->passed()) {
+            $id = DB::autoIncrementValue('assignments');
+            DB::instance()->insert("assignments", array(
+                'start_date' => DateFormat::sqlDate(),
+                'end_date' => DateFormat::sql(Input::get('date').', '.Input::get('time')),
+                'subject' => Input::get('subject'),
+                'desc_short' => Input::get('task'),
+                'team' => Input::get('team'),
+                'link_assignment' => Input::get('link')
+            ));
+            Session::addSuccess('Assignment added!');
+            Redirect::to("?page=assignments_item&id={$id}");
+        }
+
+        else {
+            Session::addErrorArray($validation->getErrors());
+        }
+    }
+
+    private static function insertItemExam () {
+        $validation = new Validate();
+        $validation->check($_POST, array(
+            'date' => array(
+                'name' => 'Date',
+                'required' => false
+            ),
+            'weight' => array(
+                'name' => 'Weight',
+                'required' => true
+            ),
+            'subject' => array(
+                'name' => 'Subject',
+                'required' => true
+            )
+        ));
+
+        if ($validation->passed()) {
+            $id = DB::autoIncrementValue('exams');
+            DB::instance()->insert("exams", array(
+                'date' => DateFormat::sqlDate(Input::get('date')),
+                'weight' => Input::get('weight'),
+                'subject' => Input::get('subject')
+            ));
+            Session::addSuccess('Exam added!');
+            Redirect::to("?page=exams_item&id={$id}");
+        }
+
+        else {
+            Session::addErrorArray($validation->getErrors());
+        }
+    }
+
+    private static function insertItemPlanning () {
+        $validation = new Validate();
+        $validation->check($_POST, array(
+            'parent_table' => array(
+                'name' => 'Parent Table',
+                'required' => true
+            ),
+            'parent_id' => array(
+                'name' => 'Parent ID',
+                'required' => true
+            ),
+            'date_start' => array(
+                'name' => 'Start Date',
+                'required' => false
+            ),
+            'date_end' => array(
+                'name' => 'End Date',
+                'required' => false
+            ),
+            'duration' => array(
+                'name' => 'Duration',
+                'required' => false
+            ),
+            'goal' => array(
+                'name' => 'Goal',
+                'required' => true
+            )
+        ));
+
+        if ($validation->passed()) {
+            DB::instance()->insert("planning", array(
+                'parent_table' => Input::get('parent_table'),
+                'parent_id' => Input::get('parent_id'),
+                'date_start' => DateFormat::sqlDate(Input::get('date_start')),
+                'date_end' => DateFormat::sqlDate(Input::get('date_end')),
+                'duration' => Input::get('duration'),
+                'goal' => Input::get('goal')
+            ));
+            Session::addSuccess('Planning added!');
+            Redirect::to('');
+        }
+
+        else {
+            Session::addErrorArray($validation->getErrors());
+        }
+    }
+
+    private static function insertItemEvent () {
+        $validation = new Validate();
+        $validation->check($_POST, array(
+            'date' => array(
+                'name' => 'Date & Time',
+                'required' => false
+            ),
+            'subject' => array(
+                'name' => 'Subject',
+                'required' => true
+            ),
+            'task' => array(
+                'name' => 'Task',
+                'required' => true
+            )
+        ));
+
+        if ($validation->passed()) {
+            if (strpos(Input::get('task'), 'Toets') === 0 || strpos(Input::get('task'), 'Tentamen') === 0) {
+                $id = DB::autoIncrementValue('exams');
+                DB::instance()->insert("exams", array(
+                    'date' => DateFormat::sqlDate(Input::get('date')),
+                    'weight' => substr(Input::get('task'), 0, strpos(Input::get('task'), ' ')),
+                    'subject' => Input::get('subject')
+                ));
+                Session::addSuccess('Exam added!');
+                Redirect::to("?page=exams_item&id={$id}");
+            }
+            else {
+                $id = DB::autoIncrementValue('assignments');
+                DB::instance()->insert("assignments", array(
+                    'start_date' => DateFormat::sqlDate(),
+                    'end_date' => DateFormat::sql(Input::get('date')),
+                    'subject' => Input::get('subject'),
+                    'desc_short' => Input::get('task')
+                ));
+                Session::addSuccess('Assignment added!');
+                Redirect::to("?page=assignments_item&id={$id}");
             }
         }
 

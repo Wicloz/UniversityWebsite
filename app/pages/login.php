@@ -42,7 +42,7 @@ function createPage ($smarty) {
             $validation->check($_POST, Config::get('validation/login'));
 
             if ($validation->passed()) {
-                $login = Users::login(Input::get('sid'), Input::get('password'), Input::getCheck('remember'));
+                $login = Users::login(Input::get('sid'), Input::get('password'), Input::getAsBool('remember'));
 
                 if ($login) {
                     Session::addSuccess('You have been logged in!', false);

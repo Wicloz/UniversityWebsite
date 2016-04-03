@@ -39,7 +39,7 @@
             {/if}
         </div>
     {/foreach}
-    <div class="paragraph-center col-sm-12" id="subject_{$subject.abbreviation}">
+    <div class="paragraph-center paragraph-scroll col-sm-12">
         <h2>Events:</h2>
         {include file="table_events.tpl" table=$events}
     </div>

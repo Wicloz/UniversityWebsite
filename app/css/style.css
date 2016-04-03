@@ -12,9 +12,6 @@ h1 > a, h1 > a:focus, h1 > a:hover, h2 > a, h2 > a:focus, h2 > a:hover {
 body {
 	background-color: #dfe3ee;
 	background-image: url("../../media/backgrounds/texture.png");
-	/*background-position: top;
-	background-repeat: no-repeat;
-	background-size: cover;*/
 }
 
 #header {
@@ -70,7 +67,8 @@ body {
 	margin-bottom: 0px;
 }
 
-/*@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css');
+/*
+@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css');
 .message-info:before, .message-success:before, .message-warning:before, .message-error:before {
     font-family: FontAwesome;
     font-style: normal;
@@ -99,7 +97,8 @@ body {
 }
 .message-error:before {
     content: '\f057';
-}*/
+}
+*/
 
 .message-info, .message-success, .message-warning, .message-error {
 	border: 1px solid;
@@ -159,7 +158,7 @@ body {
 
 .submit-button {
 	padding: 3px 11px 4px 10px;
-	margin: 0px;
+	margin-bottom: 10px;
 }
 
 .table-button {
@@ -170,20 +169,27 @@ body {
 	border: 1px solid #06123B;
 	width: 100%;
 	margin-bottom: 10px;
+    table-layout: auto;
+}
+
+.table-fancy > tbody > tr > td > input {
+    width: 100%;
+}
+
+.table-fancy > tbody > tr > td, .table-fancy > tbody > tr > th {
+    padding: 6px;
+	border: 1px dotted #06123B;
+    word-wrap: break-word;
+	overflow: hidden;
 }
 
 .table-fancy > tbody > tr {
     border-bottom: 1px solid #06123B;
 }
 
-.table-fancy > tbody > tr > td, .table-fancy > tbody > tr > th {
-    padding: 6px;
-	border: 1px dotted #06123B;
-	overflow: hidden;
-}
-
 .table-fancy > tbody > tr > th {
 	border-bottom: 2px solid #06123B;
+    white-space: nowrap;
 }
 
 .table-fancy > tbody > tr:nth-child(2n) {
@@ -236,6 +242,10 @@ body {
 
 .paragraph-right > h2 {
 	text-align: right;
+}
+
+.paragraph-scroll {
+    overflow-x: scroll;
 }
 
 .imgur-embed-iframe-pub {
@@ -406,7 +416,7 @@ body {
     background-color: #b6bdd6;
 }
 
-/*form styling*/
+/* form styling */
 .form-row > input {
     max-width: 100%;
 }

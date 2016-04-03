@@ -1,6 +1,6 @@
 {extends file="../main.tpl"}
 {block name=content_center}
-    <p>
+    <div class="paragraph-center col-sm-12">
         <form action="" method="POST">
             {foreach $columns as $column}
                 <div class="form-row">
@@ -36,5 +36,5 @@
                 <input class="button submit-button" type="submit" value="Delete">
             </form>
         {/if}
-    </p>
+    </div>
 {/block}

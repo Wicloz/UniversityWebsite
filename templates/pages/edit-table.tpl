@@ -1,6 +1,6 @@
 {extends file="../main.tpl"}
 {block name=content_center}
-    <p>
+    <div class="paragraph-center paragraph-scroll col-sm-12">
         <table class="table-fancy">
             <tr>
                 {foreach $edit_headers as $header}
@@ -17,6 +17,8 @@
                 </tr>
             {/foreach}
         </table>
-        <a class="button" href="?page=edit-entry&table={Input::get('table')}&id=create">Create New</a>
-    </p>
+        <p>
+            <a class="button" href="?page=edit-entry&table={Input::get('table')}&id=create">Create New</a>
+        </p>
+    </div>
 {/block}

@@ -54,7 +54,7 @@
             <iframe name="report" src="{$row->link_report}" width="100%" height="600"></iframe>
         </div>
     {/if}
-    <div class="paragraph-center col-sm-12">
+    <div class="paragraph-center paragraph-scroll col-sm-12">
         <h2>Planning:</h2>
         {include file="table_planning.tpl" table=$planning}
     </div>

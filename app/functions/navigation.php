@@ -1,10 +1,10 @@
 <?php
-function isActive ($getHas, $encodedMust) {
+function isActive ($get, $url) {
     $active = true;
-    $pairsMust = explode('&', substr($encodedMust, strpos($encodedMust, '?') + 1));
+    $pairsMust = explode('&', substr($url, strpos($url, '?') + 1));
     $pairsHas = array();
-    foreach ($getHas as $key => $value) {
-        $pairsHas[] = $key.'='.$value;
+    foreach ($get as $key => $value) {
+        $pairsHas[] = $key.'='.str_replace('_item', '', $value);
     }
 
     foreach ($pairsMust as $pair) {

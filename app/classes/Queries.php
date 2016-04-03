@@ -129,7 +129,7 @@ class Queries {
         if (empty($info)) {
             Redirect::error(404);
         }
-        return extractFields($infoData->results(), 'COLUMN_NAME');
+        return extractFields($info, 'COLUMN_NAME');
     }
 
     public static function parseAssignment ($object) {

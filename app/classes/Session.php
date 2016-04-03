@@ -25,14 +25,6 @@ class Session {
         self::put($name, $content);
     }
 
-    public static function flashWriteArray ($name, $content = array()) {
-        if (!self::exists($name)) {
-            self::put($name, $content);
-        } else {
-            self::put($name, array_merge(self::get($name), $content));
-        }
-    }
-
     public static function flashRead ($name) {
         if (self::exists($name)) {
             $content = self::get($name);
@@ -42,36 +34,44 @@ class Session {
         return '';
     }
 
-    public static function addSuccess ($message = '') {
-        self::flashWriteArray('successes', array($message));
+    public static function flashWriteNotification ($name, $content = array(), $permanent = true) {
+        if (!self::exists($name)) {
+            self::put($name, $content);
+        } else {
+            self::put($name, array_merge(self::get($name), $content));
+        }
     }
 
-    public static function addSuccessArray ($message = array()) {
-        self::flashWriteArray('successes', $message);
+    public static function addSuccess ($message = '', $permanent = true) {
+        self::addSuccessArray(array($message), $permanent);
     }
 
-    public static function addInfo ($message = '') {
-        self::flashWriteArray('info', array($message));
+    public static function addSuccessArray ($message = array(), $permanent = true) {
+        self::flashWriteNotification('successes', $message, $permanent);
     }
 
-    public static function addInfoArray ($message = array()) {
-        self::flashWriteArray('info', $message);
+    public static function addInfo ($message = '', $permanent = true) {
+        self::addInfoArray(array($message), $permanent);
     }
 
-    public static function addWarning ($message = '') {
-        self::flashWriteArray('warnings', array($message));
+    public static function addInfoArray ($message = array(), $permanent = true) {
+        self::flashWriteNotification('info', $message, $permanent);
     }
 
-    public static function addWarningArray ($message = array()) {
-        self::flashWriteArray('warnings', $message);
+    public static function addWarning ($message = '', $permanent = true) {
+        self::addWarningArray(array($message), $permanent);
     }
 
-    public static function addError ($message = '') {
-        self::flashWriteArray('errors', array($message));
+    public static function addWarningArray ($message = array(), $permanent = true) {
+        self::flashWriteNotification('warnings', $message, $permanent);
     }
 
-    public static function addErrorArray ($message = array()) {
-        self::flashWriteArray('errors', $message);
+    public static function addError ($message = '', $permanent = true) {
+        self::addErrorArray(array($message), $permanent);
+    }
+
+    public static function addErrorArray ($message = array(), $permanent = true) {
+        self::flashWriteNotification('errors', $message, $permanent);
     }
 
     public static function getCacheId () {

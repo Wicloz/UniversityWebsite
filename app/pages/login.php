@@ -25,7 +25,7 @@ function createPage ($smarty) {
 
                     Users::login(Input::get('sid'), Input::get('password'));
 
-                    Session::addSuccess('You have been succesfully registered!');
+                    Session::addSuccess('You have been succesfully registered!', false);
                     Redirect::to('?page=profile');
                 } catch(Exception $e) {
                     Session::addError($e->getMessage());
@@ -45,7 +45,7 @@ function createPage ($smarty) {
                 $login = Users::login(Input::get('sid'), Input::get('password'), Input::getCheck('remember'));
 
                 if ($login) {
-                    Session::addSuccess('You have been logged in!');
+                    Session::addSuccess('You have been logged in!', false);
                     Redirect::to('?page=profile');
                 } else {
                     Session::addError('Invalid student number or password.');

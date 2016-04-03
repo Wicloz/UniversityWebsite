@@ -9,7 +9,7 @@ function createPage ($smarty) {
         if (Input::get('action') === 'logout') {
             if (Users::loggedIn()) {
                 Users::logout();
-                Session::addSuccess('You have been logged out!');
+                Session::addSuccess('You have been logged out!', false);
                 Redirect::to('?page=login');
             }
         }
@@ -34,7 +34,7 @@ function createPage ($smarty) {
                 }
 
                 if (Users::currentUser()->update($data)) {
-                    Session::addSuccess('User information updated!');
+                    Session::addSuccess('User information updated!', false);
                 } else {
                     Session::addError('Could not update user information.');
                 }
@@ -58,7 +58,7 @@ function createPage ($smarty) {
             if ($validation->passed()) {
                 if (Hash::checkPassword(Input::get('password_current'), Users::currentData()->password)) {
                     if (Users::currentUser()->update(array('password' => Hash::hashPassword(Input::get('password'))))) {
-                        Session::addSuccess('Password changed!');
+                        Session::addSuccess('Password changed!', false);
                     } else {
                         Session::addError('Could not change password.');
                     }

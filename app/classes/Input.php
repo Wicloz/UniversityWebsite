@@ -36,7 +36,7 @@ class Input {
         return isset($_POST[$item]) || isset($_GET[$item]);
     }
 
-    public static function getCheck ($item) {
+    public static function getAsBool ($item) {
         return (Input::get($item) == true) ? true : false;
     }
 }

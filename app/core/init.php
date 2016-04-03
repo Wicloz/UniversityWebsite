@@ -135,6 +135,5 @@ function customErrorHandler($errno, $errstr, $errfile, $errline)
 
 require_once 'app/functions/sanitize.php';
 require_once 'app/functions/misc.php';
-require_once 'app/functions/navigation.php';
 Users::init();
 ?>

@@ -58,7 +58,7 @@ function createPage ($smarty) {
         }
     }
 
-    $smarty->assign('remember', Input::getCheck('remember'));
+    $smarty->assign('remember', Input::getAsBool('remember'));
 
     $smarty->assign('name', Input::get('name'));
     $smarty->assign('sid', Input::get('sid'));

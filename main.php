@@ -6,8 +6,8 @@ function pageAddMain ($smarty) {
     }
 
     $smarty->assign('token', Token::generate());
-    $smarty->assign('topnav', topnav($_GET));
-    $smarty->assign('sidenav', sidenav($_GET));
+    $smarty->assign('topnav', Navigation::topnav($_GET));
+    $smarty->assign('sidenav', Navigation::sidenav($_GET));
 
     return $smarty;
 }

@@ -14,5 +14,6 @@ if(!$smarty->isCached('templates/errors/403.tpl', $cache_id)) {
 }
 $smarty = pageAddMessages($smarty);
 
+$smarty->loadFilter("output", "trimwhitespace");
 $smarty->display('templates/errors/403.tpl', $cache_id);
 ?>

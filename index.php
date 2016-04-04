@@ -20,6 +20,7 @@ if (isset($_GET['page']) && !empty($_GET['page'])) {
             $smarty = pageAddMain($smarty);
         }
         $smarty = pageAddMessages($smarty);
+        $smarty->loadFilter("output", "trimwhitespace");
         $smarty->display($templateFile, $cache_id);
     }
 

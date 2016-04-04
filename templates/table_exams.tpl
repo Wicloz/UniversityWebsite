@@ -6,29 +6,23 @@
         <th>Mark</th>
     </tr>
     {foreach $table as $row}
-        {$s1 = ''}
-        {$s2 = ''}
+        {$strike = ''}
         {if $row->completion}
-            {$s1 = '<s>'}
-            {$s2 = '</s>'}
+            {$strike = 'class="complete"'}
         {/if}
         <tr>
-            <td>
-                {$s1}{$row->date}{$s2}
+            <td {$strike}>
+                {$row->date}
             </td>
-            <td>
-                {$s1}
-                    <a href="?page=exams_item&id={$row->id}">
-                        {$row->weight}
-                    </a>
-                {$s2}
+            <td {$strike}>
+                <a href="?page=exams_item&id={$row->id}">
+                    {$row->weight}
+                </a>
             </td>
-            <td>
-                {$s1}
-                    <a href="?page=subjects&subject={$row->subject}">
-                        {$row->subject_name}
-                    </a>
-                {$s2}
+            <td {$strike}>
+                <a href="?page=subjects&subject={$row->subject}">
+                    {$row->subject_name}
+                </a>
             </td>
             <td>
                 {$row->mark}

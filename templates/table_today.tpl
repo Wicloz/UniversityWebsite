@@ -7,45 +7,37 @@
             <th>Status</th>
         </tr>
         {foreach $table as $row}
-            {$s1 = ''}
-            {$s2 = ''}
+            {$strike = ''}
             {if $row->completion}
-                {$s1 = '<s>'}
-                {$s2 = '</s>'}
+                {$strike = 'class="complete"'}
             {/if}
             <tr>
-                <td>
-                    {$s1}
-                        <a href="?page=subjects&subject={$row->subject}">
-                            {$row->subject_name}
-                        </a>
-                    {$s2}
+                <td {$strike}>
+                    <a href="?page=subjects&subject={$row->subject}">
+                        {$row->subject_name}
+                    </a>
                 </td>
-                <td>
-                    {$s1}
-                        {if $row->type === 'assignment'}
-                            Assignment Deadline
-                        {elseif $row->type === 'exam'}
-                            Exam
-                        {elseif $row->type === 'planning'}
-                            Planning
-                        {/if}
-                    {$s2}
+                <td {$strike}>
+                    {if $row->type === 'assignment'}
+                        Assignment Deadline
+                    {elseif $row->type === 'exam'}
+                        Exam
+                    {elseif $row->type === 'planning'}
+                        Planning
+                    {/if}
                 </td>
-                <td>
-                    {$s1}
-                        {if $row->type === 'assignment'}
-                            <a href="?page=assignments_item&id={$row->id}">
-                                {$row->task}
-                            </a>
-                        {elseif $row->type === 'exam'}
-                            <a href="?page=exams_item&id={$row->id}">
-                                {$row->task}
-                            </a>
-                        {else}
+                <td {$strike}>
+                    {if $row->type === 'assignment'}
+                        <a href="?page=assignments_item&id={$row->id}">
                             {$row->task}
-                        {/if}
-                    {$s2}
+                        </a>
+                    {elseif $row->type === 'exam'}
+                        <a href="?page=exams_item&id={$row->id}">
+                            {$row->task}
+                        </a>
+                    {else}
+                        {$row->task}
+                    {/if}
                 </td>
                 <td>
                     {if Users::isEditor() && ($row->type === 'assignment' || $row->type === 'planning')}

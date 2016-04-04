@@ -8,47 +8,39 @@
         <th>Status</th>
     </tr>
     {foreach $table as $row}
-        {$s1 = ''}
-        {$s2 = ''}
+        {$strike = ''}
         {if $row->completion}
-            {$s1 = '<s>'}
-            {$s2 = '</s>'}
+            {$strike = 'class="complete"'}
         {/if}
         <tr>
-            <td>
-                {$s1}{$row->end_date}, {$row->end_time}{$s2}
+            <td {$strike}>
+                {$row->end_date}, {$row->end_time}
             </td>
-            <td>
-                {$s1}
-                    <a href="?page=subjects&subject={$row->subject}">
-                        {$row->subject_name}
+            <td {$strike}>
+                <a href="?page=subjects&subject={$row->subject}">
+                    {$row->subject_name}
+                </a>
+            </td>
+            <td {$strike}>
+                <a href="?page=assignments_item&id={$row->id}">
+                    {$row->desc_short}
+                </a>
+            </td>
+            <td {$strike}>
+                {$row->team}
+            </td>
+            <td {$strike}>
+                {if !empty($row->link_assignment)}
+                    <a target="_blank" href="{$row->link_assignment}">
+                        Assignment
                     </a>
-                {$s2}
-            </td>
-            <td>
-                {$s1}
-                    <a href="?page=assignments_item&id={$row->id}">
-                        {$row->desc_short}
+                    {if !empty($row->link_repository)}/{/if}
+                {/if}
+                {if !empty($row->link_repository)}
+                    <a target="_blank" href="{$row->link_repository}">
+                        Repository
                     </a>
-                {$s2}
-            </td>
-            <td>
-                {$s1}{$row->team}{$s2}
-            </td>
-            <td>
-                {$s1}
-                    {if !empty($row->link_assignment)}
-                        <a target="_blank" href="{$row->link_assignment}">
-                            Assignment
-                        </a>
-                        {if !empty($row->link_repository)}/{/if}
-                    {/if}
-                    {if !empty($row->link_repository)}
-                        <a target="_blank" href="{$row->link_repository}">
-                            Repository
-                        </a>
-                    {/if}
-                {$s2}
+                {/if}
             </td>
             <td>
                 {if Users::isEditor() && empty($row->todayRow)}

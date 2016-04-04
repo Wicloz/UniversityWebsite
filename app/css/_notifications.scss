@@ -1,0 +1,64 @@
+/*
+@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css');
+.message-info:before, .message-success:before, .message-warning:before, .message-error:before {
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: 400;
+    speak: none;
+    display: inline-block;
+    text-decoration: inherit;
+    width: 1em;
+    text-align: center;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1em;
+	margin-right: 15px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale
+}
+
+.message-info:before {
+    content: '\f05a';
+}
+.message-success:before {
+    content: '\f00c';
+}
+.message-warning:before {
+    content: '\f071';
+}
+.message-error:before {
+    content: '\f057';
+}
+*/
+
+.message-info, .message-success, .message-warning, .message-error {
+	border: 1px solid;
+	padding: 10px 10px 10px 50px;
+	background-repeat: no-repeat;
+	background-position: 10px center;
+	background-size: 20px;
+}
+
+.message-info {
+    color: #00529B;
+    background-color: #BDE5F8;
+	background-image: url('../../media/icons/info.png');
+}
+
+.message-success {
+    color: #4F8A10;
+    background-color: #DFF2BF;
+	background-image:url('../../media/icons/success.png');
+}
+
+.message-warning {
+    color: #9F6000;
+    background-color: #FEEFB3;
+	background-image: url('../../media/icons/warning.png');
+}
+
+.message-error {
+    color: #D8000C;
+    background-color: #FFBABA;
+	background-image: url('../../media/icons/error.png');
+}

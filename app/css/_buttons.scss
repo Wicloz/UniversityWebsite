@@ -1,0 +1,35 @@
+.button {
+	padding: 4px 10px 5px 10px;
+	border: 1px solid #06123b;
+	border-radius: 6px;
+	background-color: #0c2577;
+	color: #f8f9fb;
+}
+
+.button:hover, .button:focus {
+	color: #f8f9fb;
+	text-decoration: none;
+}
+
+.submit-button {
+	padding: 3px 11px 4px 10px;
+	margin-bottom: 10px;
+}
+
+.table-button {
+	margin: -4px 0px;
+}
+
+.edit-item-button {
+	float: right;
+	padding: 8px 18px 9px 18px;
+	margin-top: -52px;
+	font-size: 18px;
+}
+
+.subject-button {
+    padding: 5px 11px 6px 11px;
+    font-size: 15px;
+    float: right;
+    margin-top: -40px;
+}

@@ -1,0 +1,107 @@
+.navbar-blue {
+	margin-bottom: 0px;
+	background-color: #0C2577;
+	border-color: #080808;
+	border-radius: 0px;
+	border-width: 1px 0px;
+}
+
+/* padding navbar items
+.navbar-nav > li > a, .navbar-brand {
+    padding-top: 10px;
+    padding-bottom: 10px;
+	height: 40px;
+}*/
+
+/* active navbar item */
+.navbar-nav > .active > a, .navbar-nav > .active > a:focus, .navbar-nav > .active > a:hover {
+    color: #fff;
+	background-color: #06123b;
+}
+
+/* hovered navbar item */
+.nav > li > a:focus, .nav > li > a:hover {
+	color: #fff;
+    background-color: transparent;
+}
+
+/* navbar item */
+.navbar-nav > li > a {
+	color: #b6bdd6;
+}
+
+/* opened dropdown container item */
+.nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
+    color: #fff;
+	background-color: #06123b;
+}
+
+/* dropdown list */
+.navbar-nav > li > .dropdown-menu {
+	background-color: #dfe3ee;
+}
+
+/* active dropdown item */
+.dropdown-menu > .active > a, .dropdown-menu > .active > a:focus, .dropdown-menu > .active > a:hover {
+	color: #06123b;
+	background-color: #8592bb;
+}
+
+/* hovered dropdown item */
+.dropdown-menu > li > a:focus, .dropdown-menu > li > a:hover {
+	color: #01030b;
+	background-color: #f5f6f9;
+}
+
+/* dropdown item */
+.dropdown-menu > li > a {
+	color: #01030b;
+}
+
+/* hovered navbar brand */
+.navbar-brand:focus, .navbar-brand:hover {
+	color: #fff;
+}
+
+.navbar-brand {
+	color: #b6bdd6;
+}
+
+.navbox {
+	background-color: #f8f9fb;
+	margin-bottom: 20px;
+}
+
+.navbox > h2 {
+	margin: 0px;
+	padding-top: 1px;
+	padding-bottom: 3px;
+	color: #06123b;
+	background-color: #8592bb;
+}
+
+.navbox > ul {
+	padding: 5px 0px 5px 30px;
+}
+
+.navbox > ul > li > a {
+	color: #06123b;
+}
+
+.navbox > ul > li > a:focus, .navbox > ul > li > a:hover {
+    color: #8592bb;
+	text-decoration: none;
+	outline-width: 0px;
+}
+
+.navbox > ul > .active > a, .navbox > ul > .active > a:focus, .navbox > ul > .active > a:hover {
+    color: #8592bb;
+}
+
+.navbar-toggle {
+    border-color: #b6bdd6;
+}
+
+.navbar-toggle .icon-bar {
+    background-color: #b6bdd6;
+}

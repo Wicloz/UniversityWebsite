@@ -51,7 +51,7 @@
     {if !empty($item->link_report)}
         <div class="paragraph-center col-sm-12">
             <h2>Report:</h2>
-            <iframe name="report" src="{$row->link_report}" width="100%" height="600"></iframe>
+            <iframe name="report" src="{$item->link_report}" width="100%" height="600"></iframe>
         </div>
     {/if}
     <div class="paragraph-center paragraph-scroll col-sm-12">

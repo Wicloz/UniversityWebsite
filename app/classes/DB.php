@@ -55,7 +55,7 @@ class DB {
     private function setError ($error = array(0, 0, '')) {
         $this->_error = $error;
         if (Config::get('debug/debug')) {
-            Session::addError($this->error());
+            Session::addError($this->error(), true);
         }
         $this->_results = array();
         $this->_count = 0;
@@ -65,7 +65,7 @@ class DB {
         $this->_error = false;
         $params = array_values($params);
         if (Config::get('debug/qrydump')) {
-            Session::addInfo($sql.': '.json_encode($params));
+            Session::addInfo($sql.': '.json_encode($params), true);
         }
 
         if ($this->_query = $this->_pdo->prepare($sql)) {
@@ -77,7 +77,7 @@ class DB {
 
             if ($this->_query->execute()) {
                 $this->_results = $this->_query->fetchAll(PDO::FETCH_OBJ);
-                $this->_count = $this->_query->rowCount();    
+                $this->_count = $this->_query->rowCount();
             } else {
                 $this->setError($this->_query->errorInfo());
             }

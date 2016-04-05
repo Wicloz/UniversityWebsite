@@ -34,43 +34,51 @@ class Session {
         return '';
     }
 
-    public static function flashWriteNotification ($name, $content = array(), $permanent = true) {
+    public static function flashWriteNotification ($name, $content = array(), $permanent) {
+        $objects = array();
+        foreach ($content as $message) {
+            $obj = new stdClass();
+            $obj->message = $message;
+            $obj->permanent = $permanent;
+            $objects[] = $obj;
+        }
+
         if (!self::exists($name)) {
-            self::put($name, $content);
+            self::put($name, $objects);
         } else {
-            self::put($name, array_merge(self::get($name), $content));
+            self::put($name, array_merge(self::get($name), $objects));
         }
     }
 
-    public static function addSuccess ($message = '', $permanent = true) {
+    public static function addSuccess ($message = '', $permanent) {
         self::addSuccessArray(array($message), $permanent);
     }
 
-    public static function addSuccessArray ($message = array(), $permanent = true) {
+    public static function addSuccessArray ($message = array(), $permanent) {
         self::flashWriteNotification('successes', $message, $permanent);
     }
 
-    public static function addInfo ($message = '', $permanent = true) {
+    public static function addInfo ($message = '', $permanent) {
         self::addInfoArray(array($message), $permanent);
     }
 
-    public static function addInfoArray ($message = array(), $permanent = true) {
+    public static function addInfoArray ($message = array(), $permanent) {
         self::flashWriteNotification('info', $message, $permanent);
     }
 
-    public static function addWarning ($message = '', $permanent = true) {
+    public static function addWarning ($message = '', $permanent) {
         self::addWarningArray(array($message), $permanent);
     }
 
-    public static function addWarningArray ($message = array(), $permanent = true) {
+    public static function addWarningArray ($message = array(), $permanent) {
         self::flashWriteNotification('warnings', $message, $permanent);
     }
 
-    public static function addError ($message = '', $permanent = true) {
+    public static function addError ($message = '', $permanent) {
         self::addErrorArray(array($message), $permanent);
     }
 
-    public static function addErrorArray ($message = array(), $permanent = true) {
+    public static function addErrorArray ($message = array(), $permanent) {
         self::flashWriteNotification('errors', $message, $permanent);
     }
 

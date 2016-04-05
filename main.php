@@ -14,8 +14,8 @@ function pageAddMain ($smarty) {
 
 function pageAddMessages ($smarty) {
     if (Config::get('debug/debug')) {
-        Session::addInfo('PHP Version: ' . PHP_VERSION);
-        Session::addInfo('Current Time: ' . date('H:i:s'));
+        Session::addInfo('PHP Version: ' . PHP_VERSION, true);
+        Session::addInfo('Current Time: ' . date('H:i:s'), true);
     }
     $smarty->assign('successes', Session::flashRead('successes'));
     $smarty->assign('infos', Session::flashRead('info'));

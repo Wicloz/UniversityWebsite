@@ -115,7 +115,7 @@ function customErrorHandler($errno, $errstr, $errfile, $errline)
 
     switch ($errno) {
         case E_USER_ERROR:
-            Session::addError("[{$errno}] {$errstr}");
+            Session::addError("[{$errno}] {$errstr}", true);
             echo "<br />";
             echo "<b>ERROR</b> [$errno] $errstr<br />\n";
             echo "  Fatal error on line $errline in file $errfile";
@@ -125,7 +125,7 @@ function customErrorHandler($errno, $errstr, $errfile, $errline)
             break;
 
         default:
-            Session::addWarning("[{$errno}] {$errstr} in file $errfile on line $errline");
+            Session::addWarning("[{$errno}] {$errstr} in file $errfile on line $errline", true);
             break;
     }
 

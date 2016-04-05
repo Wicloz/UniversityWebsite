@@ -28,12 +28,12 @@ function createPage ($smarty) {
                     Session::addSuccess('You have been succesfully registered!', false);
                     Redirect::to('?page=profile');
                 } catch(Exception $e) {
-                    Session::addError($e->getMessage());
+                    Session::addError($e->getMessage(), true);
                 }
             }
 
             else {
-                Session::addErrorArray($validation->getErrors());
+                Session::addErrorArray($validation->getErrors(), true);
             }
         }
 
@@ -48,12 +48,12 @@ function createPage ($smarty) {
                     Session::addSuccess('You have been logged in!', false);
                     Redirect::to('?page=profile');
                 } else {
-                    Session::addError('Invalid student number or password.');
+                    Session::addError('Invalid student number or password.', true);
                 }
             }
 
             else {
-                Session::addErrorArray($validation->getErrors());
+                Session::addErrorArray($validation->getErrors(), true);
             }
         }
     }

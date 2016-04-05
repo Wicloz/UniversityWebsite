@@ -36,12 +36,12 @@ function createPage ($smarty) {
                 if (Users::currentUser()->update($data)) {
                     Session::addSuccess('User information updated!', false);
                 } else {
-                    Session::addError('Could not update user information.');
+                    Session::addError('Could not update user information.', true);
                 }
             }
 
             else {
-                Session::addErrorArray($validation->getErrors());
+                Session::addErrorArray($validation->getErrors(), true);
             }
         }
 
@@ -60,16 +60,16 @@ function createPage ($smarty) {
                     if (Users::currentUser()->update(array('password' => Hash::hashPassword(Input::get('password'))))) {
                         Session::addSuccess('Password changed!', false);
                     } else {
-                        Session::addError('Could not change password.');
+                        Session::addError('Could not change password.', true);
                     }
                 } else {
-                    Session::addError('Invalid current password.');
+                    Session::addError('Invalid current password.', true);
                 }
 
             }
 
             else {
-                Session::addErrorArray($validation->getErrors());
+                Session::addErrorArray($validation->getErrors(), true);
             }
         }
     }

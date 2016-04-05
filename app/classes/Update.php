@@ -64,7 +64,7 @@ class Update {
         }
 
         else {
-            Session::addErrorArray($validation->getErrors());
+            Session::addErrorArray($validation->getErrors(), true);
         }
     }
 
@@ -116,7 +116,7 @@ class Update {
         }
 
         else {
-            Session::addErrorArray($validation->getErrors());
+            Session::addErrorArray($validation->getErrors(), true);
         }
     }
 
@@ -164,7 +164,7 @@ class Update {
         }
 
         else {
-            Session::addErrorArray($validation->getErrors());
+            Session::addErrorArray($validation->getErrors(), true);
         }
     }
 
@@ -197,7 +197,7 @@ class Update {
         }
 
         else {
-            Session::addErrorArray($validation->getErrors());
+            Session::addErrorArray($validation->getErrors(), true);
         }
     }
 
@@ -244,7 +244,7 @@ class Update {
         }
 
         else {
-            Session::addErrorArray($validation->getErrors());
+            Session::addErrorArray($validation->getErrors(), true);
         }
     }
 
@@ -290,7 +290,7 @@ class Update {
         }
 
         else {
-            Session::addErrorArray($validation->getErrors());
+            Session::addErrorArray($validation->getErrors(), true);
         }
     }
 
@@ -328,7 +328,7 @@ class Update {
             }
 
             else {
-                Session::addErrorArray($validation->getErrors());
+                Session::addErrorArray($validation->getErrors(), true);
             }
         }
 
@@ -369,7 +369,7 @@ class Update {
             }
 
             else {
-                Session::addErrorArray($validation->getErrors());
+                Session::addErrorArray($validation->getErrors(), true);
             }
         }
 
@@ -404,7 +404,7 @@ class Update {
             }
 
             else {
-                Session::addErrorArray($validation->getErrors());
+                Session::addErrorArray($validation->getErrors(), true);
             }
         }
 

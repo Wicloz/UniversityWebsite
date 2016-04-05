@@ -14,13 +14,17 @@ function pageAddMain ($smarty) {
 
 function pageAddMessages ($smarty) {
     if (Config::get('debug/debug')) {
-        Session::addInfo('PHP Version: ' . PHP_VERSION, true);
-        Session::addInfo('Current Time: ' . date('H:i:s'), true);
+        Navigation::addDebug('PHP Version: ' . PHP_VERSION, true);
+        Navigation::addDebug('Current Time: ' . date('H:i:s'), true);
     }
-    $smarty->assign('successes', Session::flashRead('successes'));
-    $smarty->assign('infos', Session::flashRead('info'));
-    $smarty->assign('warnings', Session::flashRead('warnings'));
-    $smarty->assign('errors', Session::flashRead('errors'));
+    $smarty->assign('not_success', Session::flashRead('notifications-success'));
+    $smarty->assign('not_info', Session::flashRead('notifications-info'));
+    $smarty->assign('not_warning', Session::flashRead('notifications-warning'));
+    $smarty->assign('not_error', Session::flashRead('notifications-error'));
+    $smarty->assign('alerts_success', Session::flashRead('alerts-success'));
+    $smarty->assign('alerts_info', Session::flashRead('alerts-info'));
+    $smarty->assign('alerts_warning', Session::flashRead('alerts-warning'));
+    $smarty->assign('alerts_error', Session::flashRead('alerts-error'));
     return $smarty;
 }
 ?>

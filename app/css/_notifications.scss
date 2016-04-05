@@ -32,14 +32,49 @@
 */
 
 .alert {
+	@extend .message;
 	width: 100% !important;
 	margin: 0px 0px 20px 0px !important;
-	background-repeat: no-repeat;
-	background-position: 10px center;
-	background-size: 20px;
+	padding-left: 40px !important;
 }
 
-.message, .message-info, .message-success, .message-warning, .message-error {
+.alert-close {
+	@extend .message;
+	width: 100% !important;
+	margin: 0px 0px 20px 0px !important;
+	color: #00529B !important;
+	background-color: #BDE5F8 !important;
+}
+
+.alert-info {
+	@extend .alert;
+    color: #00529B !important;
+    background-color: #BDE5F8 !important;
+	background-image: url('../../media/icons/info.png');
+}
+
+.alert-success {
+	@extend .alert;
+    color: #4F8A10 !important;
+    background-color: #DFF2BF !important;
+	background-image:url('../../media/icons/success.png');
+}
+
+.alert-warning {
+	@extend .alert;
+    color: #9F6000 !important;
+    background-color: #FEEFB3 !important;
+	background-image: url('../../media/icons/warning.png');
+}
+
+.alert-error {
+	@extend .alert;
+    color: #D8000C !important;
+    background-color: #FFBABA !important;
+	background-image: url('../../media/icons/error.png');
+}
+
+.message {
 	border: 1px solid;
 	padding: 10px 10px 10px 50px;
 	background-repeat: no-repeat;
@@ -48,24 +83,28 @@
 }
 
 .message-info {
+	@extend .message;
     color: #00529B;
     background-color: #BDE5F8;
 	background-image: url('../../media/icons/info.png');
 }
 
 .message-success {
+	@extend .message;
     color: #4F8A10;
     background-color: #DFF2BF;
 	background-image:url('../../media/icons/success.png');
 }
 
 .message-warning {
+	@extend .message;
     color: #9F6000;
     background-color: #FEEFB3;
 	background-image: url('../../media/icons/warning.png');
 }
 
 .message-error {
+	@extend .message;
     color: #D8000C;
     background-color: #FFBABA;
 	background-image: url('../../media/icons/error.png');

@@ -41,7 +41,7 @@ class Update {
                 case 'assignments':
                     if (Users::isEditor()) {
                         DB::instance()->update("assignments", Input::get('id'), array('completion' => $completion));
-                        Session::addSuccess('Assignment completion switched!', false);
+                        Notifications::addSuccess('Assignment completion switched!');
                         Redirect::to('');
                     } else {
                         Redirect::error(403);
@@ -54,7 +54,7 @@ class Update {
                             $finishedDate = DateFormat::sql();
                         }
                         DB::instance()->update("planning", Input::get('id'), array('finished_on' => $finishedDate, 'done' => $completion));
-                        Session::addSuccess('Planning completion switched!', false);
+                        Notifications::addSuccess('Planning completion switched!');
                         Redirect::to('');
                     } else {
                         Redirect::error(403);
@@ -64,7 +64,7 @@ class Update {
         }
 
         else {
-            Session::addErrorArray($validation->getErrors(), true);
+            Navigation::addValidationFail($validation->getErrors());
         }
     }
 
@@ -116,7 +116,7 @@ class Update {
         }
 
         else {
-            Session::addErrorArray($validation->getErrors(), true);
+            Navigation::addValidationFail($validation->getErrors());
         }
     }
 
@@ -159,12 +159,12 @@ class Update {
                 'team' => Input::get('team'),
                 'link_assignment' => Input::get('link')
             ));
-            Session::addSuccess('Assignment added!', false);
+            Notifications::addSuccess('Assignment added!');
             Redirect::to("?page=assignments_item&id={$id}");
         }
 
         else {
-            Session::addErrorArray($validation->getErrors(), true);
+            Navigation::addValidationFail($validation->getErrors());
         }
     }
 
@@ -192,12 +192,12 @@ class Update {
                 'weight' => Input::get('weight'),
                 'subject' => Input::get('subject')
             ));
-            Session::addSuccess('Exam added!', false);
+            Notifications::addSuccess('Exam added!');
             Redirect::to("?page=exams_item&id={$id}");
         }
 
         else {
-            Session::addErrorArray($validation->getErrors(), true);
+            Navigation::addValidationFail($validation->getErrors());
         }
     }
 
@@ -239,12 +239,12 @@ class Update {
                 'duration' => Input::get('duration'),
                 'goal' => Input::get('goal')
             ));
-            Session::addSuccess('Planning added!', false);
+            Notifications::addSuccess('Planning added!');
             Redirect::to('');
         }
 
         else {
-            Session::addErrorArray($validation->getErrors(), true);
+            Navigation::addValidationFail($validation->getErrors());
         }
     }
 
@@ -273,7 +273,7 @@ class Update {
                     'weight' => substr(Input::get('task'), 0, strpos(Input::get('task'), ' ')),
                     'subject' => Input::get('subject')
                 ));
-                Session::addSuccess('Exam added!', false);
+                Notifications::addSuccess('Exam added!');
                 Redirect::to("?page=exams_item&id={$id}");
             }
             else {
@@ -284,13 +284,13 @@ class Update {
                     'subject' => Input::get('subject'),
                     'desc_short' => Input::get('task')
                 ));
-                Session::addSuccess('Assignment added!', false);
+                Notifications::addSuccess('Assignment added!');
                 Redirect::to("?page=assignments_item&id={$id}");
             }
         }
 
         else {
-            Session::addErrorArray($validation->getErrors(), true);
+            Navigation::addValidationFail($validation->getErrors());
         }
     }
 
@@ -323,12 +323,12 @@ class Update {
                 }
                 $id = DB::autoIncrementValue(Input::get('table'));
                 DB::instance()->insert(Input::get('table'), $data);
-                Session::addSuccess('Entry inserted!', false);
+                Notifications::addSuccess('Entry inserted!');
                 Redirect::to('?page=edit-entry&table='.Input::get('table').'&id='.$id);
             }
 
             else {
-                Session::addErrorArray($validation->getErrors(), true);
+                Navigation::addValidationFail($validation->getErrors());
             }
         }
 
@@ -364,12 +364,12 @@ class Update {
                     }
                 }
                 DB::instance()->update(Input::get('table'), Input::get('id'), $data);
-                Session::addSuccess('Entry updated!', false);
+                Notifications::addSuccess('Entry updated!');
                 Redirect::to('');
             }
 
             else {
-                Session::addErrorArray($validation->getErrors(), true);
+                Navigation::addValidationFail($validation->getErrors());
             }
         }
 
@@ -399,12 +399,12 @@ class Update {
 
             if ($validation->passed()) {
                 DB::instance()->delete(Input::get('table'), array("", "id", "=", Input::get('id')));
-                Session::addSuccess('Entry deleted!', false);
+                Notifications::addSuccess('Entry deleted!');
                 Redirect::to('?page=home');
             }
 
             else {
-                Session::addErrorArray($validation->getErrors(), true);
+                Navigation::addValidationFail($validation->getErrors());
             }
         }
 

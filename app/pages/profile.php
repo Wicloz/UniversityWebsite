@@ -9,7 +9,7 @@ function createPage ($smarty) {
         if (Input::get('action') === 'logout') {
             if (Users::loggedIn()) {
                 Users::logout();
-                Session::addSuccess('You have been logged out!', false);
+                Notifications::addSuccess('You have been logged out!');
                 Redirect::to('?page=login');
             }
         }
@@ -34,14 +34,14 @@ function createPage ($smarty) {
                 }
 
                 if (Users::currentUser()->update($data)) {
-                    Session::addSuccess('User information updated!', false);
+                    Notifications::addSuccess('User information updated!');
                 } else {
-                    Session::addError('Could not update user information.', true);
+                    Notifications::addError('Could not update user information.');
                 }
             }
 
             else {
-                Session::addErrorArray($validation->getErrors(), true);
+                Notifications::addValidationFail($validation->getErrors());
             }
         }
 
@@ -58,18 +58,18 @@ function createPage ($smarty) {
             if ($validation->passed()) {
                 if (Hash::checkPassword(Input::get('password_current'), Users::currentData()->password)) {
                     if (Users::currentUser()->update(array('password' => Hash::hashPassword(Input::get('password'))))) {
-                        Session::addSuccess('Password changed!', false);
+                        Notifications::addSuccess('Password changed!');
                     } else {
-                        Session::addError('Could not change password.', true);
+                        Notifications::addError('Could not change password.');
                     }
                 } else {
-                    Session::addError('Invalid current password.', true);
+                    Notifications::addValidationFail('Invalid current password.');
                 }
 
             }
 
             else {
-                Session::addErrorArray($validation->getErrors(), true);
+                Notifications::addValidationFail($validation->getErrors());
             }
         }
     }

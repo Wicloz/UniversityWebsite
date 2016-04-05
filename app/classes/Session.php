@@ -34,56 +34,17 @@ class Session {
         return '';
     }
 
-    public static function flashWriteNotification ($name, $content = array(), $permanent) {
-        $objects = array();
-        foreach ($content as $message) {
-            $obj = new stdClass();
-            $obj->message = $message;
-            $obj->permanent = $permanent;
-            $objects[] = $obj;
-        }
-
+    public static function flashWriteEvents ($name, $content = array()) {
         if (!self::exists($name)) {
-            self::put($name, $objects);
+            self::put($name, $content);
         } else {
-            self::put($name, array_merge(self::get($name), $objects));
+            self::put($name, array_merge(self::get($name), $content));
         }
-    }
-
-    public static function addSuccess ($message = '', $permanent) {
-        self::addSuccessArray(array($message), $permanent);
-    }
-
-    public static function addSuccessArray ($message = array(), $permanent) {
-        self::flashWriteNotification('successes', $message, $permanent);
-    }
-
-    public static function addInfo ($message = '', $permanent) {
-        self::addInfoArray(array($message), $permanent);
-    }
-
-    public static function addInfoArray ($message = array(), $permanent) {
-        self::flashWriteNotification('info', $message, $permanent);
-    }
-
-    public static function addWarning ($message = '', $permanent) {
-        self::addWarningArray(array($message), $permanent);
-    }
-
-    public static function addWarningArray ($message = array(), $permanent) {
-        self::flashWriteNotification('warnings', $message, $permanent);
-    }
-
-    public static function addError ($message = '', $permanent) {
-        self::addErrorArray(array($message), $permanent);
-    }
-
-    public static function addErrorArray ($message = array(), $permanent) {
-        self::flashWriteNotification('errors', $message, $permanent);
     }
 
     public static function getCacheId () {
-        return json_encode(self::get('successes')).json_encode(self::get('info')).json_encode(self::get('warnings')).json_encode(self::get('errors'));
+        return json_encode(self::get('notifications-success')).json_encode(self::get('notifications-info')).json_encode(self::get('notifications-warning')).json_encode(self::get('notifications-error')).
+               json_encode(self::get('alerts-success')).json_encode(self::get('alerts-info')).json_encode(self::get('alerts-warning')).json_encode(self::get('alerts-error'));
     }
 }
 ?>

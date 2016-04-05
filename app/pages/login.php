@@ -25,15 +25,15 @@ function createPage ($smarty) {
 
                     Users::login(Input::get('sid'), Input::get('password'));
 
-                    Session::addSuccess('You have been succesfully registered!', false);
+                    Notifications::addSuccess('You have been succesfully registered!');
                     Redirect::to('?page=profile');
                 } catch(Exception $e) {
-                    Session::addError($e->getMessage(), true);
+                    Notifications::addError($e->getMessage());
                 }
             }
 
             else {
-                Session::addErrorArray($validation->getErrors(), true);
+                Notifications::addValidationFail($validation->getErrors());
             }
         }
 
@@ -45,15 +45,15 @@ function createPage ($smarty) {
                 $login = Users::login(Input::get('sid'), Input::get('password'), Input::getAsBool('remember'));
 
                 if ($login) {
-                    Session::addSuccess('You have been logged in!', false);
+                    Notifications::addSuccess('You have been logged in!');
                     Redirect::to('?page=profile');
                 } else {
-                    Session::addError('Invalid student number or password.', true);
+                    Notifications::addValidationFail('Invalid student number or password.');
                 }
             }
 
             else {
-                Session::addErrorArray($validation->getErrors(), true);
+                Notifications::addValidationFail($validation->getErrors());
             }
         }
     }

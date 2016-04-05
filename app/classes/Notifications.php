@@ -1,0 +1,57 @@
+<?php
+class Notifications {
+    public static function setNotifications ($content = array(), $level, $permanent = true) {
+        $objects = array();
+        foreach ($content as $message) {
+            $obj = new stdClass();
+            $obj->message = $message;
+            $obj->permanent = $permanent;
+            $objects[] = $obj;
+        }
+        Session::flashWriteEvents('notifications-'.$level, $objects);
+    }
+
+    public static function setAlerts ($content = array(), $level, $permanent = false) {
+        $objects = array();
+        foreach ($content as $message) {
+            $obj = new stdClass();
+            $obj->message = $message;
+            $obj->permanent = $permanent;
+            $objects[] = $obj;
+        }
+        Session::flashWriteEvents('alerts-'.$level, $objects);
+    }
+
+    public static function addDebug ($content) {
+        if (is_array($content)) {
+            self::setNotifications($content, 'info');
+        } else {
+            self::setNotifications(array($content), 'info');
+        }
+    }
+
+    public static function addError ($content) {
+        if (is_array($content)) {
+            self::setNotifications($content, 'error');
+        } else {
+            self::setNotifications(array($content), 'error');
+        }
+    }
+
+    public static function addValidationFail ($content) {
+        if (is_array($content)) {
+            self::setAlerts($content, 'error', true);
+        } else {
+            self::setAlerts(array($content), 'error', true);
+        }
+    }
+
+    public static function addSuccess ($content) {
+        if (is_array($content)) {
+            self::setAlerts($content, 'success');
+        } else {
+            self::setAlerts(array($content), 'success');
+        }
+    }
+}
+?>

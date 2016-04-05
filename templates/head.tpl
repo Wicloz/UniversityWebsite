@@ -9,5 +9,13 @@
     <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-jgrowl/1.4.1/jquery.jgrowl.min.js"></script>
+    <script>
+        (function($){
+            $(function(){
+                $.jGrowl.defaults.closerTemplate = '<div class="alert-close">[ Close All ]</div>';
+                $.jGrowl.defaults.position = 'center';
+            });
+        })(jQuery);
+    </script>
     <script src="app/js/listeners.screen.js"></script>
 </head>

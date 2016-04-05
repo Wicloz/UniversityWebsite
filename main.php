@@ -14,8 +14,8 @@ function pageAddMain ($smarty) {
 
 function pageAddMessages ($smarty) {
     if (Config::get('debug/debug')) {
-        Navigation::addDebug('PHP Version: ' . PHP_VERSION, true);
-        Navigation::addDebug('Current Time: ' . date('H:i:s'), true);
+        Notifications::addDebug('PHP Version: ' . PHP_VERSION, true);
+        Notifications::addDebug('Current Time: ' . date('H:i:s'), true);
     }
     $smarty->assign('not_success', Session::flashRead('notifications-success'));
     $smarty->assign('not_info', Session::flashRead('notifications-info'));

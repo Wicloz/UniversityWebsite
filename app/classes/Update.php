@@ -64,7 +64,7 @@ class Update {
         }
 
         else {
-            Navigation::addValidationFail($validation->getErrors());
+            Notifications::addValidationFail($validation->getErrors());
         }
     }
 
@@ -116,7 +116,7 @@ class Update {
         }
 
         else {
-            Navigation::addValidationFail($validation->getErrors());
+            Notifications::addValidationFail($validation->getErrors());
         }
     }
 
@@ -164,7 +164,7 @@ class Update {
         }
 
         else {
-            Navigation::addValidationFail($validation->getErrors());
+            Notifications::addValidationFail($validation->getErrors());
         }
     }
 
@@ -197,7 +197,7 @@ class Update {
         }
 
         else {
-            Navigation::addValidationFail($validation->getErrors());
+            Notifications::addValidationFail($validation->getErrors());
         }
     }
 
@@ -244,7 +244,7 @@ class Update {
         }
 
         else {
-            Navigation::addValidationFail($validation->getErrors());
+            Notifications::addValidationFail($validation->getErrors());
         }
     }
 
@@ -290,7 +290,7 @@ class Update {
         }
 
         else {
-            Navigation::addValidationFail($validation->getErrors());
+            Notifications::addValidationFail($validation->getErrors());
         }
     }
 
@@ -328,7 +328,7 @@ class Update {
             }
 
             else {
-                Navigation::addValidationFail($validation->getErrors());
+                Notifications::addValidationFail($validation->getErrors());
             }
         }
 
@@ -369,7 +369,7 @@ class Update {
             }
 
             else {
-                Navigation::addValidationFail($validation->getErrors());
+                Notifications::addValidationFail($validation->getErrors());
             }
         }
 
@@ -404,7 +404,7 @@ class Update {
             }
 
             else {
-                Navigation::addValidationFail($validation->getErrors());
+                Notifications::addValidationFail($validation->getErrors());
             }
         }
 

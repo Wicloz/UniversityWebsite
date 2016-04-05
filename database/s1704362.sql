@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: putter.vuw.leidenuniv.nl:3306
--- Generation Time: Apr 04, 2016 at 06:02 AM
+-- Generation Time: Apr 05, 2016 at 03:57 PM
 -- Server version: 5.5.47-log
 -- PHP Version: 5.3.17
 
@@ -193,7 +193,7 @@ CREATE TABLE IF NOT EXISTS `planning` (
   `goal` text NOT NULL,
   `finished_on` datetime NOT NULL,
   `done` tinyint(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `planning`
@@ -254,7 +254,10 @@ INSERT INTO `planning` (`id`, `parent_table`, `parent_id`, `date_start`, `date_e
 (63, 'subjects', 9, '2016-03-28', '2016-03-28', '00:15:00', 'Berijd practicum van disdag voor (Aanenten bacteriën)', '2016-03-29 08:41:59', 1),
 (64, 'subjects', 9, '2016-04-03', '2016-04-03', '00:30:00', 'Berijd practicum maandag voor (Overproductie VirF)', '2016-04-03 21:43:51', 1),
 (65, 'assignments', 19, '2016-04-02', '2016-04-02', '00:30:00', 'Controleer antwoorden en lever in', '2016-04-02 23:26:31', 1),
-(69, 'subjects', 9, '2016-04-03', '2016-04-03', '00:30:00', 'Werk labjournaal vorige proeven bij', '2016-04-03 17:19:55', 1);
+(69, 'subjects', 9, '2016-04-03', '2016-04-03', '00:30:00', 'Werk labjournaal vorige proeven bij', '2016-04-03 17:19:55', 1),
+(70, 'subjects', 12, '2016-04-05', '2016-04-05', '00:20:00', 'Lees 2.1', '2016-04-05 17:19:19', 1),
+(71, 'subjects', 12, '2016-04-05', '2016-04-05', '00:30:00', 'Lees 2.2', '2016-04-05 17:56:45', 1),
+(72, 'subjects', 9, '2016-04-05', '2016-04-05', '00:10:00', 'Practicum woensdag voorberijden', '0000-00-00 00:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -322,9 +325,6 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `student_id`, `password`, `permission_group`, `name`, `email`, `umail`, `phone`, `joined`, `last_online`) VALUES
-(1, 's1704362', '$2y$10$md.8ZZYtVVwldcTcUmlQ0uAjZF6Hx5CJRJErF8cNLZ0czXVVGMhvW', 3, 'Wilco de Boer', 'deboer.wilco@gmail.com', 's1704362@umail.leidenuniv.nl', '+310637338259', '2016-03-28 17:57:28', '2016-04-04 08:02:25');
-
 -- --------------------------------------------------------
 
 --
@@ -336,14 +336,11 @@ CREATE TABLE IF NOT EXISTS `user_sessions` (
   `user_id` int(11) NOT NULL,
   `hash` varchar(64) NOT NULL,
   `expiry` datetime NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `user_sessions`
 --
-
-INSERT INTO `user_sessions` (`id`, `user_id`, `hash`, `expiry`) VALUES
-(38, 1, 'e2b79940a490e9a994fb3af8fc6eaf2cf66e025467c28fd83bfa180e1ca04a82', '2016-04-11 07:59:32');
 
 --
 -- Indexes for dumped tables
@@ -436,7 +433,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT for table `planning`
 --
 ALTER TABLE `planning`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=70;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=73;
 --
 -- AUTO_INCREMENT for table `subjects`
 --
@@ -451,7 +448,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT for table `user_sessions`
 --
 ALTER TABLE `user_sessions`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=39;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=44;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

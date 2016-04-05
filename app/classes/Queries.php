@@ -102,6 +102,7 @@ class Queries {
 
                 case 'int':
                     $column->type = 'number';
+                break;
                 case 'float':
                     $column->type = 'number';
                     $column->attributes .= 'step="0.01"';

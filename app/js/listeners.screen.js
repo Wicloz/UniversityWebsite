@@ -27,7 +27,7 @@ function movement () {
         document.getElementById("navbar").style.position = "";
     }
 
-    if (top > alertTop - 70 && w >= 768) {
+    if (top >= alertTop - 70 && w >= 768) {
         document.getElementById("alerts").style.marginTop = (70 - alertTop) + "px";
         document.getElementById("alerts").style.width = $("#content-right").width() + "px";
         document.getElementById("alerts").style.position = "";

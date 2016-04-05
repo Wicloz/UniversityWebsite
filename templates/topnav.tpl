@@ -1,4 +1,4 @@
-<nav class="navbar navbar-blue">
+<nav id="navbar" class="navbar navbar-blue" style="top:0px;">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainNavbar">
@@ -48,3 +48,4 @@
         </div>
     </div>
 </nav>
+<div id="belowtopnav"></div>

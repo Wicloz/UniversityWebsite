@@ -8,6 +8,7 @@
             <div class="row">
                 <div class="col-sm-2" id="content-right">
                     {include file="sidenav.tpl"}
+                    <div id="alerts" style="position:relative;"></div>
                     {block name=content_right}{/block}
                 </div>
                 <div class="col-sm-8" id="content-main">

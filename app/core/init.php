@@ -107,32 +107,6 @@ spl_autoload_register(function($class) {
     require_once 'app/classes/' . $class . '.php';
 });
 
-function customErrorHandler($errno, $errstr, $errfile, $errline)
-{
-    if (!(error_reporting() & $errno)) {
-        return true;
-    }
-
-    switch ($errno) {
-        case E_USER_ERROR:
-            Session::addError("[{$errno}] {$errstr}", true);
-            echo "<br />";
-            echo "<b>ERROR</b> [$errno] $errstr<br />\n";
-            echo "  Fatal error on line $errline in file $errfile";
-            echo ", PHP " . PHP_VERSION . " (" . PHP_OS . ")<br />\n";
-            echo "Aborting...<br />\n";
-            exit(1);
-            break;
-
-        default:
-            Session::addWarning("[{$errno}] {$errstr} in file $errfile on line $errline", true);
-            break;
-    }
-
-    return true;
-}
-#set_error_handler("customErrorHandler");
-
 require_once 'app/functions/sanitize.php';
 require_once 'app/functions/misc.php';
 Users::init();

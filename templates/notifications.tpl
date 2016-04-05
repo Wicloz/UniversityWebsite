@@ -36,8 +36,7 @@
         {foreach $alerts_success as $item}
             $('#alerts').jGrowl('{escape($item->message)}', {
                 sticky: {if $item->permanent}true{else}false{/if},
-                group: 'alert-success',
-                life: 6000
+                group: 'alert-success'
             });
         {/foreach}
     {/if}
@@ -45,8 +44,7 @@
         {foreach $alerts_info as $item}
             $('#alerts').jGrowl('{escape($item->message)}', {
                 sticky: {if $item->permanent}true{else}false{/if},
-                group: 'alert-info',
-                life: 6000
+                group: 'alert-info'
             });
         {/foreach}
     {/if}
@@ -54,8 +52,7 @@
         {foreach $alerts_warning as $item}
             $('#alerts').jGrowl('{escape($item->message)}', {
                 sticky: {if $item->permanent}true{else}false{/if},
-                group: 'alert-warning',
-                life: 6000
+                group: 'alert-warning'
             });
         {/foreach}
     {/if}
@@ -63,8 +60,7 @@
         {foreach $alerts_error as $item}
             $('#alerts').jGrowl('{escape($item->message)}', {
                 sticky: {if $item->permanent}true{else}false{/if},
-                group: 'alert-error',
-                life: 6000
+                group: 'alert-error'
             });
         {/foreach}
     {/if}

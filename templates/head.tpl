@@ -14,6 +14,7 @@
             $(function(){
                 $.jGrowl.defaults.closerTemplate = '<div class="alert-close">[ Close All ]</div>';
                 $.jGrowl.defaults.position = 'center';
+                $.jGrowl.defaults.life = 6000;
             });
         })(jQuery);
     </script>

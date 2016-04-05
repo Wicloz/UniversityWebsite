@@ -1,29 +1,29 @@
-{if !empty($not_success) || !empty($not_info) || !empty($not_warning) || !empty($not_error)}
+{if !empty($notifications_success) || !empty($notifications_info) || !empty($notifications_warning) || !empty($notifications_error)}
     <div class="paragraph-center col-sm-12">
-        {if !empty($not_success)}
+        {if !empty($notifications_success)}
             <p class="message-success">
-                {foreach $not_success as $item}
+                {foreach $notifications_success as $item}
                     {$item->message}<br>
                 {/foreach}
             </p>
         {/if}
-        {if !empty($not_info)}
+        {if !empty($notifications_info)}
             <p class="message-info">
-                {foreach $not_info as $item}
+                {foreach $notifications_info as $item}
                     {$item->message}<br>
                 {/foreach}
             </p>
         {/if}
-        {if !empty($not_warning)}
+        {if !empty($notifications_warning)}
             <p class="message-warning">
-                {foreach $not_warning as $item}
+                {foreach $notifications_warning as $item}
                     {$item->message}<br>
                 {/foreach}
             </p>
         {/if}
-        {if !empty($not_error)}
+        {if !empty($notifications_error)}
             <p class="message-error">
-                {foreach $not_error as $item}
+                {foreach $notifications_error as $item}
                     {$item->message}<br>
                 {/foreach}
             </p>

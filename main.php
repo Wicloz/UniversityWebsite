@@ -17,10 +17,10 @@ function pageAddMessages ($smarty) {
         Notifications::addDebug('PHP Version: ' . PHP_VERSION, true);
         Notifications::addDebug('Current Time: ' . date('H:i:s'), true);
     }
-    $smarty->assign('not_success', Session::flashRead('notifications-success'));
-    $smarty->assign('not_info', Session::flashRead('notifications-info'));
-    $smarty->assign('not_warning', Session::flashRead('notifications-warning'));
-    $smarty->assign('not_error', Session::flashRead('notifications-error'));
+    $smarty->assign('notifications_success', Session::flashRead('notifications-success'));
+    $smarty->assign('notifications_info', Session::flashRead('notifications-info'));
+    $smarty->assign('notifications_warning', Session::flashRead('notifications-warning'));
+    $smarty->assign('notifications_error', Session::flashRead('notifications-error'));
     $smarty->assign('alerts_success', Session::flashRead('alerts-success'));
     $smarty->assign('alerts_info', Session::flashRead('alerts-info'));
     $smarty->assign('alerts_warning', Session::flashRead('alerts-warning'));

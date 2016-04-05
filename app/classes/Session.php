@@ -25,6 +25,14 @@ class Session {
         self::put($name, $content);
     }
 
+    public static function flashMergeArray ($name, $content = array()) {
+        if (!self::exists($name)) {
+            self::put($name, $content);
+        } else {
+            self::put($name, array_merge(self::get($name), $content));
+        }
+    }
+
     public static function flashRead ($name) {
         if (self::exists($name)) {
             $content = self::get($name);
@@ -32,14 +40,6 @@ class Session {
             return $content;
         }
         return '';
-    }
-
-    public static function flashWriteEvents ($name, $content = array()) {
-        if (!self::exists($name)) {
-            self::put($name, $content);
-        } else {
-            self::put($name, array_merge(self::get($name), $content));
-        }
     }
 
     public static function getCacheId () {

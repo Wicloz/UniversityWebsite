@@ -8,7 +8,7 @@ class Notifications {
             $obj->permanent = $permanent;
             $objects[] = $obj;
         }
-        Session::flashWriteEvents('notifications-'.$level, $objects);
+        Session::flashMergeArray('notifications-'.$level, $objects);
     }
 
     public static function setAlerts ($content = array(), $level, $permanent = false) {
@@ -19,7 +19,7 @@ class Notifications {
             $obj->permanent = $permanent;
             $objects[] = $obj;
         }
-        Session::flashWriteEvents('alerts-'.$level, $objects);
+        Session::flashMergeArray('alerts-'.$level, $objects);
     }
 
     public static function addDebug ($content) {

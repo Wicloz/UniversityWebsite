@@ -16,7 +16,7 @@ class Phone {
     }
 
     public static function validNumber ($number) {
-        $number = addCountryCode($number);
+        $number = self::addCountryCode($number);
         /*$phone = self::$_client->phone_numbers->get($number);
         try {
             $phone->phone_number;
@@ -32,7 +32,7 @@ class Phone {
     }
 
     public static function formatNumber ($number) {
-        $number = addCountryCode($number);
+        $number = self::addCountryCode($number);
         /*$phone = self::$_client->phone_numbers->get($number);
         if (@$phone->phone_number) {
             return $phone->phone_number;
@@ -42,7 +42,7 @@ class Phone {
     }
 
     public static function formatFancy ($number) {
-        $number = addCountryCode($number);
+        $number = self::addCountryCode($number);
         /*$phone = self::$_client->phone_numbers->get($number);
         if (@$phone->national_format) {
             return $phone->national_format;

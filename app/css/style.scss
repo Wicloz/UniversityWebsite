@@ -38,6 +38,7 @@ body {
 #username {
 	float: right;
 	color: #eee;
+    display: none;
 }
 
 #content {
@@ -62,7 +63,7 @@ body {
 }
 
 #footer-main {
-	padding: 5px 15px 5px 10%;
+    padding: 15px;
     h2 {
         margin-top: 0px;
         text-align: left;
@@ -107,10 +108,6 @@ body {
     overflow-y: visible;*/
 }
 
-.complete {
-    text-decoration: line-through;
-}
-
 .imgur-embed-iframe-pub {
 	width: 100%;
 }
@@ -124,3 +121,5 @@ body {
 .rooster-img {
     width: 100%;
 }
+
+@import 'responsive';

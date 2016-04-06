@@ -41,12 +41,6 @@ function movement () {
 function resize () {
     var w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
     var top = scrolltop()
-
-    if (w < 460) {
-        document.getElementById("username").style.display = "none";
-    } else {
-        document.getElementById("username").style.display = "";
-    }
 }
 
 function scrolltop () {

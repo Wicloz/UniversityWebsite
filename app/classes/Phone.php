@@ -8,7 +8,15 @@ class Phone {
         self::$_client = new Lookups_Services_Twilio($sid, $token);
     }
 
+    private static function addCountryCode ($number) {
+        if (strpos($number, '+') === false) {
+            return '+31'.$number;
+        }
+        return $number;
+    }
+
     public static function validNumber ($number) {
+        $number = addCountryCode($number);
         /*$phone = self::$_client->phone_numbers->get($number);
         try {
             $phone->phone_number;
@@ -24,6 +32,7 @@ class Phone {
     }
 
     public static function formatNumber ($number) {
+        $number = addCountryCode($number);
         /*$phone = self::$_client->phone_numbers->get($number);
         if (@$phone->phone_number) {
             return $phone->phone_number;
@@ -33,6 +42,7 @@ class Phone {
     }
 
     public static function formatFancy ($number) {
+        $number = addCountryCode($number);
         /*$phone = self::$_client->phone_numbers->get($number);
         if (@$phone->national_format) {
             return $phone->national_format;

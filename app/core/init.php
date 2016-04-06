@@ -115,8 +115,4 @@ require_once 'app/functions/sanitize.php';
 require_once 'app/functions/misc.php';
 Users::init();
 Phone::init();
-
-if (!empty($_POST['phone']) && strpos($_POST['phone'], '+') === false) {
-    $_POST['phone'] = '+31' . $_POST['phone'];
-}
 ?>

@@ -31,49 +31,6 @@
 }
 */
 
-.alert {
-	@extend .message;
-	width: 100% !important;
-	margin: 0px 0px 10px 0px !important;
-	padding-left: 40px !important;
-}
-
-.alert-close {
-	@extend .message;
-	width: 100% !important;
-	margin: 0px 0px 20px 0px !important;
-	color: #00529B !important;
-	background-color: #BDE5F8 !important;
-}
-
-.alert-info {
-	@extend .alert;
-    color: #00529B !important;
-    background-color: #BDE5F8 !important;
-	background-image: url('../../media/icons/info.png');
-}
-
-.alert-success {
-	@extend .alert;
-    color: #4F8A10 !important;
-    background-color: #DFF2BF !important;
-	background-image:url('../../media/icons/success.png');
-}
-
-.alert-warning {
-	@extend .alert;
-    color: #9F6000 !important;
-    background-color: #FEEFB3 !important;
-	background-image: url('../../media/icons/warning.png');
-}
-
-.alert-error {
-	@extend .alert;
-    color: #D8000C !important;
-    background-color: #FFBABA !important;
-	background-image: url('../../media/icons/error.png');
-}
-
 .message {
 	border: 1px solid;
 	padding: 10px 10px 10px 50px;
@@ -107,5 +64,47 @@
 	@extend .message;
     color: #D8000C;
     background-color: #FFBABA;
+	background-image: url('../../media/icons/error.png');
+}
+
+.alert {
+	@extend .message;
+	width: 100% !important;
+	margin: 0px 0px 20px 0px !important;
+	padding-left: 40px !important;
+}
+
+.alert-close {
+	@extend .message;
+	width: 100% !important;
+	color: #00529B !important;
+	background-color: #BDE5F8 !important;
+}
+
+.alert-info {
+	@extend .alert;
+    color: #00529B !important;
+    background-color: #BDE5F8 !important;
+	background-image: url('../../media/icons/info.png');
+}
+
+.alert-success {
+	@extend .alert;
+    color: #4F8A10 !important;
+    background-color: #DFF2BF !important;
+	background-image:url('../../media/icons/success.png');
+}
+
+.alert-warning {
+	@extend .alert;
+    color: #9F6000 !important;
+    background-color: #FEEFB3 !important;
+	background-image: url('../../media/icons/warning.png');
+}
+
+.alert-error {
+	@extend .alert;
+    color: #D8000C !important;
+    background-color: #FFBABA !important;
 	background-image: url('../../media/icons/error.png');
 }

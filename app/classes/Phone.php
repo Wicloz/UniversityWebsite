@@ -9,7 +9,7 @@ class Phone {
     }
 
     public static function validNumber ($number) {
-        $phone = self::$_client->phone_numbers->get($number);
+        /*$phone = self::$_client->phone_numbers->get($number);
         try {
             $phone->phone_number;
             return true;
@@ -19,23 +19,26 @@ class Phone {
             } else {
                 throw $e;
             }
-        }
+        }*/
+        return true;
     }
 
     public static function formatNumber ($number) {
-        $phone = self::$_client->phone_numbers->get($number);
+        /*$phone = self::$_client->phone_numbers->get($number);
         if (@$phone->phone_number) {
             return $phone->phone_number;
         }
-        return '';
+        return '';*/
+        return $number;
     }
 
     public static function formatFancy ($number) {
-        $phone = self::$_client->phone_numbers->get($number);
+        /*$phone = self::$_client->phone_numbers->get($number);
         if (@$phone->national_format) {
             return $phone->national_format;
         }
-        return '';
+        return '';*/
+        return $number;
     }
 }
 ?>

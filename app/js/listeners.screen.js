@@ -1,13 +1,13 @@
 if (window.addEventListener) {
     window.addEventListener("scroll", function() {movement();});
     window.addEventListener("touchmove", function() {movement();});
-    window.addEventListener("resize", function() {movement();resize();});
-    window.addEventListener("load", function() {movement();resize();});
+    window.addEventListener("resize", function() {movement();});
+    window.addEventListener("load", function() {movement();});
 } else if (window.attachEvent) {
     window.attachEvent("onscroll", function() {movement();});
     window.attachEvent("ontouchmove", function() {movement();});
-    window.attachEvent("onresize", function() {movement();resize();});
-    window.attachEvent("onload", function() {movement();resize();});
+    window.attachEvent("onresize", function() {movement();});
+    window.attachEvent("onload", function() {movement();});
 }
 
 var alertTop = -1;
@@ -36,11 +36,6 @@ function movement () {
         document.getElementById("alerts").style.width = "";
         document.getElementById("alerts").style.position = "relative";
     }
-}
-
-function resize () {
-    var w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-    var top = scrolltop()
 }
 
 function scrolltop () {

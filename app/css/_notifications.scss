@@ -67,6 +67,13 @@
 	background-image: url('../../media/icons/error.png');
 }
 
+@media only screen and (max-width: 767px) {
+	#alerts {
+		padding: 0px 15px;
+		background-color: #f8f9fb;
+	}
+}
+
 .alert {
 	@extend .message;
 	width: 100% !important;
@@ -76,7 +83,8 @@
 
 .alert-close {
 	@extend .message;
-	width: 100% !important;
+	width: calc(100% - 20px) !important;
+	margin: 0px 10px 20px !important;
 	color: #00529B !important;
 	background-color: #BDE5F8 !important;
 }

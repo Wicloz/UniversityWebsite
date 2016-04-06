@@ -1,5 +1,4 @@
 <?php
-require_once 'vendor/smarty/smarty/libs/Smarty.class.php';
 require_once 'app/core/init.php';
 require_once 'main.php';
 

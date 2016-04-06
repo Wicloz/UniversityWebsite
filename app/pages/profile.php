@@ -19,19 +19,12 @@ function createPage ($smarty) {
             $validation->check($_POST, Config::get('validation/user_info'));
 
             if ($validation->passed()) {
-                $fields = array(
-                    'name' => 'name',
-                    'student_id' => 'sid',
-                    'email' => 'email',
-                    'phone' => 'phone'
+                $data = array(
+                    'name' => Input::get('name'),
+                    'student_id' => Input::get('sid'),
+                    'email' => Input::get('email'),
+                    'phone' => Phone::formatNumber(Input::get('phone'))
                 );
-                $data = array();
-
-                foreach ($fields as $field => $value) {
-                    if (Input::has($value)) {
-                        $data[$field] = Input::get($value);
-                    }
-                }
 
                 if (Users::currentUser()->update($data)) {
                     Notifications::addSuccess('User information updated!');

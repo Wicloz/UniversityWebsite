@@ -1,6 +1,8 @@
 <?php
-require_once 'dbsettings.php';
 error_reporting(E_ALL);
+require_once 'vendor/smarty/smarty/libs/Smarty.class.php';
+require_once 'vendor/autoload.php';
+require_once 'dbsettings.php';
 session_start();
 date_default_timezone_set('Europe/Amsterdam');
 
@@ -46,11 +48,12 @@ $GLOBALS['config'] = array(
             ),
             'email' => array(
                 'name' => 'Email Address',
-                'wildcard' => '*@*.*'
+                'ofType' => array('email')
             ),
             'phone' => array(
                 'name' => 'Mobile/Phone Number',
-                'max' => 14
+                'max' => 14,
+                'ofType' => array('phone')
             )
         ),
         'register_info' => array(
@@ -68,11 +71,12 @@ $GLOBALS['config'] = array(
             ),
             'email' => array(
                 'name' => 'Email Address',
-                'wildcard' => '*@*.*'
+                'ofType' => array('email')
             ),
             'phone' => array(
                 'name' => 'Mobile/Phone Number',
-                'max' => 14
+                'max' => 14,
+                'ofType' => array('phone')
             )
         ),
         'set_password' => array(
@@ -110,4 +114,9 @@ spl_autoload_register(function($class) {
 require_once 'app/functions/sanitize.php';
 require_once 'app/functions/misc.php';
 Users::init();
+Phone::init();
+
+if (!empty($_POST['phone']) && strpos($_POST['phone'], '+') === false) {
+    $_POST['phone'] = '+31' . $_POST['phone'];
+}
 ?>

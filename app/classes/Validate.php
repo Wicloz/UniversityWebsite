@@ -56,6 +56,12 @@ class Validate {
                                     $this->addError("'{$rules['name']}' must be unique but is already taken.");
                                 }
                             break;
+
+                            case 'ofType':
+                                foreach ($rule_value as $type) {
+                                    $this->checkType($item_value, $rules['name'], $type);
+                                }
+                            break;
                         }
                     }
                 }
@@ -64,6 +70,22 @@ class Validate {
 
         if (empty($this->_errors)) {
             $this->_passed = true;
+        }
+    }
+
+    private function checkType ($value, $name, $type) {
+        switch ($type) {
+            case 'email':
+                if (!fnmatch('*@*.*', $value)) {
+                    $this->addError("'{$name}' must be a valid email address.");
+                }
+            break;
+
+            case 'phone':
+                if (!Phone::validNumber($value)) {
+                    $this->addError("'{$name}' must be a valid phone number.");
+                }
+            break;
         }
     }
 

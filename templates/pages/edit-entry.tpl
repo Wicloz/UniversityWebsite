@@ -6,7 +6,7 @@
                 <div class="form-row">
                     <label for="{$column->COLUMN_NAME}">{$column->COLUMN_NAME}:</label>
                     <br>
-                    <{if $column->type === 'textarea'}textarea rows="5"{else}input type="{$column->type}" value="{$column->value}"{/if}
+                    <{if $column->type === 'textarea'}textarea rows="10"{else}input type="{$column->type}" value="{$column->value}"{/if}
                         name="{$column->COLUMN_NAME}"
                         id="{$column->COLUMN_NAME}"
                         class="{$column->type}"

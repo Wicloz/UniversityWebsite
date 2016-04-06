@@ -71,7 +71,7 @@ class DB {
         if ($this->_query = $this->_pdo->prepare($sql)) {
             if (count($params)) {
                 foreach ($params as $index => $param) {
-                    $this->_query->bindValue($index + 1, $this->_mysql->escape_string($param));
+                    $this->_query->bindValue($index + 1, $param);
                 }
             }
 

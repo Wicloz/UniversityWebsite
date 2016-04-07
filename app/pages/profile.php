@@ -87,12 +87,12 @@ function createPage ($smarty) {
             }
         }
 
-        if (Input::get('action') === 'update_calendarAssignmentsID') {
+        if (Input::get('action') === 'update_calendarAssignmentsId') {
             $validation = new Validate();
             $validation->check($_POST, array(
                 'calid-ass' => array(
                     'name' => 'Assignment Calendar ID',
-                    'required' => true
+                    'required' => false
                 )
             ));
 
@@ -103,7 +103,7 @@ function createPage ($smarty) {
                 if (Users::currentUser()->update($data)) {
                     Notifications::addSuccess('Assignment calendar ID updated!');
                 } else {
-                    Notifications::addError('Could not update assignment calendar ID.');
+                    Notifications::addValidationFail('Could not update assignment calendar ID.');
                 }
             }
 

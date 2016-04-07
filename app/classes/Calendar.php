@@ -81,6 +81,7 @@ class Calendar {
             $request = new Google_Service_Calendar_Event(array(
                 'id' => $eventId,
                 'summary' => $assignment->desc_short,
+                'description' => $assignment->desc_full,
                 'start' => array(
                     'date' => $assignment->end_date,
                     'timeZone' => 'Europe/Amsterdam'

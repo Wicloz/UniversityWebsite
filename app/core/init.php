@@ -5,7 +5,27 @@ require_once 'vendor/autoload.php';
 require_once 'dbsettings.php';
 session_start();
 date_default_timezone_set('Europe/Amsterdam');
-mkdir('storage', 0771, true);
+
+function deleteDir ($dirPath) {
+    if (!is_dir($dirPath)) {
+        throw new InvalidArgumentException("$dirPath must be a directory");
+    }
+    if (substr($dirPath, strlen($dirPath) - 1, 1) !== '/') {
+        $dirPath .= '/';
+    }
+    $files = glob($dirPath . '*', GLOB_MARK);
+    foreach ($files as $file) {
+        if (is_dir($file)) {
+            deleteDir($file);
+        } else {
+            unlink($file);
+        }
+    }
+    rmdir($dirPath);
+}
+
+deleteDir('storage');
+@mkdir('storage', 0771, true);
 
 $GLOBALS['config'] = array(
     'debug' => array(

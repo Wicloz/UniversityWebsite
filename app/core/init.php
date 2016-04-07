@@ -25,6 +25,11 @@ $GLOBALS['config'] = array(
         'db' => $db_dbname
     ),
 
+    'twilio' => array(
+        'sid' => 'AC45051091c1437e8c03b5151fc2487029',
+        'token' => '9c3e5fe94047edd008664ef25649de4b'
+    ),
+
     'remember' => array(
         'cookie_name' => 's1704362univ_remember',
         'cookie_expiry' => 604800

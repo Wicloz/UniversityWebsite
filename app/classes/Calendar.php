@@ -66,8 +66,10 @@ class Calendar {
         return '';
     }
 
-    public static function updateAssignement () {
-
+    public static function updateAssignment ($calendarId, $assignment) {
+        if (Users::loggedIn() && $service = self::getService()) {
+            $eventId = Users::currentData()->student_id.'-assignment-'.$assignment->id;
+        }
     }
 }
 ?>

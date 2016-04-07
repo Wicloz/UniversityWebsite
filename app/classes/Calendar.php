@@ -66,8 +66,8 @@ class Calendar {
         return '';
     }
 
-    public static function updateAssignment ($assignment) {
-        if (Users::loggedIn() && $service = self::getService() && Users::currentData()->calendar_assignments) {
+    public static function updateAssignment ($id) {
+        if (Users::loggedIn() && Users::currentData()->calendar_assignments && $service = self::getService() &&  $assignment = Queries::assignment($id)) {
             $eventId = Users::currentData()->student_id.'assignment'.$assignment->id;
             $calendarId = Users::currentData()->calendar_assignments;
 

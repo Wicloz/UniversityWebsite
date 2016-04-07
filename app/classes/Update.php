@@ -159,7 +159,7 @@ class Update {
                 'team' => Input::get('team'),
                 'link_assignment' => Input::get('link')
             ));
-            Calendar::updateAssignment(DB::instance()->get("assignments", array("", "id", "=", $id))->first());
+            Calendar::updateAssignment($id);
             Notifications::addSuccess('Assignment added!');
             Redirect::to("?page=assignments_item&id={$id}");
         }
@@ -285,6 +285,7 @@ class Update {
                     'subject' => Input::get('subject'),
                     'desc_short' => Input::get('task')
                 ));
+                Calendar::updateAssignment($id);
                 Notifications::addSuccess('Assignment added!');
                 Redirect::to("?page=assignments_item&id={$id}");
             }
@@ -325,7 +326,7 @@ class Update {
                 $id = DB::autoIncrementValue(Input::get('table'));
                 DB::instance()->insert(Input::get('table'), $data);
                 if (Input::get('table') === 'assignments') {
-                    Calendar::updateAssignment(DB::instance()->get("assignments", array("", "id", "=", $id))->first());
+                    Calendar::updateAssignment($id);
                 }
                 Notifications::addSuccess('Entry inserted!');
                 Redirect::to('?page=edit-entry&table='.Input::get('table').'&id='.$id);
@@ -369,7 +370,7 @@ class Update {
                 }
                 DB::instance()->update(Input::get('table'), Input::get('id'), $data);
                 if (Input::get('table') === 'assignments') {
-                    Calendar::updateAssignment(DB::instance()->get("assignments", array("", "id", "=", Input::get('id')))->first());
+                    Calendar::updateAssignment($id);
                 }
                 Notifications::addSuccess('Entry updated!');
                 Redirect::to('');

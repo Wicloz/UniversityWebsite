@@ -117,7 +117,7 @@ function createPage ($smarty) {
         }
 
         if (Input::get('action') === 'update_calendarEvents') {
-            $assignments = DB::instance()->get("assignments");
+            $assignments = DB::instance()->get("assignments")->results();
             foreach ($assignments as $assignment) {
                 Calendar::updateAssignment($assignment->id);
             }

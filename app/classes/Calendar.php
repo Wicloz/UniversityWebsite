@@ -42,8 +42,8 @@ class Calendar {
             // Store the credentials to disk.
             if(!file_exists(dirname($credentialsPath))) {
                 mkdir(dirname($credentialsPath));
+                chmod(dirname($credentialsPath), 0700);
             }
-            chmod(dirname($credentialsPath), 0700);
             file_put_contents($credentialsPath, $accessToken);
 
             return self::getService() == true;

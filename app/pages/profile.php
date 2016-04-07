@@ -117,7 +117,7 @@ function createPage ($smarty) {
         }
 
         if (Input::get('action') === 'update_calendarEvents') {
-            $assignments
+
         }
     }
 

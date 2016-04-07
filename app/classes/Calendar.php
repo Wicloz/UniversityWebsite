@@ -67,7 +67,8 @@ class Calendar {
     }
 
     public static function updateAssignment ($id) {
-        if (Users::loggedIn() && Users::currentData()->calendar_assignments && $service = self::getService() &&  $assignment = Queries::assignment($id)) {
+        $assignment = Queries::assignment($id);
+        if (Users::loggedIn() && Users::currentData()->calendar_assignments && !empty($assignment) && $service = self::getService()) {
             $eventId = Users::currentData()->student_id.'assignment'.$assignment->id;
             $calendarId = Users::currentData()->calendar_assignments;
 
@@ -91,14 +92,17 @@ class Calendar {
             catch (Exception $e) {
                 $service->events->insert($calendarId, $request);
             }
+
+            Notifications::addSuccess('Google Calendar Event updated!');
         }
     }
 
     public static function deleteAssignment ($id) {
-        if (Users::loggedIn() && $service = self::getService() && Users::currentData()->calendar_assignments) {
+        if (Users::loggedIn() && Users::currentData()->calendar_assignments && $service = self::getService()) {
             $eventId = Users::currentData()->student_id.'assignment'.$id;
             $calendarId = Users::currentData()->calendar_assignments;
             $service->events->delete($calendarId, $eventId);
+            Notifications::addSuccess('Google Calendar Event deleted!');
         }
     }
 }

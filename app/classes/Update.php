@@ -370,7 +370,7 @@ class Update {
                 }
                 DB::instance()->update(Input::get('table'), Input::get('id'), $data);
                 if (Input::get('table') === 'assignments') {
-                    Calendar::updateAssignment($id);
+                    Calendar::updateAssignment(Input::get('id'));
                 }
                 Notifications::addSuccess('Entry updated!');
                 Redirect::to('');

@@ -78,7 +78,32 @@ function createPage ($smarty) {
                 if (Calendar::setCredentials(Input::get('authcode'))) {
                     Notifications::addSuccess('Google Calendar API authorized!');
                 } else {
-                    Notifications::addError('Could not authorize Google Calendar API.');
+                    Notifications::addValidationFail('Could not authorize Google Calendar API.');
+                }
+            }
+
+            else {
+                Notifications::addValidationFail($validation->getErrors());
+            }
+        }
+
+        if (Input::get('action') === 'update_calendarAssignmentsID') {
+            $validation = new Validate();
+            $validation->check($_POST, array(
+                'calid-ass' => array(
+                    'name' => 'Assignment Calendar ID',
+                    'required' => true
+                )
+            ));
+
+            if ($validation->passed()) {
+                $data = array(
+                    'calendar_assignments' => Input::get('calid-ass')
+                );
+                if (Users::currentUser()->update($data)) {
+                    Notifications::addSuccess('Assignment calendar ID updated!');
+                } else {
+                    Notifications::addError('Could not update assignment calendar ID.');
                 }
             }
 
@@ -96,6 +121,7 @@ function createPage ($smarty) {
         $smarty->assign('authUrl', Calendar::getAuthUrl());
     }
     $smarty->assign('authCode', Input::get('authcode'));
+    $smarty->assign('calid_ass', Users::currentData()->calendar_assignments);
 
     $smarty->assign('name', Users::currentData()->name);
     $smarty->assign('sid', Users::currentData()->student_id);

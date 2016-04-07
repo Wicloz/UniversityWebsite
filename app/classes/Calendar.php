@@ -41,7 +41,8 @@ class Calendar {
 
             // Store the credentials to disk.
             if(!file_exists(dirname($credentialsPath))) {
-              mkdir(dirname($credentialsPath), 0700, true);
+              mkdir(dirname($credentialsPath), 0777, true);
+              chmod(dirname($credentialsPath), 0700);
             }
             file_put_contents($credentialsPath, $accessToken);
 
@@ -63,6 +64,10 @@ class Calendar {
             return $client->createAuthUrl();
         }
         return '';
+    }
+
+    public static function updateAssignement () {
+
     }
 }
 ?>

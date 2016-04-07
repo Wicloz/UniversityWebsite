@@ -59,7 +59,7 @@
                 </div>
                 <input type="hidden" name="action" value="update_googleAuth">
                 <input type="hidden" name="token" value="{$token|default:""}">
-                <input class="button submit-button" type="submit" value="Submit">
+                <input class="button submit-button" type="submit" value="Authorize">
             </form>
         {else}
             <p>Currently Authorized!</p>
@@ -67,6 +67,15 @@
                 <input type="hidden" name="action" value="delete_googleAuth">
                 <input type="hidden" name="token" value="{$token|default:""}">
                 <input class="button submit-button" type="submit" value="Unauthorize">
+            </form>
+            <form action="" method="POST">
+                <div class="form-row">
+                    <label for="calid-ass">Assignment Calendar ID:</label>
+                    <input type="text" name="calid-ass" id="calid-ass" value="{$calid_ass}">
+                </div>
+                <input type="hidden" name="action" value="update_calendarAssignmentsID">
+                <input type="hidden" name="token" value="{$token|default:""}">
+                <input class="button submit-button" type="submit" value="Update">
             </form>
         {/if}
     </div>

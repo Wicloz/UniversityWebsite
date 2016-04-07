@@ -45,6 +45,32 @@
         </form>
     </div>
     <div class="paragraph-center col-sm-12">
+        <h2>Google Calendar Authorization:</h2>
+        {if !empty($authUrl)}
+            <p>
+                Click here to authorize:
+                <br>
+                <a href="{$authUrl}" target="_blank">{$authUrl}</a>
+            </p>
+            <form action="" method="POST">
+                <div class="form-row">
+                    <label for="authcode">Authorization Code:</label>
+                    <input type="text" name="authcode" id="authcode" value="{$authCode}">
+                </div>
+                <input type="hidden" name="action" value="update_googleAuth">
+                <input type="hidden" name="token" value="{$token|default:""}">
+                <input class="button submit-button" type="submit" value="Submit">
+            </form>
+        {else}
+            <p>Currently Authorized!</p>
+            <form action="" method="POST">
+                <input type="hidden" name="action" value="delete_googleAuth">
+                <input type="hidden" name="token" value="{$token|default:""}">
+                <input class="button submit-button" type="submit" value="Unauthorize">
+            </form>
+        {/if}
+    </div>
+    <div class="paragraph-center col-sm-12">
         <h2>Logout</h2>
         <form action="" method="POST">
             <input type="hidden" name="action" value="logout">

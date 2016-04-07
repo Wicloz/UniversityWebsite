@@ -10,7 +10,7 @@ class Calendar {
         return $client;
     }
 
-    public static function getAuthorisedClient () {
+    public static function getService () {
         if (Users::loggedIn()) {
             $credentialsPath = 'storage/google-calendar/'.Users::currentData()->student_id.'-credentials.json';
             if (file_exists($credentialsPath)) {
@@ -24,10 +24,10 @@ class Calendar {
                   file_put_contents($credentialsPath, $client->getAccessToken());
                 }
 
-                return $client;
+                $service = new Google_Service_Calendar($client);
+                return $service;
             }
         }
-
         return false;
     }
 
@@ -44,7 +44,25 @@ class Calendar {
               mkdir(dirname($credentialsPath), 0771, true);
             }
             file_put_contents($credentialsPath, $accessToken);
+
+            return self::getService() == true;
         }
+        return false;
+    }
+
+    public static function deleteCredentials () {
+        if (Users::loggedIn()) {
+            $credentialsPath = 'storage/google-calendar/'.Users::currentData()->student_id.'-credentials.json';
+            unlink($credentialsPath);
+        }
+    }
+
+    public static function getAuthUrl () {
+        if (Users::loggedIn()) {
+            $client = self::getClient();
+            return $client->createAuthUrl();
+        }
+        return '';
     }
 }
 ?>

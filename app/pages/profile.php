@@ -58,14 +58,44 @@ function createPage ($smarty) {
                 } else {
                     Notifications::addValidationFail('Invalid current password.');
                 }
-
             }
 
             else {
                 Notifications::addValidationFail($validation->getErrors());
             }
         }
+
+        if (Input::get('action') === 'update_googleAuth') {
+            $validation = new Validate();
+            $validation->check($_POST, array(
+                'authcode' => array(
+                    'name' => 'Authorisation Code',
+                    'required' => true
+                )
+            ));
+
+            if ($validation->passed()) {
+                if (Calendar::setCredentials(Input::get('authcode'))) {
+                    Notifications::addSuccess('Google Calendar API authorized!');
+                } else {
+                    Notifications::addError('Could not authorize Google Calendar API.');
+                }
+            }
+
+            else {
+                Notifications::addValidationFail($validation->getErrors());
+            }
+        }
+
+        if (Input::get('action') === 'delete_googleAuth') {
+            Calendar::deleteCredentials();
+        }
     }
+
+    if (!Calendar::getService()) {
+        $smarty->assign('authUrl', Calendar::getAuthUrl());
+    }
+    $smarty->assign('authCode', Input::get('authcode'));
 
     $smarty->assign('name', Users::currentData()->name);
     $smarty->assign('sid', Users::currentData()->student_id);

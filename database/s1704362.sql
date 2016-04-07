@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: putter.vuw.leidenuniv.nl:3306
--- Generation Time: Apr 05, 2016 at 03:57 PM
+-- Generation Time: Apr 07, 2016 at 09:55 AM
 -- Server version: 5.5.47-log
 -- PHP Version: 5.3.17
 
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `assignments` (
   `link_report` text NOT NULL,
   `team` varchar(100) NOT NULL,
   `completion` tinyint(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `assignments`
@@ -80,7 +80,7 @@ INSERT INTO `assignments` (`id`, `start_date`, `end_date`, `end_time`, `subject`
 (6, '2015-11-11', '2015-12-04', '17:00:00', 'pr', 'Programmeeropdracht 4: Othello', 'Het is de bedoeling om een C++-programma te maken dat de gebruiker in staat stelt het spel Othello (zie ook Reversi) te spelen via een eenvoudig menu. Othello-borden worden in het C++-programma gerepresenteerd door ingewikkelde pointer-structuren. Het is de bedoeling een klasse OthelloBord te maken, die onder meer memberfuncties heeft als afdrukken, spelerzet en computerzet. Uiteraard heeft deze klasse ook een constructor en een destructor. Verder moeten gedane zetten met behulp van een stapel ongedaan gemaakt kunnen worden, en kan het aantal vervolgpartijen worden uitgerekend.', 'http://liacs.leidenuniv.nl/~kosterswa/pm/op4pm.php', 'https://github.com/Wicloz/PMPO/tree/master/PMPO_Othello', '', 'Jevan Kolk', 1),
 (7, '2015-11-17', '2015-11-24', '11:15:00', 'stpr', 'Presentation Human Microbiome', 'Each group of two will have ten minutes to explain their theory as an oral presentation. You can use slides and/or draw diagrams on the chalk boards available. During the presentation:<br>1. Explain the current theory, using diagrams and analogies if they are helpful.<br>2. Explain the origins and history of the theory (i.e. who proposed it and when, what was the prevailing theory before this was proposed, and are there any credible ideas that may contradict the current theory).<br>3. Briefly give your own opinion of the theory. Is it credible? Has it stood the test of time?<br>Both members of each team should be involved with researching and preparing the presentation and both members of the team should be involved with presenting.', 'http://liacs.leidenuniv.nl/~wolstencroftkj/Assignment2_SSP.pdf', 'https://drive.google.com/drive/folders/0B44Sn7Hnnnhhb3lib2hBZFZ0NlU', 'https://docs.google.com/presentation/d/1swmxPdS5kHq7Yv_6EO_p7YHtWSZGPKpV8A42M3h2LIQ/edit?usp=sharing', 'Martijn Blokker', 1),
 (9, '2015-12-08', '2015-12-11', '17:00:00', 'stpr', 'Written article Human Microbiome', 'In groups of two, explain the same scientific theory as a written article of no more than 3 pages (one report per group of two).<br><br>In this exercise, imagine that you are a science journalist writing about this theory just after it has been proposed. You are writing for a general audience without much scientific knowledge, so you will need to engage their interest and help them understand why this discovery is important.<br>In your report, explain the theory, but also explain why this theory is important for society. Will it change the world? If so, how? How will this work influence future research? You might also wish to discuss whether or not the theory is controversial. If it is, who is it controversial for?', 'http://liacs.leidenuniv.nl/~wolstencroftkj/Assignment3_SSP.pdf', 'https://nl.sharelatex.com/project/5666b4b1182bc84705fe5f8b', 'https://nl.sharelatex.com/project/5666b4b1182bc84705fe5f8b/output/output.pdf', 'Martijn Blokker', 1),
-(10, '0000-00-00', '2016-04-21', '09:00:00', 'bc', 'Presentatie', '', '', '', '', '', 0),
+(10, '0000-00-00', '2016-04-21', '09:00:00', 'bc', 'Presentatie plantengenetica', '', '', '', '', '', 0),
 (12, '2016-02-16', '2016-02-23', '00:00:00', 'lo', 'Homework 1', '', 'http://liacs.leidenuniv.nl/~bonsanguemm/Logic/hw2016.1.pdf', '', '', '', 1),
 (13, '2016-02-24', '2016-03-27', '23:59:00', 'db', 'Practical Assignment 1', 'This practical assignment consists of three parts and should be delivered by March 27th 23:59pm.', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3497614-dt-content-rid-3488943_1/courses/4031DABA6-1516FWN/assignment.pdf', '', '', '', 1),
 (14, '2016-02-15', '2016-03-21', '12:00:00', 'alg', 'Programmeeropdracht 1 (brute force)', 'Een mogelijke werkwijze bij het programmeren is:      Lees de opdracht helemaal door, want bijvoorbeeld vragen die je in het verslag moet beantwoorden, kunnen helpen bij de implementatie.     Toestand-actie-ruimtes zoals die in het verslag moeten komen, behandelen we bij het derde college, op vrijdag 19 februari 2016 en bij het werkcollege van donderdag 25 februari.     Implementeer achtereenvolgens:         constructor(s)         functie drukaf         functie eindstand         functie doezet(kolom), zowel voor gewoon vooruitzetten als voor slaan         recursieve functie winst (aantal)         functie doerandomzet         functie bestezet     Het is verstandig om in principe na elke nieuwe functie (of deel daarvan) te testen of het programma doet wat je verwacht, door de op dat moment geschreven functies aan te roepen vanuit main.cc.', 'http://liacs.leidenuniv.nl/~graafjmde/ALGO/een2016.pdf', 'https://github.com/Wicloz/ALGPO/tree/master/ALGPO_BruteForce', '', 'Jevan Kolk', 1),
@@ -91,7 +91,8 @@ INSERT INTO `assignments` (`id`, `start_date`, `end_date`, `end_time`, `subject`
 (19, '2016-03-22', '2016-04-03', '00:00:00', 'lo', 'Homework 3', '', 'http://liacs.leidenuniv.nl/~bonsanguemm/Logic/hw2016.3.pdf', '', '', '', 1),
 (20, '2016-03-22', '2016-03-29', '11:15:00', 'oib', 'Doe de R cursus op DataCamp', '', 'https://www.datacamp.com/courses/free-introduction-to-r', '', '', '', 1),
 (21, '0000-00-00', '2016-04-25', '13:00:00', 'bc', 'Verslag LDH inleveren', '', '', '', '', '', 0),
-(22, '2016-03-24', '2016-04-18', '12:00:00', 'alg', 'Programmeeropdracht 2 (knock out)', 'Het programma en Makefile per e-mail sturen naar: j.m.de.graaf@liacs.leidenuniv.nl<br>Zorg dat het onderwerp van je mail begint met ”[ALGO]”, dat scheelt de docent een hoop gezoek. Het verslag (inclusief het programma) moet op papier worden ingeleverd in de daartoe bestemde doos met opschrift Algoritmiek in de postkamer van Informatica, kamer 156. Voor elke week te laat inleveren gaat er een punt van het cijfer af. Vermeld overal duidelijk de namen van de makers.', 'http://liacs.leidenuniv.nl/~graafjmde/ALGO/twee2016.pdf', '', '', '', 0);
+(22, '2016-03-24', '2016-04-18', '12:00:00', 'alg', 'Programmeeropdracht 2 (knock out)', 'Het programma en Makefile per e-mail sturen naar: j.m.de.graaf@liacs.leidenuniv.nl<br>Zorg dat het onderwerp van je mail begint met ”[ALGO]”, dat scheelt de docent een hoop gezoek. Het verslag (inclusief het programma) moet op papier worden ingeleverd in de daartoe bestemde doos met opschrift Algoritmiek in de postkamer van Informatica, kamer 156. Voor elke week te laat inleveren gaat er een punt van het cijfer af. Vermeld overal duidelijk de namen van de makers.', 'http://liacs.leidenuniv.nl/~graafjmde/ALGO/twee2016.pdf', '', '', '', 0),
+(23, '2016-04-06', '2016-05-11', '12:00:00', 'wu50', 'Deadline audio-slideshow', '<p>- Lever in als .mp4<br />- 1:30 tot 2:30 minuten<br />- Geen vraag/antwoord structuur<br />- Geen lange fragmenten film</p>', '', '', '', 'Hermes', 0);
 
 -- --------------------------------------------------------
 
@@ -193,7 +194,7 @@ CREATE TABLE IF NOT EXISTS `planning` (
   `goal` text NOT NULL,
   `finished_on` datetime NOT NULL,
   `done` tinyint(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `planning`
@@ -256,8 +257,12 @@ INSERT INTO `planning` (`id`, `parent_table`, `parent_id`, `date_start`, `date_e
 (65, 'assignments', 19, '2016-04-02', '2016-04-02', '00:30:00', 'Controleer antwoorden en lever in', '2016-04-02 23:26:31', 1),
 (69, 'subjects', 9, '2016-04-03', '2016-04-03', '00:30:00', 'Werk labjournaal vorige proeven bij', '2016-04-03 17:19:55', 1),
 (70, 'subjects', 12, '2016-04-05', '2016-04-05', '00:20:00', 'Lees 2.1', '2016-04-05 17:19:19', 1),
-(71, 'subjects', 12, '2016-04-05', '2016-04-05', '00:30:00', 'Lees 2.2', '2016-04-05 17:56:45', 1),
-(72, 'subjects', 9, '2016-04-05', '2016-04-05', '00:10:00', 'Practicum woensdag voorberijden', '0000-00-00 00:00:00', 0);
+(71, 'subjects', 12, '2016-04-05', '2016-04-08', '00:30:00', 'Lees 2.2', '0000-00-00 00:00:00', 0),
+(72, 'subjects', 9, '2016-04-05', '2016-04-05', '00:10:00', 'Practicum woensdag voorberijden', '2016-04-05 18:04:53', 1),
+(73, 'subjects', 11, '2016-04-06', '2016-04-10', '01:00:00', '<p>Neem college 30-03 door</p>', '0000-00-00 00:00:00', 0),
+(75, 'subjects', 12, '2016-04-09', '2016-04-11', '01:00:00', '<p>Lees 2.3 ter voorberijding</p>', '0000-00-00 00:00:00', 0),
+(76, 'subjects', 9, '2016-04-06', '2016-04-06', '00:10:00', 'Berijd ontkleuring donderdag voor', '2016-04-06 21:05:16', 1),
+(77, 'subjects', 9, '2016-04-09', '2016-04-10', '00:15:00', 'Berijd practicum maandag voor (3.5.4, 3.1.7)', '0000-00-00 00:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -271,6 +276,7 @@ CREATE TABLE IF NOT EXISTS `subjects` (
   `abbreviation` varchar(6) NOT NULL,
   `section` varchar(20) NOT NULL,
   `content` text NOT NULL,
+  `links` text NOT NULL,
   `active` tinyint(1) NOT NULL,
   `link_book` text NOT NULL,
   `link_home` text NOT NULL,
@@ -284,23 +290,23 @@ CREATE TABLE IF NOT EXISTS `subjects` (
 -- Dumping data for table `subjects`
 --
 
-INSERT INTO `subjects` (`id`, `name`, `abbreviation`, `section`, `content`, `active`, `link_book`, `link_home`, `link_powerpoints`, `link_schedule`, `link_assignments`, `link_marks`) VALUES
-(1, 'Studeren & Presenteren', 'stpr', 'inf', '', 0, '', 'http://liacs.leidenuniv.nl/~wolstencroftkj/ssp.html', 'http://liacs.leidenuniv.nl/~wolstencroftkj/ssp.html#Lectures', 'http://liacs.leidenuniv.nl/~wolstencroftkj/SSPTimetable.pdf', 'http://liacs.leidenuniv.nl/~wolstencroftkj/ssp.html#Assignments', ''),
-(2, 'Programmeermethoden', 'pr', 'inf', '', 0, 'media/books/Absolute C++.pdf', 'http://liacs.leidenuniv.nl/~kosterswa/pm/', 'http://liacs.leidenuniv.nl/~kosterswa/pm/college.php', 'http://liacs.leidenuniv.nl/~kosterswa/pm/inhoud.php', 'http://liacs.leidenuniv.nl/~kosterswa/pm/opdrachten.php', 'http://liacs.leidenuniv.nl/~kosterswa/pm/cijf/res.html'),
-(3, 'Fundamentele Informatica 1', 'fi1', 'inf', '', 0, 'media/books/Schaums outlines Discrete Mathematics.pdf', 'http://liacs.leidenuniv.nl/~hoogeboomhj/fi1/', 'http://liacs.leidenuniv.nl/~hoogeboomhj/fi1/', 'http://liacs.leidenuniv.nl/~hoogeboomhj/fi1/', '', 'http://liacs.leidenuniv.nl/~hoogeboomhj/fi1/fi1-cijfers-dec-2015-site.pdf'),
-(4, 'Basispracticum', 'bp', 'bio', '', 0, '', 'https://blackboard.leidenuniv.nl/webapps/blackboard/execute/modulepage/view?course_id=_157670_1&cmp_tab_id=_114874_1&mode=view', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_157670_1&content_id=_3302925_1&mode=reset', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3302933-dt-content-rid-3037697_1/courses/4031BBPIB-1516FWN/HANDL%2020%20juli%202015.pdf', '', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3408273-dt-content-rid-3318406_1/courses/4031BBPIB-1516FWN/COHORT%202015-2016%20BLOK2%20BASISPRACTICUM%20voor%20I%26B%2024%20nov%20%20publicatie%20blackboard%202015%20.pdf'),
-(5, 'Microbiologie', 'mi', 'bio', '', 0, 'media/books/Campbell Biology.pdf', 'https://blackboard.leidenuniv.nl/webapps/blackboard/execute/announcement?method=search&context=course_entry&course_id=_155463_1&handle=announcements_entry&mode=view', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_155463_1&content_id=_3402648_1', '', '', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3439771-dt-content-rid-3384914_1/courses/4031BBPIB-1516FWN/Cijferlijst%2011%20dec%20%20Microbiologie%20voor%20Informatica%20%20Biologie%20voor%20publicatie%20blackboard%202015-2016.pdf'),
-(6, 'Celfysiologie', 'cf', 'bio', '', 0, 'media/books/Campbell Biology.pdf', 'https://blackboard.leidenuniv.nl/webapps/blackboard/execute/announcement?method=search&context=course_entry&course_id=_155462_1&handle=announcements_entry&mode=view', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_155462_1&content_id=_3344439_1', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3345291-dt-content-rid-3087777_1/xid-3087777_1', '', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3404299-dt-content-rid-3291856_1/courses/40212CF15-1516FWN/Cijferlijst%20Celfysiologie%20voor%20Informatica%20%20Biologie%202015-2016.pdf'),
-(7, 'Celbiologie', 'cb', 'bio', '', 0, 'media/books/Campbell Biology.pdf', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_157356_1&content_id=_3289911_1', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_157356_1&content_id=_3291631_1', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3291622-dt-content-rid-3268088_1/xid-3268088_1', '', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_157356_1&content_id=_3441392_1'),
-(8, 'Moleculaire Genetica', 'mg', 'bio', '', 0, 'media/books/Campbell Biology.pdf', 'https://blackboard.leidenuniv.nl/webapps/blackboard/execute/announcement?method=search&context=course_entry&course_id=_155460_1&handle=announcements_entry&mode=view', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_155460_1&content_id=_3229624_1&mode=reset', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_155460_1&content_id=_3229624_1&mode=reset', '', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3380511-dt-content-rid-3203012_1/courses/40211MG10-1516FWN/Cohort%20Informatica%20%20Biologie%20toets%20Moleculaire%20Genetica%202015-2016%20.pdf'),
-(9, 'Biochemie', 'bc', 'bio', '', 1, 'media/books/Manual Biochemistry I&B 2016.pdf', 'https://blackboard.leidenuniv.nl/webapps/blackboard/execute/announcement?method=search&context=course_entry&course_id=_159672_1&handle=announcements_entry&mode=view', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_159672_1&content_id=_3489702_1', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3462366-dt-content-rid-3426963_1/courses/4031IBBCH-1516FWN/Rooster%20Biochemie%20I%26B%20%28Blackboard%29.pdf', '', ''),
-(10, 'Algoritmiek', 'alg', 'inf', '', 1, '', 'http://liacs.leidenuniv.nl/~graafjmde/ALGO/', 'http://liacs.leidenuniv.nl/~graafjmde/ALGO/', '', 'http://liacs.leidenuniv.nl/~graafjmde/ALGO/', ''),
-(11, 'Databases', 'db', 'inf', '', 1, '', 'https://blackboard.leidenuniv.nl/webapps/blackboard/execute/announcement?method=search&context=course_entry&course_id=_158226_1&handle=announcements_entry&mode=view', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_158226_1&content_id=_3360722_1&mode=reset', '', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_158226_1&content_id=_3491070_1', ''),
-(12, 'Logica', 'lo', 'inf', '', 1, 'media/books/Logic in Computer Science.pdf', 'http://liacs.leidenuniv.nl/~bonsanguemm/logic.xhtml', '', '', '', ''),
-(13, 'Orientatie I&B', 'oib', 'i&b', '', 1, '', '', '', '', '', ''),
-(14, 'HC Bèta & Life Science', 'hcbls', 'hc', '', 1, '', 'https://blackboard.leidenuniv.nl/webapps/blackboard/execute/announcement?method=search&context=course_entry&course_id=_158114_1&handle=announcements_entry&mode=view', '', '', '', ''),
-(15, 'Onderzoek & Onderzoekers', 'oo', 'hc', '', 1, '', 'https://blackboard.leidenuniv.nl/webapps/blackboard/execute/announcement?method=search&context=course_entry&course_id=_158211_1&handle=announcements_entry&mode=view', '', '', '', ''),
-(16, 'Wetenschappelijke Uitdagingen voor 2050', 'wu50', 'hc', '', 1, '', '', '', '', '', '');
+INSERT INTO `subjects` (`id`, `name`, `abbreviation`, `section`, `content`, `links`, `active`, `link_book`, `link_home`, `link_powerpoints`, `link_schedule`, `link_assignments`, `link_marks`) VALUES
+(1, 'Studeren & Presenteren', 'stpr', 'inf', '', '', 0, '', 'http://liacs.leidenuniv.nl/~wolstencroftkj/ssp.html', 'http://liacs.leidenuniv.nl/~wolstencroftkj/ssp.html#Lectures', 'http://liacs.leidenuniv.nl/~wolstencroftkj/SSPTimetable.pdf', 'http://liacs.leidenuniv.nl/~wolstencroftkj/ssp.html#Assignments', ''),
+(2, 'Programmeermethoden', 'pr', 'inf', '', '', 0, 'media/books/Absolute C++.pdf', 'http://liacs.leidenuniv.nl/~kosterswa/pm/', 'http://liacs.leidenuniv.nl/~kosterswa/pm/college.php', 'http://liacs.leidenuniv.nl/~kosterswa/pm/inhoud.php', 'http://liacs.leidenuniv.nl/~kosterswa/pm/opdrachten.php', 'http://liacs.leidenuniv.nl/~kosterswa/pm/cijf/res.html'),
+(3, 'Fundamentele Informatica 1', 'fi1', 'inf', '', '', 0, 'media/books/Schaums outlines Discrete Mathematics.pdf', 'http://liacs.leidenuniv.nl/~hoogeboomhj/fi1/', 'http://liacs.leidenuniv.nl/~hoogeboomhj/fi1/', 'http://liacs.leidenuniv.nl/~hoogeboomhj/fi1/', '', 'http://liacs.leidenuniv.nl/~hoogeboomhj/fi1/fi1-cijfers-dec-2015-site.pdf'),
+(4, 'Basispracticum', 'bp', 'bio', '', '', 0, '', 'https://blackboard.leidenuniv.nl/webapps/blackboard/execute/modulepage/view?course_id=_157670_1&cmp_tab_id=_114874_1&mode=view', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_157670_1&content_id=_3302925_1&mode=reset', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3302933-dt-content-rid-3037697_1/courses/4031BBPIB-1516FWN/HANDL%2020%20juli%202015.pdf', '', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3408273-dt-content-rid-3318406_1/courses/4031BBPIB-1516FWN/COHORT%202015-2016%20BLOK2%20BASISPRACTICUM%20voor%20I%26B%2024%20nov%20%20publicatie%20blackboard%202015%20.pdf'),
+(5, 'Microbiologie', 'mi', 'bio', '', '', 0, 'media/books/Campbell Biology.pdf', 'https://blackboard.leidenuniv.nl/webapps/blackboard/execute/announcement?method=search&context=course_entry&course_id=_155463_1&handle=announcements_entry&mode=view', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_155463_1&content_id=_3402648_1', '', '', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3439771-dt-content-rid-3384914_1/courses/4031BBPIB-1516FWN/Cijferlijst%2011%20dec%20%20Microbiologie%20voor%20Informatica%20%20Biologie%20voor%20publicatie%20blackboard%202015-2016.pdf'),
+(6, 'Celfysiologie', 'cf', 'bio', '', '', 0, 'media/books/Campbell Biology.pdf', 'https://blackboard.leidenuniv.nl/webapps/blackboard/execute/announcement?method=search&context=course_entry&course_id=_155462_1&handle=announcements_entry&mode=view', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_155462_1&content_id=_3344439_1', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3345291-dt-content-rid-3087777_1/xid-3087777_1', '', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3404299-dt-content-rid-3291856_1/courses/40212CF15-1516FWN/Cijferlijst%20Celfysiologie%20voor%20Informatica%20%20Biologie%202015-2016.pdf'),
+(7, 'Celbiologie', 'cb', 'bio', '', '', 0, 'media/books/Campbell Biology.pdf', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_157356_1&content_id=_3289911_1', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_157356_1&content_id=_3291631_1', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3291622-dt-content-rid-3268088_1/xid-3268088_1', '', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_157356_1&content_id=_3441392_1'),
+(8, 'Moleculaire Genetica', 'mg', 'bio', '', '', 0, 'media/books/Campbell Biology.pdf', 'https://blackboard.leidenuniv.nl/webapps/blackboard/execute/announcement?method=search&context=course_entry&course_id=_155460_1&handle=announcements_entry&mode=view', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_155460_1&content_id=_3229624_1&mode=reset', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_155460_1&content_id=_3229624_1&mode=reset', '', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3380511-dt-content-rid-3203012_1/courses/40211MG10-1516FWN/Cohort%20Informatica%20%20Biologie%20toets%20Moleculaire%20Genetica%202015-2016%20.pdf'),
+(9, 'Biochemie', 'bc', 'bio', '', '', 1, 'media/books/Manual Biochemistry I&B 2016.pdf', 'https://blackboard.leidenuniv.nl/webapps/blackboard/execute/announcement?method=search&context=course_entry&course_id=_159672_1&handle=announcements_entry&mode=view', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_159672_1&content_id=_3489702_1', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3462366-dt-content-rid-3426963_1/courses/4031IBBCH-1516FWN/Rooster%20Biochemie%20I%26B%20%28Blackboard%29.pdf', '', ''),
+(10, 'Algoritmiek', 'alg', 'inf', '', '', 1, '', 'http://liacs.leidenuniv.nl/~graafjmde/ALGO/', 'http://liacs.leidenuniv.nl/~graafjmde/ALGO/', '', 'http://liacs.leidenuniv.nl/~graafjmde/ALGO/', ''),
+(11, 'Databases', 'db', 'inf', '', '', 1, '', 'https://blackboard.leidenuniv.nl/webapps/blackboard/execute/announcement?method=search&context=course_entry&course_id=_158226_1&handle=announcements_entry&mode=view', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_158226_1&content_id=_3360722_1&mode=reset', '', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_158226_1&content_id=_3491070_1', ''),
+(12, 'Logica', 'lo', 'inf', '', '', 1, 'media/books/Logic in Computer Science.pdf', 'http://liacs.leidenuniv.nl/~bonsanguemm/logic.xhtml', '', '', '', ''),
+(13, 'Orientatie I&B', 'oib', 'i&b', '', '', 1, '', '', '', '', '', ''),
+(14, 'HC Bèta & Life Science', 'hcbls', 'hc', '', '', 1, '', 'https://blackboard.leidenuniv.nl/webapps/blackboard/execute/announcement?method=search&context=course_entry&course_id=_158114_1&handle=announcements_entry&mode=view', '', '', '', ''),
+(15, 'Onderzoek & Onderzoekers', 'oo', 'hc', '', '', 1, '', 'https://blackboard.leidenuniv.nl/webapps/blackboard/execute/announcement?method=search&context=course_entry&course_id=_158211_1&handle=announcements_entry&mode=view', '', '', '', ''),
+(16, 'Wetenschappelijke Uitdagingen voor 2050', 'wu50', 'hc', '', '', 1, '', 'https://blackboard.leidenuniv.nl/webapps/blackboard/execute/announcement?method=search&context=course_entry&course_id=_158210_1&handle=announcements_entry&mode=view', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_158210_1&content_id=_3525143_1', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -336,7 +342,7 @@ CREATE TABLE IF NOT EXISTS `user_sessions` (
   `user_id` int(11) NOT NULL,
   `hash` varchar(64) NOT NULL,
   `expiry` datetime NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `user_sessions`
@@ -413,7 +419,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 -- AUTO_INCREMENT for table `assignments`
 --
 ALTER TABLE `assignments`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `exams`
 --
@@ -433,7 +439,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT for table `planning`
 --
 ALTER TABLE `planning`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=73;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=79;
 --
 -- AUTO_INCREMENT for table `subjects`
 --
@@ -448,7 +454,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT for table `user_sessions`
 --
 ALTER TABLE `user_sessions`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=44;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=49;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

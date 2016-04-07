@@ -11,7 +11,7 @@ class Tables {
         $searchString = "";
         $searchParams = array();
         if (!$history) {
-            $searchString .= "AND concat(A.end_date, A.end_time) > ?";
+            $searchString .= "AND (concat(A.end_date, A.end_time) > ? OR A.completion = 0)";
             $searchParams[] = DateFormat::sql();
         }
 
@@ -116,7 +116,7 @@ class Tables {
             }
         }
         if (!$history) {
-            $searchString .= "AND P.date_end >= ?";
+            $searchString .= "AND (P.date_end >= ? OR P.done = 0)";
             $searchParams[] = DateFormat::sqlDate();
         }
 
@@ -194,7 +194,7 @@ class Tables {
             $searchString2 .= "WHERE S.active";
         }
         if (!$history) {
-            $searchString1 .= " AND concat(A.end_date, ' ', A.end_time) > ?";
+            $searchString1 .= " AND (concat(A.end_date, ' ', A.end_time) > ? OR A.completion = 0)";
             $searchString2 .= " AND concat(E.date, ' 24:00:00') >= ?";
             $searchParams[] = DateFormat::sql();
         }
@@ -249,7 +249,7 @@ class Tables {
                 FROM `assignments` A
                 INNER JOIN `subjects` S
                 ON A.subject = S.abbreviation
-                WHERE A.end_date = ?
+                WHERE A.end_date = ? OR (A.completion = 0 AND A.end_date < ?)
             UNION
             SELECT E.id, E.date, concat(E.weight, ' ', S.name) as 'task', E.mark as 'completion', 'exam' as 'type', S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `exams` E
@@ -261,7 +261,7 @@ class Tables {
                 FROM `planning` P
                 INNER JOIN `subjects` S
                 ON P.parent_table = 'subjects' AND P.parent_id = S.id
-                WHERE P.date_start <= ? AND P.date_end >= ?
+                WHERE (P.date_start <= ? AND P.date_end >= ?) OR (P.done = 0 AND P.date_end < ?)
             UNION
             SELECT P.id, P.date_end as 'date', P.goal as 'task', P.done as 'completion', 'planning' as 'type', S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `planning` P
@@ -269,7 +269,7 @@ class Tables {
                 ON P.parent_table = 'assignments' AND P.parent_id = A.id
                 INNER JOIN `subjects` S
                 ON A.subject = S.abbreviation
-                WHERE P.date_start <= ? AND P.date_end >= ?
+                WHERE (P.date_start <= ? AND P.date_end >= ?) OR (P.done = 0 AND P.date_end < ?)
             UNION
             SELECT P.id, P.date_end as 'date', P.goal as 'task', P.done as 'completion', 'planning' as 'type', S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `planning` P
@@ -277,9 +277,13 @@ class Tables {
                 ON P.parent_table = 'exams' AND P.parent_id = E.id
                 INNER JOIN `subjects` S
                 ON E.subject = S.abbreviation
-                WHERE P.date_start <= ? AND P.date_end >= ?
+                WHERE (P.date_start <= ? AND P.date_end >= ?) OR (P.done = 0 AND P.date_end < ?)
             ORDER BY date
         ", array(
+            DateFormat::sqlDate(),
+            DateFormat::sqlDate(),
+            DateFormat::sqlDate(),
+            DateFormat::sqlDate(),
             DateFormat::sqlDate(),
             DateFormat::sqlDate(),
             DateFormat::sqlDate(),

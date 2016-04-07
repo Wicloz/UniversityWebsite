@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: putter.vuw.leidenuniv.nl:3306
--- Generation Time: Apr 07, 2016 at 09:55 AM
+-- Generation Time: Apr 07, 2016 at 03:35 PM
 -- Server version: 5.5.47-log
 -- PHP Version: 5.3.17
 
@@ -60,12 +60,12 @@ CREATE TABLE IF NOT EXISTS `assignments` (
   `subject` varchar(8) NOT NULL,
   `desc_short` varchar(100) NOT NULL,
   `desc_full` text NOT NULL,
-  `link_assignment` text NOT NULL,
-  `link_repository` text NOT NULL,
-  `link_report` text NOT NULL,
+  `link_assignment` varchar(300) NOT NULL,
+  `link_repository` varchar(300) NOT NULL,
+  `link_report` varchar(300) NOT NULL,
   `team` varchar(100) NOT NULL,
   `completion` tinyint(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `assignments`
@@ -91,8 +91,8 @@ INSERT INTO `assignments` (`id`, `start_date`, `end_date`, `end_time`, `subject`
 (19, '2016-03-22', '2016-04-03', '00:00:00', 'lo', 'Homework 3', '', 'http://liacs.leidenuniv.nl/~bonsanguemm/Logic/hw2016.3.pdf', '', '', '', 1),
 (20, '2016-03-22', '2016-03-29', '11:15:00', 'oib', 'Doe de R cursus op DataCamp', '', 'https://www.datacamp.com/courses/free-introduction-to-r', '', '', '', 1),
 (21, '0000-00-00', '2016-04-25', '13:00:00', 'bc', 'Verslag LDH inleveren', '', '', '', '', '', 0),
-(22, '2016-03-24', '2016-04-18', '12:00:00', 'alg', 'Programmeeropdracht 2 (knock out)', 'Het programma en Makefile per e-mail sturen naar: j.m.de.graaf@liacs.leidenuniv.nl<br>Zorg dat het onderwerp van je mail begint met ”[ALGO]”, dat scheelt de docent een hoop gezoek. Het verslag (inclusief het programma) moet op papier worden ingeleverd in de daartoe bestemde doos met opschrift Algoritmiek in de postkamer van Informatica, kamer 156. Voor elke week te laat inleveren gaat er een punt van het cijfer af. Vermeld overal duidelijk de namen van de makers.', 'http://liacs.leidenuniv.nl/~graafjmde/ALGO/twee2016.pdf', '', '', '', 0),
-(23, '2016-04-06', '2016-05-11', '12:00:00', 'wu50', 'Deadline audio-slideshow', '<p>- Lever in als .mp4<br />- 1:30 tot 2:30 minuten<br />- Geen vraag/antwoord structuur<br />- Geen lange fragmenten film</p>', '', '', '', 'Hermes', 0);
+(22, '2016-03-24', '2016-04-18', '12:00:00', 'alg', 'Programmeeropdracht 2 (knock out)', '<p>Het programma en Makefile per e-mail sturen naar: j.m.de.graaf@liacs.leidenuniv.nl<br />Zorg dat het onderwerp van je mail begint met &rdquo;[ALGO]&rdquo;, dat scheelt de docent een hoop gezoek. Het verslag (inclusief het programma) moet op papier worden ingeleverd in de daartoe bestemde doos met opschrift Algoritmiek in de postkamer van Informatica, kamer 156. Voor elke week te laat inleveren gaat er een punt van het cijfer af. Vermeld overal duidelijk de namen van de makers.</p>', 'http://liacs.leidenuniv.nl/~graafjmde/ALGO/twee2016.pdf', '', '', '', 0),
+(23, '2016-04-06', '2016-05-11', '12:00:00', 'wu50', 'Deadline audio-slideshow', '<p>- Lever in als .mp4<br />- 1:30 tot 2:30 minuten<br />- Geen vraag/antwoord structuur<br />- Geen lange fragmenten film</p>', '', '', '', 'Hermes Spaink', 0);
 
 -- --------------------------------------------------------
 
@@ -106,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `exams` (
   `weight` varchar(20) NOT NULL,
   `subject` varchar(8) NOT NULL,
   `substance` text NOT NULL,
-  `link` text NOT NULL,
+  `link` varchar(300) NOT NULL,
   `mark` float NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
@@ -138,11 +138,11 @@ INSERT INTO `exams` (`id`, `date`, `weight`, `subject`, `substance`, `link`, `ma
 
 CREATE TABLE IF NOT EXISTS `navigation` (
 `id` int(11) NOT NULL,
-  `name` varchar(20) NOT NULL,
+  `name` varchar(30) NOT NULL,
   `url` text NOT NULL,
   `sub_names` text NOT NULL,
   `sub_urls` text NOT NULL,
-  `header` varchar(20) NOT NULL,
+  `header` varchar(30) NOT NULL,
   `target` varchar(20) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
@@ -191,7 +191,7 @@ CREATE TABLE IF NOT EXISTS `planning` (
   `date_start` date NOT NULL,
   `date_end` date NOT NULL,
   `duration` time NOT NULL,
-  `goal` text NOT NULL,
+  `goal` varchar(200) NOT NULL,
   `finished_on` datetime NOT NULL,
   `done` tinyint(1) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8;
@@ -259,8 +259,8 @@ INSERT INTO `planning` (`id`, `parent_table`, `parent_id`, `date_start`, `date_e
 (70, 'subjects', 12, '2016-04-05', '2016-04-05', '00:20:00', 'Lees 2.1', '2016-04-05 17:19:19', 1),
 (71, 'subjects', 12, '2016-04-05', '2016-04-08', '00:30:00', 'Lees 2.2', '0000-00-00 00:00:00', 0),
 (72, 'subjects', 9, '2016-04-05', '2016-04-05', '00:10:00', 'Practicum woensdag voorberijden', '2016-04-05 18:04:53', 1),
-(73, 'subjects', 11, '2016-04-06', '2016-04-10', '01:00:00', '<p>Neem college 30-03 door</p>', '0000-00-00 00:00:00', 0),
-(75, 'subjects', 12, '2016-04-09', '2016-04-11', '01:00:00', '<p>Lees 2.3 ter voorberijding</p>', '0000-00-00 00:00:00', 0),
+(73, 'subjects', 11, '2016-04-06', '2016-04-10', '01:00:00', 'Neem college 30-03 door', '0000-00-00 00:00:00', 0),
+(75, 'subjects', 12, '2016-04-09', '2016-04-11', '01:00:00', 'Lees 2.3 ter voorberijding', '0000-00-00 00:00:00', 0),
 (76, 'subjects', 9, '2016-04-06', '2016-04-06', '00:10:00', 'Berijd ontkleuring donderdag voor', '2016-04-06 21:05:16', 1),
 (77, 'subjects', 9, '2016-04-09', '2016-04-10', '00:15:00', 'Berijd practicum maandag voor (3.5.4, 3.1.7)', '0000-00-00 00:00:00', 0);
 
@@ -273,17 +273,17 @@ INSERT INTO `planning` (`id`, `parent_table`, `parent_id`, `date_start`, `date_e
 CREATE TABLE IF NOT EXISTS `subjects` (
 `id` int(11) NOT NULL,
   `name` varchar(40) NOT NULL,
-  `abbreviation` varchar(6) NOT NULL,
+  `abbreviation` varchar(8) NOT NULL,
   `section` varchar(20) NOT NULL,
   `content` text NOT NULL,
   `links` text NOT NULL,
   `active` tinyint(1) NOT NULL,
-  `link_book` text NOT NULL,
-  `link_home` text NOT NULL,
-  `link_powerpoints` text NOT NULL,
-  `link_schedule` text NOT NULL,
-  `link_assignments` text NOT NULL,
-  `link_marks` text NOT NULL
+  `link_book` varchar(300) NOT NULL,
+  `link_home` varchar(300) NOT NULL,
+  `link_powerpoints` varchar(300) NOT NULL,
+  `link_schedule` varchar(300) NOT NULL,
+  `link_assignments` varchar(300) NOT NULL,
+  `link_marks` varchar(300) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 --
@@ -323,6 +323,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` varchar(50) NOT NULL,
   `umail` varchar(50) NOT NULL,
   `phone` varchar(14) NOT NULL,
+  `calendar_assignments` varchar(100) NOT NULL,
+  `calendar_exams` varchar(100) NOT NULL,
   `joined` datetime NOT NULL,
   `last_online` datetime NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
@@ -419,7 +421,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 -- AUTO_INCREMENT for table `assignments`
 --
 ALTER TABLE `assignments`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT for table `exams`
 --

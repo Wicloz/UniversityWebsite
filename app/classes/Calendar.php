@@ -67,7 +67,7 @@ class Calendar {
     }
 
     public static function updateAssignment ($assignment) {
-        if (Users::loggedIn() && $service = self::getService()) {
+        if (Users::loggedIn() && $service = self::getService() && Users::currentData()->calendar_assignments) {
             $eventId = Users::currentData()->student_id.'assignment'.$assignment->id;
             $calendarId = Users::currentData()->calendar_assignments;
 
@@ -95,7 +95,7 @@ class Calendar {
     }
 
     public static function deleteAssignment ($id) {
-        if (Users::loggedIn() && $service = self::getService()) {
+        if (Users::loggedIn() && $service = self::getService() && Users::currentData()->calendar_assignments) {
             $eventId = Users::currentData()->student_id.'assignment'.$id;
             $calendarId = Users::currentData()->calendar_assignments;
             $service->events->delete($calendarId, $eventId);

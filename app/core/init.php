@@ -5,8 +5,8 @@ require_once 'vendor/autoload.php';
 require_once 'dbsettings.php';
 session_start();
 date_default_timezone_set('Europe/Amsterdam');
-@mkdir('storage', 0777, true);
-chmod('storage', 0777);
+@mkdir('storage', 0771, true);
+chmod('storage', 0771);
 
 $GLOBALS['config'] = array(
     'debug' => array(

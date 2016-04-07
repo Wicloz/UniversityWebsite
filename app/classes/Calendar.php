@@ -49,6 +49,9 @@ class Calendar {
                 mkdir(dirname($credentialsPath));
                 chmod(dirname($credentialsPath), 0700);
             }
+            if(!file_exists(dirname($credentialsPath).'/index.php')) {
+                file_put_contents(dirname($credentialsPath).'/index.php', '<?php?>');
+            }
             file_put_contents($credentialsPath, $accessToken);
 
             return self::getService() == true;

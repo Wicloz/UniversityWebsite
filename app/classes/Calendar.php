@@ -93,7 +93,7 @@ class Calendar {
                 $service->events->insert($calendarId, $request);
             }
 
-            Notifications::addSuccess('Google Calendar Event updated!');
+            Notifications::addSuccess('Google calendar event updated!');
         }
     }
 
@@ -102,7 +102,7 @@ class Calendar {
             $eventId = Users::currentData()->student_id.'assignment'.$id;
             $calendarId = Users::currentData()->calendar_assignments;
             $service->events->delete($calendarId, $eventId);
-            Notifications::addSuccess('Google Calendar Event deleted!');
+            Notifications::addSuccess('Google calendar event deleted!');
         }
     }
 }

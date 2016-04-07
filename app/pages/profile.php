@@ -91,19 +91,24 @@ function createPage ($smarty) {
             $validation = new Validate();
             $validation->check($_POST, array(
                 'calid-ass' => array(
-                    'name' => 'Assignment Calendar ID',
+                    'name' => 'Assignments Calendar ID',
+                    'required' => false
+                ),
+                'calid-ex' => array(
+                    'name' => 'Exams Calendar ID',
                     'required' => false
                 )
             ));
 
             if ($validation->passed()) {
                 $data = array(
-                    'calendar_assignments' => Input::get('calid-ass')
+                    'calendar_assignments' => Input::get('calid-ass'),
+                    'calendar_exams' => Input::get('calid-ex')
                 );
                 if (Users::currentUser()->update($data)) {
-                    Notifications::addSuccess('Assignment calendar ID updated!');
+                    Notifications::addSuccess('Calendar ID\'s updated!');
                 } else {
-                    Notifications::addValidationFail('Could not update assignment calendar ID.');
+                    Notifications::addValidationFail('Could not update calendar ID\'s.');
                 }
             }
 
@@ -116,7 +121,7 @@ function createPage ($smarty) {
             Calendar::deleteCredentials();
         }
 
-        if (Input::get('action') === 'update_calendarEvents') {
+        if (Input::get('action') === 'update_calendarAssignments' && Users::isEditor()) {
             $assignments = DB::instance()->get("assignments")->results();
             foreach ($assignments as $assignment) {
                 Calendar::updateAssignment($assignment->id);
@@ -124,11 +129,12 @@ function createPage ($smarty) {
         }
     }
 
-    if (!Calendar::getService()) {
+    if (!Calendar::isReady()) {
         $smarty->assign('authUrl', Calendar::getAuthUrl());
     }
     $smarty->assign('authCode', Input::get('authcode'));
     $smarty->assign('calid_ass', Users::currentData()->calendar_assignments);
+    $smarty->assign('calid_ex', Users::currentData()->calendar_exams);
 
     $smarty->assign('name', Users::currentData()->name);
     $smarty->assign('sid', Users::currentData()->student_id);

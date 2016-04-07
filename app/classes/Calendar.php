@@ -10,6 +10,11 @@ class Calendar {
         return $client;
     }
 
+    public static function isReady () {
+        $credentialsPath = 'storage/google-calendar/'.Users::currentData()->student_id.'-credentials.json';
+        return Users::loggedIn() && Users::currentData()->calendar_assignments && file_exists($credentialsPath);
+    }
+
     public static function getService () {
         if (Users::loggedIn()) {
             $credentialsPath = 'storage/google-calendar/'.Users::currentData()->student_id.'-credentials.json';
@@ -68,7 +73,8 @@ class Calendar {
 
     public static function updateAssignment ($id) {
         $assignment = Queries::assignment($id);
-        if (Users::loggedIn() && Users::currentData()->calendar_assignments && !empty($assignment) && $service = self::getService()) {
+        if (Users::loggedIn() && !empty($assignment) && self::isReady()) {
+            $service = self::getService();
             $eventId = Users::currentData()->student_id.'assignment'.$assignment->id;
             $calendarId = Users::currentData()->calendar_assignments;
 
@@ -98,7 +104,8 @@ class Calendar {
     }
 
     public static function deleteAssignment ($id) {
-        if (Users::loggedIn() && Users::currentData()->calendar_assignments && $service = self::getService()) {
+        if (Users::loggedIn() && self::isReady()) {
+            $service = self::getService();
             $eventId = Users::currentData()->student_id.'assignment'.$id;
             $calendarId = Users::currentData()->calendar_assignments;
             $service->events->delete($calendarId, $eventId);

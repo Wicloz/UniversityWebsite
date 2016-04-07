@@ -70,18 +70,29 @@
             </form>
             <form action="" method="POST">
                 <div class="form-row">
-                    <label for="calid-ass">Assignment Calendar ID:</label>
+                    <label for="calid-ass">Assignments Calendar ID:</label>
                     <input type="text" name="calid-ass" id="calid-ass" value="{$calid_ass}">
+                </div>
+                <div class="form-row">
+                    <label for="calid-ex">Exams Calendar ID:</label>
+                    <input type="text" name="calid-ex" id="calid-ex" value="{$calid_ex}">
                 </div>
                 <input type="hidden" name="action" value="update_calendarAssignmentsId">
                 <input type="hidden" name="token" value="{$token|default:""}">
                 <input class="button submit-button" type="submit" value="Update">
             </form>
-            <form action="" method="POST">
-                <input type="hidden" name="action" value="update_calendarEvents">
-                <input type="hidden" name="token" value="{$token|default:""}">
-                <input class="button submit-button" type="submit" value="Synchronise Calendar Assignments">
-            </form>
+            {if Users::isEditor()}
+                <form action="" method="POST">
+                    <input type="hidden" name="action" value="update_calendarAssignments">
+                    <input type="hidden" name="token" value="{$token|default:""}">
+                    <input class="button submit-button" type="submit" value="Synchronise Calendar Assignments">
+                </form>
+                <form action="" method="POST">
+                    <input type="hidden" name="action" value="update_calendarExams">
+                    <input type="hidden" name="token" value="{$token|default:""}">
+                    <input class="button submit-button" type="submit" value="Synchronise Calendar Exams">
+                </form>
+            {/if}
         {/if}
     </div>
     <div class="paragraph-center col-sm-12">

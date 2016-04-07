@@ -27,7 +27,7 @@ function createPage ($smarty) {
 
                     Notifications::addSuccess('You have been succesfully registered!');
                     Redirect::to('?page=profile');
-                } catch(Exception $e) {
+                } catch (Exception $e) {
                     Notifications::addError($e->getMessage());
                 }
             }

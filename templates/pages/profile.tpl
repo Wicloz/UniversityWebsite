@@ -45,7 +45,7 @@
         </form>
     </div>
     <div class="paragraph-center col-sm-12">
-        <h2>Google Calendar Authorization:</h2>
+        <h2>Google Calendar Integration:</h2>
         {if !empty($authUrl)}
             <p>
                 Click here to authorize:
@@ -73,9 +73,14 @@
                     <label for="calid-ass">Assignment Calendar ID:</label>
                     <input type="text" name="calid-ass" id="calid-ass" value="{$calid_ass}">
                 </div>
-                <input type="hidden" name="action" value="update_calendarAssignmentsID">
+                <input type="hidden" name="action" value="update_calendarAssignmentsId">
                 <input type="hidden" name="token" value="{$token|default:""}">
                 <input class="button submit-button" type="submit" value="Update">
+            </form>
+            <form action="" method="POST">
+                <input type="hidden" name="action" value="update_calendarEvents">
+                <input type="hidden" name="token" value="{$token|default:""}">
+                <input class="button submit-button" type="submit" value="Synchronise Calendar Assignments">
             </form>
         {/if}
     </div>

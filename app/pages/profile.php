@@ -115,6 +115,10 @@ function createPage ($smarty) {
         if (Input::get('action') === 'delete_googleAuth') {
             Calendar::deleteCredentials();
         }
+
+        if (Input::get('action') === 'update_calendarEvents') {
+            $assignments
+        }
     }
 
     if (!Calendar::getService()) {

@@ -41,7 +41,7 @@ class Calendar {
 
             // Store the credentials to disk.
             if(!file_exists(dirname($credentialsPath))) {
-              mkdir(dirname($credentialsPath), 0777, true);
+              mkdir(dirname($credentialsPath));
               chmod(dirname($credentialsPath), 0700);
             }
             file_put_contents($credentialsPath, $accessToken);
@@ -66,9 +66,39 @@ class Calendar {
         return '';
     }
 
-    public static function updateAssignment ($calendarId, $assignment) {
+    public static function updateAssignment ($assignment) {
         if (Users::loggedIn() && $service = self::getService()) {
-            $eventId = Users::currentData()->student_id.'-assignment-'.$assignment->id;
+            $eventId = Users::currentData()->student_id.'assignment'.$assignment->id;
+            $calendarId = Users::currentData()->calendar_assignments;
+
+            $request = new Google_Service_Calendar_Event(array(
+                'id' => $eventId,
+                'summary' => $assignment->desc_short,
+                'start' => array(
+                    'date' => $assignment->end_date,
+                    'timeZone' => 'Europe/Amsterdam'
+                ),
+                'end' => array(
+                    'date' => $assignment->end_date,
+                    'timeZone' => 'Europe/Amsterdam'
+                )
+            ));
+
+            try {
+                $event = $service->events->get($calendarId, $eventId);
+                $service->events->update($calendarId, $eventId, $request);
+            }
+            catch (Exception $e) {
+                $service->events->insert($calendarId, $request);
+            }
+        }
+    }
+
+    public static function deleteAssignment ($id) {
+        if (Users::loggedIn() && $service = self::getService()) {
+            $eventId = Users::currentData()->student_id.'assignment'.$id;
+            $calendarId = Users::currentData()->calendar_assignments;
+            $service->events->delete($calendarId, $eventId);
         }
     }
 }

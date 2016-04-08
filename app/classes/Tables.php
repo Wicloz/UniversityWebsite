@@ -278,7 +278,7 @@ class Tables {
                 INNER JOIN `subjects` S
                 ON E.subject = S.abbreviation
                 WHERE (P.date_start <= ? AND P.date_end >= ?) OR (P.done = 0 AND P.date_end < ?)
-            ORDER BY date ASC
+            ORDER BY completion DESC, date ASC
         ", array(
             DateFormat::sqlDate(),
             DateFormat::sqlDate(),

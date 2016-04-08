@@ -1,5 +1,5 @@
 <?php
-$pageHasRandom = false;
+$allowCaching = true;
 function createPage ($smarty) {
     if (!Users::loggedIn()) {
         Redirect::to('?page=login');

@@ -1,5 +1,5 @@
 <?php
-$pageHasRandom = false;
+$allowCaching = false;
 function createPage ($smarty) {
     $subject = DB::instance()->get('subjects', array("", "abbreviation", "=", Input::get('subject')))->first();
     if (empty($subject)) {

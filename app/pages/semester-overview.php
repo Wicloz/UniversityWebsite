@@ -1,5 +1,5 @@
 <?php
-$pageHasRandom = false;
+$allowCaching = false;
 function createPage ($smarty) {
     $subjects = Queries::subjects();
 

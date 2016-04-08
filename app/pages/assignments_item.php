@@ -1,5 +1,5 @@
 <?php
-$pageHasRandom = false;
+$allowCaching = false;
 function createPage ($smarty) {
     $item = Queries::assignment(Input::get('id'));
     if (empty($item)) {

@@ -1,5 +1,5 @@
 <?php
-$pageHasRandom = false;
+$allowCaching = false;
 function createPage ($smarty) {
     $smarty->assign('introduction', Queries::article('introduction'));
     $smarty->assign('today', Tables::today());

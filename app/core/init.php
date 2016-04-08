@@ -16,7 +16,7 @@ $GLOBALS['config'] = array(
     ),
 
     'smarty' => array(
-        'caching' => false,
+        'caching' => true,
         'cache_lifetime' => 120
     ),
 

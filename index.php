@@ -14,7 +14,10 @@ if (isset($_GET['page']) && !empty($_GET['page'])) {
 
     if (file_exists($pageFile) && file_exists($templateFile)) {
         require $pageFile;
-        if($pageHasRandom || !$smarty->isCached($templateFile, $cache_id)) {
+        if (!$allowCaching) {
+            $cache_id .= md5(Hash::hashUnique());
+        }
+        if(!$smarty->isCached($templateFile, $cache_id)) {
             $smarty = createPage($smarty);
             $smarty = pageAddMain($smarty);
         }

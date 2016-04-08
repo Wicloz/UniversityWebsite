@@ -1,5 +1,5 @@
 <?php
-$pageHasRandom = false;
+$allowCaching = true;
 function createPage ($smarty) {
     $smarty->assign('shedule_google', Queries::article('schedule'));
     $smarty->assign('shedule_begin', Queries::article('schedule_1ejrnaj'));

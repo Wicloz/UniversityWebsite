@@ -144,7 +144,7 @@ class Tables {
                 INNER JOIN `subjects` S
                 ON E.subject = S.abbreviation
                 {$searchStringBegin} {$searchString}
-            ORDER BY date_start
+            ORDER BY date_end ASC, date_start ASC
         ", $searchParams);
 
         $results = $data->results();
@@ -213,7 +213,7 @@ class Tables {
                 INNER JOIN `subjects` S
                 ON E.subject = S.abbreviation
                 {$searchString2}
-            ORDER BY date
+            ORDER BY date ASC
         ", $searchParams);
 
         $results = $data->results();
@@ -278,7 +278,7 @@ class Tables {
                 INNER JOIN `subjects` S
                 ON E.subject = S.abbreviation
                 WHERE (P.date_start <= ? AND P.date_end >= ?) OR (P.done = 0 AND P.date_end < ?)
-            ORDER BY date
+            ORDER BY date ASC
         ", array(
             DateFormat::sqlDate(),
             DateFormat::sqlDate(),

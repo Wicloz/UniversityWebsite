@@ -53,7 +53,7 @@ class Update {
                         if ($completion) {
                             $finishedDate = DateFormat::sql();
                         }
-                        DB::instance()->update("planning", Input::get('id'), array('finished_on' => $finishedDate, 'done' => $completion));
+                        DB::instance()->update("planning", Input::get('id'), array('finished_on' => $finishedDate, 'completion' => $completion));
                         Notifications::addSuccess('Planning completion switched!');
                         Redirect::to('');
                     } else {

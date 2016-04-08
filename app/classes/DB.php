@@ -42,7 +42,7 @@ class DB {
             } elseif (count($this->_results) > 0) {
                 return $this->_results[count($this->_results) - 1];
             } else {
-                return null;
+                return new stdClass();
             }
         }
         return $this->_results;

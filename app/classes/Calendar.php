@@ -75,7 +75,7 @@ class Calendar {
     }
 
     public static function updateAssignment ($id) {
-        $assignment = Queries::assignment($id);
+        $assignment = Queries::assignmentWithId($id);
         if (Users::loggedIn() && !empty($assignment) && self::isReady()) {
             $service = self::getService();
             $eventId = Users::currentData()->student_id.'assignment'.$assignment->id;

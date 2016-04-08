@@ -1,7 +1,7 @@
 <?php
 $allowCaching = false;
 function createPage ($smarty) {
-    $item = Queries::exam(Input::get('id'));
+    $item = Queries::examWithId(Input::get('id'));
     if (empty($item)) {
         Redirect::error(404);
     }

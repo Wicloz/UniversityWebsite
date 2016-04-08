@@ -12,45 +12,23 @@ class Queries {
     }
 
     public static function assignmentWithId ($id) {
-        return DB::instance()->query("
+        return self::parseAssignment(DB::instance()->query("
             SELECT A.*, S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `assignments` A
                 INNER JOIN `subjects` S
                 ON A.subject = S.abbreviation
                 WHERE A.id = ?
-        ", array($id))->first();
+        ", array($id))->first());
     }
 
     public static function examWithId ($id) {
-        return DB::instance()->query("
+        return self::parseExam(DB::instance()->query("
             SELECT E.*, S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `exams` E
                 INNER JOIN `subjects` S
                 ON E.subject = S.abbreviation
                 WHERE E.id = ?
-        ", array($id))->first();
-    }
-
-    public static function assignmentsForSubject ($subject) {
-        return DB::instance()->query("
-            SELECT A.*, S.name as 'subject_name', S.abbreviation as 'subject'
-                FROM `assignments` A
-                INNER JOIN `subjects` S
-                ON A.subject = S.abbreviation
-                WHERE S.abbreviation = ?
-                ORDER BY end_date ASC, end_time ASC
-        ", array($subject))->results();
-    }
-
-    public static function examsForSubject ($subject) {
-        return DB::instance()->query("
-            SELECT E.*, S.name as 'subject_name', S.abbreviation as 'subject'
-                FROM `exams` E
-                INNER JOIN `subjects` S
-                ON E.subject = S.abbreviation
-                WHERE S.abbreviation = ?
-                ORDER BY date ASC
-        ", array($subject))->results();
+        ", array($id))->first());
     }
 
     public static function article ($name) {
@@ -61,9 +39,15 @@ class Queries {
         return '<p class="message-error">Article with name \''.$name.'\' not found.</p>';
     }
 
-    public static function assignments ($history) {
+    public static function assignments ($history, $subject = null) {
         $searchString = "";
         $searchParams = array();
+        if (isset($subject)) {
+            $searchString = "WHERE S.abbreviation = ?";
+            $searchParams[] = $subject;
+        } else {
+            $searchString = "WHERE S.active";
+        }
         if (!$history) {
             $searchString .= "AND (concat(A.end_date, A.end_time) > ? OR A.completion = 0)";
             $searchParams[] = DateFormat::sql();
@@ -74,7 +58,7 @@ class Queries {
                 FROM `assignments` A
                 INNER JOIN `subjects` S
                 ON A.subject = S.abbreviation
-                WHERE S.active {$searchString}
+                {$searchString}
                 ORDER BY end_date ASC, end_time ASC
         ", $searchParams);
 
@@ -85,9 +69,15 @@ class Queries {
         return $results;
     }
 
-    public static function exams ($history) {
+    public static function exams ($history, $subject = null) {
         $searchString = "";
         $searchParams = array();
+        if (isset($subject)) {
+            $searchString = "WHERE S.abbreviation = ?";
+            $searchParams[] = $subject;
+        } else {
+            $searchString = "WHERE S.active";
+        }
         if (!$history) {
             $searchString .= "AND E.date >= ?";
             $searchParams[] = DateFormat::sqlDate();
@@ -98,7 +88,7 @@ class Queries {
                 FROM `exams` E
                 INNER JOIN `subjects` S
                 ON E.subject = S.abbreviation
-                WHERE S.active {$searchString}
+                {$searchString}
                 ORDER BY date ASC
         ", $searchParams);
 
@@ -117,8 +107,8 @@ class Queries {
             $searchString .= " AND P.parent_table = ?";
             $searchParams[] = $parent_table;
             if (isset($parent_id)) {
-                $searchString .= " AND P.parent_id = ?";
                 $searchStringBegin = "WHERE 1=1";
+                $searchString .= " AND P.parent_id = ?";
                 $searchParams[] = $parent_id;
             }
         }
@@ -166,12 +156,12 @@ class Queries {
         $searchString2 = "";
         $searchParams = array();
         if (isset($subject)) {
-            $searchString1 .= "WHERE S.name = ?";
-            $searchString2 .= "WHERE S.name = ?";
+            $searchString1 = "WHERE S.abbreviation = ?";
+            $searchString2 = "WHERE S.abbreviation = ?";
             $searchParams[] = $subject;
         } else {
-            $searchString1 .= "WHERE S.active";
-            $searchString2 .= "WHERE S.active";
+            $searchString1 = "WHERE S.active";
+            $searchString2 = "WHERE S.active";
         }
         if (!$history) {
             $searchString1 .= " AND (concat(A.end_date, ' ', A.end_time) > ? OR A.completion = 0)";

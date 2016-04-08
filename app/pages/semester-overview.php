@@ -4,8 +4,8 @@ function createPage ($smarty) {
     $subjects = Queries::subjects();
 
     foreach ($subjects as $index => $subject) {
-        $assignments = Queries::assignmentsForSubject($subject->abbreviation);
-        $exams = Queries::examsForSubject($subject->abbreviation);
+        $assignments = Queries::assignments(true, $subject->abbreviation);
+        $exams = Queries::exams(true, $subject->abbreviation);
 
         $subjects[$index]->ass_line_index = -1;
         $subjects[$index]->ex_line_index = -1;

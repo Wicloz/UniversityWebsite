@@ -57,7 +57,6 @@
                         <input type="hidden" name="table" value="{if $row->type === 'assignment'}assignments{else}{$row->type}{/if}">
                         <input type="hidden" name="id" value="{$row->id}">
                         <input type="hidden" name="done" value="{!$row->completion}">
-                        <input type="hidden" name="token" value="{$token|default:""}">
                         <input class="button submit-button table-button" type="submit" value="{$row->state}">
                     </form>
                 {else}
@@ -71,7 +70,6 @@
             <form action="" method="POST">
                 <input type="hidden" name="action" value="item_insert">
                 <input type="hidden" name="table" value="events">
-                <input type="hidden" name="token" value="{$token|default:""}">
                 <td>
                     <input type="datetime" name="date" placeholder="yyyy-mm-dd, hh:mm" value="" class="datetime">
                 </td>

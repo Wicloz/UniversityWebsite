@@ -16,7 +16,6 @@
                 <label for="remember">Remember me</label>
             </div>
             <input type="hidden" name="action" value="login">
-            <input type="hidden" name="token" value="{$token|default:""}">
             <input class="button submit-button" type="submit" value="Log in">
         </form>
     </div>
@@ -48,7 +47,6 @@
                 <input type="tel" name="phone" id="phone" value="{$phone}">
             </div>
             <input type="hidden" name="action" value="register">
-            <input type="hidden" name="token" value="{$token|default:""}">
             <input class="button submit-button" type="submit" value="Register">
         </form>
     </div>

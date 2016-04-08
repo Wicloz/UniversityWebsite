@@ -5,7 +5,7 @@ function createPage ($smarty) {
         Redirect::to('?page=profile');
     }
 
-    if (Input::exists() && Token::check(Input::get('token'))) {
+    if (Input::exists()) {
         if (Input::get('action') === 'register') {
             $validation = new Validate();
             $validation->check($_POST, array_merge(Config::get('validation/register_info'), Config::get('validation/set_password')));

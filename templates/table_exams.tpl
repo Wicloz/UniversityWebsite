@@ -34,7 +34,6 @@
             <form action="" method="POST">
                 <input type="hidden" name="action" value="item_insert">
                 <input type="hidden" name="table" value="exams">
-                <input type="hidden" name="token" value="{$token|default:""}">
                 <td>
                     <input type="date" name="date" placeholder="yyyy-mm-dd" value="" class="date">
                 </td>

@@ -24,7 +24,6 @@
             <input type="hidden" name="action" value="admin_item_{if Input::get('id') === 'create'}insert{else}update{/if}">
             <input type="hidden" name="table" value="{Input::get('table')}">
             <input type="hidden" name="id" value="{Input::get('id')}">
-            <input type="hidden" name="token" value="{$token|default:""}">
             <input class="button submit-button" type="submit" value="{if Input::get('id') === 'create'}Insert{else}Update{/if}">
         </form>
         {if Input::get('id') !== 'create'}
@@ -32,7 +31,6 @@
                 <input type="hidden" name="action" value="admin_item_delete">
                 <input type="hidden" name="table" value="{Input::get('table')}">
                 <input type="hidden" name="id" value="{Input::get('id')}">
-                <input type="hidden" name="token" value="{$token|default:""}">
                 <input class="button submit-button" type="submit" value="Delete">
             </form>
         {/if}

@@ -5,13 +5,13 @@ function createPage ($smarty) {
         Redirect::error(403);
     }
 
-    if (Input::exists() && Token::check(Input::get('token')) && Input::get('action') === 'admin_item_insert') {
+    if (Input::exists() && Input::get('action') === 'admin_item_insert') {
         Update::adminInsertItem();
     }
-    if (Input::exists() && Token::check(Input::get('token')) && Input::get('action') === 'admin_item_update') {
+    if (Input::exists() && Input::get('action') === 'admin_item_update') {
         Update::adminUpdateItem();
     }
-    if (Input::exists() && Token::check(Input::get('token')) && Input::get('action') === 'admin_item_delete') {
+    if (Input::exists() && Input::get('action') === 'admin_item_delete') {
         Update::adminDeleteItem();
     }
 

@@ -5,7 +5,7 @@ function createPage ($smarty) {
         Redirect::to('?page=login');
     }
 
-    if (Input::exists() && Token::check(Input::get('token'))) {
+    if (Input::exists()) {
         if (Input::get('action') === 'logout') {
             if (Users::loggedIn()) {
                 Users::logout();

@@ -37,7 +37,6 @@
                         <input type="hidden" name="table" value="planning">
                         <input type="hidden" name="id" value="{$row->id}">
                         <input type="hidden" name="done" value="{!$row->done}">
-                        <input type="hidden" name="token" value="{$token|default:""}">
                         <input class="button submit-button table-button" type="submit" value="{$row->state}">
                     </form>
                 {else}
@@ -52,7 +51,6 @@
                 <input type="hidden" name="action" value="item_insert">
                 <input type="hidden" name="table" value="planning">
                 <input type="hidden" name="parent_table" value="{$table_parentT|default:"subjects"}">
-                <input type="hidden" name="token" value="{$token|default:""}">
                 <td>
                     <input type="date" name="date_start" placeholder="yyyy-mm-dd" value="" class="date">
                     -

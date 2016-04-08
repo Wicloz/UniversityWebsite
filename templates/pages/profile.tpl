@@ -20,7 +20,6 @@
                 <input type="text" name="phone" id="phone" value="{$phone}">
             </div>
             <input type="hidden" name="action" value="update_info">
-            <input type="hidden" name="token" value="{$token|default:""}">
             <input class="button submit-button" type="submit" value="Update">
         </form>
     </div>
@@ -40,7 +39,6 @@
                 <input type="password" name="password_again" id="password_again">
             </div>
             <input type="hidden" name="action" value="update_pass">
-            <input type="hidden" name="token" value="{$token|default:""}">
             <input class="button submit-button" type="submit" value="Update">
         </form>
     </div>
@@ -58,14 +56,12 @@
                     <input type="text" name="authcode" id="authcode" value="{$authCode}">
                 </div>
                 <input type="hidden" name="action" value="update_googleAuth">
-                <input type="hidden" name="token" value="{$token|default:""}">
                 <input class="button submit-button" type="submit" value="Authorize">
             </form>
         {else}
             <p>Currently Authorized!</p>
             <form action="" method="POST">
                 <input type="hidden" name="action" value="delete_googleAuth">
-                <input type="hidden" name="token" value="{$token|default:""}">
                 <input class="button submit-button" type="submit" value="Unauthorize">
             </form>
             <form action="" method="POST">
@@ -78,18 +74,15 @@
                     <input type="text" name="calid-ex" id="calid-ex" value="{$calid_ex}">
                 </div>
                 <input type="hidden" name="action" value="update_calendarAssignmentsId">
-                <input type="hidden" name="token" value="{$token|default:""}">
                 <input class="button submit-button" type="submit" value="Update">
             </form>
             {if Users::isEditor()}
                 <form action="" method="POST">
                     <input type="hidden" name="action" value="update_calendarAssignments">
-                    <input type="hidden" name="token" value="{$token|default:""}">
                     <input class="button submit-button" type="submit" value="Synchronise Calendar Assignments">
                 </form>
                 <form action="" method="POST">
                     <input type="hidden" name="action" value="update_calendarExams">
-                    <input type="hidden" name="token" value="{$token|default:""}">
                     <input class="button submit-button" type="submit" value="Synchronise Calendar Exams">
                 </form>
             {/if}
@@ -99,7 +92,6 @@
         <h2>Logout</h2>
         <form action="" method="POST">
             <input type="hidden" name="action" value="logout">
-            <input type="hidden" name="token" value="{$token|default:""}">
             <input class="button submit-button" type="submit" value="Log out">
         </form>
     </div>

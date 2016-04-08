@@ -1,7 +1,7 @@
 <?php
 class Update {
     public static function doUpdate () {
-        if (Input::exists() && Token::check(Input::get('token'))) {
+        if (Input::exists()) {
             switch (Input::get('action')) {
                 case 'switch_completion':
                     self::switchCompletion();

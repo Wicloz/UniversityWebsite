@@ -41,10 +41,5 @@ class Session {
         }
         return '';
     }
-
-    public static function getCacheId () {
-        return json_encode(self::get('notifications-success')).json_encode(self::get('notifications-info')).json_encode(self::get('notifications-warning')).json_encode(self::get('notifications-error')).
-               json_encode(self::get('alerts-success')).json_encode(self::get('alerts-info')).json_encode(self::get('alerts-warning')).json_encode(self::get('alerts-error'));
-    }
 }
 ?>

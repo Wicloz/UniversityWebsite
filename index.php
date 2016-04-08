@@ -8,7 +8,7 @@ if (isset($_GET['page']) && !empty($_GET['page'])) {
     $smarty->caching = Config::get('smarty/caching');
     $smarty->cache_lifetime = Config::get('smarty/cache_lifetime');
 
-    $cache_id = md5(json_encode($_GET).json_encode($_POST).Session::getCacheId());
+    $cache_id = md5(json_encode($_GET).json_encode($_POST).Notifications::getAsJson());
     $pageFile = 'app/pages/'.$_GET['page'].'.php';
     $templateFile = 'templates/pages/'.$_GET['page'].'.tpl';
 

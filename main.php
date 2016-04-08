@@ -16,6 +16,7 @@ function pageAddMessages ($smarty) {
     if (Config::get('debug/debug')) {
         Notifications::addDebug('PHP Version: ' . PHP_VERSION, true);
         Notifications::addDebug('Current Time: ' . date('H:i:s'), true);
+        Notifications::addDebug(Notifications::getAsJson(), true);
     }
     $smarty->assign('notifications_success', Session::flashRead('notifications-success'));
     $smarty->assign('notifications_info', Session::flashRead('notifications-info'));

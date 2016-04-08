@@ -53,5 +53,31 @@ class Notifications {
             self::setAlerts(array($content), 'success');
         }
     }
+
+    public static function getAsJson ($clear = false) {
+        $messages = array(
+            'notifications-success',
+            'notifications-info',
+            'notifications-warning',
+            'notifications-error',
+            'alerts-success',
+            'alerts-info',
+            'alerts-warning',
+            'alerts-error'
+        );
+
+        $data = array();
+        foreach  ($messages as $name) {
+            $data[$name] = Session::get($name);
+            if (empty($data[$name])) {
+                $data[$name] = array();
+            }
+            if ($clear) {
+                Session::delete($name);
+            }
+        }
+
+        return json_encode($data);
+    }
 }
 ?>

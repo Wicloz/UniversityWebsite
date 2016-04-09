@@ -324,64 +324,73 @@ class Queries {
     }
 
     public static function parseAssignment ($object) {
-        if ($object->completion) {
-            $object->state = 'Complete';
-        } elseif (strtotime($object->end_date.' '.$object->end_time) < strtotime('now')) {
-            $object->state = 'Overdue';
-        } else {
-            $object->state = 'Working';
+        if (!empty($object->id)) {
+            if ($object->completion) {
+                $object->state = 'Complete';
+            } elseif (strtotime($object->end_date.' '.$object->end_time) < strtotime('now')) {
+                $object->state = 'Overdue';
+            } else {
+                $object->state = 'Working';
+            }
         }
         return $object;
     }
 
     public static function parseExam ($object) {
-        $object->completion = 1;
-        if (strtotime($object->date) >= strtotime('today')) {
-            $object->mark = 'Upcoming';
-            $object->completion = 0;
-        } elseif ($object->mark == 0) {
-            $object->mark = 'N/A';
+        if (!empty($object->id)) {
+            $object->completion = 1;
+            if (strtotime($object->date) >= strtotime('today')) {
+                $object->mark = 'Upcoming';
+                $object->completion = 0;
+            } elseif ($object->mark == 0) {
+                $object->mark = 'N/A';
+            }
         }
         return $object;
     }
 
     public static function parsePlanning ($object) {
-        if ($object->completion) {
-            $object->state = 'Done';
-        } elseif (strtotime($object->date_end) < strtotime('today')) {
-            $object->state = 'Overdue';
-        } else {
-            $object->state = 'Planned';
-        }
-        return $object;
-    }
-
-    private static function parseEvent ($object) {
-        if ($object->type === 'assignment') {
-            if ($object->completion) {
-                $object->state = 'Complete';
-            } elseif (strtotime($object->date) < strtotime('now')) {
-                $object->state = 'Overdue';
-            } else {
-                $object->state = 'Working';
-            }
-        } elseif ($object->type === 'exam') {
-            if (strtotime($object->date) >= strtotime('today')) {
-                $object->state = 'Upcoming';
-                $object->completion = 0;
-            } else {
-                $object->state = 'Passed';
-                $object->completion = 1;
-            }
-        } elseif ($object->type === 'planning') {
+        if (!empty($object->id)) {
             if ($object->completion) {
                 $object->state = 'Done';
-            } elseif (strtotime($object->date) < strtotime('today')) {
+            } elseif (strtotime($object->date_end) < strtotime('today')) {
                 $object->state = 'Overdue';
             } else {
                 $object->state = 'Planned';
             }
         }
+        return $object;
+    }
+
+    private static function parseEvent ($object) {
+        if (!empty($object->id)) {
+            if ($object->type === 'assignment') {
+                if ($object->completion) {
+                    $object->state = 'Complete';
+                } elseif (strtotime($object->date) < strtotime('now')) {
+                    $object->state = 'Overdue';
+                } else {
+                    $object->state = 'Working';
+                }
+            } elseif ($object->type === 'exam') {
+                if (strtotime($object->date) >= strtotime('today')) {
+                    $object->state = 'Upcoming';
+                    $object->completion = 0;
+                } else {
+                    $object->state = 'Passed';
+                    $object->completion = 1;
+                }
+            } elseif ($object->type === 'planning') {
+                if ($object->completion) {
+                    $object->state = 'Done';
+                } elseif (strtotime($object->date) < strtotime('today')) {
+                    $object->state = 'Overdue';
+                } else {
+                    $object->state = 'Planned';
+                }
+            }
+        }
+        return $object;
     }
 }
 ?>

@@ -2,9 +2,10 @@
 $allowCaching = false;
 function createPage ($smarty) {
     $subject = DB::instance()->get('subjects', array("", "abbreviation", "=", Input::get('subject')))->first();
-    if (empty($subject)) {
+    if (empty($subject->id)) {
         Redirect::error(404);
     }
+
     $smarty->assign('subject', $subject);
     $smarty->assign('events', Tables::events(true, $subject->abbreviation));
     $smarty->assign('table_parentT', 'subjects');

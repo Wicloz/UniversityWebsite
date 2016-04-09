@@ -2,10 +2,10 @@
 $allowCaching = false;
 function createPage ($smarty) {
     $item = Queries::assignmentWithId(Input::get('id'));
-    if (empty($item)) {
+    if (empty($item->id)) {
         Redirect::error(404);
     }
-    $item = Queries::parseAssignment($item);
+
     $smarty->assign('item', $item);
     $smarty->assign('table_parentT', 'assignments');
     $smarty->assign('table_parentI', $item->id);

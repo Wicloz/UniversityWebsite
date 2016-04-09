@@ -320,7 +320,7 @@ class Update {
                 $data = array();
                 foreach ($_POST as $key => $value) {
                     if (!empty($value) && $key !== 'token' && $key !== 'action' && $key !== 'table' && $key !== 'id') {
-                        $data[$key] = $value;
+                        $data[$key] = Input::get($key);
                     }
                 }
                 $id = DB::autoIncrementValue(Input::get('table'));
@@ -365,7 +365,7 @@ class Update {
                 $data = array();
                 foreach ($_POST as $key => $value) {
                     if (!empty($value) && $key !== 'token' && $key !== 'action' && $key !== 'table' && $key !== 'id') {
-                        $data[$key] = $value;
+                        $data[$key] = Input::get($key);
                     }
                 }
                 DB::instance()->update(Input::get('table'), Input::get('id'), $data);

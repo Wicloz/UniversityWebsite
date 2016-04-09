@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: putter.vuw.leidenuniv.nl:3306
--- Generation Time: Apr 07, 2016 at 06:03 PM
+-- Generation Time: Apr 09, 2016 at 01:06 PM
 -- Server version: 5.5.47-log
 -- PHP Version: 5.3.17
 
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `assignments` (
   `link_report` varchar(300) NOT NULL,
   `team` varchar(100) NOT NULL,
   `completion` tinyint(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `assignments`
@@ -92,7 +92,7 @@ INSERT INTO `assignments` (`id`, `start_date`, `end_date`, `end_time`, `subject`
 (20, '2016-03-22', '2016-03-29', '11:15:00', 'oib', 'Doe de R cursus op DataCamp', '', 'https://www.datacamp.com/courses/free-introduction-to-r', '', '', '', 1),
 (21, '0000-00-00', '2016-04-25', '13:00:00', 'bc', 'Verslag LDH inleveren', '', '', '', '', '', 0),
 (22, '2016-03-24', '2016-04-18', '12:00:00', 'alg', 'Programmeeropdracht 2 (knock out)', '<p>Het programma en Makefile per e-mail sturen naar: j.m.de.graaf@liacs.leidenuniv.nl<br />Zorg dat het onderwerp van je mail begint met &rdquo;[ALGO]&rdquo;, dat scheelt de docent een hoop gezoek. Het verslag (inclusief het programma) moet op papier worden ingeleverd in de daartoe bestemde doos met opschrift Algoritmiek in de postkamer van Informatica, kamer 156. Voor elke week te laat inleveren gaat er een punt van het cijfer af. Vermeld overal duidelijk de namen van de makers.</p>', 'http://liacs.leidenuniv.nl/~graafjmde/ALGO/twee2016.pdf', '', '', '', 0),
-(23, '2016-04-06', '2016-05-11', '12:00:00', 'wu50', 'Deadline audio-slideshow', '<p>- Lever in als .mp4<br />- 1:30 tot 2:30 minuten<br />- Geen vraag/antwoord structuur<br />- Geen lange fragmenten film</p>', '', '', '', 'Hermes Spaink', 0);
+(23, '2016-04-06', '2016-05-11', '12:00:00', 'wu50', 'Deadline audio-slideshow', '<p>- Lever in als .mp4<br />- 1:30 tot 2:30 minuten<br />- Geen vraag/antwoord structuur<br />- Geen lange fragmenten film</p>', '', 'https://drive.google.com/drive/folders/0B44Sn7HnnnhhTnJzSVFnS09QTjQ', '', 'Hermes Spaink', 0);
 
 -- --------------------------------------------------------
 
@@ -167,16 +167,17 @@ CREATE TABLE IF NOT EXISTS `permissions` (
 `id` int(11) NOT NULL,
   `name` varchar(20) NOT NULL,
   `permissions` text NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `permissions`
 --
 
 INSERT INTO `permissions` (`id`, `name`, `permissions`) VALUES
-(1, 'user', ''),
-(2, 'editor', '{"editor": 1}'),
-(3, 'admin', '{"editor": 1, "admin": 1}');
+(1, 'guest', '{}'),
+(2, 'user', '{"user": 1}'),
+(3, 'editor', '{"user": 1, "editor": 1}'),
+(4, 'admin', '{"user": 1, "editor": 1, "admin": 1}');
 
 -- --------------------------------------------------------
 
@@ -193,14 +194,14 @@ CREATE TABLE IF NOT EXISTS `planning` (
   `duration` time NOT NULL,
   `goal` varchar(200) NOT NULL,
   `finished_on` datetime NOT NULL,
-  `done` tinyint(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8;
+  `completion` tinyint(1) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `planning`
 --
 
-INSERT INTO `planning` (`id`, `parent_table`, `parent_id`, `date_start`, `date_end`, `duration`, `goal`, `finished_on`, `done`) VALUES
+INSERT INTO `planning` (`id`, `parent_table`, `parent_id`, `date_start`, `date_end`, `duration`, `goal`, `finished_on`, `completion`) VALUES
 (2, 'assignments', 5, '2015-10-31', '2015-11-01', '00:00:00', 'Work on the webpage to meet the requirements for the assignment', '2015-11-01 22:00:00', 1),
 (3, 'assignments', 5, '2015-11-01', '2015-11-01', '00:00:00', 'Make entries easier to insert and edit, especcially for the planning', '2015-11-01 22:00:00', 1),
 (4, 'subjects', 4, '2015-11-03', '2015-11-04', '02:00:00', 'Voorbereiden practicum fotosynthese', '2015-11-05 00:37:01', 1),
@@ -257,12 +258,14 @@ INSERT INTO `planning` (`id`, `parent_table`, `parent_id`, `date_start`, `date_e
 (65, 'assignments', 19, '2016-04-02', '2016-04-02', '00:30:00', 'Controleer antwoorden en lever in', '2016-04-02 23:26:31', 1),
 (69, 'subjects', 9, '2016-04-03', '2016-04-03', '00:30:00', 'Werk labjournaal vorige proeven bij', '2016-04-03 17:19:55', 1),
 (70, 'subjects', 12, '2016-04-05', '2016-04-05', '00:20:00', 'Lees 2.1', '2016-04-05 17:19:19', 1),
-(71, 'subjects', 12, '2016-04-05', '2016-04-08', '00:30:00', 'Lees 2.2', '0000-00-00 00:00:00', 0),
+(71, 'subjects', 12, '2016-04-05', '2016-04-08', '00:30:00', 'Lees 2.2', '2016-04-08 12:20:14', 1),
 (72, 'subjects', 9, '2016-04-05', '2016-04-05', '00:10:00', 'Practicum woensdag voorberijden', '2016-04-05 18:04:53', 1),
-(73, 'subjects', 11, '2016-04-06', '2016-04-10', '01:00:00', 'Neem college 30-03 door', '0000-00-00 00:00:00', 0),
+(73, 'subjects', 11, '2016-04-06', '2016-04-08', '01:00:00', 'Neem college 30-03 door', '2016-04-07 22:57:00', 1),
 (75, 'subjects', 12, '2016-04-09', '2016-04-11', '01:00:00', 'Lees 2.3 ter voorberijding', '0000-00-00 00:00:00', 0),
 (76, 'subjects', 9, '2016-04-06', '2016-04-06', '00:10:00', 'Berijd ontkleuring donderdag voor', '2016-04-06 21:05:16', 1),
-(77, 'subjects', 9, '2016-04-09', '2016-04-10', '00:15:00', 'Berijd practicum maandag voor (3.5.4, 3.1.7)', '0000-00-00 00:00:00', 0);
+(77, 'subjects', 9, '2016-04-09', '2016-04-10', '00:15:00', 'Berijd practicum maandag voor (3.5.4, 3.1.7)', '0000-00-00 00:00:00', 0),
+(81, 'subjects', 11, '2016-04-08', '2016-04-08', '01:00:00', 'Haal werkcollege FD in', '2016-04-08 17:48:00', 1),
+(82, 'subjects', 9, '2016-04-08', '2016-04-10', '04:00:00', 'Begin aan het LDH verslag', '0000-00-00 00:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -327,7 +330,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `calendar_exams` varchar(100) NOT NULL,
   `joined` datetime NOT NULL,
   `last_online` datetime NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `users`
@@ -344,7 +347,7 @@ CREATE TABLE IF NOT EXISTS `user_sessions` (
   `user_id` int(11) NOT NULL,
   `hash` varchar(64) NOT NULL,
   `expiry` datetime NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `user_sessions`
@@ -421,7 +424,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 -- AUTO_INCREMENT for table `assignments`
 --
 ALTER TABLE `assignments`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT for table `exams`
 --
@@ -436,12 +439,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `planning`
 --
 ALTER TABLE `planning`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=79;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=83;
 --
 -- AUTO_INCREMENT for table `subjects`
 --
@@ -451,12 +454,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `user_sessions`
 --
 ALTER TABLE `user_sessions`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=51;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=59;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

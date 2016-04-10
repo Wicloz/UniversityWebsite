@@ -44,11 +44,15 @@
     </div>
     <div class="paragraph-center col-sm-12">
         <h2>Your Database:</h2>
-        <form action="" method="POST">
-            <input type="hidden" name="action" value="create_database">
-            <label for="submit">Request Database:</label>
-            <input class="button submit-button" id="submit" type="submit" value="Request">
-        </form>
+        {if Migrations::hasTables()}
+            <p>You have some personal tables and are now a user!</p>
+        {else}
+            <form action="" method="POST">
+                <input type="hidden" name="action" value="create_database">
+                <label for="submit">Request Database:</label>
+                <input class="button submit-button" id="submit" type="submit" value="Request">
+            </form>
+        {/if}
     </div>
     <div class="paragraph-center col-sm-12">
         <h2>Google Calendar Integration:</h2>

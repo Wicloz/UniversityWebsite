@@ -131,6 +131,9 @@ function createPage ($smarty) {
         if (Input::get('action') === 'create_database') {
             if (!Migrations::hasTables()) {
                 Migrations::createTables();
+                if (Users::isGuest()) {
+                    Users::currentUser()->update(array('permission_group' => '2'));
+                }
             }
         }
     }

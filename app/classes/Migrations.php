@@ -72,19 +72,19 @@ class Migrations {
     }
 
     private static function updateVersions () {
-        DB::instance()->update("users", Users::currentData()->id, array('table_versions' => '{"assignments": 1, "exams": 1, "planning": 1}'));
+        Users::currentUser()->update(array('table_versions' => '{"assignments": 1, "exams": 1, "planning": 1}'));
     }
 
     public static function tableVersion ($table) {
         if (Users::loggedIn() && Users::currentData()->table_versions !== '') {
-            $versions = json_decode(Users::currentData()->table_versions);
+            $versions = (array) json_decode(Users::currentData()->table_versions);
             return $versions[$table];
         }
-        return -1;
+        return 0;
     }
 
     public static function hasTables () {
-        return self::tableVersion('assignments') !== -1 && self::tableVersion('exams') !== -1 && self::tableVersion('planning') !== -1;
+        return self::tableVersion('assignments') != 0 && self::tableVersion('exams') != 0 && self::tableVersion('planning') != 0;
     }
 
     public static function createTables () {

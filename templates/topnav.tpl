@@ -6,7 +6,7 @@
                <span class="icon-bar"></span>
                <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="?page=home">s1704362</a>
+            <a class="navbar-brand" href="?page=home">{$show_sid}</a>
         </div>
         <div class="collapse navbar-collapse" id="mainNavbar">
             <ul class="nav navbar-nav">

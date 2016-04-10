@@ -14,7 +14,7 @@ class Queries {
     public static function assignmentWithId ($id) {
         return self::parseAssignment(DB::instance()->query("
             SELECT A.*, S.name as 'subject_name', S.abbreviation as 'subject'
-                FROM `".Users::safeSid()."_assignments` A
+                FROM `".Users::showSid()."_assignments` A
                 INNER JOIN `subjects` S
                 ON A.subject = S.abbreviation
                 WHERE A.id = ?
@@ -24,7 +24,7 @@ class Queries {
     public static function examWithId ($id) {
         return self::parseExam(DB::instance()->query("
             SELECT E.*, S.name as 'subject_name', S.abbreviation as 'subject'
-                FROM `".Users::safeSid()."_exams` E
+                FROM `".Users::showSid()."_exams` E
                 INNER JOIN `subjects` S
                 ON E.subject = S.abbreviation
                 WHERE E.id = ?
@@ -55,7 +55,7 @@ class Queries {
 
         $data = DB::instance()->query("
             SELECT A.*, S.name as 'subject_name', S.abbreviation as 'subject'
-                FROM `".Users::safeSid()."_assignments` A
+                FROM `".Users::showSid()."_assignments` A
                 INNER JOIN `subjects` S
                 ON A.subject = S.abbreviation
                 {$searchString}
@@ -85,7 +85,7 @@ class Queries {
 
         $data = DB::instance()->query("
             SELECT E.*, S.name as 'subject_name', S.abbreviation as 'subject'
-                FROM `".Users::safeSid()."_exams` E
+                FROM `".Users::showSid()."_exams` E
                 INNER JOIN `subjects` S
                 ON E.subject = S.abbreviation
                 {$searchString}
@@ -121,22 +121,22 @@ class Queries {
 
         $data = DB::instance()->query("
             SELECT P.*, S.name as 'subject_name', S.abbreviation as 'subject'
-                FROM `".Users::safeSid()."_planning` P
+                FROM `".Users::showSid()."_planning` P
                 INNER JOIN `subjects` S
                 ON P.parent_table = 'subjects' AND P.parent_id = S.id
                 {$searchStringBegin}{$searchString}
             UNION
             SELECT P.*, S.name as 'subject_name', S.abbreviation as 'subject'
-                FROM `".Users::safeSid()."_planning` P
-                INNER JOIN `".Users::safeSid()."_assignments` A
+                FROM `".Users::showSid()."_planning` P
+                INNER JOIN `".Users::showSid()."_assignments` A
                 ON P.parent_table = 'assignments' AND P.parent_id = A.id
                 INNER JOIN `subjects` S
                 ON A.subject = S.abbreviation
                 {$searchStringBegin}{$searchString}
             UNION
             SELECT P.*, S.name as 'subject_name', S.abbreviation as 'subject'
-                FROM `".Users::safeSid()."_planning` P
-                INNER JOIN `".Users::safeSid()."_exams` E
+                FROM `".Users::showSid()."_planning` P
+                INNER JOIN `".Users::showSid()."_exams` E
                 ON P.parent_table = 'exams' AND P.parent_id = E.id
                 INNER JOIN `subjects` S
                 ON E.subject = S.abbreviation
@@ -173,13 +173,13 @@ class Queries {
 
         $data = DB::instance()->query("
             SELECT A.id, concat(A.end_date, ' ', A.end_time) as 'date', A.desc_short as 'task', A.completion as 'completion', 'assignment' as 'type', S.name as 'subject_name', S.abbreviation as 'subject'
-                FROM `".Users::safeSid()."_assignments` A
+                FROM `".Users::showSid()."_assignments` A
                 INNER JOIN `subjects` S
                 ON A.subject = S.abbreviation
                 {$searchString1}
             UNION
             SELECT E.id, E.date, concat(E.weight, ' ', S.name) as 'task', E.mark as 'completion', 'exam' as 'type', S.name as 'subject_name', S.abbreviation as 'subject'
-                FROM `".Users::safeSid()."_exams` E
+                FROM `".Users::showSid()."_exams` E
                 INNER JOIN `subjects` S
                 ON E.subject = S.abbreviation
                 {$searchString2}
@@ -196,34 +196,34 @@ class Queries {
     public static function today () {
         $data = DB::instance()->query("
             SELECT A.id, concat(A.end_date, ' ', A.end_time) as 'date', A.desc_short as 'task', A.completion as 'completion', 'assignment' as 'type', S.name as 'subject_name', S.abbreviation as 'subject'
-                FROM `".Users::safeSid()."_assignments` A
+                FROM `".Users::showSid()."_assignments` A
                 INNER JOIN `subjects` S
                 ON A.subject = S.abbreviation
                 WHERE A.end_date = ? OR (A.completion = 0 AND A.end_date < ?)
             UNION
             SELECT E.id, E.date, concat(E.weight, ' ', S.name) as 'task', E.mark as 'completion', 'exam' as 'type', S.name as 'subject_name', S.abbreviation as 'subject'
-                FROM `".Users::safeSid()."_exams` E
+                FROM `".Users::showSid()."_exams` E
                 INNER JOIN `subjects` S
                 ON E.subject = S.abbreviation
                 WHERE E.date = ?
             UNION
             SELECT P.id, P.date_end as 'date', P.goal as 'task', P.completion, 'planning' as 'type', S.name as 'subject_name', S.abbreviation as 'subject'
-                FROM `".Users::safeSid()."_planning` P
+                FROM `".Users::showSid()."_planning` P
                 INNER JOIN `subjects` S
                 ON P.parent_table = 'subjects' AND P.parent_id = S.id
                 WHERE (P.date_start <= ? AND P.date_end >= ?) OR (P.completion = 0 AND P.date_end < ?)
             UNION
             SELECT P.id, P.date_end as 'date', P.goal as 'task', P.completion, 'planning' as 'type', S.name as 'subject_name', S.abbreviation as 'subject'
-                FROM `".Users::safeSid()."_planning` P
-                INNER JOIN `".Users::safeSid()."_assignments` A
+                FROM `".Users::showSid()."_planning` P
+                INNER JOIN `".Users::showSid()."_assignments` A
                 ON P.parent_table = 'assignments' AND P.parent_id = A.id
                 INNER JOIN `subjects` S
                 ON A.subject = S.abbreviation
                 WHERE (P.date_start <= ? AND P.date_end >= ?) OR (P.completion = 0 AND P.date_end < ?)
             UNION
             SELECT P.id, P.date_end as 'date', P.goal as 'task', P.completion, 'planning' as 'type', S.name as 'subject_name', S.abbreviation as 'subject'
-                FROM `".Users::safeSid()."_planning` P
-                INNER JOIN `".Users::safeSid()."_exams` E
+                FROM `".Users::showSid()."_planning` P
+                INNER JOIN `".Users::showSid()."_exams` E
                 ON P.parent_table = 'exams' AND P.parent_id = E.id
                 INNER JOIN `subjects` S
                 ON E.subject = S.abbreviation

@@ -15,6 +15,7 @@ class Users {
         }
         if (self::loggedIn()) {
             self::currentUser()->update(array('last_online' => DateFormat::sql()));
+            Migrations::updateTables();
         }
     }
 
@@ -34,7 +35,22 @@ class Users {
         if (self::loggedIn()) {
             return DB::escape(self::currentData()->student_id);
         }
+        return 's0000000';
+    }
+
+    public static function showSid () {
+        if (self::loggedIn() && !self::isGuest()) {
+            return self::safeSid();
+        }
         return 's1704362';
+    }
+
+    public static function isGuest () {
+        return !self::isUser() && !self::isEditor() && !self::isAdmin();
+    }
+
+    public static function isUser () {
+        return self::$_currentUser->hasPermission('user');
     }
 
     public static function isEditor () {
@@ -61,7 +77,6 @@ class Users {
             }
 
             self::$_currentUser = new User();
-            Migrations::updateTables();
         }
     }
 

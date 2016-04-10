@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: putter.vuw.leidenuniv.nl:3306
--- Generation Time: Apr 10, 2016 at 03:59 PM
+-- Generation Time: Apr 10, 2016 at 05:33 PM
 -- Server version: 5.5.47-log
 -- PHP Version: 5.3.17
 
@@ -348,7 +348,7 @@ CREATE TABLE IF NOT EXISTS `user_sessions` (
   `user_id` int(11) NOT NULL,
   `hash` varchar(64) NOT NULL,
   `expiry` datetime NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `user_sessions`
@@ -460,7 +460,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `user_sessions`
 --
 ALTER TABLE `user_sessions`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=62;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=63;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: putter.vuw.leidenuniv.nl:3306
--- Generation Time: Apr 09, 2016 at 01:06 PM
+-- Generation Time: Apr 10, 2016 at 02:32 PM
 -- Server version: 5.5.47-log
 -- PHP Version: 5.3.17
 
@@ -176,7 +176,7 @@ CREATE TABLE IF NOT EXISTS `permissions` (
 INSERT INTO `permissions` (`id`, `name`, `permissions`) VALUES
 (1, 'guest', '{}'),
 (2, 'user', '{"user": 1}'),
-(3, 'editor', '{"user": 1, "editor": 1}'),
+(3, 'editor', '{"user":1,"editor":1}'),
 (4, 'admin', '{"user": 1, "editor": 1, "admin": 1}');
 
 -- --------------------------------------------------------
@@ -261,9 +261,9 @@ INSERT INTO `planning` (`id`, `parent_table`, `parent_id`, `date_start`, `date_e
 (71, 'subjects', 12, '2016-04-05', '2016-04-08', '00:30:00', 'Lees 2.2', '2016-04-08 12:20:14', 1),
 (72, 'subjects', 9, '2016-04-05', '2016-04-05', '00:10:00', 'Practicum woensdag voorberijden', '2016-04-05 18:04:53', 1),
 (73, 'subjects', 11, '2016-04-06', '2016-04-08', '01:00:00', 'Neem college 30-03 door', '2016-04-07 22:57:00', 1),
-(75, 'subjects', 12, '2016-04-09', '2016-04-11', '01:00:00', 'Lees 2.3 ter voorberijding', '0000-00-00 00:00:00', 0),
+(75, 'subjects', 12, '2016-04-09', '2016-04-11', '01:00:00', 'Lees 2.3.1 ter voorberijding', '0000-00-00 00:00:00', 0),
 (76, 'subjects', 9, '2016-04-06', '2016-04-06', '00:10:00', 'Berijd ontkleuring donderdag voor', '2016-04-06 21:05:16', 1),
-(77, 'subjects', 9, '2016-04-09', '2016-04-10', '00:15:00', 'Berijd practicum maandag voor (3.5.4, 3.1.7)', '0000-00-00 00:00:00', 0),
+(77, 'subjects', 9, '2016-04-09', '2016-04-10', '00:15:00', 'Berijd practicum maandag voor (3.5.4, 3.1.6, 4.7)', '2016-04-10 15:21:49', 1),
 (81, 'subjects', 11, '2016-04-08', '2016-04-08', '01:00:00', 'Haal werkcollege FD in', '2016-04-08 17:48:00', 1),
 (82, 'subjects', 9, '2016-04-08', '2016-04-10', '04:00:00', 'Begin aan het LDH verslag', '0000-00-00 00:00:00', 0);
 
@@ -297,7 +297,7 @@ INSERT INTO `subjects` (`id`, `name`, `abbreviation`, `section`, `content`, `lin
 (1, 'Studeren & Presenteren', 'stpr', 'inf', '', '', 0, '', 'http://liacs.leidenuniv.nl/~wolstencroftkj/ssp.html', 'http://liacs.leidenuniv.nl/~wolstencroftkj/ssp.html#Lectures', 'http://liacs.leidenuniv.nl/~wolstencroftkj/SSPTimetable.pdf', 'http://liacs.leidenuniv.nl/~wolstencroftkj/ssp.html#Assignments', ''),
 (2, 'Programmeermethoden', 'pr', 'inf', '', '', 0, 'media/books/Absolute C++.pdf', 'http://liacs.leidenuniv.nl/~kosterswa/pm/', 'http://liacs.leidenuniv.nl/~kosterswa/pm/college.php', 'http://liacs.leidenuniv.nl/~kosterswa/pm/inhoud.php', 'http://liacs.leidenuniv.nl/~kosterswa/pm/opdrachten.php', 'http://liacs.leidenuniv.nl/~kosterswa/pm/cijf/res.html'),
 (3, 'Fundamentele Informatica 1', 'fi1', 'inf', '', '', 0, 'media/books/Schaums outlines Discrete Mathematics.pdf', 'http://liacs.leidenuniv.nl/~hoogeboomhj/fi1/', 'http://liacs.leidenuniv.nl/~hoogeboomhj/fi1/', 'http://liacs.leidenuniv.nl/~hoogeboomhj/fi1/', '', 'http://liacs.leidenuniv.nl/~hoogeboomhj/fi1/fi1-cijfers-dec-2015-site.pdf'),
-(4, 'Basispracticum', 'bp', 'bio', '', '', 0, '', 'https://blackboard.leidenuniv.nl/webapps/blackboard/execute/modulepage/view?course_id=_157670_1&cmp_tab_id=_114874_1&mode=view', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_157670_1&content_id=_3302925_1&mode=reset', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3302933-dt-content-rid-3037697_1/courses/4031BBPIB-1516FWN/HANDL%2020%20juli%202015.pdf', '', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3408273-dt-content-rid-3318406_1/courses/4031BBPIB-1516FWN/COHORT%202015-2016%20BLOK2%20BASISPRACTICUM%20voor%20I%26B%2024%20nov%20%20publicatie%20blackboard%202015%20.pdf'),
+(4, 'Basispracticum', 'bp', 'bio', '', '', 0, 'media/books/Syllabus Basispracticum 20 juli 2015.pdf', 'https://blackboard.leidenuniv.nl/webapps/blackboard/execute/modulepage/view?course_id=_157670_1&cmp_tab_id=_114874_1&mode=view', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_157670_1&content_id=_3302925_1&mode=reset', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3302933-dt-content-rid-3037697_1/courses/4031BBPIB-1516FWN/HANDL%2020%20juli%202015.pdf', '', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3408273-dt-content-rid-3318406_1/courses/4031BBPIB-1516FWN/COHORT%202015-2016%20BLOK2%20BASISPRACTICUM%20voor%20I%26B%2024%20nov%20%20publicatie%20blackboard%202015%20.pdf'),
 (5, 'Microbiologie', 'mi', 'bio', '', '', 0, 'media/books/Campbell Biology.pdf', 'https://blackboard.leidenuniv.nl/webapps/blackboard/execute/announcement?method=search&context=course_entry&course_id=_155463_1&handle=announcements_entry&mode=view', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_155463_1&content_id=_3402648_1', '', '', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3439771-dt-content-rid-3384914_1/courses/4031BBPIB-1516FWN/Cijferlijst%2011%20dec%20%20Microbiologie%20voor%20Informatica%20%20Biologie%20voor%20publicatie%20blackboard%202015-2016.pdf'),
 (6, 'Celfysiologie', 'cf', 'bio', '', '', 0, 'media/books/Campbell Biology.pdf', 'https://blackboard.leidenuniv.nl/webapps/blackboard/execute/announcement?method=search&context=course_entry&course_id=_155462_1&handle=announcements_entry&mode=view', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_155462_1&content_id=_3344439_1', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3345291-dt-content-rid-3087777_1/xid-3087777_1', '', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3404299-dt-content-rid-3291856_1/courses/40212CF15-1516FWN/Cijferlijst%20Celfysiologie%20voor%20Informatica%20%20Biologie%202015-2016.pdf'),
 (7, 'Celbiologie', 'cb', 'bio', '', '', 0, 'media/books/Campbell Biology.pdf', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_157356_1&content_id=_3289911_1', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_157356_1&content_id=_3291631_1', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3291622-dt-content-rid-3268088_1/xid-3268088_1', '', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_157356_1&content_id=_3441392_1'),
@@ -347,7 +347,7 @@ CREATE TABLE IF NOT EXISTS `user_sessions` (
   `user_id` int(11) NOT NULL,
   `hash` varchar(64) NOT NULL,
   `expiry` datetime NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `user_sessions`
@@ -459,7 +459,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `user_sessions`
 --
 ALTER TABLE `user_sessions`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=59;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=62;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -10,7 +10,7 @@ class Migrations {
     private static function assignmentsTable ($sid) {
         return "
             CREATE TABLE IF NOT EXISTS `{$sid}_assignments` (
-            `id` int(11) NOT NULL,
+              `id` int(11) NOT NULL AUTO_INCREMENT,
               `start_date` date NOT NULL,
               `end_date` date NOT NULL,
               `end_time` time NOT NULL,
@@ -21,7 +21,8 @@ class Migrations {
               `link_repository` varchar(300) NOT NULL,
               `link_report` varchar(300) NOT NULL,
               `team` varchar(100) NOT NULL,
-              `completion` tinyint(1) NOT NULL
+              `completion` tinyint(1) NOT NULL,
+              PRIMARY KEY (`id`)
             ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
         ";
     }
@@ -29,13 +30,14 @@ class Migrations {
     private static function examsTable ($sid) {
         return "
             CREATE TABLE IF NOT EXISTS `{$sid}_exams` (
-            `id` int(11) NOT NULL,
+              `id` int(11) NOT NULL AUTO_INCREMENT,
               `date` date NOT NULL,
               `weight` varchar(20) NOT NULL,
               `subject` varchar(8) NOT NULL,
               `substance` text NOT NULL,
               `link` varchar(300) NOT NULL,
-              `mark` float NOT NULL
+              `mark` float NOT NULL,
+              PRIMARY KEY (`id`)
             ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
         ";
     }
@@ -43,7 +45,7 @@ class Migrations {
     private static function planningTable ($sid) {
         return "
             CREATE TABLE IF NOT EXISTS `{$sid}_planning` (
-            `id` int(11) NOT NULL,
+              `id` int(11) NOT NULL AUTO_INCREMENT,
               `parent_table` varchar(20) NOT NULL,
               `parent_id` int(11) NOT NULL,
               `date_start` date NOT NULL,
@@ -51,13 +53,26 @@ class Migrations {
               `duration` time NOT NULL,
               `goal` varchar(200) NOT NULL,
               `finished_on` datetime NOT NULL,
-              `completion` tinyint(1) NOT NULL
+              `completion` tinyint(1) NOT NULL,
+              PRIMARY KEY (`id`)
             ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
         ";
     }
 
-    private static function updateVersions () {
+    private static function assignmentsMigrations ($sid) {
 
+    }
+
+    private static function examsMigrations ($sid) {
+
+    }
+
+    private static function planningMigrations ($sid) {
+
+    }
+
+    private static function updateVersions () {
+        DB::instance()->update("users", Users::currentData()->id, array('table_versions' => '{"assignments": 1, "exams": 1, "planning": 1}'));
     }
 
     public static function tableVersion ($table) {

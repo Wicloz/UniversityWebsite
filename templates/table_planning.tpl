@@ -84,7 +84,7 @@
 </table>
 {if Users::isEditor()}
     <p>
-        <a href="?page=edit-table&table=planning" class="button">
+        <a href="?page=edit-table&table={$user_sid}_planning" class="button">
             Edit Table
         </a>
     </p>

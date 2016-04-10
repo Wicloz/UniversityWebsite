@@ -40,7 +40,7 @@ class Update {
             switch (Input::get('table')) {
                 case 'assignments':
                     if (Users::isEditor()) {
-                        DB::instance()->update("assignments", Input::get('id'), array('completion' => $completion));
+                        DB::instance()->update(Users::safeSid()."_assignments", Input::get('id'), array('completion' => $completion));
                         Notifications::addSuccess('Assignment completion switched!');
                         Redirect::to('');
                     } else {
@@ -53,7 +53,7 @@ class Update {
                         if ($completion) {
                             $finishedDate = DateFormat::sql();
                         }
-                        DB::instance()->update("planning", Input::get('id'), array('finished_on' => $finishedDate, 'completion' => $completion));
+                        DB::instance()->update(Users::safeSid()."_planning", Input::get('id'), array('finished_on' => $finishedDate, 'completion' => $completion));
                         Notifications::addSuccess('Planning completion switched!');
                         Redirect::to('');
                     } else {
@@ -150,8 +150,8 @@ class Update {
         ));
 
         if ($validation->passed()) {
-            $id = DB::autoIncrementValue('assignments');
-            DB::instance()->insert("assignments", array(
+            $id = DB::autoIncrementValue(Users::safeSid().'_assignments');
+            DB::instance()->insert(Users::safeSid()."_assignments", array(
                 'start_date' => DateFormat::sqlDate(),
                 'end_date' => DateFormat::sql(Input::get('date').', '.Input::get('time')),
                 'subject' => Input::get('subject'),
@@ -187,8 +187,8 @@ class Update {
         ));
 
         if ($validation->passed()) {
-            $id = DB::autoIncrementValue('exams');
-            DB::instance()->insert("exams", array(
+            $id = DB::autoIncrementValue(Users::safeSid().'_exams');
+            DB::instance()->insert(Users::safeSid()."_exams", array(
                 'date' => DateFormat::sqlDate(Input::get('date')),
                 'weight' => Input::get('weight'),
                 'subject' => Input::get('subject')
@@ -232,7 +232,7 @@ class Update {
         ));
 
         if ($validation->passed()) {
-            DB::instance()->insert("planning", array(
+            DB::instance()->insert(Users::safeSid()."_planning", array(
                 'parent_table' => Input::get('parent_table'),
                 'parent_id' => Input::get('parent_id'),
                 'date_start' => DateFormat::sqlDate(Input::get('date_start')),
@@ -268,8 +268,8 @@ class Update {
 
         if ($validation->passed()) {
             if (strpos(Input::get('task'), 'Toets') === 0 || strpos(Input::get('task'), 'Tentamen') === 0) {
-                $id = DB::autoIncrementValue('exams');
-                DB::instance()->insert("exams", array(
+                $id = DB::autoIncrementValue(Users::safeSid().'_exams');
+                DB::instance()->insert(Users::safeSid()."_exams", array(
                     'date' => DateFormat::sqlDate(Input::get('date')),
                     'weight' => substr(Input::get('task'), 0, strpos(Input::get('task'), ' ')),
                     'subject' => Input::get('subject')
@@ -278,8 +278,8 @@ class Update {
                 Redirect::to("?page=exams_item&id={$id}");
             }
             else {
-                $id = DB::autoIncrementValue('assignments');
-                DB::instance()->insert("assignments", array(
+                $id = DB::autoIncrementValue(Users::safeSid().'_assignments');
+                DB::instance()->insert(Users::safeSid()."_assignments", array(
                     'start_date' => DateFormat::sqlDate(),
                     'end_date' => DateFormat::sql(Input::get('date')),
                     'subject' => Input::get('subject'),
@@ -407,7 +407,7 @@ class Update {
 
             if ($validation->passed()) {
                 DB::instance()->delete(Input::get('table'), array("", "id", "=", Input::get('id')));
-                if (Input::get('table') === 'assignments') {
+                if (Input::get('table') === Users::safeSid().'_assignments') {
                     Calendar::deleteAssignment(Input::get('id'));
                 }
                 Notifications::addSuccess('Entry deleted!');

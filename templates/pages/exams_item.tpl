@@ -18,7 +18,7 @@
             {/if}
         </i></p>
         {if Users::isEditor()}
-            <a class="button edit-item-button" href="?page=edit-entry&table=exams&id={$item->id}">
+            <a class="button edit-item-button" href="?page=edit-entry&table={$user_sid}_exams&id={$item->id}">
                 Edit Item
             </a>
         {/if}

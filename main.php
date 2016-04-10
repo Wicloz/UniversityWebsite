@@ -1,6 +1,7 @@
 <?php
 function pageAddMain ($smarty) {
     $smarty->assign('loggedIn', Users::loggedIn());
+    $smarty->assign('user_sid', Users::safeSid());
     if (Users::loggedIn()) {
         $smarty->assign('user_name', Users::currentData()->name);
     }

@@ -122,9 +122,15 @@ function createPage ($smarty) {
         }
 
         if (Input::get('action') === 'update_calendarAssignments' && Users::isEditor()) {
-            $assignments = DB::instance()->get("assignments")->results();
+            $assignments = DB::instance()->get(Users::safeSid()."_assignments")->results();
             foreach ($assignments as $assignment) {
                 Calendar::updateAssignment($assignment->id);
+            }
+        }
+
+        if (Input::get('action') === 'create_database') {
+            if (!Migrations::hasTables()) {
+                Migrations::createTables();
             }
         }
     }

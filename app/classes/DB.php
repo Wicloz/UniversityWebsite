@@ -200,5 +200,9 @@ class DB {
     public static function tableFormInfo ($table) {
     	return self::instance()->query("SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ?", array(Config::get('mysql/db'), $table))->results();
     }
+
+    public static function escape ($string) {
+        return self::instance()->_mysql->escape_string($string);
+    }
 }
 ?>

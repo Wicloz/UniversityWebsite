@@ -30,6 +30,13 @@ class Users {
         return self::$_currentUser;
     }
 
+    public static function safeSid () {
+        if (self::loggedIn()) {
+            return DB::escape(self::currentData()->student_id);
+        }
+        return 's1704362';
+    }
+
     public static function isEditor () {
         return self::$_currentUser->hasPermission('editor');
     }
@@ -54,6 +61,7 @@ class Users {
             }
 
             self::$_currentUser = new User();
+            Migrations::updateTables();
         }
     }
 

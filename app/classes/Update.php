@@ -39,7 +39,7 @@ class Update {
             $completion = (Input::get('done')) ? 1 : 0;
             switch (Input::get('table')) {
                 case 'assignments':
-                    if (Users::isEditor()) {
+                    if (Users::isUser()) {
                         DB::instance()->update(Users::safeSid()."_assignments", Input::get('id'), array('completion' => $completion));
                         Notifications::addSuccess('Assignment completion switched!');
                         Redirect::to('');
@@ -48,7 +48,7 @@ class Update {
                     }
                 break;
                 case 'planning':
-                    if (Users::isEditor()) {
+                    if (Users::isUser()) {
                         $finishedDate = 0;
                         if ($completion) {
                             $finishedDate = DateFormat::sql();
@@ -85,28 +85,28 @@ class Update {
         if ($validation->passed()) {
             switch (Input::get('table')) {
                 case 'assignments':
-                    if (Users::isEditor()) {
+                    if (Users::isUser()) {
                         self::insertItemAssignment();
                     } else {
                         Redirect::error(403);
                     }
                 break;
                 case 'exams':
-                    if (Users::isEditor()) {
+                    if (Users::isUser()) {
                         self::insertItemExam();
                     } else {
                         Redirect::error(403);
                     }
                 break;
                 case 'planning':
-                    if (Users::isEditor()) {
+                    if (Users::isUser()) {
                         self::insertItemPlanning();
                     } else {
                         Redirect::error(403);
                     }
                 break;
                 case 'events':
-                    if (Users::isEditor()) {
+                    if (Users::isUser()) {
                         self::insertItemEvent();
                     } else {
                         Redirect::error(403);

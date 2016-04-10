@@ -43,7 +43,7 @@
                 {/if}
             </td>
             <td>
-                {if Users::isEditor() && empty($row->todayRow)}
+                {if Users::isUser() && empty($row->todayRow)}
                     <form action="" method="POST">
                         <input type="hidden" name="action" value="switch_completion">
                         <input type="hidden" name="table" value="assignments">
@@ -57,7 +57,7 @@
             </td>
         </tr>
     {/foreach}
-    {if Users::isEditor()}
+    {if Users::isUser()}
         <tr>
             <form action="" method="POST">
                 <input type="hidden" name="action" value="item_insert">

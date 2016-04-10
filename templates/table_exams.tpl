@@ -29,7 +29,7 @@
             </td>
         </tr>
     {/foreach}
-    {if Users::isEditor()}
+    {if Users::isUser()}
         <tr>
             <form action="" method="POST">
                 <input type="hidden" name="action" value="item_insert">

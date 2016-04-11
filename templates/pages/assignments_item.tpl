@@ -51,7 +51,11 @@
     {if !empty($item->link_report)}
         <div class="paragraph-center col-sm-12">
             <h2>Report:</h2>
-            <iframe name="report" src="{$item->link_report}" width="100%" height="600"></iframe>
+            {if strpos($item->link_report, '.pdf') !== 0}
+                <embed name="report" src="{$item->link_report}" scale="tofit" alt="report" type="application/pdf" controller="true" width="100%" height="600"></embed>
+            {else}
+                <iframe name="report" src="{$item->link_report}" width="100%" height="600"></iframe>
+            {/if}
         </div>
     {/if}
     <div class="paragraph-center paragraph-scroll col-sm-12">

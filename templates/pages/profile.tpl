@@ -44,7 +44,7 @@
     </div>
     <div class="paragraph-center col-sm-12">
         <h2>Your Database:</h2>
-        {if Migrations::hasTables()}
+        {if UserTables::hasTables()}
             <p>You have some personal tables and are now a user!</p>
         {else}
             <form action="" method="POST">

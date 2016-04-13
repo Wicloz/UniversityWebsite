@@ -1,5 +1,5 @@
 <?php
-class Migrations {
+class UserTables {
     private static function dropTables () {
         if (Users::loggedIn()) {
             $sid = Users::safeSid();

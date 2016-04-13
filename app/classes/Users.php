@@ -15,7 +15,7 @@ class Users {
         }
         if (self::loggedIn()) {
             self::currentUser()->update(array('last_online' => DateFormat::sql()));
-            Migrations::updateTables();
+            UserTables::updateTables();
         }
     }
 

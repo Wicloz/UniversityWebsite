@@ -1,0 +1,11 @@
+.DS_Store
+*.7z
+
+templates_c/
+cache/
+storage/
+
+dbsettings.php
+composer.phar
+composer.lock
+npm-debug.log

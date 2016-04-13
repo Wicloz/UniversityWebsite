@@ -1,0 +1,22 @@
+{
+    "name": "mako/toolbar",
+    "keywords": ["mako", "framework", "toolbar"],
+    "homepage": "http://makoframework.com",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Frederic G. Østby",
+            "email": "frederic.g.ostby@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "mako\\toolbar\\": "src"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+             "dev-master": "1.3-dev"
+        }
+    }
+}

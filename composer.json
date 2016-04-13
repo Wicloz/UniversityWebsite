@@ -2,6 +2,10 @@
     "require": {
         "smarty/smarty": "~3.1",
         "twilio/sdk": "^4.10",
-        "google/apiclient": "^1.1"
+        "google/apiclient": "^1.1",
+        "moment/moment": "^2.12",
+        "components/jquery": "^2.2",
+        "tinymce/tinymce": "^4.3",
+        "cmskit/jsoneditor": "dev-master"
     }
 }

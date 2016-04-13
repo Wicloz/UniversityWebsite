@@ -1,1 +1,0 @@
-<bold><green>MAKO FRAMEWORK</green></bold> [ <yellow>{version}</yellow> ]

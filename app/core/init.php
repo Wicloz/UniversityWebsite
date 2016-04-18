@@ -6,7 +6,7 @@ require_once 'dbsettings.php';
 session_start();
 date_default_timezone_set('Europe/Amsterdam');
 @mkdir('storage', 0771, true);
-chmod('storage', 0771);
+@chmod('storage', 0771);
 
 $GLOBALS['config'] = array(
     'debug' => array(

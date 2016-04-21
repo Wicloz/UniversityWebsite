@@ -14,8 +14,18 @@
             {$strike = 'class="complete"'}
         {/if}
         <tr>
+            {if Users::isUser() && empty($row->todayRow)}
+                {$form = sprintf('update_planning_%s', $row->id)}
+                <form action="" method="POST" id="{$form}">
+                    <input type="hidden" name="action" value="item_update">
+                    <input type="hidden" name="table" value="planning">
+                    <input type="hidden" name="id" value="{$row->id}">
+                </form>
+            {/if}
             <td {$strike}>
-                {$row->date_start} - {$row->date_end}
+                <span id="{$form}_date_start" ondblclick="makeInput('{$form}', 'date_start', 'date')">{$row->date_start}</span>
+                -
+                <span id="{$form}_date_end" ondblclick="makeInput('{$form}', 'date_end', 'date')">{$row->date_end}</span>
             </td>
             {if empty($subject) && empty($item)}
                 <td {$strike}>
@@ -25,10 +35,10 @@
                 </td>
             {/if}
             <td {$strike}>
-                {$row->duration}
+                <span id="{$form}_duration" ondblclick="makeInput('{$form}', 'duration', 'time')">{$row->duration}</span>
             </td>
             <td {$strike}>
-                {$row->goal}
+                <span id="{$form}_goal" ondblclick="makeInput('{$form}', 'goal', 'text')">{$row->goal}</span>
             </td>
             <td>
                 {if Users::isUser() && empty($row->todayRow)}

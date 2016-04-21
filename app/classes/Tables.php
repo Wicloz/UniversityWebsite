@@ -7,6 +7,9 @@ class Tables {
         if (Input::exists() && Input::get('action') === 'item_insert') {
             Update::insertItem();
         }
+        if (Input::exists() && Input::get('action') === 'item_update') {
+            Update::updateItem();
+        }
 
         $results = Queries::assignments($history);
         $now_pos = 0;
@@ -38,6 +41,9 @@ class Tables {
         if (Input::exists() && Input::get('action') === 'item_insert') {
             Update::insertItem();
         }
+        if (Input::exists() && Input::get('action') === 'item_update') {
+            Update::updateItem();
+        }
 
         $results = Queries::exams($history);
         $now_pos = 0;
@@ -67,6 +73,9 @@ class Tables {
         }
         if (Input::exists() && Input::get('action') === 'item_insert') {
             Update::insertItem();
+        }
+        if (Input::exists() && Input::get('action') === 'item_update') {
+            Update::updateItem();
         }
 
         $results = Queries::planning($history, $parent_table, $parent_id);
@@ -101,6 +110,9 @@ class Tables {
         }
         if (Input::exists() && Input::get('action') === 'item_insert') {
             Update::insertItem();
+        }
+        if (Input::exists() && Input::get('action') === 'item_update') {
+            Update::updateItem();
         }
 
         $results = Queries::events($history, $subject);

@@ -9,6 +9,9 @@ class Update {
                 case 'item_insert':
                     self::insertItem();
                 break;
+                case 'item_update':
+                    self::updateItem();
+                break;
             }
         }
     }
@@ -289,6 +292,122 @@ class Update {
                 Notifications::addSuccess('Assignment added!');
                 Redirect::to("?page=assignments_item&id={$id}");
             }
+        }
+
+        else {
+            Notifications::addValidationFail($validation->getErrors());
+        }
+    }
+
+    public static function updateItem () {
+        $validation = new Validate();
+        $validation->check($_POST, array(
+            'action' => array(
+                'name' => 'Action',
+                'required' => true,
+                'wildcard' => 'item_update'
+            ),
+            'table' => array(
+                'name' => 'Table Name',
+                'required' => true
+            ),
+            'id' => array(
+                'name' => 'Entry ID',
+                'required' => true
+            )
+        ));
+
+        if ($validation->passed()) {
+            switch (Input::get('table')) {
+                case 'assignments':
+                    if (Users::isUser()) {
+                        self::updateItemAssignment();
+                    } else {
+                        Redirect::error(403);
+                    }
+                break;
+                case 'exams':
+                    if (Users::isUser()) {
+                        self::updateItemExam();
+                    } else {
+                        Redirect::error(403);
+                    }
+                break;
+                case 'planning':
+                    if (Users::isUser()) {
+                        self::updateItemPlanning();
+                    } else {
+                        Redirect::error(403);
+                    }
+                break;
+                case 'events':
+                    if (Users::isUser()) {
+                        self::updateItemEvent();
+                    } else {
+                        Redirect::error(403);
+                    }
+                break;
+            }
+        }
+
+        else {
+            Notifications::addValidationFail($validation->getErrors());
+        }
+    }
+
+    private static function updateItemPlanning () {
+        $validation = new Validate();
+        $validation->check($_POST, array(
+            'parent_table' => array(
+                'name' => 'Parent Table',
+                'required' => false
+            ),
+            'parent_id' => array(
+                'name' => 'Parent ID',
+                'required' => false
+            ),
+            'date_start' => array(
+                'name' => 'Start Date',
+                'required' => false
+            ),
+            'date_end' => array(
+                'name' => 'End Date',
+                'required' => false
+            ),
+            'duration' => array(
+                'name' => 'Duration',
+                'required' => false
+            ),
+            'goal' => array(
+                'name' => 'Goal',
+                'required' => false
+            )
+        ));
+
+        if ($validation->passed()) {
+            $data = array();
+            $fields = array(
+                'parent_table' => false,
+                'parent_id' => false,
+                'date_start' => true,
+                'date_end' => true,
+                'duration' => false,
+                'goal' => false
+            );
+
+            foreach ($fields as $field => $date) {
+                if (Input::has($field)) {
+                    if ($date) {
+                        $data[$field] = DateFormat::sqlDate(Input::get($field));
+                    } else {
+                        $data[$field] = Input::get($field);
+                    }
+                }
+            }
+
+            DB::instance()->update(Users::safeSid()."_planning", Input::get('id'), $data);
+            Notifications::addSuccess('Planning updated!');
+            Redirect::to('');
         }
 
         else {

@@ -35,7 +35,7 @@
                 <input type="hidden" name="action" value="item_insert">
                 <input type="hidden" name="table" value="exams">
                 <td>
-                    <input type="date" name="date" placeholder="yyyy-mm-dd" value="" class="date">
+                    <input type="date" name="date" placeholder="dd-mm-yyyy" value="" class="date">
                 </td>
                 <td>
                     <input type="text" name="weight" value="" list="weights" autocomplete="off" >

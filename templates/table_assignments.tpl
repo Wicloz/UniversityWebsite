@@ -63,7 +63,7 @@
                 <input type="hidden" name="action" value="item_insert">
                 <input type="hidden" name="table" value="assignments">
                 <td>
-                    <input type="date" name="date" placeholder="yyyy-mm-dd" value="" class="date">,
+                    <input type="date" name="date" placeholder="dd-mm-yyyy" value="" class="date">,
                     <input type="time" name="time" placeholder="hh:mm:ss" value="" class="time">
                 </td>
                 <td>

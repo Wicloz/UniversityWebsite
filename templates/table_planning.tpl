@@ -62,9 +62,9 @@
                 <input type="hidden" name="table" value="planning">
                 <input type="hidden" name="parent_table" value="{$table_parentT|default:"subjects"}">
                 <td>
-                    <input type="date" name="date_start" placeholder="yyyy-mm-dd" value="" class="date">
+                    <input type="date" name="date_start" placeholder="dd-mm-yyyy" value="" class="date">
                     -
-                    <input type="date" name="date_end" placeholder="yyyy-mm-dd" value="" class="date">
+                    <input type="date" name="date_end" placeholder="dd-mm-yyyy" value="" class="date">
                 </td>
                 {if empty($subject) && empty($item)}
                     <td>

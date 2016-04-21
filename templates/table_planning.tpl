@@ -23,9 +23,9 @@
                 </form>
             {/if}
             <td {$strike}>
-                <span id="{$form}_date_start" ondblclick="makeInput('{$form}', 'date_start', 'date')">{$row->date_start}</span>
+                <span {if isset($form)}id="{$form}_date_start" ondblclick="makeInput('{$form}', 'date_start', 'date')"{/if}>{$row->date_start}</span>
                 -
-                <span id="{$form}_date_end" ondblclick="makeInput('{$form}', 'date_end', 'date')">{$row->date_end}</span>
+                <span {if isset($form)}id="{$form}_date_end" ondblclick="makeInput('{$form}', 'date_end', 'date')"{/if}>{$row->date_end}</span>
             </td>
             {if empty($subject) && empty($item)}
                 <td {$strike}>
@@ -35,10 +35,10 @@
                 </td>
             {/if}
             <td {$strike}>
-                <span id="{$form}_duration" ondblclick="makeInput('{$form}', 'duration', 'time')">{$row->duration}</span>
+                <span {if isset($form)}id="{$form}_duration" ondblclick="makeInput('{$form}', 'duration', 'time')"{/if}>{$row->duration}</span>
             </td>
             <td {$strike}>
-                <span id="{$form}_goal" ondblclick="makeInput('{$form}', 'goal', 'text')">{$row->goal}</span>
+                <span {if isset($form)}id="{$form}_goal" ondblclick="makeInput('{$form}', 'goal', 'text')"{/if}>{$row->goal}</span>
             </td>
             <td>
                 {if Users::isUser() && empty($row->todayRow)}

@@ -41,7 +41,6 @@ function revertInput (form, field, type) {
         new_element.ondblclick = function(){makeInput(form, field, type);};
 
         old_element.parentNode.replaceChild(new_element, old_element);
-
         formElement.submit();
     }
 }

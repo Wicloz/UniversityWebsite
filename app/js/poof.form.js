@@ -1,46 +1,33 @@
-function makeInput (form, field, type) {
-    var elid = form + '_' + field;
-    var old_element = document.getElementById(elid);
-    var new_element = document.createElement('input');
-
-    new_element.id = old_element.id;
-    new_element.type = type;
-    new_element.classList.add(type);
-    new_element.value = old_element.innerHTML;
-
-    new_element.onkeydown = function(event){
-        if (event.keyCode == 13) {
-            revertInput(form, field, type);
-        }
-    };
-
-    old_element.parentNode.replaceChild(new_element, old_element);
-    initDatetime();
+function switchToInput (text, input) {
+    var textElement = document.getElementById(text);
+    var inputElement = document.getElementById(input);
+    textElement.classList.add('pooff-hidden');
+    inputElement.classList.remove('pooff-hidden');
 }
 
-function revertInput (form, field, type) {
-    var elid = form + '_' + field;
-    var old_element = document.getElementById(elid);
-    var new_element = document.createElement('span');
+function switchFromInput (input, text) {
+    var textElement = document.getElementById(text);
+    var inputElement = document.getElementById(input);
+    textElement.classList.remove('pooff-hidden');
+    inputElement.classList.add('pooff-hidden');
+    textElement.innerHTML = inputElement.value;
 
-    if (old_element.value) {
-        var formElement = document.getElementById(form);
-        var hidden = document.getElementById(elid + '_hidden');
+    var form = text.slice(0, text.indexOf('-'));
+    var formElement = document.getElementById(form);
+    formElement.submit();
+}
 
-        if (!hidden) {
-            hidden = document.createElement('input');
-            formElement.appendChild(hidden);
-            hidden.id = elid + '_hidden';
-            hidden.type = 'hidden';
-            hidden.name = field;
+var pooffs = document.getElementsByClassName('pooff-text');
+for (var i = 0; i < pooffs.length; i++) {
+    let id = pooffs[i].id;
+    var inputElement = document.getElementById(id + '-input');
+    pooffs[i].addEventListener("dblclick", function(){
+        console.log(id);
+        switchToInput(id, id + '-input');
+    });
+    inputElement.addEventListener("keypress", function(event){
+        if (event.keyCode == 13) {
+            switchFromInput(id + '-input', id);
         }
-        hidden.value = old_element.value;
-
-        new_element.id = old_element.id;
-        new_element.innerHTML = old_element.value;
-        new_element.ondblclick = function(){makeInput(form, field, type);};
-
-        old_element.parentNode.replaceChild(new_element, old_element);
-        formElement.submit();
-    }
+    });
 }

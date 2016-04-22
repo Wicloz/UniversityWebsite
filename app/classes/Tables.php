@@ -25,6 +25,7 @@ class Tables {
 
         $today = new stdClass();
         $today->todayRow = true;
+        $today->id = 'today';
         $today->completion = false;
         $today->end_date = '<b>'.DateFormat::dateTable();
         $today->end_time = DateFormat::timeDefault().'</b>';
@@ -57,6 +58,7 @@ class Tables {
 
         $today = new stdClass();
         $today->todayRow = true;
+        $today->id = 'today';
         $today->completion = false;
         $today->date = '<b>'.DateFormat::dateTable().'</b>';
         $today->weight = '</a><b>Today is a gift</b><a href="">';
@@ -92,6 +94,7 @@ class Tables {
 
         $today = new stdClass();
         $today->todayRow = true;
+        $today->id = 'today';
         $today->completion = false;
         $today->date_start = '<b>'.DateFormat::dateTable().'</b>';
         $today->date_end = '<b>'.DateFormat::dateTable().'</b>';
@@ -135,6 +138,7 @@ class Tables {
 
         $today = new stdClass();
         $today->todayRow = true;
+        $today->id = 'today';
         $today->completion = false;
         $today->date = '<b>'.DateFormat::dateTimeTable().'</b>';
         $today->type = '<b>-</b>';

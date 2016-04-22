@@ -14,18 +14,25 @@
             {$strike = 'class="complete"'}
         {/if}
         <tr>
+            {$form = sprintf('planning_%s', $row->id)}
+            {$class = ''}
             {if Users::isUser() && empty($row->todayRow)}
-                {$form = sprintf('update_planning_%s', $row->id)}
+                {$class = 'pooff-text'}
                 <form action="" method="POST" id="{$form}">
                     <input type="hidden" name="action" value="item_update">
                     <input type="hidden" name="table" value="planning">
                     <input type="hidden" name="id" value="{$row->id}">
-                </form>
             {/if}
             <td {$strike}>
-                <span {if isset($form)}id="{$form}_date_start" ondblclick="makeInput('{$form}', 'date_start', 'date')"{/if}>{$row->date_start}</span>
+                <span id="{$form}-start" class="{$class}">{$row->date_start}</span>
+                {if Users::isUser() && empty($row->todayRow)}
+                    <input id="{$form}-start-input" type="date" name="date_start" value="{$row->date_start}" class="pooff-hidden">
+                {/if}
                 -
-                <span {if isset($form)}id="{$form}_date_end" ondblclick="makeInput('{$form}', 'date_end', 'date')"{/if}>{$row->date_end}</span>
+                <span id="{$form}-end" class="{$class}">{$row->date_end}</span>
+                {if Users::isUser() && empty($row->todayRow)}
+                    <input id="{$form}-end-input" type="date" name="date_end" value="{$row->date_end}" class="pooff-hidden">
+                {/if}
             </td>
             {if empty($subject) && empty($item)}
                 <td {$strike}>
@@ -35,11 +42,20 @@
                 </td>
             {/if}
             <td {$strike}>
-                <span {if isset($form)}id="{$form}_duration" ondblclick="makeInput('{$form}', 'duration', 'time')"{/if}>{$row->duration}</span>
+                <span id="{$form}-duration" class="{$class}">{$row->duration}</span>
+                {if Users::isUser() && empty($row->todayRow)}
+                <input id="{$form}-duration-input" type="text" name="duration" value="{$row->duration}" class="pooff-hidden">
+                {/if}
             </td>
             <td {$strike}>
-                <span {if isset($form)}id="{$form}_goal" ondblclick="makeInput('{$form}', 'goal', 'text')"{/if}>{$row->goal}</span>
+                <span id="{$form}-goal" class="{$class}">{$row->goal}</span>
+                {if Users::isUser() && empty($row->todayRow)}
+                    <input id="{$form}-goal-input" type="text" name="goal" value="{$row->goal}" class="pooff-hidden">
+                {/if}
             </td>
+            {if Users::isUser() && empty($row->todayRow)}
+                </form>
+            {/if}
             <td>
                 {if Users::isUser() && empty($row->todayRow)}
                     <form action="" method="POST">

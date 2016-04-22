@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/build/css/bootstrap-datetimepicker.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-jgrowl/1.4.1/jquery.jgrowl.min.css">
     <link rel="stylesheet" href="vendor/cmskit/jsoneditor/jsoneditor.min.css">
+    <link rel="stylesheet" href="app/js/poof.form.min.css">
     <link rel="stylesheet" href="app/css/style.min.css">
     <script src="components/jquery/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>

@@ -26,12 +26,12 @@
             <td {$strike}>
                 <span id="{$form}-start" class="{$class}">{$row->date_start}</span>
                 {if Users::isUser() && empty($row->todayRow)}
-                    <input id="{$form}-start-input" type="date" name="date_start" value="{$row->date_start}" class="pooff-hidden">
+                    <input id="{$form}-start-input" type="date" name="date_start" value="{$row->date_start}" class="pooff-hidden date">
                 {/if}
                 -
                 <span id="{$form}-end" class="{$class}">{$row->date_end}</span>
                 {if Users::isUser() && empty($row->todayRow)}
-                    <input id="{$form}-end-input" type="date" name="date_end" value="{$row->date_end}" class="pooff-hidden">
+                    <input id="{$form}-end-input" type="date" name="date_end" value="{$row->date_end}" class="pooff-hidden date">
                 {/if}
             </td>
             {if empty($subject) && empty($item)}
@@ -44,7 +44,7 @@
             <td {$strike}>
                 <span id="{$form}-duration" class="{$class}">{$row->duration}</span>
                 {if Users::isUser() && empty($row->todayRow)}
-                <input id="{$form}-duration-input" type="text" name="duration" value="{$row->duration}" class="pooff-hidden">
+                <input id="{$form}-duration-input" type="text" name="duration" value="{$row->duration}" class="pooff-hidden duration">
                 {/if}
             </td>
             <td {$strike}>

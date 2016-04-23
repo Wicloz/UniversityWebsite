@@ -1,7 +1,7 @@
 <?php
 $allowCaching = false;
 function createPage ($smarty) {
-    $subject = DB::instance()->get("subjects", array("", "abbreviation", "=", Input::get('subject')))->first();
+    $subject = DB::instance()->get("subjects", array("", "abbreviation", "=", Input::get('subject', 'get')))->first();
     if (empty($subject->id)) {
         Redirect::error(404);
     }

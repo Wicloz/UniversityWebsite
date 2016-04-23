@@ -122,4 +122,5 @@ require_once 'app/functions/sanitize.php';
 require_once 'app/functions/misc.php';
 Users::init();
 Phone::init();
+Update::doUpdate();
 ?>

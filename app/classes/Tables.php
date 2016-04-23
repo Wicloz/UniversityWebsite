@@ -1,16 +1,6 @@
 <?php
 class Tables {
     public static function assignments ($history) {
-        if (Input::exists() && Input::get('action') === 'switch_completion') {
-            Update::switchCompletion();
-        }
-        if (Input::exists() && Input::get('action') === 'item_insert') {
-            Update::insertItem();
-        }
-        if (Input::exists() && Input::get('action') === 'item_update') {
-            Update::updateItem();
-        }
-
         $results = Queries::assignments($history);
         $now_pos = 0;
 
@@ -39,13 +29,6 @@ class Tables {
     }
 
     public static function exams ($history) {
-        if (Input::exists() && Input::get('action') === 'item_insert') {
-            Update::insertItem();
-        }
-        if (Input::exists() && Input::get('action') === 'item_update') {
-            Update::updateItem();
-        }
-
         $results = Queries::exams($history);
         $now_pos = 0;
 
@@ -70,16 +53,6 @@ class Tables {
     }
 
     public static function planning ($history, $parent_table = null, $parent_id = null) {
-        if (Input::exists() && Input::get('action') === 'switch_completion') {
-            Update::switchCompletion();
-        }
-        if (Input::exists() && Input::get('action') === 'item_insert') {
-            Update::insertItem();
-        }
-        if (Input::exists() && Input::get('action') === 'item_update') {
-            Update::updateItem();
-        }
-
         $results = Queries::planning($history, $parent_table, $parent_id);
         $now_pos = 0;
 
@@ -108,16 +81,6 @@ class Tables {
     }
 
     public static function events ($history, $subject = null) {
-        if (Input::exists() && Input::get('action') === 'switch_completion') {
-            Update::switchCompletion();
-        }
-        if (Input::exists() && Input::get('action') === 'item_insert') {
-            Update::insertItem();
-        }
-        if (Input::exists() && Input::get('action') === 'item_update') {
-            Update::updateItem();
-        }
-
         $results = Queries::events($history, $subject);
         $now_pos = 0;
 
@@ -151,9 +114,6 @@ class Tables {
     }
 
     public static function today () {
-        if (Input::exists() && Input::get('action') === 'switch_completion') {
-            Update::switchCompletion();
-        }
         $results = Queries::today();
         return $results;
     }

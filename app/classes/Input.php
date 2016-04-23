@@ -20,20 +20,34 @@ class Input {
         }
     }
 
-    public static function get ($item) {
-        if (isset($_POST[$item])) {
-            return unescape($_POST[$item]);
-        }
-        elseif (isset($_GET[$item])) {
-            return unescape($_GET[$item]);
-        }
-        else {
-            return '';
-        }
-    }
-
     public static function has ($item) {
         return isset($_POST[$item]) || isset($_GET[$item]);
+    }
+
+    public static function get ($item, $type = 'any') {
+        switch ($type) {
+            case 'post':
+                if (isset($_POST[$item])) {
+                    return unescape($_POST[$item]);
+                }
+            break;
+
+            case 'get':
+                if (isset($_GET[$item])) {
+                    return unescape($_GET[$item]);
+                }
+            break;
+
+            case 'any':
+                if (isset($_POST[$item])) {
+                    return unescape($_POST[$item]);
+                }
+                elseif (isset($_GET[$item])) {
+                    return unescape($_GET[$item]);
+                }
+            break;
+        }
+        return '';
     }
 
     public static function getAsBool ($item) {

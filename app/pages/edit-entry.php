@@ -15,7 +15,7 @@ function createPage ($smarty) {
         Update::adminDeleteItem();
     }
 
-    $smarty->assign('columns', Queries::editableEntry(Input::get('table'), Input::get('id')));
+    $smarty->assign('columns', Queries::editableEntry(Input::get('table', 'get'), Input::get('id', 'get')));
     return $smarty;
 }
 ?>

@@ -13,7 +13,7 @@
                         <{if $column->type === 'textarea'}textarea rows="10"{else}input type="{$column->type}" value="{$column->value}"{/if}
                             name="{$column->COLUMN_NAME}"
                             id="{$column->COLUMN_NAME}"
-                            class="{$column->type}"
+                            class="{$column->classes}"
                             {if !empty($column->CHARACTER_MAXIMUM_LENGTH)}
                                 maxlength="{$column->CHARACTER_MAXIMUM_LENGTH}"
                                 size="{$column->CHARACTER_MAXIMUM_LENGTH}"

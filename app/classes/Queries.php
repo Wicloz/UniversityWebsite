@@ -266,6 +266,7 @@ class Queries {
         foreach ($info as $column) {
             $column->value = ($id !== 'create') ? $entry[$column->COLUMN_NAME] : '';
             $column->attributes = '';
+            $column->classes = '';
             switch ($column->DATA_TYPE) {
                 case 'text':
                     $column->type = 'textarea';
@@ -276,12 +277,15 @@ class Queries {
 
                 case 'date':
                     $column->type = 'date';
+                    $column->classes = 'datesql';
                 break;
                 case 'time':
                     $column->type = 'time';
+                    $column->classes = 'time';
                 break;
                 case 'datetime':
                     $column->type = 'datetime';
+                    $column->classes = 'datetimesql';
                 break;
 
                 case 'tinyint':

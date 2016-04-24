@@ -37,4 +37,23 @@ function initDatetime () {
             format: 'HH:mm:ss'
         });
     });
+    $(function () {
+        $('.datesql').datetimepicker({
+            widgetPositioning: {
+                horizontal: 'auto',
+                vertical: 'bottom'
+            },
+            format: 'YYYY-MM-DD'
+        });
+    });
+    $(function () {
+        $('.datetimesql').datetimepicker({
+            widgetPositioning: {
+                horizontal: 'auto',
+                vertical: 'bottom'
+            },
+            sideBySide: true,
+            format: 'YYYY-MM-DD HH:mm:ss'
+        });
+    });
 }

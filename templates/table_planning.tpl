@@ -2,7 +2,7 @@
     <tr>
         <th>Date</th>
         {if empty($subject) && empty($item)}
-            <th>Subject</th>
+            <th>For</th>
         {/if}
         <th>Estimated Duration</th>
         <th>Goal</th>
@@ -36,8 +36,8 @@
             </td>
             {if empty($subject) && empty($item)}
                 <td {$strike}>
-                    <a href="?page=subjects&subject={$row->subject}">
-                        {$row->subject_name}
+                    <a href="?page={$row->parent_table}&{$row->id_key}={$row->id_value}">
+                        {$row->parent_name}
                     </a>
                 </td>
             {/if}

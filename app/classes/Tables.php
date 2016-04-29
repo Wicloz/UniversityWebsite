@@ -71,7 +71,7 @@ class Tables {
         $today->completion = false;
         $today->date_start = '<b>'.DateFormat::dateTable().'</b>';
         $today->date_end = '<b>'.DateFormat::dateTable().'</b>';
-        $today->subject_name = '</a><b>Today is a gift</b><a href="">';
+        $today->parent_name = '</a><b>Today is a gift</b><a href="">';
         $today->duration = '<b>-</b>';
         $today->goal = '<b>Thats why it\'s called the present</b>';
         $today->state = '<b>-</b>';

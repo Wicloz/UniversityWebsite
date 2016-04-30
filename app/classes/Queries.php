@@ -120,13 +120,13 @@ class Queries {
         $searchParams = array_merge($searchParams, $searchParams, $searchParams);
 
         $data = DB::instance()->query("
-            SELECT P.*, S.name as 'parent_name', 'subject' as 'id_key', S.abbreviation as 'id_value', S.name as 'subject_name', S.abbreviation as 'subject'
+            SELECT P.*, S.name as 'parent_name', concat('page=subjects&subject=', S.abbreviation) as 'parent_page', S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `".Users::showSid()."_planning` P
                 INNER JOIN `subjects` S
                 ON P.parent_table = 'subjects' AND P.parent_id = S.id
                 {$searchStringBegin}{$searchString}
             UNION
-            SELECT P.*, A.desc_short as 'parent_name', 'id' as 'id_key', P.id as 'id_value', S.name as 'subject_name', S.abbreviation as 'subject'
+            SELECT P.*, A.desc_short as 'parent_name', concat('page=assignments_item&id=', A.id) as 'parent_page', S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `".Users::showSid()."_planning` P
                 INNER JOIN `".Users::showSid()."_assignments` A
                 ON P.parent_table = 'assignments' AND P.parent_id = A.id
@@ -134,7 +134,7 @@ class Queries {
                 ON A.subject = S.abbreviation
                 {$searchStringBegin}{$searchString}
             UNION
-            SELECT P.*, concat(E.weight, ' ', S.name) as 'parent_name', 'id' as 'id_key', P.id as 'id_value', S.name as 'subject_name', S.abbreviation as 'subject'
+            SELECT P.*, concat(E.weight, ' ', S.name) as 'parent_name', concat('page=exams_item&id=', E.id) as 'parent_page', S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `".Users::showSid()."_planning` P
                 INNER JOIN `".Users::showSid()."_exams` E
                 ON P.parent_table = 'exams' AND P.parent_id = E.id

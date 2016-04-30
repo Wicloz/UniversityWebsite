@@ -36,7 +36,7 @@
             </td>
             {if empty($subject) && empty($item)}
                 <td {$strike}>
-                    <a href="?page={$row->parent_table}&{$row->id_key}={$row->id_value}">
+                    <a href="?{$row->parent_page}">
                         {$row->parent_name}
                     </a>
                 </td>

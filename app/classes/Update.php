@@ -483,7 +483,7 @@ class Update {
             if ($validation->passed()) {
                 $data = array();
                 foreach ($_POST as $key => $value) {
-                    if (!empty($value) && $key !== 'token' && $key !== 'action' && $key !== 'table' && $key !== 'id') {
+                    if (isset($value) && $key !== 'token' && $key !== 'action' && $key !== 'table' && $key !== 'id') {
                         $data[$key] = Input::get($key);
                     }
                 }

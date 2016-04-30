@@ -123,4 +123,8 @@ require_once 'app/functions/misc.php';
 Users::init();
 Phone::init();
 Update::doUpdate();
+
+if (Config::get('debug/debug')) {
+    Notifications::addDebug('POST data: ' . json_encode($_POST), true);
+}
 ?>

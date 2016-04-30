@@ -1,7 +1,7 @@
 {if !empty($table)}
     <table class="table-fancy">
         <tr>
-            <th>Subject</th>
+            <th>For</th>
             <th>Type</th>
             <th>Task</th>
             <th>Status</th>
@@ -13,8 +13,8 @@
             {/if}
             <tr>
                 <td {$strike}>
-                    <a href="?page=subjects&subject={$row->subject}">
-                        {$row->subject_name}
+                    <a href="?{$row->parent_page}">
+                        {$row->parent_name}
                     </a>
                 </td>
                 <td {$strike}>

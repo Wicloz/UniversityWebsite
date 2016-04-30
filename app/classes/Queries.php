@@ -195,25 +195,25 @@ class Queries {
 
     public static function today () {
         $data = DB::instance()->query("
-            SELECT A.id, concat(A.end_date, ' ', A.end_time) as 'date', A.desc_short as 'task', A.completion as 'completion', 'assignment' as 'type', S.name as 'subject_name', S.abbreviation as 'subject'
+            SELECT A.id, concat(A.end_date, ' ', A.end_time) as 'date', A.desc_short as 'task', A.completion as 'completion', 'assignment' as 'type', S.name as 'parent_name', concat('page=subjects&subject=', S.abbreviation) as 'parent_page', S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `".Users::showSid()."_assignments` A
                 INNER JOIN `subjects` S
                 ON A.subject = S.abbreviation
                 WHERE A.end_date = ? OR (A.completion = 0 AND A.end_date < ?)
             UNION
-            SELECT E.id, E.date, concat(E.weight, ' ', S.name) as 'task', E.mark as 'completion', 'exam' as 'type', S.name as 'subject_name', S.abbreviation as 'subject'
+            SELECT E.id, E.date, concat(E.weight, ' ', S.name) as 'task', E.mark as 'completion', 'exam' as 'type', S.name as 'parent_name', concat('page=subjects&subject=', S.abbreviation) as 'parent_page', S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `".Users::showSid()."_exams` E
                 INNER JOIN `subjects` S
                 ON E.subject = S.abbreviation
                 WHERE E.date = ?
             UNION
-            SELECT P.id, P.date_end as 'date', P.goal as 'task', P.completion, 'planning' as 'type', S.name as 'subject_name', S.abbreviation as 'subject'
+            SELECT P.id, P.date_end as 'date', P.goal as 'task', P.completion, 'planning' as 'type', S.name as 'parent_name', concat('page=subjects&subject=', S.abbreviation) as 'parent_page', S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `".Users::showSid()."_planning` P
                 INNER JOIN `subjects` S
                 ON P.parent_table = 'subjects' AND P.parent_id = S.id
                 WHERE (P.date_start <= ? AND P.date_end >= ?) OR (P.completion = 0 AND P.date_end < ?)
             UNION
-            SELECT P.id, P.date_end as 'date', P.goal as 'task', P.completion, 'planning' as 'type', S.name as 'subject_name', S.abbreviation as 'subject'
+            SELECT P.id, P.date_end as 'date', P.goal as 'task', P.completion, 'planning' as 'type', A.desc_short as 'parent_name', concat('page=assignments_item&id=', A.id) as 'parent_page', S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `".Users::showSid()."_planning` P
                 INNER JOIN `".Users::showSid()."_assignments` A
                 ON P.parent_table = 'assignments' AND P.parent_id = A.id
@@ -221,7 +221,7 @@ class Queries {
                 ON A.subject = S.abbreviation
                 WHERE (P.date_start <= ? AND P.date_end >= ?) OR (P.completion = 0 AND P.date_end < ?)
             UNION
-            SELECT P.id, P.date_end as 'date', P.goal as 'task', P.completion, 'planning' as 'type', S.name as 'subject_name', S.abbreviation as 'subject'
+            SELECT P.id, P.date_end as 'date', P.goal as 'task', P.completion, 'planning' as 'type', concat(E.weight, ' ', S.name) as 'parent_name', concat('page=exams_item&id=', E.id) as 'parent_page', S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `".Users::showSid()."_planning` P
                 INNER JOIN `".Users::showSid()."_exams` E
                 ON P.parent_table = 'exams' AND P.parent_id = E.id

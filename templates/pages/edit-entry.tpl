@@ -10,6 +10,9 @@
                         <div id="{$column->COLUMN_NAME}_json" style="height:300px;"></div>
                         <input type="hidden" name="{$column->COLUMN_NAME}" id="{$column->COLUMN_NAME}">
                     {else}
+                        {if $column->type === 'checkbox'}
+                            <input type="hidden" name="{$column->COLUMN_NAME}" value="0">
+                        {/if}
                         <{if $column->type === 'textarea'}textarea rows="10"{else}input type="{$column->type}" value="{$column->value}"{/if}
                             name="{$column->COLUMN_NAME}"
                             id="{$column->COLUMN_NAME}"

@@ -492,6 +492,10 @@ class Update {
             'team' => array(
                 'name' => 'Team',
                 'required' => false
+            ),
+            'completion' => array(
+                'name' => 'Completion',
+                'required' => false
             )
         ));
 
@@ -505,7 +509,8 @@ class Update {
                 'link_assignment' => '',
                 'link_repository' => '',
                 'link_report' => '',
-                'team' => ''
+                'team' => '',
+                'completion' => ''
             );
             $data = self::getFormattedInput($fields);
             if (Input::has('end')) {

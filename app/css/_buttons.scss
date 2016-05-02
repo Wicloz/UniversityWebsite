@@ -27,6 +27,11 @@
 	font-size: 18px;
 }
 
+.complete-item-button {
+	@extend .edit-item-button;
+	margin-right: 130px;
+}
+
 .subject-button {
     padding: 5px 11px 6px 11px;
     font-size: 15px;

@@ -85,6 +85,15 @@ class DateFormat {
     	return date('d F Y', $timestamp);
     }
 
+    public static function dateTimeDefault ($timestamp = null) {
+        if (!$timestamp) {
+            $timestamp = time();
+        } elseif (!is_numeric($timestamp)) {
+            $timestamp = strtotime($timestamp);
+        }
+        return date('d-m-Y, H:i', $timestamp);
+    }
+
     public static function dateTimeTable ($timestamp = null) {
         if (!$timestamp) {
             $timestamp = time();

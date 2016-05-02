@@ -91,7 +91,7 @@
         </tr>
     {/if}
 </table>
-{if Users::isEditor()}
+{if Users::isUser()}
     <p>
         <a href="?page=edit-table&table={$user_sid}_assignments" class="button">
             Edit Table

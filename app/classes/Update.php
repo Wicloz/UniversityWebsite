@@ -457,6 +457,14 @@ class Update {
                 'name' => 'Start Date',
                 'required' => false
             ),
+            'end_date' => array(
+                'name' => 'End Date',
+                'required' => false
+            ),
+            'end_time' => array(
+                'name' => 'End Time',
+                'required' => false
+            ),
             'end' => array(
                 'name' => 'End Date/Time',
                 'required' => false
@@ -490,6 +498,8 @@ class Update {
         if ($validation->passed()) {
             $fields = array(
                 'start_date' => 'date',
+                'end_date' => 'date',
+                'end_time' => 'time',
                 'desc_short' => '',
                 'desc_full' => '',
                 'link_assignment' => '',
@@ -498,8 +508,10 @@ class Update {
                 'team' => ''
             );
             $data = self::getFormattedInput($fields);
-            $data['end_date'] = DateFormat::sqlDate(Input::get('end'));
-            $data['end_time'] = DateFormat::sqlTime(Input::get('end'));
+            if (Input::has('end')) {
+                $data['end_date'] = DateFormat::sqlDate(Input::get('end'));
+                $data['end_time'] = DateFormat::sqlTime(Input::get('end'));
+            }
             DB::instance()->update(Users::safeSid()."_assignments", Input::get('id'), $data);
             Notifications::addSuccess('Assignment updated!');
             Redirect::to('');

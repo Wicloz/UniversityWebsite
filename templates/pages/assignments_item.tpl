@@ -13,7 +13,7 @@
         <h2>
             <span id="{$form}-desc" class="{$pooff}">{$item->desc_short}</span>
             {if Users::isUser()}
-                <input id="{$form}-desc-input" type="text" name="desc_short" value="{$item->desc_short}" class="pooff-hidden">
+                <input id="{$form}-desc-input" type="text" name="desc_short" value="{$item->desc_short}" style="width:80%;" class="pooff-hidden">
             {/if}
         </h2>
         {$item->desc_full}

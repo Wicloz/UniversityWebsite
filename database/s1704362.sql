@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: putter.vuw.leidenuniv.nl:3306
--- Generation Time: Apr 10, 2016 at 05:33 PM
+-- Generation Time: May 02, 2016 at 01:28 PM
 -- Server version: 5.5.47-log
 -- PHP Version: 5.3.17
 
@@ -98,6 +98,75 @@ INSERT INTO `permissions` (`id`, `name`, `permissions`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `s1562738_assignments`
+--
+
+CREATE TABLE IF NOT EXISTS `s1562738_assignments` (
+`id` int(11) NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date NOT NULL,
+  `end_time` time NOT NULL,
+  `subject` varchar(8) NOT NULL,
+  `desc_short` varchar(100) NOT NULL,
+  `desc_full` text NOT NULL,
+  `link_assignment` varchar(300) NOT NULL,
+  `link_repository` varchar(300) NOT NULL,
+  `link_report` varchar(300) NOT NULL,
+  `team` varchar(100) NOT NULL,
+  `completion` tinyint(1) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `s1562738_assignments`
+--
+
+INSERT INTO `s1562738_assignments` (`id`, `start_date`, `end_date`, `end_time`, `subject`, `desc_short`, `desc_full`, `link_assignment`, `link_repository`, `link_report`, `team`, `completion`) VALUES
+(1, '2016-04-12', '2016-04-12', '00:00:00', 'alg', 'test', '', '', '', '', '', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `s1562738_exams`
+--
+
+CREATE TABLE IF NOT EXISTS `s1562738_exams` (
+`id` int(11) NOT NULL,
+  `date` date NOT NULL,
+  `weight` varchar(20) NOT NULL,
+  `subject` varchar(8) NOT NULL,
+  `substance` text NOT NULL,
+  `link` varchar(300) NOT NULL,
+  `mark` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `s1562738_planning`
+--
+
+CREATE TABLE IF NOT EXISTS `s1562738_planning` (
+`id` int(11) NOT NULL,
+  `parent_table` varchar(20) NOT NULL,
+  `parent_id` int(11) NOT NULL,
+  `date_start` date NOT NULL,
+  `date_end` date NOT NULL,
+  `duration` time NOT NULL,
+  `goal` varchar(200) NOT NULL,
+  `finished_on` datetime NOT NULL,
+  `completion` tinyint(1) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `s1562738_planning`
+--
+
+INSERT INTO `s1562738_planning` (`id`, `parent_table`, `parent_id`, `date_start`, `date_end`, `duration`, `goal`, `finished_on`, `completion`) VALUES
+(1, 'subjects', 10, '2016-04-12', '2016-04-12', '23:00:00', 'verslag afmaken', '0000-00-00 00:00:00', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `s1704362_assignments`
 --
 
@@ -114,7 +183,7 @@ CREATE TABLE IF NOT EXISTS `s1704362_assignments` (
   `link_report` varchar(300) NOT NULL,
   `team` varchar(100) NOT NULL,
   `completion` tinyint(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `s1704362_assignments`
@@ -129,19 +198,24 @@ INSERT INTO `s1704362_assignments` (`id`, `start_date`, `end_date`, `end_time`, 
 (6, '2015-11-11', '2015-12-04', '17:00:00', 'pr', 'Programmeeropdracht 4: Othello', 'Het is de bedoeling om een C++-programma te maken dat de gebruiker in staat stelt het spel Othello (zie ook Reversi) te spelen via een eenvoudig menu. Othello-borden worden in het C++-programma gerepresenteerd door ingewikkelde pointer-structuren. Het is de bedoeling een klasse OthelloBord te maken, die onder meer memberfuncties heeft als afdrukken, spelerzet en computerzet. Uiteraard heeft deze klasse ook een constructor en een destructor. Verder moeten gedane zetten met behulp van een stapel ongedaan gemaakt kunnen worden, en kan het aantal vervolgpartijen worden uitgerekend.', 'http://liacs.leidenuniv.nl/~kosterswa/pm/op4pm.php', 'https://github.com/Wicloz/PMPO/tree/master/PMPO_Othello', '', 'Jevan Kolk', 1),
 (7, '2015-11-17', '2015-11-24', '11:15:00', 'stpr', 'Presentation Human Microbiome', 'Each group of two will have ten minutes to explain their theory as an oral presentation. You can use slides and/or draw diagrams on the chalk boards available. During the presentation:<br>1. Explain the current theory, using diagrams and analogies if they are helpful.<br>2. Explain the origins and history of the theory (i.e. who proposed it and when, what was the prevailing theory before this was proposed, and are there any credible ideas that may contradict the current theory).<br>3. Briefly give your own opinion of the theory. Is it credible? Has it stood the test of time?<br>Both members of each team should be involved with researching and preparing the presentation and both members of the team should be involved with presenting.', 'http://liacs.leidenuniv.nl/~wolstencroftkj/Assignment2_SSP.pdf', 'https://drive.google.com/drive/folders/0B44Sn7Hnnnhhb3lib2hBZFZ0NlU', 'https://docs.google.com/presentation/d/1swmxPdS5kHq7Yv_6EO_p7YHtWSZGPKpV8A42M3h2LIQ/edit?usp=sharing', 'Martijn Blokker', 1),
 (9, '2015-12-08', '2015-12-11', '17:00:00', 'stpr', 'Written article Human Microbiome', 'In groups of two, explain the same scientific theory as a written article of no more than 3 pages (one report per group of two).<br><br>In this exercise, imagine that you are a science journalist writing about this theory just after it has been proposed. You are writing for a general audience without much scientific knowledge, so you will need to engage their interest and help them understand why this discovery is important.<br>In your report, explain the theory, but also explain why this theory is important for society. Will it change the world? If so, how? How will this work influence future research? You might also wish to discuss whether or not the theory is controversial. If it is, who is it controversial for?', 'http://liacs.leidenuniv.nl/~wolstencroftkj/Assignment3_SSP.pdf', 'https://nl.sharelatex.com/project/5666b4b1182bc84705fe5f8b', 'https://nl.sharelatex.com/project/5666b4b1182bc84705fe5f8b/output/output.pdf', 'Martijn Blokker', 1),
-(10, '0000-00-00', '2016-04-21', '09:00:00', 'bc', 'Presentatie plantengenetica', '', '', '', '', '', 0),
+(10, '0000-00-00', '2016-04-21', '09:00:00', 'bc', 'Presentatie plantengenetica', '<p>- 15 minuten lang<br />- Geef ook een inleiding Agrobacterium</p>', '', 'https://drive.google.com/drive/folders/0B44Sn7HnnnhhdDQtSnV4SzN3dXM', 'https://prezi.com/embed/c4irxkm9y0_g/?bgcolor=ffffff&lock_to_path=0&autoplay=0&autohide_ctrls=0&landing_data=bHVZZmNaNDBIWnNjdEVENDRhZDFNZGNIUE43MHdLNWpsdFJLb2ZHanI0dC9WVHpkamMrblpQYTExc3dmeHhwd2xnPT0&landing_sign=ZSWN1pTg3wsBzBABwu3VEvcuvlJDBvsxmlpM74m1y7Y', 'Hermes Spaink', 1),
 (12, '2016-02-16', '2016-02-23', '00:00:00', 'lo', 'Homework 1', '', 'http://liacs.leidenuniv.nl/~bonsanguemm/Logic/hw2016.1.pdf', '', '', '', 1),
 (13, '2016-02-24', '2016-03-27', '23:59:00', 'db', 'Practical Assignment 1', 'This practical assignment consists of three parts and should be delivered by March 27th 23:59pm.', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3497614-dt-content-rid-3488943_1/courses/4031DABA6-1516FWN/assignment.pdf', '', '', '', 1),
-(14, '2016-02-15', '2016-03-21', '12:00:00', 'alg', 'Programmeeropdracht 1 (brute force)', 'Een mogelijke werkwijze bij het programmeren is:      Lees de opdracht helemaal door, want bijvoorbeeld vragen die je in het verslag moet beantwoorden, kunnen helpen bij de implementatie.     Toestand-actie-ruimtes zoals die in het verslag moeten komen, behandelen we bij het derde college, op vrijdag 19 februari 2016 en bij het werkcollege van donderdag 25 februari.     Implementeer achtereenvolgens:         constructor(s)         functie drukaf         functie eindstand         functie doezet(kolom), zowel voor gewoon vooruitzetten als voor slaan         recursieve functie winst (aantal)         functie doerandomzet         functie bestezet     Het is verstandig om in principe na elke nieuwe functie (of deel daarvan) te testen of het programma doet wat je verwacht, door de op dat moment geschreven functies aan te roepen vanuit main.cc.', 'http://liacs.leidenuniv.nl/~graafjmde/ALGO/een2016.pdf', 'https://github.com/Wicloz/ALGPO/tree/master/ALGPO_BruteForce', '', 'Jevan Kolk', 1),
+(14, '2016-02-15', '2016-03-21', '12:00:00', 'alg', 'Programmeeropdracht 1 (brute force)', '<p>Een mogelijke werkwijze bij het programmeren is: Lees de opdracht helemaal door, want bijvoorbeeld vragen die je in het verslag moet beantwoorden, kunnen helpen bij de implementatie. Toestand-actie-ruimtes zoals die in het verslag moeten komen, behandelen we bij het derde college, op vrijdag 19 februari 2016 en bij het werkcollege van donderdag 25 februari. Implementeer achtereenvolgens: constructor(s) functie drukaf functie eindstand functie doezet(kolom), zowel voor gewoon vooruitzetten als voor slaan recursieve functie winst (aantal) functie doerandomzet functie bestezet Het is verstandig om in principe na elke nieuwe functie (of deel daarvan) te testen of het programma doet wat je verwacht, door de op dat moment geschreven functies aan te roepen vanuit main.cc.</p>', 'http://liacs.leidenuniv.nl/~graafjmde/ALGO/een2016.pdf', 'https://github.com/Wicloz/ALGPO/tree/master/ALGPO_BruteForce', 'https://github.com/Wicloz/ALGPO/raw/master/ALGPO_BruteForce/output/deboerkolk.pdf', 'Jevan Kolk', 1),
 (15, '2016-03-01', '2016-03-08', '00:00:00', 'lo', 'Homework 2', '', 'http://liacs.leidenuniv.nl/~bonsanguemm/Logic/hw2016.2.pdf', '', '', '', 1),
 (16, '2016-03-15', '2016-03-22', '00:00:00', 'oib', 'Lees artikel door Ewen Callaway', '', 'https://app.perusall.com/courses/informatica-and-biologie/callaway-2011/dXdtWrYuymGPWZbxY', '', '', '', 1),
 (17, '2016-03-14', '2016-05-30', '23:59:00', 'oo', '3 verslagen interviews inleveren', '', 'https://studiegids.leidenuniv.nl/courses/show/55111/onderzoek-onderzoekers', '', '', '', 0),
 (18, '2016-03-14', '2016-06-13', '23:59:00', 'oo', 'Beoordeel de 3 verslagen', '', 'https://studiegids.leidenuniv.nl/courses/show/55111/onderzoek-onderzoekers', '', '', '', 0),
 (19, '2016-03-22', '2016-04-03', '00:00:00', 'lo', 'Homework 3', '', 'http://liacs.leidenuniv.nl/~bonsanguemm/Logic/hw2016.3.pdf', '', '', '', 1),
 (20, '2016-03-22', '2016-03-29', '11:15:00', 'oib', 'Doe de R cursus op DataCamp', '', 'https://www.datacamp.com/courses/free-introduction-to-r', '', '', '', 1),
-(21, '0000-00-00', '2016-04-25', '13:00:00', 'bc', 'Verslag LDH inleveren', '', '', '', '', '', 0),
-(22, '2016-03-24', '2016-04-18', '12:00:00', 'alg', 'Programmeeropdracht 2 (knock out)', '<p>Het programma en Makefile per e-mail sturen naar: j.m.de.graaf@liacs.leidenuniv.nl<br />Zorg dat het onderwerp van je mail begint met &rdquo;[ALGO]&rdquo;, dat scheelt de docent een hoop gezoek. Het verslag (inclusief het programma) moet op papier worden ingeleverd in de daartoe bestemde doos met opschrift Algoritmiek in de postkamer van Informatica, kamer 156. Voor elke week te laat inleveren gaat er een punt van het cijfer af. Vermeld overal duidelijk de namen van de makers.</p>', 'http://liacs.leidenuniv.nl/~graafjmde/ALGO/twee2016.pdf', '', '', '', 0),
-(23, '2016-04-06', '2016-05-11', '12:00:00', 'wu50', 'Deadline audio-slideshow', '<p>- Lever in als .mp4<br />- 1:30 tot 2:30 minuten<br />- Geen vraag/antwoord structuur<br />- Geen lange fragmenten film</p>', '', 'https://drive.google.com/drive/folders/0B44Sn7HnnnhhTnJzSVFnS09QTjQ', '', 'Hermes Spaink', 0);
+(21, '0000-00-00', '2016-04-25', '13:00:00', 'bc', 'Verslag LDH inleveren', '', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3513993-dt-content-rid-3562696_1/courses/4031IBBCH-1516FWN/Bioch16_I%26B_Reporting.pdf', 'https://nl.sharelatex.com/project/570a2146dc3e0b012c179c67', 'https://nl.sharelatex.com/project/570a2146dc3e0b012c179c67/output/output.pdf', 'Martijn Blokker', 1),
+(22, '2016-03-24', '2016-04-18', '12:00:00', 'alg', 'Programmeeropdracht 2 (knock out)', '<p>Het programma en Makefile per e-mail sturen naar: j.m.de.graaf@liacs.leidenuniv.nl<br />Zorg dat het onderwerp van je mail begint met ”[ALGO]”, dat scheelt de docent een hoop gezoek. Het verslag (inclusief het programma) moet op papier worden ingeleverd in de daartoe bestemde doos met opschrift Algoritmiek in de postkamer van Informatica, kamer 156. Voor elke week te laat inleveren gaat er een punt van het cijfer af. Vermeld overal duidelijk de namen van de makers.</p>', 'http://liacs.leidenuniv.nl/~graafjmde/ALGO/twee2016.pdf', 'https://github.com/Wicloz/ALGPO/tree/master/ALGPO_KnockOut', 'https://github.com/Wicloz/ALGPO/tree/master/ALGPO_KnockOut/verslag/deboerblokker.pdf', 'Martijn Blokker', 1),
+(23, '2016-04-06', '2016-05-11', '12:00:00', 'wu50', 'Audio-slideshow ''Genomics by 2050''', '<p>- Lever in als .mp4<br />- 1:30 tot 2:30 minuten<br />- Geen vraag/antwoord structuur<br />- Geen lange fragmenten film</p>', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3529071-dt-content-rid-3641844_1/courses/4609HCWUL-1516FWN/Opdrachtomschrijving%20en%20stappenplan%281%29.pdf', 'https://drive.google.com/drive/folders/0B44Sn7HnnnhhTnJzSVFnS09QTjQ', '', 'Hermes Spaink, Pepijn Griffioen', 0),
+(28, '2016-04-12', '2016-04-19', '00:00:00', 'lo', 'Homework 4', '', 'http://liacs.leidenuniv.nl/~bonsanguemm/Logic/hw2016.4.pdf', '', '', '', 1),
+(29, '2016-04-20', '2016-05-14', '23:59:00', 'db', 'Practical Assignment 2', '', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3537852-dt-content-rid-3640674_1/courses/4031DABA6-1516FWN/assignment%282%29.pdf', '', '', 'Hermes Spaink', 0),
+(30, '2016-04-21', '2016-05-17', '00:00:00', 'alg', 'Programmeeropdracht 3 (bloemen plukken)', '', 'http://liacs.leidenuniv.nl/~graafjmde/ALGO/drie2016.pdf', 'https://github.com/Wicloz/ALGPO/tree/master/ALGPO_BloemenPlukken', '', 'David Nieuwenhuizen', 0),
+(31, '2016-04-24', '2016-05-03', '13:45:00', 'oib', 'Samenvatting symposium inleveren', '', '', '', '', '', 1),
+(32, '2016-04-26', '2016-05-08', '00:00:00', 'lo', 'Homework 5', '', 'http://liacs.leidenuniv.nl/~bonsanguemm/Logic/hw2016.5.pdf', '', '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -173,7 +247,7 @@ INSERT INTO `s1704362_exams` (`id`, `date`, `weight`, `subject`, `substance`, `l
 (7, '2016-01-05', 'Tentamen', 'pr', '', '', 9),
 (8, '2015-11-11', 'Tentamen', 'cf', 'Biochemische reacties: (Thermodynamica, Vrije energie, Biochemische reacties, Evenwichten)<br>- H6.1, H6.2, H6.3<br><br>Membraantransport: (Membraantransport, Diffusie, Transporteiwitten, Osmose)<br>- H8.2, H8.3, H8.4<br>- H36.2 (''Short-Distance Transport of Water Across Plasma Membranes'')<br>- H48.2, H48.3 (behalve ''Evolution'')<br><br>Energietransformatie: (Redoxprocessen, Fotosystemen, Protonenpompen, Fosforylering)<br>- H10.1, H10.4<br>- H11<br><br>Powerpoints, Notities en Syllabus', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3345291-dt-content-rid-3087777_1/xid-3087777_1', 8.8),
 (9, '2016-02-04', 'Toets', 'bc', '', '', 9.51),
-(10, '2016-04-25', 'Tentamen', 'bc', '', '', 0),
+(10, '2016-04-25', 'Tentamen', 'bc', '', '', 7),
 (11, '2016-03-24', 'Toets', 'bc', '', '', 9.06),
 (12, '2016-05-31', 'Tentamen', 'db', '', '', 0),
 (13, '2016-06-07', 'Tentamen', 'alg', '', '', 0),
@@ -195,7 +269,7 @@ CREATE TABLE IF NOT EXISTS `s1704362_planning` (
   `goal` varchar(200) NOT NULL,
   `finished_on` datetime NOT NULL,
   `completion` tinyint(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=112 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `s1704362_planning`
@@ -261,11 +335,36 @@ INSERT INTO `s1704362_planning` (`id`, `parent_table`, `parent_id`, `date_start`
 (71, 'subjects', 12, '2016-04-05', '2016-04-08', '00:30:00', 'Lees 2.2', '2016-04-08 12:20:14', 1),
 (72, 'subjects', 9, '2016-04-05', '2016-04-05', '00:10:00', 'Practicum woensdag voorberijden', '2016-04-05 18:04:53', 1),
 (73, 'subjects', 11, '2016-04-06', '2016-04-08', '01:00:00', 'Neem college 30-03 door', '2016-04-07 22:57:00', 1),
-(75, 'subjects', 12, '2016-04-09', '2016-04-11', '01:00:00', 'Lees 2.3.1 ter voorberijding', '0000-00-00 00:00:00', 0),
+(75, 'subjects', 12, '2016-04-09', '2016-04-11', '01:00:00', 'Lees 2.3.1 ter voorberijding', '2016-04-11 17:16:23', 1),
 (76, 'subjects', 9, '2016-04-06', '2016-04-06', '00:10:00', 'Berijd ontkleuring donderdag voor', '2016-04-06 21:05:16', 1),
 (77, 'subjects', 9, '2016-04-09', '2016-04-10', '00:15:00', 'Berijd practicum maandag voor (3.5.4, 3.1.6, 4.7)', '2016-04-10 15:21:49', 1),
 (81, 'subjects', 11, '2016-04-08', '2016-04-08', '01:00:00', 'Haal werkcollege FD in', '2016-04-08 17:48:00', 1),
-(82, 'subjects', 9, '2016-04-08', '2016-04-10', '04:00:00', 'Begin aan het LDH verslag', '0000-00-00 00:00:00', 0);
+(82, 'assignments', 21, '2016-04-08', '2016-04-10', '04:00:00', 'Begin aan het LDH verslag', '2016-04-10 20:07:00', 1),
+(83, 'subjects', 12, '2016-04-18', '2016-04-18', '00:30:00', 'Lees 2.4 ter voorberijding', '2016-04-18 17:42:59', 1),
+(84, 'assignments', 21, '2016-04-13', '2016-04-15', '04:00:00', 'Verslag LDH, maak hoofdstuk ''Resultaten''', '2016-04-17 20:53:28', 1),
+(85, 'subjects', 12, '2016-04-15', '2016-04-15', '00:15:00', 'Maak logica huiswerk af', '2016-04-15 15:49:46', 1),
+(86, 'assignments', 22, '2016-04-15', '2016-04-15', '00:30:00', 'Maak sectie ''Oplossingsmethode''', '2016-04-15 16:09:24', 1),
+(87, 'subjects', 9, '2016-04-18', '2016-04-18', '02:00:00', 'Maak alle Conclusies en Verwachtingen van labjournaal', '2016-04-18 12:09:30', 1),
+(88, 'assignments', 21, '2016-04-16', '2016-04-17', '06:00:00', 'Maak verslag LDH vrijwel af', '2016-04-18 15:13:31', 1),
+(89, 'assignments', 21, '2016-04-18', '2016-04-18', '03:00:00', 'Maak discussie van verslag LDH', '2016-04-18 16:18:51', 1),
+(90, 'assignments', 28, '2016-04-18', '2016-04-18', '00:15:00', 'Logica HW4 controleren en inleveren', '2016-04-18 21:52:00', 1),
+(91, 'assignments', 10, '2016-04-19', '2016-04-20', '05:00:00', 'Werk aan presentatie B-gal assay', '2016-04-21 00:11:32', 1),
+(92, 'subjects', 9, '2016-04-23', '2016-04-23', '02:00:00', 'Volledig afmaken labjournaal Agrobacterium (theorie + discussies)', '2016-04-24 17:23:33', 1),
+(93, 'exams', 10, '2016-04-23', '2016-04-24', '05:00:00', 'Leren voor tentamen Biochemie', '2016-04-24 23:54:33', 1),
+(94, 'subjects', 11, '2016-04-22', '2016-04-22', '01:30:00', 'Haal college 10 in', '2016-04-22 23:36:10', 1),
+(95, 'subjects', 11, '2016-04-26', '2016-04-26', '01:30:00', 'Haal college 11 in', '2016-04-27 21:28:37', 1),
+(97, 'assignments', 30, '2016-04-27', '2016-04-27', '03:00:00', 'Werk met David aan opdracht 3', '2016-04-27 17:17:33', 1),
+(98, 'subjects', 12, '2016-04-21', '2016-04-21', '01:00:00', 'Lees hoofdstuk 2.4', '2016-04-22 15:36:44', 1),
+(100, 'exams', 10, '2016-04-23', '2016-04-23', '01:00:00', 'Lees hoofdstuk 3.1 handleiding', '2016-04-24 17:11:24', 1),
+(101, 'subjects', 12, '2016-04-26', '2016-04-26', '00:45:00', 'Lees hoofdstuk 2.5', '2016-04-26 16:26:45', 1),
+(104, 'subjects', 10, '2016-04-29', '2016-04-29', '01:00:00', 'Haal college 10 in', '2016-04-30 15:17:46', 1),
+(105, 'assignments', 32, '2016-04-29', '2016-04-29', '02:00:00', 'Maak grootste gedeelte logica huiswerk', '2016-04-29 18:20:46', 1),
+(106, 'assignments', 23, '2016-04-29', '2016-04-30', '04:00:00', 'Script future schrijven', '2016-04-30 23:50:34', 1),
+(107, 'assignments', 31, '2016-04-29', '2016-04-29', '00:20:00', 'Werk samenvating af en lever in', '2016-04-29 18:31:00', 1),
+(108, 'assignments', 23, '2016-05-01', '2016-05-01', '04:00:00', 'Werk aan audio-slideshow via Discord', '2016-05-01 17:29:13', 1),
+(109, 'assignments', 23, '2016-05-01', '2016-05-02', '02:00:00', 'Script future volledig afschrijven', '0000-00-00 00:00:00', 0),
+(110, 'assignments', 23, '2016-05-01', '2016-05-01', '00:15:00', 'Script over past opnemen', '2016-05-02 00:04:47', 1),
+(111, 'assignments', 23, '2016-05-01', '2016-05-03', '02:00:00', 'Begin aan storyboard voor future', '0000-00-00 00:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -302,14 +401,14 @@ INSERT INTO `subjects` (`id`, `name`, `abbreviation`, `section`, `content`, `lin
 (6, 'Celfysiologie', 'cf', 'bio', '', '', 0, 'media/books/Campbell Biology.pdf', 'https://blackboard.leidenuniv.nl/webapps/blackboard/execute/announcement?method=search&context=course_entry&course_id=_155462_1&handle=announcements_entry&mode=view', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_155462_1&content_id=_3344439_1', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3345291-dt-content-rid-3087777_1/xid-3087777_1', '', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3404299-dt-content-rid-3291856_1/courses/40212CF15-1516FWN/Cijferlijst%20Celfysiologie%20voor%20Informatica%20%20Biologie%202015-2016.pdf'),
 (7, 'Celbiologie', 'cb', 'bio', '', '', 0, 'media/books/Campbell Biology.pdf', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_157356_1&content_id=_3289911_1', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_157356_1&content_id=_3291631_1', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3291622-dt-content-rid-3268088_1/xid-3268088_1', '', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_157356_1&content_id=_3441392_1'),
 (8, 'Moleculaire Genetica', 'mg', 'bio', '', '', 0, 'media/books/Campbell Biology.pdf', 'https://blackboard.leidenuniv.nl/webapps/blackboard/execute/announcement?method=search&context=course_entry&course_id=_155460_1&handle=announcements_entry&mode=view', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_155460_1&content_id=_3229624_1&mode=reset', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_155460_1&content_id=_3229624_1&mode=reset', '', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3380511-dt-content-rid-3203012_1/courses/40211MG10-1516FWN/Cohort%20Informatica%20%20Biologie%20toets%20Moleculaire%20Genetica%202015-2016%20.pdf'),
-(9, 'Biochemie', 'bc', 'bio', '', '', 1, 'media/books/Manual Biochemistry I&B 2016.pdf', 'https://blackboard.leidenuniv.nl/webapps/blackboard/execute/announcement?method=search&context=course_entry&course_id=_159672_1&handle=announcements_entry&mode=view', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_159672_1&content_id=_3489702_1', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3462366-dt-content-rid-3426963_1/courses/4031IBBCH-1516FWN/Rooster%20Biochemie%20I%26B%20%28Blackboard%29.pdf', '', ''),
+(9, 'Biochemie', 'bc', 'bio', '', '', 0, 'media/books/Manual Biochemistry I&B 2016.pdf', 'https://blackboard.leidenuniv.nl/webapps/blackboard/execute/announcement?method=search&context=course_entry&course_id=_159672_1&handle=announcements_entry&mode=view', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_159672_1&content_id=_3489702_1', 'https://blackboard.leidenuniv.nl/bbcswebdav/pid-3462366-dt-content-rid-3426963_1/courses/4031IBBCH-1516FWN/Rooster%20Biochemie%20I%26B%20%28Blackboard%29.pdf', '', ''),
 (10, 'Algoritmiek', 'alg', 'inf', '', '', 1, '', 'http://liacs.leidenuniv.nl/~graafjmde/ALGO/', 'http://liacs.leidenuniv.nl/~graafjmde/ALGO/', '', 'http://liacs.leidenuniv.nl/~graafjmde/ALGO/', ''),
 (11, 'Databases', 'db', 'inf', '', '', 1, '', 'https://blackboard.leidenuniv.nl/webapps/blackboard/execute/announcement?method=search&context=course_entry&course_id=_158226_1&handle=announcements_entry&mode=view', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_158226_1&content_id=_3360722_1&mode=reset', '', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_158226_1&content_id=_3491070_1', ''),
 (12, 'Logica', 'lo', 'inf', '', '', 1, 'media/books/Logic in Computer Science.pdf', 'http://liacs.leidenuniv.nl/~bonsanguemm/logic.xhtml', '', '', '', ''),
 (13, 'Orientatie I&B', 'oib', 'i&b', '', '', 1, '', '', '', '', '', ''),
 (14, 'HC Bèta & Life Science', 'hcbls', 'hc', '', '', 1, '', 'https://blackboard.leidenuniv.nl/webapps/blackboard/execute/announcement?method=search&context=course_entry&course_id=_158114_1&handle=announcements_entry&mode=view', '', '', '', ''),
 (15, 'Onderzoek & Onderzoekers', 'oo', 'hc', '', '', 1, '', 'https://blackboard.leidenuniv.nl/webapps/blackboard/execute/announcement?method=search&context=course_entry&course_id=_158211_1&handle=announcements_entry&mode=view', '', '', '', ''),
-(16, 'Wetenschappelijke Uitdagingen voor 2050', 'wu50', 'hc', '', '', 1, '', 'https://blackboard.leidenuniv.nl/webapps/blackboard/execute/announcement?method=search&context=course_entry&course_id=_158210_1&handle=announcements_entry&mode=view', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_158210_1&content_id=_3525143_1', '', '', '');
+(16, 'Wetenschappelijke Uitdagingen voor 2050', 'wu50', 'hc', '', '', 1, '', 'https://blackboard.leidenuniv.nl/webapps/blackboard/execute/announcement?method=search&context=course_entry&course_id=_158210_1&handle=announcements_entry&mode=view', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_158210_1&content_id=_3525143_1', 'https://blackboard.leidenuniv.nl/webapps/blackboard/content/listContent.jsp?course_id=_158210_1&content_id=_3359153_1&mode=reset', '', '');
 
 -- --------------------------------------------------------
 
@@ -331,7 +430,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `table_versions` text NOT NULL,
   `joined` datetime NOT NULL,
   `last_online` datetime NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `users`
@@ -348,7 +447,7 @@ CREATE TABLE IF NOT EXISTS `user_sessions` (
   `user_id` int(11) NOT NULL,
   `hash` varchar(64) NOT NULL,
   `expiry` datetime NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=123 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `user_sessions`
@@ -374,6 +473,24 @@ ALTER TABLE `navigation`
 -- Indexes for table `permissions`
 --
 ALTER TABLE `permissions`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `s1562738_assignments`
+--
+ALTER TABLE `s1562738_assignments`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `s1562738_exams`
+--
+ALTER TABLE `s1562738_exams`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `s1562738_planning`
+--
+ALTER TABLE `s1562738_planning`
  ADD PRIMARY KEY (`id`);
 
 --
@@ -432,10 +549,25 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 ALTER TABLE `permissions`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
+-- AUTO_INCREMENT for table `s1562738_assignments`
+--
+ALTER TABLE `s1562738_assignments`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `s1562738_exams`
+--
+ALTER TABLE `s1562738_exams`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `s1562738_planning`
+--
+ALTER TABLE `s1562738_planning`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT for table `s1704362_assignments`
 --
 ALTER TABLE `s1704362_assignments`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=27;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=34;
 --
 -- AUTO_INCREMENT for table `s1704362_exams`
 --
@@ -445,7 +577,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 -- AUTO_INCREMENT for table `s1704362_planning`
 --
 ALTER TABLE `s1704362_planning`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=83;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=112;
 --
 -- AUTO_INCREMENT for table `subjects`
 --
@@ -455,12 +587,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `user_sessions`
 --
 ALTER TABLE `user_sessions`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=63;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=123;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

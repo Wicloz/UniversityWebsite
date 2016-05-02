@@ -15,21 +15,21 @@
         {/if}
         <tr>
             {$form = sprintf('planning_%s', $row->id)}
-            {$class = ''}
+            {$pooff = ''}
             {if Users::isUser() && empty($row->todayRow)}
-                {$class = 'pooff-text'}
+                {$pooff = 'pooff-text'}
                 <form action="" method="POST" id="{$form}">
                     <input type="hidden" name="action" value="item_update">
                     <input type="hidden" name="table" value="planning">
                     <input type="hidden" name="id" value="{$row->id}">
             {/if}
             <td {$strike}>
-                <span id="{$form}-start" class="{$class}">{$row->date_start}</span>
+                <span id="{$form}-start" class="{$pooff}">{$row->date_start}</span>
                 {if Users::isUser() && empty($row->todayRow)}
                     <input id="{$form}-start-input" type="date" name="date_start" value="{$row->date_start}" class="pooff-hidden date">
                 {/if}
                 -
-                <span id="{$form}-end" class="{$class}">{$row->date_end}</span>
+                <span id="{$form}-end" class="{$pooff}">{$row->date_end}</span>
                 {if Users::isUser() && empty($row->todayRow)}
                     <input id="{$form}-end-input" type="date" name="date_end" value="{$row->date_end}" class="pooff-hidden date">
                 {/if}
@@ -42,13 +42,13 @@
                 </td>
             {/if}
             <td {$strike}>
-                <span id="{$form}-duration" class="{$class}">{$row->duration}</span>
+                <span id="{$form}-duration" class="{$pooff}">{$row->duration}</span>
                 {if Users::isUser() && empty($row->todayRow)}
                 <input id="{$form}-duration-input" type="text" name="duration" value="{$row->duration}" class="pooff-hidden duration">
                 {/if}
             </td>
             <td {$strike}>
-                <span id="{$form}-goal" class="{$class}">{$row->goal}</span>
+                <span id="{$form}-goal" class="{$pooff}">{$row->goal}</span>
                 {if Users::isUser() && empty($row->todayRow)}
                     <input id="{$form}-goal-input" type="text" name="goal" value="{$row->goal}" class="pooff-hidden">
                 {/if}

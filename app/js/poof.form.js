@@ -21,10 +21,15 @@ var pooffs = document.getElementsByClassName('pooff-text');
 for (var i = 0; i < pooffs.length; i++) {
     let id = pooffs[i].id;
     var inputElement = document.getElementById(id + '-input');
+    var labelElement = document.getElementById(id + '-label');
     pooffs[i].addEventListener("dblclick", function(){
-        console.log(id);
         switchToInput(id, id + '-input');
     });
+    if (labelElement) {
+        labelElement.addEventListener("dblclick", function(){
+            switchToInput(id, id + '-input');
+        });
+    }
     inputElement.addEventListener("keypress", function(event){
         if (event.keyCode == 13) {
             switchFromInput(id + '-input', id);

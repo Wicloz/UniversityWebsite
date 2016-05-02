@@ -156,7 +156,8 @@ class Update {
             $id = DB::autoIncrementValue(Users::safeSid().'_assignments');
             DB::instance()->insert(Users::safeSid()."_assignments", array(
                 'start_date' => DateFormat::sqlDate(),
-                'end_date' => DateFormat::sql(Input::get('date').', '.Input::get('time')),
+                'end_date' => DateFormat::sqlDate(Input::get('date')),
+                'end_time' => DateFormat::sqlTime(Input::get('time')),
                 'subject' => Input::get('subject'),
                 'desc_short' => Input::get('task'),
                 'team' => Input::get('team'),
@@ -284,7 +285,8 @@ class Update {
                 $id = DB::autoIncrementValue(Users::safeSid().'_assignments');
                 DB::instance()->insert(Users::safeSid()."_assignments", array(
                     'start_date' => DateFormat::sqlDate(),
-                    'end_date' => DateFormat::sql(Input::get('date')),
+                    'end_date' => DateFormat::sqlDate(Input::get('date')),
+                    'end_time' => DateFormat::sqlTime(Input::get('date')),
                     'subject' => Input::get('subject'),
                     'desc_short' => Input::get('task')
                 ));
@@ -385,28 +387,121 @@ class Update {
         ));
 
         if ($validation->passed()) {
-            $data = array();
             $fields = array(
-                'parent_table' => false,
-                'parent_id' => false,
-                'date_start' => true,
-                'date_end' => true,
-                'duration' => false,
-                'goal' => false
+                'parent_table' => '',
+                'parent_id' => '',
+                'date_start' => 'date',
+                'date_end' => 'date',
+                'duration' => 'time',
+                'goal' => ''
             );
-
-            foreach ($fields as $field => $date) {
-                if (Input::has($field)) {
-                    if ($date) {
-                        $data[$field] = DateFormat::sqlDate(Input::get($field));
-                    } else {
-                        $data[$field] = Input::get($field);
-                    }
-                }
-            }
-
+            $data = self::getFormattedInput($fields);
             DB::instance()->update(Users::safeSid()."_planning", Input::get('id'), $data);
             Notifications::addSuccess('Planning updated!');
+            Redirect::to('');
+        }
+
+        else {
+            Notifications::addValidationFail($validation->getErrors());
+        }
+    }
+
+    private static function updateItemExam () {
+        $validation = new Validate();
+        $validation->check($_POST, array(
+            'date' => array(
+                'name' => 'Date',
+                'required' => false
+            ),
+            'weight' => array(
+                'name' => 'Weight',
+                'required' => false
+            ),
+            'substance' => array(
+                'name' => 'Substance',
+                'required' => false
+            ),
+            'link' => array(
+                'name' => 'Link',
+                'required' => false
+            ),
+            'mark' => array(
+                'name' => 'Mark',
+                'required' => false
+            )
+        ));
+
+        if ($validation->passed()) {
+            $fields = array(
+                'date' => 'date',
+                'weight' => '',
+                'substance' => '',
+                'link' => '',
+                'mark' => ''
+            );
+            $data = self::getFormattedInput($fields);
+            DB::instance()->update(Users::safeSid()."_exams", Input::get('id'), $data);
+            Notifications::addSuccess('Exam updated!');
+            Redirect::to('');
+        }
+
+        else {
+            Notifications::addValidationFail($validation->getErrors());
+        }
+    }
+
+    private static function updateItemAssignment () {
+        $validation = new Validate();
+        $validation->check($_POST, array(
+            'start_date' => array(
+                'name' => 'Start Date',
+                'required' => false
+            ),
+            'end' => array(
+                'name' => 'End Date/Time',
+                'required' => false
+            ),
+            'desc_short' => array(
+                'name' => 'Task',
+                'required' => false
+            ),
+            'desc_full' => array(
+                'name' => 'Description',
+                'required' => false
+            ),
+            'link_assignment' => array(
+                'name' => 'Assignment Link',
+                'required' => false
+            ),
+            'link_repository' => array(
+                'name' => 'Repository Link',
+                'required' => false
+            ),
+            'link_report' => array(
+                'name' => 'Report Link',
+                'required' => false
+            ),
+            'team' => array(
+                'name' => 'Team',
+                'required' => false
+            )
+        ));
+
+        if ($validation->passed()) {
+            $fields = array(
+                'start_date' => 'date',
+                'desc_short' => '',
+                'desc_full' => '',
+                'link_assignment' => '',
+                'link_repository' => '',
+                'link_report' => '',
+                'team' => ''
+            );
+            $data = self::getFormattedInput($fields);
+            $data['end_date'] = DateFormat::sqlDate(Input::get('end'));
+            $data['end_time'] = DateFormat::sqlTime(Input::get('end'));
+            DB::instance()->update(Users::safeSid()."_assignments", Input::get('id'), $data);
+            Notifications::addSuccess('Assignment updated!');
             Redirect::to('');
         }
 
@@ -541,6 +636,24 @@ class Update {
         else {
             Redirect::error(403);
         }
+    }
+
+    private static function getFormattedInput ($fields) {
+        $data = array();
+        foreach ($fields as $field => $type) {
+            if (Input::has($field)) {
+                if ($type === 'datetime') {
+                    $data[$field] = DateFormat::sql(Input::get($field));
+                } elseif ($type === 'date') {
+                    $data[$field] = DateFormat::sqlDate(Input::get($field));
+                } elseif ($type === 'time') {
+                    $data[$field] = DateFormat::sqlTime(Input::get($field));
+                } else {
+                    $data[$field] = Input::get($field);
+                }
+            }
+        }
+        return $data;
     }
 }
 ?>

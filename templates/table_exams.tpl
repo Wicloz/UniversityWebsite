@@ -38,7 +38,7 @@
                     <input type="date" name="date" placeholder="dd-mm-yyyy" value="" class="date">
                 </td>
                 <td>
-                    <input type="text" name="weight" value="" list="weights" autocomplete="off" >
+                    <input type="text" name="weight" value="" list="weights" autocomplete="off">
                     <datalist id="weights">
                         <option value="Tentamen">
                         <option value="Toets">

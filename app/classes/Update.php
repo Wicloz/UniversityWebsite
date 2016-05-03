@@ -518,6 +518,7 @@ class Update {
                 $data['end_time'] = DateFormat::sqlTime(Input::get('end'));
             }
             DB::instance()->update(Users::safeSid()."_assignments", Input::get('id'), $data);
+            Calendar::updateAssignment(Input::get('id'));
             Notifications::addSuccess('Assignment updated!');
             Redirect::to('');
         }

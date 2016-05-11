@@ -194,6 +194,10 @@ class Queries {
     }
 
     public static function today () {
+        return self::day('today');
+    }
+
+    public static function day ($date) {
         $data = DB::instance()->query("
             SELECT A.id, concat(A.end_date, ' ', A.end_time) as 'date', A.desc_short as 'task', A.completion as 'completion', 'assignment' as 'type', S.name as 'parent_name', concat('page=subjects&subject=', S.abbreviation) as 'parent_page', S.name as 'subject_name', S.abbreviation as 'subject'
                 FROM `".Users::showSid()."_assignments` A
@@ -230,18 +234,18 @@ class Queries {
                 WHERE (P.date_start <= ? AND P.date_end >= ?) OR (P.completion = 0 AND P.date_end < ?)
             ORDER BY completion DESC, date ASC
         ", array(
-            DateFormat::sqlDate(),
-            DateFormat::sqlDate(),
-            DateFormat::sqlDate(),
-            DateFormat::sqlDate(),
-            DateFormat::sqlDate(),
-            DateFormat::sqlDate(),
-            DateFormat::sqlDate(),
-            DateFormat::sqlDate(),
-            DateFormat::sqlDate(),
-            DateFormat::sqlDate(),
-            DateFormat::sqlDate(),
-            DateFormat::sqlDate()
+            DateFormat::sqlDate($date),
+            DateFormat::sqlDate($date),
+            DateFormat::sqlDate($date),
+            DateFormat::sqlDate($date),
+            DateFormat::sqlDate($date),
+            DateFormat::sqlDate($date),
+            DateFormat::sqlDate($date),
+            DateFormat::sqlDate($date),
+            DateFormat::sqlDate($date),
+            DateFormat::sqlDate($date),
+            DateFormat::sqlDate($date),
+            DateFormat::sqlDate($date)
         ));
 
         $results = $data->results();

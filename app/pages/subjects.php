@@ -7,6 +7,7 @@ function createPage ($smarty) {
     }
 
     $smarty->assign('subject', $subject);
+    $smarty->assign('links', json_decode($subject->links));
     $smarty->assign('events', Tables::events(true, $subject->abbreviation));
     $smarty->assign('table_parentT', 'subjects');
     $smarty->assign('table_parentI', $subject->id);

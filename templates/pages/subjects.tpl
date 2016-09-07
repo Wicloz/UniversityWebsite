@@ -11,52 +11,17 @@
             {/if}
         </p>
     </div>
-    {if !empty($subject->link_home) || !empty($subject->link_schedule) || !empty($subject->link_powerpoints) || !empty($subject->link_assignments) || !empty($subject->link_marks) || !empty($subject->link_book)}
+    {if !empty($links) && count($links) > 0}
         <div class="paragraph-left col-sm-12">
             <h2>Links:</h2>
             <ul>
-                {if !empty($subject->link_home)}
+                {foreach $links as $name => $url}
                     <li>
-                        <a href="{$subject->link_home}" target="_blank">
-                            Main Page
+                        <a href="{$url}" target="_blank">
+                            {$name}
                         </a>
                     </li>
-                {/if}
-                {if !empty($subject->link_schedule)}
-                    <li>
-                        <a href="{$subject->link_schedule}" target="_blank">
-                            Schedule
-                        </a>
-                    </li>
-                {/if}
-                {if !empty($subject->link_powerpoints)}
-                    <li>
-                        <a href="{$subject->link_powerpoints}" target="_blank">
-                            College Slides
-                        </a>
-                    </li>
-                {/if}
-                {if !empty($subject->link_assignments)}
-                    <li>
-                        <a href="{$subject->link_assignments}" target="_blank">
-                            Assignments
-                        </a>
-                    </li>
-                {/if}
-                {if !empty($subject->link_marks)}
-                    <li>
-                        <a href="{$subject->link_marks}" target="_blank">
-                            Marks
-                        </a>
-                    </li>
-                {/if}
-                {if !empty($subject->link_book)}
-                    <li>
-                        <a href="{$subject->link_book}" target="_blank">
-                            Book
-                        </a>
-                    </li>
-                {/if}
+                {/foreach}
             </ul>
         </div>
     {/if}

@@ -310,6 +310,9 @@ class Queries {
                     $column->type = 'text';
                 break;
             }
+            if (substr($column->value, 0, 1) === '[' && substr($column->value, strlen($column->value) - 1, 1) === ']') {
+                $column->type = 'json';
+            }
             if (substr($column->value, 0, 1) === '{' && substr($column->value, strlen($column->value) - 1, 1) === '}') {
                 $column->type = 'json';
             }

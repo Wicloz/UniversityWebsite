@@ -1,8 +1,0 @@
-<?php
-
-$db_ip = '<ip>';
-$db_username = '<username>';
-$db_password = '<password>';
-$db_dbname = '<dbname>';
-
-?>

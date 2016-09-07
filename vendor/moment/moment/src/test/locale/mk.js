@@ -151,14 +151,14 @@ test('fromNow', function (assert) {
 });
 
 test('calendar day', function (assert) {
-    var a = moment().hours(2).minutes(0).seconds(0);
+    var a = moment().hours(12).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(),                   'Денес во 2:00',  'today at the same time');
-    assert.equal(moment(a).add({m: 25}).calendar(),      'Денес во 2:25',  'Now plus 25 min');
-    assert.equal(moment(a).add({h: 1}).calendar(),       'Денес во 3:00',  'Now plus 1 hour');
-    assert.equal(moment(a).add({d: 1}).calendar(),       'Утре во 2:00',  'tomorrow at the same time');
-    assert.equal(moment(a).subtract({h: 1}).calendar(),  'Денес во 1:00',  'Now minus 1 hour');
-    assert.equal(moment(a).subtract({d: 1}).calendar(),  'Вчера во 2:00', 'yesterday at the same time');
+    assert.equal(moment(a).calendar(),                   'Денес во 12:00',  'today at the same time');
+    assert.equal(moment(a).add({m: 25}).calendar(),      'Денес во 12:25',  'Now plus 25 min');
+    assert.equal(moment(a).add({h: 1}).calendar(),       'Денес во 13:00',  'Now plus 1 hour');
+    assert.equal(moment(a).add({d: 1}).calendar(),       'Утре во 12:00',   'tomorrow at the same time');
+    assert.equal(moment(a).subtract({h: 1}).calendar(),  'Денес во 11:00',  'Now minus 1 hour');
+    assert.equal(moment(a).subtract({d: 1}).calendar(),  'Вчера во 12:00',  'yesterday at the same time');
 });
 
 test('calendar next week', function (assert) {
@@ -178,15 +178,15 @@ test('calendar last week', function (assert) {
 
     function makeFormat(d) {
         switch (d.day()) {
-        case 0:
-        case 3:
-        case 6:
-            return '[Изминатата] dddd [во] LT';
-        case 1:
-        case 2:
-        case 4:
-        case 5:
-            return '[Изминатиот] dddd [во] LT';
+            case 0:
+            case 3:
+            case 6:
+                return '[Изминатата] dddd [во] LT';
+            case 1:
+            case 2:
+            case 4:
+            case 5:
+                return '[Изминатиот] dddd [во] LT';
         }
     }
 

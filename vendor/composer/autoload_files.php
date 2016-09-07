@@ -8,4 +8,5 @@ $baseDir = dirname($vendorDir);
 return array(
     'ce89ac35a6c330c55f4710717db9ff78' => $vendorDir . '/kriswallsmith/assetic/src/functions.php',
     'bccfaf6207f67190a92f35585e9a78b2' => $vendorDir . '/twilio/sdk/Services/Twilio.php',
+    'cf150f72bd303a2ff07711c9a70f2d53' => $vendorDir . '/google/apiclient/src/Google/autoload.php',
 );

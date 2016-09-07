@@ -155,6 +155,12 @@ test('from', function (assert) {
     assert.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),    'gads',                 '1 year = a year');
     assert.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),    '5 gadi',               '5 years = 5 years');
     assert.equal(start.from(moment([2007, 1, 28]).add({y: 5}), false),   'pirms 5 gadiem',       '5 years with suffix = 5 years ago');
+
+    // test that numbers ending with 1 are singular except for when they end with 11 in which case they are plural
+    assert.equal(start.from(moment([2007, 1, 28]).add({y: 11}), true),   '11 gadi',              '11 years = 11 years');
+    assert.equal(start.from(moment([2007, 1, 28]).add({y: 21}), true),   '21 gads',              '21 year = 21 year');
+    assert.equal(start.from(moment([2007, 1, 28]).add({y: 211}), true),  '211 gadi',             '211 years = 211 years');
+    assert.equal(start.from(moment([2007, 1, 28]).add({y: 221}), false), 'pirms 221 gada',       '221 year with suffix = 221 years ago');
 });
 
 test('suffix', function (assert) {
@@ -172,14 +178,14 @@ test('fromNow', function (assert) {
 });
 
 test('calendar day', function (assert) {
-    var a = moment().hours(2).minutes(0).seconds(0);
+    var a = moment().hours(12).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(),                     'Šodien pulksten 02:00',     'today at the same time');
-    assert.equal(moment(a).add({m: 25}).calendar(),      'Šodien pulksten 02:25',     'Now plus 25 min');
-    assert.equal(moment(a).add({h: 1}).calendar(),       'Šodien pulksten 03:00',     'Now plus 1 hour');
-    assert.equal(moment(a).add({d: 1}).calendar(),       'Rīt pulksten 02:00',  'tomorrow at the same time');
-    assert.equal(moment(a).subtract({h: 1}).calendar(),  'Šodien pulksten 01:00',     'Now minus 1 hour');
-    assert.equal(moment(a).subtract({d: 1}).calendar(),  'Vakar pulksten 02:00', 'yesterday at the same time');
+    assert.equal(moment(a).calendar(),                   'Šodien pulksten 12:00',  'today at the same time');
+    assert.equal(moment(a).add({m: 25}).calendar(),      'Šodien pulksten 12:25',  'Now plus 25 min');
+    assert.equal(moment(a).add({h: 1}).calendar(),       'Šodien pulksten 13:00',  'Now plus 1 hour');
+    assert.equal(moment(a).add({d: 1}).calendar(),       'Rīt pulksten 12:00',     'tomorrow at the same time');
+    assert.equal(moment(a).subtract({h: 1}).calendar(),  'Šodien pulksten 11:00',  'Now minus 1 hour');
+    assert.equal(moment(a).subtract({d: 1}).calendar(),  'Vakar pulksten 12:00',   'yesterday at the same time');
 });
 
 test('calendar next week', function (assert) {

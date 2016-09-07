@@ -80,6 +80,9 @@ test('add long singular reverse args', function (assert) {
 
 test('add string long reverse args', function (assert) {
     var a = moment(), b;
+
+    test.expectedDeprecations('moment().add(period, number)');
+
     a.year(2011);
     a.month(9);
     a.date(12);
@@ -104,6 +107,9 @@ test('add string long reverse args', function (assert) {
 
 test('add string long singular reverse args', function (assert) {
     var a = moment(), b;
+
+    test.expectedDeprecations('moment().add(period, number)');
+
     a.year(2011);
     a.month(9);
     a.date(12);
@@ -128,6 +134,8 @@ test('add string long singular reverse args', function (assert) {
 
 test('add string short reverse args', function (assert) {
     var a = moment();
+    test.expectedDeprecations('moment().add(period, number)');
+
     a.year(2011);
     a.month(9);
     a.date(12);
@@ -210,8 +218,10 @@ test('add string short', function (assert) {
     assert.equal(a.add(1, 'Q').month(), 1, 'Add quarter');
 });
 
-test('add strings string short args', function (assert) {
+test('add strings string short reversed', function (assert) {
     var a = moment();
+    test.expectedDeprecations('moment().add(period, number)');
+
     a.year(2011);
     a.month(9);
     a.date(12);
@@ -231,8 +241,10 @@ test('add strings string short args', function (assert) {
     assert.equal(a.add('Q', '1').month(), 1, 'Add quarter');
 });
 
-test('subtract strings string short args', function (assert) {
+test('subtract strings string short reversed', function (assert) {
     var a = moment();
+    test.expectedDeprecations('moment().subtract(period, number)');
+
     a.year(2011);
     a.month(9);
     a.date(12);
@@ -271,6 +283,19 @@ test('add strings string short', function (assert) {
     assert.equal(a.add('1', 'M').month(), 10, 'Add month');
     assert.equal(a.add('1', 'y').year(), 2012, 'Add year');
     assert.equal(a.add('1', 'Q').month(), 1, 'Add quarter');
+});
+
+test('add no string with milliseconds default', function (assert) {
+    var a = moment();
+    a.year(2011);
+    a.month(9);
+    a.date(12);
+    a.hours(6);
+    a.minutes(7);
+    a.seconds(8);
+    a.milliseconds(500);
+
+    assert.equal(a.add(50).milliseconds(), 550, 'Add milliseconds');
 });
 
 test('subtract strings string short', function (assert) {

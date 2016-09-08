@@ -25,6 +25,13 @@
             </ul>
         </div>
     {/if}
+    {if !empty($subject->link_book)}
+        <h2>
+            <a href="{$subject->link_book}" target="_blank">
+                Link to Book
+            </a>
+        </h2>
+    {/if}
     <div class="paragraph-center paragraph-scroll col-sm-12">
         <h2>Events:</h2>
         {include file="table_events.tpl" table=$events}

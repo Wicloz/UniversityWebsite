@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="components/css/bootstrap.min.css">
-    <link rel="stylesheet" href="components/css/bootstrap-datetimepicker.css">
+    <link rel="stylesheet" href="components/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" href="components/css/jquery.jgrowl.min.css">
     <link rel="stylesheet" href="components/jsoneditor/jsoneditor.min.css">
     <link rel="stylesheet" href="app/js/poof.form.min.css">

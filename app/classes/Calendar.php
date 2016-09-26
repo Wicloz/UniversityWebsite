@@ -81,7 +81,7 @@ class Calendar {
             $eventId = Users::currentData()->student_id.'assignment'.$assignment->id;
             $calendarId = Users::currentData()->calendar_assignments;
 
-            $state = $assignment->completion ? '[DONE]' : '';
+            $state = $assignment->completion ? '[DONE] ' : '';
 
             $request = new Google_Service_Calendar_Event(array(
                 'id' => $eventId,

@@ -81,9 +81,11 @@ class Calendar {
             $eventId = Users::currentData()->student_id.'assignment'.$assignment->id;
             $calendarId = Users::currentData()->calendar_assignments;
 
+            $state = $assignment->completion ? '[DONE]' : '';
+
             $request = new Google_Service_Calendar_Event(array(
                 'id' => $eventId,
-                'summary' => $assignment->desc_short,
+                'summary' => $state.$assignment->desc_short,
                 'start' => array(
                     'date' => $assignment->end_date,
                     'timeZone' => 'Europe/Amsterdam'

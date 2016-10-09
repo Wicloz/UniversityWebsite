@@ -44,6 +44,7 @@ class Update {
                 case 'assignments':
                     if (Users::isUser()) {
                         DB::instance()->update(Users::safeSid()."_assignments", Input::get('id'), array('completion' => $completion));
+                        Calendar::updateAssignment(Input::get('id'));
                         Notifications::addSuccess('Assignment completion switched!');
                         Redirect::to('');
                     } else {

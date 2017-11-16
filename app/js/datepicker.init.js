@@ -26,7 +26,6 @@ function initDatetime () {
   }
 
   datetime.parent().removeChild(datetime);
-  delete(datetime);
 
   var date = document.createElement("input");
   date.setAttribute("type", "date");
@@ -53,7 +52,6 @@ function initDatetime () {
   }
 
   date.parent().removeChild(date);
-  delete(date);
 
   var time = document.createElement("input");
   time.setAttribute("type", "time");
@@ -81,5 +79,4 @@ function initDatetime () {
   }
 
   time.parent().removeChild(time);
-  delete(time);
 }

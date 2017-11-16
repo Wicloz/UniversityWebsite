@@ -96,7 +96,7 @@
                     <input type="hidden" name="parent_id" value="{$table_parentI|default:""}">
                 {/if}
                 <td>
-                    <input type="time" name="duration" value="" class="duration">
+                    <input type="text" name="duration" value="" class="duration">
                 </td>
                 <td>
                     <input type="text" name="goal" value="">

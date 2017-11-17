@@ -71,7 +71,7 @@
                 <input type="hidden" name="action" value="item_insert">
                 <input type="hidden" name="table" value="events">
                 <td>
-                    <input type="datetime" name="date" placeholder="dd-mm-yyyy, hh:mm" value="" class="datetime">
+                    <input type="text" name="date" placeholder="dd-mm-yyyy, hh:mm" value="" class="datetime">
                 </td>
                 {if empty($subject)}
                     <td>

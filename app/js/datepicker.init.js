@@ -1,8 +1,10 @@
 function initDatetime () {
   var datetime = document.createElement("input");
   datetime.setAttribute("type", "datetime");
+  var datetimelocal = document.createElement("input");
+  datetimelocal.setAttribute("type", "datetime-local");
 
-  if (datetime.type === "text") {
+  if (datetime.type === "text" && datetimelocal.type === "text") {
     $(function () {
       $('.datetime').datetimepicker({
         widgetPositioning: {
@@ -27,6 +29,8 @@ function initDatetime () {
 
   datetime.parent().removeChild(datetime);
   delete(datetime);
+  datetimelocal.parent().removeChild(datetimelocal);
+  delete(datetimelocal);
 
   var date = document.createElement("input");
   date.setAttribute("type", "date");

@@ -33,7 +33,7 @@ function initDatetime () {
                 horizontal: 'auto',
                 vertical: 'bottom'
             },
-            defaultDate: 0,
+            defaultDate: "00:00:00",
             format: 'HH:mm:ss'
         });
     });

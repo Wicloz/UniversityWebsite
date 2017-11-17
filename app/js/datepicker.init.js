@@ -23,7 +23,7 @@ function initDatetime () {
         },
         sideBySide: true,
         format: 'YYYY-MM-DD HH:mm:ss'
-        });
+      });
     });
   }
 

@@ -2,7 +2,7 @@ function initDatetime () {
   var datetime = document.createElement("input");
   datetime.setAttribute("type", "datetime");
 
-  if (datetime.type != "datetime") {
+  if (datetime.type === "text") {
     $(function () {
       $('.datetime').datetimepicker({
         widgetPositioning: {
@@ -31,7 +31,7 @@ function initDatetime () {
   var date = document.createElement("input");
   date.setAttribute("type", "date");
 
-  if (date.type != "date") {
+  if (date.type === "text") {
     $(function () {
       $('.date').datetimepicker({
         widgetPositioning: {
@@ -58,7 +58,7 @@ function initDatetime () {
   var time = document.createElement("input");
   time.setAttribute("type", "time");
 
-  if (time.type != "time") {
+  if (time.type === "text") {
     $(function () {
       $('.time').datetimepicker({
         widgetPositioning: {

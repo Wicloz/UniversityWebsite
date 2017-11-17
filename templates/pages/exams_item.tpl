@@ -52,7 +52,7 @@
                 </div>
                 <div class="form-row">
                     <label for="date">Date:</label>
-                    <input type="date" class="date" name="date" id="date" value="{DateFormat::dateDefault($item->date)}">
+                    <input type="text" class="date" name="date" id="date" value="{DateFormat::dateDefault($item->date)}">
                 </div>
                 <div class="form-row">
                     <label for="link">Link:</label>

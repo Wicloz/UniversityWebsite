@@ -95,15 +95,15 @@
             </div>
             <div class="form-row">
                 <label for="start_date">Start Date:</label>
-                <input type="date" class="date" name="start_date" id="start_date" value="{DateFormat::dateDefault($item->start_date)}">
+                <input type="text" class="date" name="start_date" id="start_date" value="{DateFormat::dateDefault($item->start_date)}">
             </div>
             <div class="form-row">
                 <label for="end_date">End Date:</label>
-                <input type="date" class="date" name="end_date" id="end_date" value="{DateFormat::dateDefault($item->end_date)}">
+                <input type="text" class="date" name="end_date" id="end_date" value="{DateFormat::dateDefault($item->end_date)}">
             </div>
             <div class="form-row">
                 <label for="end_time">End Time:</label>
-                <input type="time" class="time" name="end_time" id="end_time" value="{DateFormat::timeDefault($item->end_time)}">
+                <input type="text" class="time" name="end_time" id="end_time" value="{DateFormat::timeDefault($item->end_time)}">
             </div>
             <div class="form-row">
                 <label for="team">Team:</label>

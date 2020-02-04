@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: putter.vuw.leidenuniv.nl:3306
--- Generation Time: Feb 04, 2020 at 07:21 PM
+-- Generation Time: Feb 04, 2020 at 10:12 PM
 -- Server version: 5.5.62-log
 -- PHP Version: 5.3.17
 
@@ -991,10 +991,7 @@ INSERT INTO `s1704362_planning` (`id`, `parent_table`, `parent_id`, `date_start`
 (406, 'subjects', 55, '2019-12-05', '2019-12-05', '02:00:00', 'Herhaal slides ''9 - ES Applications''', '2019-12-18 01:32:04', 1),
 (407, 'subjects', 55, '2019-12-05', '2019-12-05', '02:00:00', 'Herhaal slides ''10 - Advanced Topics''', '2019-12-18 01:09:38', 1),
 (408, 'subjects', 60, '2019-12-09', '2019-12-09', '00:30:00', 'Herhaal slides 09/12/2019', '2019-12-14 22:58:05', 1),
-(409, 'assignments', 457, '2020-01-10', '2020-01-10', '01:00:00', 'Maak MIES implementatie af', '2020-01-11 17:28:40', 1),
-(410, 'subjects', 61, '2020-02-05', '2020-02-05', '01:00:00', 'Herhaal slides 03/02/2020', '0000-00-00 00:00:00', 0),
-(411, 'subjects', 62, '2020-02-05', '2020-02-05', '01:00:00', 'Herhaal slides 04/02/2020', '0000-00-00 00:00:00', 0),
-(412, 'subjects', 63, '2020-02-05', '2020-02-05', '01:00:00', 'Herhaal slides 04/02/2020', '0000-00-00 00:00:00', 0);
+(409, 'assignments', 457, '2020-01-10', '2020-01-10', '01:00:00', 'Maak MIES implementatie af', '2020-01-11 17:28:40', 1);
 
 -- --------------------------------------------------------
 
@@ -1022,7 +1019,7 @@ CREATE TABLE IF NOT EXISTS `subjects` (
   `content` text NOT NULL,
   `links` text NOT NULL,
   `active` tinyint(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `subjects`
@@ -1088,7 +1085,9 @@ INSERT INTO `subjects` (`id`, `name`, `abbreviation`, `section`, `content`, `lin
 (60, 'Computational Molecular Biology', 'cmb', 'master', '<p> </p>\r\n<div id="simple-translate"> </div>', '{"Blackboard":"https://blackboard.leidenuniv.nl/webapps/blackboard/execute/announcement?method=search&context=course_entry&course_id=_178462_1&handle=announcements_entry&mode=view","Prospectus":"https://studiegids.universiteitleiden.nl/en/courses/82473/computational-molecular-biology"}', 0),
 (61, 'Image Analysis with Applications in Microscopy', 'iaim', 'master', '', '{"Prospectus":"https://studiegids.universiteitleiden.nl/en/courses/82471/image-analysis-with-applications-in-microscopy","Blackboard":"https://blackboard.leidenuniv.nl/webapps/blackboard/execute/announcement?method=search&context=course_entry&course_id=_178470_1&handle=announcements_entry&mode=view","Course Site":"https://iammv.liacs.nl/"}', 1),
 (62, 'Seminar Distributed Data Mining', 'sddm', 'master', '', '{"Prospectus":"https://studiegids.universiteitleiden.nl/en/courses/96245/seminar-distributed-data-mining","Blackboard":"https://blackboard.leidenuniv.nl/webapps/blackboard/execute/modulepage/view?course_id=_178486_1&cmp_tab_id=_229758_1&mode=view","LIACS REL":"http://rel.liacs.nl/"}', 1),
-(63, 'Bio-Modeling', 'bm', 'master', '', '{"Prospectus":"https://studiegids.universiteitleiden.nl/en/courses/96371/bio-modeling","Blackboard":"https://blackboard.leidenuniv.nl/webapps/blackboard/execute/announcement?method=search&context=course_entry&course_id=_178459_1&handle=announcements_entry&mode=view","Course Site":"https://biomodeling.liacs.nl/"}', 1);
+(63, 'Bio-Modeling', 'bm', 'master', '', '{"Prospectus":"https://studiegids.universiteitleiden.nl/en/courses/96371/bio-modeling","Blackboard":"https://blackboard.leidenuniv.nl/webapps/blackboard/execute/announcement?method=search&context=course_entry&course_id=_178459_1&handle=announcements_entry&mode=view","Course Site":"https://biomodeling.liacs.nl/"}', 1),
+(64, 'Deep Learning and Neural Networks', 'dlnn', 'master', '', '{"Prospectus":"https://studiegids.universiteitleiden.nl/en/courses/96375/deep-learning-and-neural-networks","Blackboard":"https://blackboard.leidenuniv.nl/webapps/blackboard/execute/modulepage/view?course_id=_178464_1&cmp_tab_id=_229560_1&mode=view"}', 1),
+(65, 'Reinforcement Learning', 'rl', 'master', '', '{"Prospectus":"https://studiegids.universiteitleiden.nl/en/courses/96251/reinforcement-learning","Blackboard":"https://blackboard.leidenuniv.nl/webapps/blackboard/execute/announcement?method=search&context=course_entry&course_id=_178482_1&handle=announcements_entry&mode=view"}', 1);
 
 -- --------------------------------------------------------
 
@@ -1117,7 +1116,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `student_id`, `password`, `permission_group`, `name`, `email`, `umail`, `phone`, `calendar_assignments`, `calendar_exams`, `table_versions`, `joined`, `last_online`) VALUES
-(1, 's1704362', '$2y$10$jiXp2Fyn1.YX6FYOqGgb7eYROfCPKHFaK3JAllex2YBTfZbVPRc1y', 4, 'Wilco de Boer', 'deboer.wilco@gmail.com', 's1704362@umail.leidenuniv.nl', '+310637338259', '0bf462peq3ket9affeimcf5afc@group.calendar.google.com', 'ai9kouej2b434he9otn9pvd66c@group.calendar.google.com', '{"assignments": 1, "exams": 1, "planning": 1}', '2016-03-28 17:57:28', '2020-02-04 20:20:17');
+(1, 's1704362', '$2y$10$jiXp2Fyn1.YX6FYOqGgb7eYROfCPKHFaK3JAllex2YBTfZbVPRc1y', 4, 'Wilco de Boer', 'deboer.wilco@gmail.com', 's1704362@umail.leidenuniv.nl', '+310637338259', '0bf462peq3ket9affeimcf5afc@group.calendar.google.com', 'ai9kouej2b434he9otn9pvd66c@group.calendar.google.com', '{"assignments": 1, "exams": 1, "planning": 1}', '2016-03-28 17:57:28', '2020-02-04 23:11:47');
 
 -- --------------------------------------------------------
 
@@ -1236,7 +1235,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=413;
 -- AUTO_INCREMENT for table `subjects`
 --
 ALTER TABLE `subjects`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=64;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=66;
 --
 -- AUTO_INCREMENT for table `users`
 --
